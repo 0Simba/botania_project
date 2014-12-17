@@ -22,11 +22,14 @@ class Main
 	private function new () {
 		isoEngine = new IsoEngine(1120, 630);//IsoEngine.getInstance(1120, 630);
 		isoEngine.load(["./assets/isoTiles.json"], assetLoaded);
-
 	}
 
 	function assetLoaded () {
-		isoEngine.setMap(128, 5, 5, "isometricPattern.jpg");
+		isoEngine.addTexture("ground", "isometricPattern.jpg");
+		var list:Array<String> = new Array<String>();
+		list.push("ground");
+		isoEngine.createAnimation("defaultGround", list);
+		isoEngine.setMap(128, 5, 5, "defaultGround");
 		Browser.window.requestAnimationFrame(cast gameLoop);
 	}
 

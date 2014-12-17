@@ -7,6 +7,7 @@ import pixi.loaders.AssetLoader;
 import pixi.textures.Texture;
 import pixi.display.MovieClip;
 import pixi.primitives.Graphics;
+import engine.isoEngine.Tile;
 import js.Browser;
 
 
@@ -20,36 +21,34 @@ class IsoEngine
 
     private var renderer:WebGLRenderer;
     private var stage:Stage;
-    private var instance:IsoEngine;
 
-    private var map:Array<MovieClip>;
+    private var map:Array<Tile>;
+    private var textures:Map<String, Texture>;
+    public var animations:Map<String, Array<Texture>>;
     private var width: Int;
     private var size:Int;
-    private var camera:Graphics;
+
+    public var camera:Graphics;
 
 
 	public function new(_width:Int, _height:Int)
 	{
-        stage = new Stage(0xCFCFCF);
-        map   = new Array<MovieClip>();
-        size  = 0;
-        width = _width;
+        stage       = new Stage(0xCFCFCF);
+        map         = new Array<Tile>();
+        textures    = new Map<String, Texture>();
+        animations  = new Map<String, Array<Texture>>();
+        size        = 0;
+        width       = _width;
 
         renderer = Detector.autoDetectRenderer(width, _height);
         Browser.document.body.appendChild(renderer.view);
 
-
-
         camera = new Graphics();
 
-        trace(width);
-
-        camera.x += width / 2;
-        camera.y += _height / 2;
-
         stage.addChild(camera);
-	}
 
+        Tile.setReferent(this);
+	}
 
     public function render () {
         renderer.render(stage);
@@ -59,16 +58,30 @@ class IsoEngine
     public function load (assets:Array<String>, callback) {
         var loader:AssetLoader = new AssetLoader(assets);
 
-        loader.onComplete = callback;
+        loader.onComplete = function () {
+            callback();
+        };
+
         loader.load();
     }
 
-    public function setMap(_size:Int, _width:Int, height:Int, defaultTexture:String) {
-        var texture:Array<Texture> = new Array<Texture>();
-        texture.push(Texture.fromFrame(defaultTexture));
 
+    public function addTexture (name, from) {
+        textures.set(name, Texture.fromFrame(from));
+    }
+
+    public function createAnimation(name:String, listTexture:Array<String>) {
+        animations.set("defaultGround", new Array<Texture>());
+        for (i in 0...listTexture.length) {
+            animations.get(name).push(textures.get(listTexture[i]));
+        }
+    }
+
+    public function setMap(_size:Int, _width:Int, height:Int, defaultTexture:String) {
         width = _width;
         size  = _size;
+
+        Tile.setSize(_size);
 
         var demiSize  = size / 2;
         var quartSize = demiSize / 2;
@@ -76,19 +89,15 @@ class IsoEngine
         for (i in 0...width*height) {
             var line:Int = Math.floor(i / width);
 
-
-            map[i] = new MovieClip(texture);
-
-            map[i].width  = size;
-            map[i].height = demiSize;
+            map[i] = new Tile(defaultTexture);
 
             var x:Int = i % width;
             var y:Int = Math.floor(i / width);
 
-            map[i].x = x * demiSize - (y * demiSize);
-            map[i].y = x * quartSize + (y * quartSize);
+            var pxX:Float = x * demiSize  - (y * demiSize);
+            var pxY:Float = x * quartSize + (y * quartSize);
 
-            camera.addChild(map[i]);
+            map[i].place(pxX, pxY);
         }
     }
 }

@@ -1,6 +1,4 @@
-
 -cp src
 -main Main
 -js bin/botania.js
 -lib pixijs
--assets bin/assets
