@@ -2,36 +2,28 @@ package ;
 import js.Browser;
 import engine.isoEngine.IsoEngine;
 
-/**
- * ...
- * @author Jaf
- */
-
 class Main
 {
-
-	private static var instance:Main;
 	private static var isoEngine:IsoEngine;
 
-	static function main ():Void {
-		Main.getInstance();
-	}
+	private static var nbAsynchronousCallback = 1;
+	private static var nbCall = 0;
 
 
 	private function new () {
-		isoEngine = IsoEngine.getInstance(1120, 630);
+					// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
 		init.Assets.load();
 	}
 
+
 	static public function ready () {
-		init.Map.load();
-        Browser.window.requestAnimationFrame(cast gameLoop);
-	}
-
-
-	public static function getInstance (): Main {
-		if (instance == null) instance = new Main();
-		return instance;
+		nbCall++;
+		if (nbCall == nbAsynchronousCallback) {
+					// Put here all synchronous loading function.
+			init.Map.load();
+			isoEngine = IsoEngine.getInstance();
+	        Browser.window.requestAnimationFrame(cast gameLoop);
+	    }
 	}
 
 
@@ -41,8 +33,23 @@ class Main
 	}
 
 
+
+
+
+
+		/****** YOU DON'T CARE *****/
+	private static var instance:Main;
+
+	public static function getInstance (): Main {
+		if (instance == null) instance = new Main();
+		return instance;
+	}
+
+	static function main ():Void {
+		Main.getInstance();
+	}
+
 	public function destroy (): Void {
 		instance = null;
 	}
-
 }

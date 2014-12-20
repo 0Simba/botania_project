@@ -5,66 +5,36 @@ import pixi.renderers.webgl.WebGLRenderer;
 import pixi.utils.Detector;
 import pixi.loaders.AssetLoader;
 import pixi.textures.Texture;
-import pixi.display.MovieClip;
 import pixi.primitives.Graphics;
 import engine.isoEngine.Tile;
 import js.Browser;
-
-
-/**
- * ...
- * @author Jaf
- */
 
 class IsoEngine
 {
 
     private static var instance: IsoEngine;
 
-    private var renderer:WebGLRenderer;
-    private var stage:Stage;
-
-    private var textures:Map<String, Texture>;
-    public var animations:Map<String, Array<Texture>>;
-    private var width: Int;
-    public var size:Int;
-
-    public var camera:Graphics;
-
 
     public function setTileSize (_size:Int) {
         size = _size;
     }
 
-    public static function getInstance (_width:Int = 1600, _height:Int = 900): IsoEngine {
-        if (instance == null) instance = new IsoEngine(_width, _height);
-        return instance;
+
+    public function addTexture (name, from) {
+        textures.set(name, Texture.fromFrame(from));
     }
 
-    public function destroy (): Void {
-        instance = null;
+
+    public function createAnimation(name:String, listTexture:Array<String>) {
+        animations.set(name, new Array<Texture>());
+        for (i in 0...listTexture.length) {
+            animations.get(name).push(textures.get(listTexture[i]));
+        }
     }
 
-	private function new(_width:Int, _height:Int)
-	{
-        stage       = new Stage(0xCFCFCF);
-        textures    = new Map<String, Texture>();
-        animations  = new Map<String, Array<Texture>>();
-        size        = 0;
-        width       = _width;
 
-        renderer = Detector.autoDetectRenderer(width, _height);
-        Browser.document.body.appendChild(renderer.view);
 
-        camera = new Graphics();
-
-        stage.addChild(camera);
-	}
-
-    public function render () {
-        renderer.render(stage);
-    }
-
+        /***** SURELY NOT INTEREST YOU *****/
 
     public function load (assets:Array<String>, callback) {
         var loader:AssetLoader = new AssetLoader(assets);
@@ -77,15 +47,47 @@ class IsoEngine
     }
 
 
-    public function addTexture (name, from) {
-        textures.set(name, Texture.fromFrame(from));
+
+
+
+
+
+        /***** YOU DON'T CARE *****/
+
+    private var renderer:WebGLRenderer;
+    private var stage:Stage;
+    private var textures:Map<String, Texture>;
+
+    public var size:Int;
+    public var animations:Map<String, Array<Texture>>;
+    public var camera:Graphics;
+
+
+    public static function getInstance (_width:Int = 1600, _height:Int = 900): IsoEngine {
+        if (instance == null) instance = new IsoEngine(_width, _height);
+        return instance;
     }
 
-    public function createAnimation(name:String, listTexture:Array<String>) {
-        animations.set(name, new Array<Texture>());
-        for (i in 0...listTexture.length) {
-            animations.get(name).push(textures.get(listTexture[i]));
-        }
+    public function destroy (): Void {
+        instance = null;
     }
 
+	private function new(width:Int, height:Int)
+	{
+        stage       = new Stage(0xCFCFCF);
+        textures    = new Map<String, Texture>();
+        animations  = new Map<String, Array<Texture>>();
+        size        = 0;
+
+        renderer = Detector.autoDetectRenderer(width, height);
+        Browser.document.body.appendChild(renderer.view);
+
+        camera = new Graphics();
+
+        stage.addChild(camera);
+	}
+
+    public function render () {
+        renderer.render(stage);
+    }
 }

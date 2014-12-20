@@ -14,7 +14,7 @@ class GameObject
 	{
 	}
 
-    public function addComponents (name:String) {
+    public function addComponent (name:String) {
         if (name == "graphicTile") {
             graphicTile = new engine.isoEngine.Tile();
         }

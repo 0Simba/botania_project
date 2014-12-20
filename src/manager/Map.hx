@@ -10,19 +10,11 @@ class Map
 	public var tiles:Array<Tile>;
 	public var cols:Int;
 
-
-	static private var alreadySet:Bool;
-
 	public function set (nbCols:Int, nbRows:Int): Void {
-		if (alreadySet) {
-			trace("Le manager de la map à déjà été initialisé");
-			return;
-		}
-		alreadySet = true;
+		if (isAlreadySet()) { return; };
 
 		for (i in 0...nbCols * nbRows) {
 			tiles[i] = new Tile();
-			tiles[i].addComponents("graphicTile");
 		}
 		cols = nbCols;
 	}
@@ -40,6 +32,18 @@ class Map
 
 
 
+		/***** YOU DON'T CARE *****/
+	static private var alreadySet:Bool;
+
+	private function isAlreadySet():Bool {
+		if (alreadySet) {
+			trace("Le manager de la map à déjà été initialisé");
+			return true;
+		}
+
+		alreadySet = true;
+		return false;
+	}
 
 	private function new()
 	{

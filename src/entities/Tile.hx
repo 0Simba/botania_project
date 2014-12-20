@@ -1,16 +1,12 @@
 package entities;
 
-/**
- * ...
- * @author Baptiser
- */
 class Tile extends GameObject
 {
 
-	public function new() 
+	public function new()
 	{
 		super();
-		
+        addComponent("graphicTile");
 	}
-	
+
 }

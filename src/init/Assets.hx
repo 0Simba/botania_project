@@ -11,13 +11,10 @@ class Assets
 
     static private var isoEngine:IsoEngine;
 
-	private function new ()
-	{
-
-	}
-
     static public function load () {
-        isoEngine = IsoEngine.getInstance();//IsoEngine.getInstance(1120, 630);
+        isoEngine = IsoEngine.getInstance(1120, 630);
+        isoEngine.setTileSize(128);
+
         isoEngine.load(["../assets/isoTiles.json"], assetLoaded);
     }
 
@@ -26,9 +23,7 @@ class Assets
         var list:Array<String> = new Array<String>();
         list.push("ground");
         isoEngine.createAnimation("ground", list);
-        isoEngine.setTileSize(128);
 
         Main.ready();
     }
-
 }

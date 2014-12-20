@@ -7,18 +7,9 @@ import js.Browser;
 
 class Tile {
 
-    static var zize:Int = 0;        // size* unanderstand error
-    static var semiSize:Int = 0;
     static var referent:IsoEngine;
-
     public var ground:MovieClip;
     public var building:MovieClip;
-
-    public function new () {
-        ground;
-        building;
-        Tile.referent = IsoEngine.getInstance();
-    }
 
     public function addGround (name:String) {
         ground = new MovieClip(Tile.referent.animations.get(name));
@@ -35,5 +26,9 @@ class Tile {
 
         ground.x = pxX;
         ground.y = pxY;
+    }
+
+    public function new () {
+        Tile.referent = IsoEngine.getInstance();
     }
 }

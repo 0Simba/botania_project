@@ -8,28 +8,31 @@ function $extend(from, fields) {
 var GameObject = function() {
 };
 GameObject.prototype = {
-	addComponents: function(name) {
+	addComponent: function(name) {
 		if(name == "graphicTile") this.graphicTile = new engine.isoEngine.Tile();
 	}
 };
 var Main = function() {
-	Main.isoEngine = engine.isoEngine.IsoEngine.getInstance(1120,630);
 	init.Assets.load();
 };
-Main.main = function() {
-	Main.getInstance();
-};
 Main.ready = function() {
-	init.Map.load();
+	Main.nbCall++;
+	if(Main.nbCall == Main.nbAsynchronousCallback) {
+		init.Map.load();
+		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+		window.requestAnimationFrame(Main.gameLoop);
+	}
+};
+Main.gameLoop = function() {
 	window.requestAnimationFrame(Main.gameLoop);
+	Main.isoEngine.render();
 };
 Main.getInstance = function() {
 	if(Main.instance == null) Main.instance = new Main();
 	return Main.instance;
 };
-Main.gameLoop = function() {
-	window.requestAnimationFrame(Main.gameLoop);
-	Main.isoEngine.render();
+Main.main = function() {
+	Main.getInstance();
 };
 Main.prototype = {
 	destroy: function() {
@@ -39,13 +42,12 @@ Main.prototype = {
 var IMap = function() { };
 var engine = {};
 engine.isoEngine = {};
-engine.isoEngine.IsoEngine = function(_width,_height) {
+engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
 	this.size = 0;
-	this.width = _width;
-	this.renderer = PIXI.autoDetectRenderer(this.width,_height);
+	this.renderer = PIXI.autoDetectRenderer(width,height);
 	window.document.body.appendChild(this.renderer.view);
 	this.camera = new PIXI.Graphics();
 	this.stage.addChild(this.camera);
@@ -59,19 +61,6 @@ engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
 engine.isoEngine.IsoEngine.prototype = {
 	setTileSize: function(_size) {
 		this.size = _size;
-	}
-	,destroy: function() {
-		engine.isoEngine.IsoEngine.instance = null;
-	}
-	,render: function() {
-		this.renderer.render(this.stage);
-	}
-	,load: function(assets,callback) {
-		var loader = new PIXI.AssetLoader(assets);
-		loader.onComplete = function() {
-			callback();
-		};
-		loader.load();
 	}
 	,addTexture: function(name,from) {
 		var value = PIXI.Texture.fromFrame(from);
@@ -87,10 +76,21 @@ engine.isoEngine.IsoEngine.prototype = {
 			this.animations.get(name).push(this.textures.get(listTexture[i]));
 		}
 	}
+	,load: function(assets,callback) {
+		var loader = new PIXI.AssetLoader(assets);
+		loader.onComplete = function() {
+			callback();
+		};
+		loader.load();
+	}
+	,destroy: function() {
+		engine.isoEngine.IsoEngine.instance = null;
+	}
+	,render: function() {
+		this.renderer.render(this.stage);
+	}
 };
 engine.isoEngine.Tile = function() {
-	this.ground;
-	this.building;
 	engine.isoEngine.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
 };
 engine.isoEngine.Tile.prototype = {
@@ -110,6 +110,7 @@ engine.isoEngine.Tile.prototype = {
 var entities = {};
 entities.Tile = function() {
 	GameObject.call(this);
+	this.addComponent("graphicTile");
 };
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
@@ -129,10 +130,10 @@ haxe.ds.StringMap.prototype = {
 	}
 };
 var init = {};
-init.Assets = function() {
-};
+init.Assets = function() { };
 init.Assets.load = function() {
-	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance(1120,630);
+	init.Assets.isoEngine.setTileSize(128);
 	init.Assets.isoEngine.load(["../assets/isoTiles.json"],init.Assets.assetLoaded);
 };
 init.Assets.assetLoaded = function() {
@@ -140,7 +141,6 @@ init.Assets.assetLoaded = function() {
 	var list = new Array();
 	list.push("ground");
 	init.Assets.isoEngine.createAnimation("ground",list);
-	init.Assets.isoEngine.setTileSize(128);
 	Main.ready();
 };
 init.Map = function() {
@@ -162,17 +162,12 @@ manager.Map.getInstance = function() {
 };
 manager.Map.prototype = {
 	set: function(nbCols,nbRows) {
-		if(manager.Map.alreadySet) {
-			console.log("Le manager de la map à déjà été initialisé");
-			return;
-		}
-		manager.Map.alreadySet = true;
+		if(this.isAlreadySet()) return;
 		var _g1 = 0;
 		var _g = nbCols * nbRows;
 		while(_g1 < _g) {
 			var i = _g1++;
 			this.tiles[i] = new entities.Tile();
-			this.tiles[i].addComponents("graphicTile");
 		}
 		this.cols = nbCols;
 	}
@@ -187,6 +182,14 @@ manager.Map.prototype = {
 			this.tiles[i].graphicTile.place(x,y);
 		}
 	}
+	,isAlreadySet: function() {
+		if(manager.Map.alreadySet) {
+			console.log("Le manager de la map à déjà été initialisé");
+			return true;
+		}
+		manager.Map.alreadySet = true;
+		return false;
+	}
 	,destroy: function() {
 		manager.Map.instance = null;
 	}
@@ -200,7 +203,7 @@ Math.isFinite = function(i) {
 Math.isNaN = function(i1) {
 	return isNaN(i1);
 };
-engine.isoEngine.Tile.zize = 0;
-engine.isoEngine.Tile.semiSize = 0;
+Main.nbAsynchronousCallback = 1;
+Main.nbCall = 0;
 Main.main();
 })();
