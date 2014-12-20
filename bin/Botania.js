@@ -1,29 +1,24 @@
 (function () { "use strict";
 var Main = function() {
-	Main.isoEngine = new engine.isoEngine.IsoEngine(1120,630);
-	Main.isoEngine.load(["./assets/isoTiles.json"],$bind(this,this.assetLoaded));
+	Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+	init.Assets.load();
 };
 Main.main = function() {
 	Main.getInstance();
+};
+Main.ready = function() {
+	window.requestAnimationFrame(Main.gameLoop);
 };
 Main.getInstance = function() {
 	if(Main.instance == null) Main.instance = new Main();
 	return Main.instance;
 };
+Main.gameLoop = function() {
+	window.requestAnimationFrame(Main.gameLoop);
+	Main.isoEngine.render();
+};
 Main.prototype = {
-	assetLoaded: function() {
-		Main.isoEngine.addTexture("ground","isometricPattern.jpg");
-		var list = new Array();
-		list.push("ground");
-		Main.isoEngine.createAnimation("defaultGround",list);
-		Main.isoEngine.setMap(128,5,5,"defaultGround");
-		window.requestAnimationFrame($bind(this,this.gameLoop));
-	}
-	,gameLoop: function() {
-		window.requestAnimationFrame($bind(this,this.gameLoop));
-		Main.isoEngine.render();
-	}
-	,destroy: function() {
+	destroy: function() {
 		Main.instance = null;
 	}
 };
@@ -43,8 +38,17 @@ engine.isoEngine.IsoEngine = function(_width,_height) {
 	this.stage.addChild(this.camera);
 	engine.isoEngine.Tile.setReferent(this);
 };
+engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
+	if(_height == null) _height = 900;
+	if(_width == null) _width = 1600;
+	if(engine.isoEngine.IsoEngine.instance == null) engine.isoEngine.IsoEngine.instance = new engine.isoEngine.IsoEngine(_width,_height);
+	return engine.isoEngine.IsoEngine.instance;
+};
 engine.isoEngine.IsoEngine.prototype = {
-	render: function() {
+	destroy: function() {
+		engine.isoEngine.IsoEngine.instance = null;
+	}
+	,render: function() {
 		this.renderer.render(this.stage);
 	}
 	,load: function(assets,callback) {
@@ -60,7 +64,7 @@ engine.isoEngine.IsoEngine.prototype = {
 	}
 	,createAnimation: function(name,listTexture) {
 		var value = new Array();
-		this.animations.set("defaultGround",value);
+		this.animations.set(name,value);
 		var _g1 = 0;
 		var _g = listTexture.length;
 		while(_g1 < _g) {
@@ -121,8 +125,23 @@ haxe.ds.StringMap.prototype = {
 		return this.h["$" + key];
 	}
 };
-var $_, $fid = 0;
-function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
+var init = {};
+init.Assets = function() {
+};
+init.Assets.load = function() {
+	console.log("ok dans le load");
+	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance(1120,630);
+	init.Assets.isoEngine.load(["../assets/isoTiles.json"],init.Assets.assetLoaded);
+};
+init.Assets.assetLoaded = function() {
+	console.log("ok dans le loaded");
+	init.Assets.isoEngine.addTexture("ground","isometricPattern.jpg");
+	var list = new Array();
+	list.push("ground");
+	init.Assets.isoEngine.createAnimation("defaultGround",list);
+	init.Assets.isoEngine.setMap(128,5,5,"defaultGround");
+	Main.ready();
+};
 Math.NaN = Number.NaN;
 Math.NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;
 Math.POSITIVE_INFINITY = Number.POSITIVE_INFINITY;

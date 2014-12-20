@@ -19,6 +19,8 @@ import js.Browser;
 class IsoEngine
 {
 
+    private static var instance: IsoEngine;
+
     private var renderer:WebGLRenderer;
     private var stage:Stage;
 
@@ -31,7 +33,16 @@ class IsoEngine
     public var camera:Graphics;
 
 
-	public function new(_width:Int, _height:Int)
+    public static function getInstance (_width:Int = 1600, _height:Int = 900): IsoEngine {
+        if (instance == null) instance = new IsoEngine(_width, _height);
+        return instance;
+    }
+
+    public function destroy (): Void {
+        instance = null;
+    }
+
+	private function new(_width:Int, _height:Int)
 	{
         stage       = new Stage(0xCFCFCF);
         map         = new Array<Tile>();
@@ -71,7 +82,7 @@ class IsoEngine
     }
 
     public function createAnimation(name:String, listTexture:Array<String>) {
-        animations.set("defaultGround", new Array<Texture>());
+        animations.set(name, new Array<Texture>());
         for (i in 0...listTexture.length) {
             animations.get(name).push(textures.get(listTexture[i]));
         }
