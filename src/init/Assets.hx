@@ -17,7 +17,7 @@ class Assets
 	}
 
     static public function load () {
-        isoEngine = IsoEngine.getInstance(1120, 630);//IsoEngine.getInstance(1120, 630);
+        isoEngine = IsoEngine.getInstance();//IsoEngine.getInstance(1120, 630);
         isoEngine.load(["../assets/isoTiles.json"], assetLoaded);
     }
 
@@ -25,8 +25,8 @@ class Assets
         isoEngine.addTexture("ground", "isometricPattern.jpg");
         var list:Array<String> = new Array<String>();
         list.push("ground");
-        isoEngine.createAnimation("defaultGround", list);
-        isoEngine.setMap(128, 5, 5, "defaultGround");
+        isoEngine.createAnimation("ground", list);
+        isoEngine.setTileSize(128);
 
         Main.ready();
     }

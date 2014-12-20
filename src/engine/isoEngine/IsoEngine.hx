@@ -24,14 +24,17 @@ class IsoEngine
     private var renderer:WebGLRenderer;
     private var stage:Stage;
 
-    private var map:Array<Tile>;
     private var textures:Map<String, Texture>;
     public var animations:Map<String, Array<Texture>>;
     private var width: Int;
-    private var size:Int;
+    public var size:Int;
 
     public var camera:Graphics;
 
+
+    public function setTileSize (_size:Int) {
+        size = _size;
+    }
 
     public static function getInstance (_width:Int = 1600, _height:Int = 900): IsoEngine {
         if (instance == null) instance = new IsoEngine(_width, _height);
@@ -45,7 +48,6 @@ class IsoEngine
 	private function new(_width:Int, _height:Int)
 	{
         stage       = new Stage(0xCFCFCF);
-        map         = new Array<Tile>();
         textures    = new Map<String, Texture>();
         animations  = new Map<String, Array<Texture>>();
         size        = 0;
@@ -57,8 +59,6 @@ class IsoEngine
         camera = new Graphics();
 
         stage.addChild(camera);
-
-        Tile.setReferent(this);
 	}
 
     public function render () {
@@ -88,27 +88,4 @@ class IsoEngine
         }
     }
 
-    public function setMap(_size:Int, _width:Int, height:Int, defaultTexture:String) {
-        width = _width;
-        size  = _size;
-
-        Tile.setSize(_size);
-
-        var demiSize  = size / 2;
-        var quartSize = demiSize / 2;
-
-        for (i in 0...width*height) {
-            var line:Int = Math.floor(i / width);
-
-            map[i] = new Tile(defaultTexture);
-
-            var x:Int = i % width;
-            var y:Int = Math.floor(i / width);
-
-            var pxX:Float = x * demiSize  - (y * demiSize);
-            var pxY:Float = x * quartSize + (y * quartSize);
-
-            map[i].place(pxX, pxY);
-        }
-    }
 }

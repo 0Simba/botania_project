@@ -1,12 +1,26 @@
 (function () { "use strict";
+function $extend(from, fields) {
+	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
+	for (var name in fields) proto[name] = fields[name];
+	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
+	return proto;
+}
+var GameObject = function() {
+};
+GameObject.prototype = {
+	addComponents: function(name) {
+		if(name == "graphicTile") this.graphicTile = new engine.isoEngine.Tile();
+	}
+};
 var Main = function() {
-	Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+	Main.isoEngine = engine.isoEngine.IsoEngine.getInstance(1120,630);
 	init.Assets.load();
 };
 Main.main = function() {
 	Main.getInstance();
 };
 Main.ready = function() {
+	init.Map.load();
 	window.requestAnimationFrame(Main.gameLoop);
 };
 Main.getInstance = function() {
@@ -27,7 +41,6 @@ var engine = {};
 engine.isoEngine = {};
 engine.isoEngine.IsoEngine = function(_width,_height) {
 	this.stage = new PIXI.Stage(13619151);
-	this.map = new Array();
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
 	this.size = 0;
@@ -36,7 +49,6 @@ engine.isoEngine.IsoEngine = function(_width,_height) {
 	window.document.body.appendChild(this.renderer.view);
 	this.camera = new PIXI.Graphics();
 	this.stage.addChild(this.camera);
-	engine.isoEngine.Tile.setReferent(this);
 };
 engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
 	if(_height == null) _height = 900;
@@ -45,7 +57,10 @@ engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
 	return engine.isoEngine.IsoEngine.instance;
 };
 engine.isoEngine.IsoEngine.prototype = {
-	destroy: function() {
+	setTileSize: function(_size) {
+		this.size = _size;
+	}
+	,destroy: function() {
 		engine.isoEngine.IsoEngine.instance = null;
 	}
 	,render: function() {
@@ -72,45 +87,33 @@ engine.isoEngine.IsoEngine.prototype = {
 			this.animations.get(name).push(this.textures.get(listTexture[i]));
 		}
 	}
-	,setMap: function(_size,_width,height,defaultTexture) {
-		this.width = _width;
-		this.size = _size;
-		engine.isoEngine.Tile.setSize(_size);
-		var demiSize = this.size / 2;
-		var quartSize = demiSize / 2;
-		var _g1 = 0;
-		var _g = this.width * height;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var line = Math.floor(i / this.width);
-			this.map[i] = new engine.isoEngine.Tile(defaultTexture);
-			var x = i % this.width;
-			var y = Math.floor(i / this.width);
-			var pxX = x * demiSize - y * demiSize;
-			var pxY = x * quartSize + y * quartSize;
-			this.map[i].place(pxX,pxY);
-		}
-	}
 };
-engine.isoEngine.Tile = function(groundTexture) {
-	this.ground = new PIXI.MovieClip(engine.isoEngine.Tile.referent.animations.get(groundTexture));
-	this.ground.width = engine.isoEngine.Tile.zize;
-	this.ground.height = engine.isoEngine.Tile.semiSize;
-	engine.isoEngine.Tile.referent.camera.addChild(this.ground);
-};
-engine.isoEngine.Tile.setReferent = function(isoEngine) {
-	engine.isoEngine.Tile.referent = isoEngine;
-};
-engine.isoEngine.Tile.setSize = function(_size) {
-	engine.isoEngine.Tile.zize = _size;
-	engine.isoEngine.Tile.semiSize = Math.floor(_size / 2);
+engine.isoEngine.Tile = function() {
+	this.ground;
+	this.building;
+	engine.isoEngine.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
 };
 engine.isoEngine.Tile.prototype = {
-	place: function(x,y) {
-		this.ground.x = x;
-		this.ground.y = y;
+	addGround: function(name) {
+		this.ground = new PIXI.MovieClip(engine.isoEngine.Tile.referent.animations.get(name));
+		this.ground.width = engine.isoEngine.Tile.referent.size;
+		this.ground.height = engine.isoEngine.Tile.referent.size / 2;
+		engine.isoEngine.Tile.referent.camera.addChild(this.ground);
+	}
+	,place: function(x,y) {
+		var pxX = x * engine.isoEngine.Tile.referent.size / 2 - y * engine.isoEngine.Tile.referent.size / 2;
+		var pxY = x * engine.isoEngine.Tile.referent.size / 4 + y * engine.isoEngine.Tile.referent.size / 4;
+		this.ground.x = pxX;
+		this.ground.y = pxY;
 	}
 };
+var entities = {};
+entities.Tile = function() {
+	GameObject.call(this);
+};
+entities.Tile.__super__ = GameObject;
+entities.Tile.prototype = $extend(GameObject.prototype,{
+});
 var haxe = {};
 haxe.ds = {};
 haxe.ds.StringMap = function() {
@@ -129,18 +132,64 @@ var init = {};
 init.Assets = function() {
 };
 init.Assets.load = function() {
-	console.log("ok dans le load");
-	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance(1120,630);
+	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	init.Assets.isoEngine.load(["../assets/isoTiles.json"],init.Assets.assetLoaded);
 };
 init.Assets.assetLoaded = function() {
-	console.log("ok dans le loaded");
 	init.Assets.isoEngine.addTexture("ground","isometricPattern.jpg");
 	var list = new Array();
 	list.push("ground");
-	init.Assets.isoEngine.createAnimation("defaultGround",list);
-	init.Assets.isoEngine.setMap(128,5,5,"defaultGround");
+	init.Assets.isoEngine.createAnimation("ground",list);
+	init.Assets.isoEngine.setTileSize(128);
 	Main.ready();
+};
+init.Map = function() {
+};
+init.Map.load = function() {
+	var map = manager.Map.getInstance();
+	map.set(10,10);
+	map.fill("ground");
+};
+var manager = {};
+manager.Map = function() {
+	this.tiles = new Array();
+	this.cols = 0;
+	manager.Map.alreadySet = false;
+};
+manager.Map.getInstance = function() {
+	if(manager.Map.instance == null) manager.Map.instance = new manager.Map();
+	return manager.Map.instance;
+};
+manager.Map.prototype = {
+	set: function(nbCols,nbRows) {
+		if(manager.Map.alreadySet) {
+			console.log("Le manager de la map à déjà été initialisé");
+			return;
+		}
+		manager.Map.alreadySet = true;
+		var _g1 = 0;
+		var _g = nbCols * nbRows;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.tiles[i] = new entities.Tile();
+			this.tiles[i].addComponents("graphicTile");
+		}
+		this.cols = nbCols;
+	}
+	,fill: function(name) {
+		var _g1 = 0;
+		var _g = this.tiles.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var x = i % this.cols;
+			var y = Math.floor(i / this.cols);
+			this.tiles[i].graphicTile.addGround(name);
+			this.tiles[i].graphicTile.place(x,y);
+		}
+	}
+	,destroy: function() {
+		manager.Map.instance = null;
+	}
 };
 Math.NaN = Number.NaN;
 Math.NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;

@@ -19,11 +19,12 @@ class Main
 
 
 	private function new () {
-		isoEngine = IsoEngine.getInstance();
+		isoEngine = IsoEngine.getInstance(1120, 630);
 		init.Assets.load();
 	}
 
 	static public function ready () {
+		init.Map.load();
         Browser.window.requestAnimationFrame(cast gameLoop);
 	}
 

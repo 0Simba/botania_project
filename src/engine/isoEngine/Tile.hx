@@ -11,31 +11,29 @@ class Tile {
     static var semiSize:Int = 0;
     static var referent:IsoEngine;
 
-    private var ground:MovieClip;
-    private var building:MovieClip;
+    public var ground:MovieClip;
+    public var building:MovieClip;
 
-    static public function setReferent (isoEngine) {
-        referent = isoEngine;
+    public function new () {
+        ground;
+        building;
+        Tile.referent = IsoEngine.getInstance();
     }
 
-    static public function setSize (_size:Int) {
-        zize      = _size;
-        semiSize  = Math.floor(_size / 2);
-    }
+    public function addGround (name:String) {
+        ground = new MovieClip(Tile.referent.animations.get(name));
 
-    public function new (groundTexture:String) {
-        ground   = new MovieClip(Tile.referent.animations.get(groundTexture));
-        //building = new MovieClip();
-
-
-        ground.width  = Tile.zize;
-        ground.height = Tile.semiSize;
+        ground.width  = Tile.referent.size;
+        ground.height = Tile.referent.size / 2;
 
         Tile.referent.camera.addChild(ground);
     }
 
     public function place (x:Float, y:Float) {
-        ground.x = x;
-        ground.y = y;
+        var pxX:Float = x * Tile.referent.size / 2  - (y * Tile.referent.size / 2);
+        var pxY:Float = x * Tile.referent.size / 4 + (y * Tile.referent.size / 4);
+
+        ground.x = pxX;
+        ground.y = pxY;
     }
 }
