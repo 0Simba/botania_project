@@ -13,6 +13,7 @@ GameObject.prototype = {
 	}
 };
 var Main = function() {
+	Main.deltaTime = 0;
 	init.Assets.load();
 };
 Main.ready = function() {
@@ -20,11 +21,15 @@ Main.ready = function() {
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
 		init.Map.load();
 		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+		Main.lastTS = new Date().getTime();
 		window.requestAnimationFrame(Main.gameLoop);
 	}
 };
 Main.gameLoop = function() {
 	window.requestAnimationFrame(Main.gameLoop);
+	Main.deltaTime = (new Date().getTime() - Main.lastTS) / 100;
+	Main.lastTS = new Date().getTime();
+	console.log(Main.deltaTime);
 	Main.isoEngine.render();
 };
 Main.getInstance = function() {
@@ -42,6 +47,16 @@ Main.prototype = {
 var IMap = function() { };
 var engine = {};
 engine.isoEngine = {};
+engine.isoEngine.Camera = function() { };
+engine.isoEngine.Camera.setRef = function(cameraRef) {
+	engine.isoEngine.Camera.camera = cameraRef;
+};
+engine.isoEngine.Camera.move = function(x,y) {
+	if(y == null) y = 0;
+	if(x == null) x = 0;
+	engine.isoEngine.Camera.camera.x += x;
+	engine.isoEngine.Camera.camera.y += y;
+};
 engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
 	this.textures = new haxe.ds.StringMap();
@@ -50,6 +65,7 @@ engine.isoEngine.IsoEngine = function(width,height) {
 	this.renderer = PIXI.autoDetectRenderer(width,height);
 	window.document.body.appendChild(this.renderer.view);
 	this.camera = new PIXI.Graphics();
+	engine.isoEngine.Camera.setRef(this.camera);
 	this.stage.addChild(this.camera);
 };
 engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
@@ -143,8 +159,7 @@ init.Assets.assetLoaded = function() {
 	init.Assets.isoEngine.createAnimation("ground",list);
 	Main.ready();
 };
-init.Map = function() {
-};
+init.Map = function() { };
 init.Map.load = function() {
 	var map = manager.Map.getInstance();
 	map.set(10,10);

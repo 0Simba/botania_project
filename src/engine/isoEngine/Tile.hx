@@ -21,7 +21,7 @@ class Tile {
     }
 
     public function place (x:Float, y:Float) {
-        var pxX:Float = x * Tile.referent.size / 2  - (y * Tile.referent.size / 2);
+        var pxX:Float = x * Tile.referent.size / 2 - (y * Tile.referent.size / 2);
         var pxY:Float = x * Tile.referent.size / 4 + (y * Tile.referent.size / 4);
 
         ground.x = pxX;

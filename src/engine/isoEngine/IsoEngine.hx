@@ -83,7 +83,7 @@ class IsoEngine
         Browser.document.body.appendChild(renderer.view);
 
         camera = new Graphics();
-
+        Camera.setRef(camera);
         stage.addChild(camera);
 	}
 

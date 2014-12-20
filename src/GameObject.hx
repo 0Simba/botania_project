@@ -2,7 +2,7 @@ package ;
 
 /**
  * ...
- * @author Baptiser
+ * @author Jaf
  */
 class GameObject
 {
@@ -10,9 +10,10 @@ class GameObject
     // static public var GraphicTile:Class;
     public var graphicTile:engine.isoEngine.Tile;
 
-	public function new()
-	{
-	}
+    // static private var components:Map<String, Class<Void>>;
+
+
+    public function new () {};
 
     public function addComponent (name:String) {
         if (name == "graphicTile") {
