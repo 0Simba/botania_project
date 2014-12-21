@@ -2,7 +2,7 @@
 
 "grass":
 {
-    "frame": {"x":0,"y":17,"w":64,"h":32},
+    "frame": {"x":0, "y":17,"w":64,"h":32},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":64,"h":32},

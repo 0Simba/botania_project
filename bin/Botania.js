@@ -78,14 +78,28 @@ engine.input.Keyboard.init = function() {
 };
 engine.isoEngine = {};
 engine.isoEngine.Camera = function() { };
-engine.isoEngine.Camera.setRef = function(cameraRef) {
+engine.isoEngine.Camera.setRef = function(cameraRef,peonWhileTrue) {
 	engine.isoEngine.Camera.camera = cameraRef;
+	engine.isoEngine.Camera.isoEngine = peonWhileTrue;
+	engine.isoEngine.Camera.setMouse();
 };
 engine.isoEngine.Camera.move = function(x,y) {
 	if(y == null) y = 0;
 	if(x == null) x = 0;
 	engine.isoEngine.Camera.camera.x += x;
 	engine.isoEngine.Camera.camera.y += y;
+};
+engine.isoEngine.Camera.setMouse = function() {
+	engine.isoEngine.Camera.camera.interactive = true;
+	engine.isoEngine.Camera.camera.mousemove = engine.isoEngine.Camera.mousemove;
+};
+engine.isoEngine.Camera.mousemove = function(mouseData) {
+	var px = new utils.Vector2(mouseData.global.x,mouseData.global.y);
+	px.x -= engine.isoEngine.Camera.camera.x;
+	px.y -= engine.isoEngine.Camera.camera.y;
+	var x = Math.round(px.y / engine.isoEngine.Camera.isoEngine.size / 2 + px.x / engine.isoEngine.Camera.isoEngine.size);
+	var y = Math.round(px.y / engine.isoEngine.Camera.isoEngine.size / 2 - px.x / engine.isoEngine.Camera.isoEngine.size);
+	console.log(x + " : " + y);
 };
 engine.isoEngine.InteractiveTile = function() {
 };
@@ -150,7 +164,7 @@ engine.isoEngine.IsoEngine.prototype = {
 	}
 	,setCamera: function() {
 		this.camera = new PIXI.Graphics();
-		engine.isoEngine.Camera.setRef(this.camera);
+		engine.isoEngine.Camera.setRef(this.camera,this);
 		this.stage.addChild(this.camera);
 	}
 	,render: function() {

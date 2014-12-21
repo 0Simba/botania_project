@@ -93,7 +93,7 @@ class IsoEngine
 
     private function setCamera () {
         camera = new Graphics();
-        Camera.setRef(camera);
+        Camera.setRef(camera, this);
         stage.addChild(camera);
     }
 

@@ -5,7 +5,7 @@ class Map
 
     static public function load () {
         var map:manager.Map = manager.Map.getInstance();
-        map.set(2, 2);
+        map.set(4, 4);
     }
 
 }
