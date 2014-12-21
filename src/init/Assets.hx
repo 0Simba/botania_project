@@ -2,10 +2,6 @@ package init;
 
 import engine.isoEngine.IsoEngine;
 
-/**
- * ...
- * @author jaf
- */
 class Assets
 {
 
@@ -15,13 +11,15 @@ class Assets
         isoEngine = IsoEngine.getInstance(1120, 630);
         isoEngine.setTileSize(128);
 
-        isoEngine.load(["../assets/isoTiles.json"], assetLoaded);
+        isoEngine.load(["../assets/iso.json"], assetLoaded);
     }
 
     static private function assetLoaded () {
-        isoEngine.addTexture("ground", "isometricPattern.jpg");
+        isoEngine.addTexture("ground", "grass");
+        isoEngine.addTexture("water", "water");
         var list:Array<String> = new Array<String>();
         list.push("ground");
+        list.push("water");
         isoEngine.createAnimation("ground", list);
 
         Main.ready();

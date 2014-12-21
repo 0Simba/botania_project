@@ -13,19 +13,20 @@ class Map
 	public function set (nbCols:Int, nbRows:Int): Void {
 		if (isAlreadySet()) { return; };
 
+		cols = nbCols;
 		for (i in 0...nbCols * nbRows) {
 			tiles[i] = new Tile();
+
+            var x:Int = i % cols;
+            var y:Int = Math.floor(i / cols);
+
+			tiles[i].graphicTile.setPlace(x, y, i);
 		}
-		cols = nbCols;
 	}
 
 	public function fill (name:String) {
 		for (i in 0...tiles.length) {
-            var x:Int = i % cols;
-            var y:Int = Math.floor(i / cols);
-
 			tiles[i].graphicTile.addGround(name);
-			tiles[i].graphicTile.place(x, y);
 		}
 	}
 

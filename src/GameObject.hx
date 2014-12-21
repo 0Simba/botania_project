@@ -7,17 +7,17 @@ package ;
 class GameObject
 {
 
-    // static public var GraphicTile:Class;
     public var graphicTile:engine.isoEngine.Tile;
-
-    // static private var components:Map<String, Class<Void>>;
-
+    public var interactiveTile:engine.isoEngine.InteractiveTile;
 
     public function new () {};
 
     public function addComponent (name:String) {
         if (name == "graphicTile") {
             graphicTile = new engine.isoEngine.Tile();
+        }
+        else if (name == "interactiveTile") {
+            interactiveTile = new engine.isoEngine.InteractiveTile();
         }
     }
 }

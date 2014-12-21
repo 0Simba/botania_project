@@ -6,11 +6,18 @@ import pixi.utils.Detector;
 import pixi.loaders.AssetLoader;
 import pixi.textures.Texture;
 import pixi.primitives.Graphics;
+
 import engine.isoEngine.Tile;
+import engine.isoEngine.Mouse;
+
 import js.Browser;
 
 class IsoEngine
 {
+
+
+    public var animations:Map<String, Array<Texture>>;
+    public var textures:Map<String, Texture>;
 
     private static var instance: IsoEngine;
 
@@ -56,10 +63,8 @@ class IsoEngine
 
     private var renderer:WebGLRenderer;
     private var stage:Stage;
-    private var textures:Map<String, Texture>;
 
     public var size:Int;
-    public var animations:Map<String, Array<Texture>>;
     public var camera:Graphics;
 
 
@@ -82,10 +87,15 @@ class IsoEngine
         renderer = Detector.autoDetectRenderer(width, height);
         Browser.document.body.appendChild(renderer.view);
 
+        setCamera();
+        Mouse.setRef(stage);
+	}
+
+    private function setCamera () {
         camera = new Graphics();
         Camera.setRef(camera);
         stage.addChild(camera);
-	}
+    }
 
     public function render () {
         renderer.render(stage);
