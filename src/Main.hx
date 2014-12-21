@@ -1,8 +1,10 @@
 package ;
+
+import engine.input.Keyboard;
 import js.Browser;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.Camera;
-
+import manager.Camera.CameraManager;
 class Main
 {
 	public  static var deltaTime:Float;
@@ -25,6 +27,7 @@ class Main
 					// Put here all synchronous loading function.
 			init.Map.load();
 			isoEngine = IsoEngine.getInstance();
+			Keyboard.init();
 
 			lastTS = Date.now().getTime();
 	        Browser.window.requestAnimationFrame(cast gameLoop);
@@ -38,6 +41,7 @@ class Main
 		lastTS    = Date.now().getTime();
 
 		isoEngine.render();
+		CameraManager.update();
 	}
 
 

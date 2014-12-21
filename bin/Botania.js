@@ -21,6 +21,7 @@ Main.ready = function() {
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
 		init.Map.load();
 		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+		engine.input.Keyboard.init();
 		Main.lastTS = new Date().getTime();
 		window.requestAnimationFrame(Main.gameLoop);
 	}
@@ -30,6 +31,7 @@ Main.gameLoop = function() {
 	Main.deltaTime = (new Date().getTime() - Main.lastTS) / 100;
 	Main.lastTS = new Date().getTime();
 	Main.isoEngine.render();
+	manager.CameraManager.update();
 };
 Main.getInstance = function() {
 	if(Main.instance == null) Main.instance = new Main();
@@ -45,6 +47,35 @@ Main.prototype = {
 };
 var IMap = function() { };
 var engine = {};
+engine.input = {};
+engine.input.KeyName = function() { };
+engine.input.KeyName.set = function() {
+	engine.input.KeyName.list = new haxe.ds.IntMap();
+	engine.input.KeyName.list.set(37,"left");
+	engine.input.KeyName.list.set(38,"up");
+	engine.input.KeyName.list.set(39,"right");
+	engine.input.KeyName.list.set(40,"down");
+};
+engine.input.Keyboard = function() { };
+engine.input.Keyboard.onKeyDown = function(pEvent) {
+	engine.input.Keyboard.keyChange(pEvent.keyCode,true);
+};
+engine.input.Keyboard.onKeyUp = function(pEvent) {
+	engine.input.Keyboard.keyChange(pEvent.keyCode,false);
+};
+engine.input.Keyboard.keyChange = function(keyCode,value) {
+	var keyName = engine.input.KeyName.list.get(keyCode);
+	if(keyName != null) {
+		var key = engine.input.KeyName.list.get(keyCode);
+		engine.input.Keyboard.key.set(key,value);
+	}
+};
+engine.input.Keyboard.init = function() {
+	engine.input.KeyName.set();
+	engine.input.Keyboard.key = new haxe.ds.StringMap();
+	window.onkeydown = engine.input.Keyboard.onKeyDown;
+	window.onkeyup = engine.input.Keyboard.onKeyUp;
+};
 engine.isoEngine = {};
 engine.isoEngine.Camera = function() { };
 engine.isoEngine.Camera.setRef = function(cameraRef) {
@@ -176,6 +207,18 @@ entities.Tile.prototype = $extend(GameObject.prototype,{
 });
 var haxe = {};
 haxe.ds = {};
+haxe.ds.IntMap = function() {
+	this.h = { };
+};
+haxe.ds.IntMap.__interfaces__ = [IMap];
+haxe.ds.IntMap.prototype = {
+	set: function(key,value) {
+		this.h[key] = value;
+	}
+	,get: function(key) {
+		return this.h[key];
+	}
+};
 haxe.ds.StringMap = function() {
 	this.h = { };
 };
@@ -210,6 +253,14 @@ init.Map.load = function() {
 	map.set(2,2);
 };
 var manager = {};
+manager.CameraManager = function() { };
+manager.CameraManager.update = function() {
+	var speed = 20 * Main.deltaTime;
+	if(engine.input.Keyboard.key.get("right")) engine.isoEngine.Camera.move(-speed,0);
+	if(engine.input.Keyboard.key.get("left")) engine.isoEngine.Camera.move(speed,0);
+	if(engine.input.Keyboard.key.get("up")) engine.isoEngine.Camera.move(0,speed);
+	if(engine.input.Keyboard.key.get("down")) engine.isoEngine.Camera.move(0,-speed);
+};
 manager.Map = function() {
 	this.tiles = new Array();
 	this.cols = 0;
