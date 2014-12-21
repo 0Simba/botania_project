@@ -18,6 +18,7 @@ class IsoEngine
 
     public var animations:Map<String, Array<Texture>>;
     public var textures:Map<String, Texture>;
+    public var mapTiles:Array<Array<Tile>>;
 
     private static var instance: IsoEngine;
 
@@ -53,6 +54,12 @@ class IsoEngine
         loader.load();
     }
 
+    public function addMapedTile (tile:Tile) {
+        if (mapTiles[tile.coord.x] == null) {
+            mapTiles[tile.coord.x] = new Array<Tile>();
+        }
+        mapTiles[tile.coord.x][tile.coord.y] = tile;
+    }
 
 
 
@@ -82,6 +89,7 @@ class IsoEngine
         stage       = new Stage(0xCFCFCF);
         textures    = new Map<String, Texture>();
         animations  = new Map<String, Array<Texture>>();
+        mapTiles    = new Array<Array<Tile>>();
         size        = 0;
 
         renderer = Detector.autoDetectRenderer(width, height);
@@ -99,5 +107,13 @@ class IsoEngine
 
     public function render () {
         renderer.render(stage);
+    }
+
+    public function getMapedTile (x:Int , y:Int):Tile {
+        if (mapTiles[x] != null) {
+            return mapTiles[x][y];
+        }
+
+        return null;
     }
 }

@@ -81,6 +81,7 @@ engine.isoEngine.Camera = function() { };
 engine.isoEngine.Camera.setRef = function(cameraRef,peonWhileTrue) {
 	engine.isoEngine.Camera.camera = cameraRef;
 	engine.isoEngine.Camera.isoEngine = peonWhileTrue;
+	engine.isoEngine.Camera.currentPos = new utils.Vector2(-1,-1);
 	engine.isoEngine.Camera.setMouse();
 };
 engine.isoEngine.Camera.move = function(x,y) {
@@ -97,22 +98,22 @@ engine.isoEngine.Camera.mousemove = function(mouseData) {
 	var px = new utils.Vector2(mouseData.global.x,mouseData.global.y);
 	px.x -= engine.isoEngine.Camera.camera.x;
 	px.y -= engine.isoEngine.Camera.camera.y;
-	var x = Math.round(px.y / engine.isoEngine.Camera.isoEngine.size / 2 + px.x / engine.isoEngine.Camera.isoEngine.size);
-	var y = Math.round(px.y / engine.isoEngine.Camera.isoEngine.size / 2 - px.x / engine.isoEngine.Camera.isoEngine.size);
-	console.log(x + " : " + y);
+	var newPos = new utils.Vector2(-1,-1);
+	newPos.x = Math.round((px.x - engine.isoEngine.Camera.isoEngine.size) / engine.isoEngine.Camera.isoEngine.size + px.y / (engine.isoEngine.Camera.isoEngine.size / 2));
+	newPos.y = Math.round(px.x / engine.isoEngine.Camera.isoEngine.size - px.y / (engine.isoEngine.Camera.isoEngine.size / 2)) * -1;
+	if(newPos.x != engine.isoEngine.Camera.currentPos.x || newPos.y != engine.isoEngine.Camera.currentPos.y) {
+		var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
+		if(tile != null) tile.changeGround("ground");
+	}
+	var tile1 = engine.isoEngine.Camera.isoEngine.getMapedTile(newPos.x,newPos.y);
+	if(tile1 != null) tile1.changeGround("water");
+	engine.isoEngine.Camera.currentPos = newPos;
 };
 engine.isoEngine.InteractiveTile = function() {
 };
 engine.isoEngine.InteractiveTile.prototype = {
 	bindTo: function(mc,mouseover,mouseout) {
-		var _g = this;
 		mc.interactive = true;
-		mc.mouseover = function(mouseData) {
-			if(_g.isOn()) mouseover();
-		};
-		mc.mouseout = function(mouseData1) {
-			if(_g.isOn()) mouseout();
-		};
 	}
 	,isOn: function() {
 		return true;
@@ -122,6 +123,7 @@ engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
+	this.mapTiles = new Array();
 	this.size = 0;
 	this.renderer = PIXI.autoDetectRenderer(width,height);
 	window.document.body.appendChild(this.renderer.view);
@@ -159,6 +161,10 @@ engine.isoEngine.IsoEngine.prototype = {
 		};
 		loader.load();
 	}
+	,addMapedTile: function(tile) {
+		if(this.mapTiles[tile.coord.x] == null) this.mapTiles[tile.coord.x] = new Array();
+		this.mapTiles[tile.coord.x][tile.coord.y] = tile;
+	}
 	,destroy: function() {
 		engine.isoEngine.IsoEngine.instance = null;
 	}
@@ -169,6 +175,10 @@ engine.isoEngine.IsoEngine.prototype = {
 	}
 	,render: function() {
 		this.renderer.render(this.stage);
+	}
+	,getMapedTile: function(x,y) {
+		if(this.mapTiles[x] != null) return this.mapTiles[x][y];
+		return null;
 	}
 };
 engine.isoEngine.Mouse = function() { };
@@ -200,6 +210,7 @@ engine.isoEngine.Tile.prototype = {
 	,setPlace: function(_x,_y,_i) {
 		this.coord = new utils.ArrayCoord(_x,_y,_i);
 		this.place(_x,_y);
+		if(this.coord.i >= 0) engine.isoEngine.Tile.referent.addMapedTile(this);
 	}
 };
 var entities = {};
@@ -264,7 +275,7 @@ init.Assets.assetLoaded = function() {
 init.Map = function() { };
 init.Map.load = function() {
 	var map = manager.Map.getInstance();
-	map.set(2,2);
+	map.set(10,10);
 };
 var manager = {};
 manager.CameraManager = function() { };

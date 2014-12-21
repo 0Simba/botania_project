@@ -41,6 +41,10 @@ class Tile {
     public function setPlace (_x, _y, _i) {
         coord = new utils.ArrayCoord(_x, _y, _i);
         place(_x, _y);
+
+        if (coord.i >= 0) {
+            Tile.referent.addMapedTile(this);
+        }
     }
 }
 
