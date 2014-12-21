@@ -8,6 +8,7 @@ import js.Browser;
 class Tile {
 
     static var referent:IsoEngine;
+
     public var ground:MovieClip;
     public var building:MovieClip;
     public var coord:utils.ArrayCoord;
@@ -31,11 +32,11 @@ class Tile {
 
         ground.x = pxX;
         ground.y = pxY;
-
     }
 
     public function new () {
         Tile.referent = IsoEngine.getInstance();
+        isInteractive = false;
     }
 
     public function setPlace (_x, _y, _i) {
@@ -46,5 +47,18 @@ class Tile {
             Tile.referent.addMapedTile(this);
         }
     }
-}
 
+
+        /***** INTERACTION *****/
+
+    public var isInteractive:Bool;
+
+    public function setInteractive (_mouseEnter, _mouseExit) {
+        mouseEnter = _mouseEnter;
+        mouseExit  = _mouseExit;
+    }
+
+
+    dynamic public function mouseEnter () {}
+    dynamic public function mouseExit () {}
+}

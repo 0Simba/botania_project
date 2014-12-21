@@ -31,32 +31,36 @@ class Camera
     }
 
     static private function mousemove (mouseData) {
-        var px = new Vector2(mouseData.global.x, mouseData.global.y);
+        var newPos = pxToCoord(new Vector2(mouseData.global.x, mouseData.global.y));
+
+        if (tileChanged(newPos)) {
+            var tile = isoEngine.getMapedTile(cast currentPos.x, cast currentPos.y);
+            if (tile != null) {
+                tile.mouseExit();
+            }
+
+            tile = isoEngine.getMapedTile(cast newPos.x, cast newPos.y);
+            if (tile != null) {
+                tile.mouseEnter();
+            }
+
+        }
+        currentPos = newPos;
+    }
+
+    static private function tileChanged (newPos):Bool {
+        return (newPos.x != currentPos.x || newPos.y != currentPos.y);
+    }
+
+    static private function pxToCoord (px:Vector2) {
         px.x -= camera.x;
         px.y -= camera.y;
 
-
-
-
-
         var newPos = new Vector2(-1, -1);
         newPos.x = Math.round( (px.x - isoEngine.size) / (isoEngine.size) + px.y / (isoEngine.size / 2) );
-        newPos.y = Math.round( px.x / (isoEngine.size) - (px.y / (isoEngine.size / 2)) ) * -1;
+        newPos.y = Math.round( (px.y / (isoEngine.size / 2)) - px.x / (isoEngine.size));
 
-        if (newPos.x != currentPos.x || newPos.y != currentPos.y) {
-            var tile = isoEngine.getMapedTile(cast currentPos.x, cast currentPos.y);
-            if (tile != null) {
-                tile.changeGround("ground");
-            }
-        }
-
-        var tile = isoEngine.getMapedTile(cast newPos.x, cast newPos.y);
-
-        if (tile != null) {
-            tile.changeGround("water");
-        }
-
-        currentPos = newPos;
+        return newPos;
     }
 
 }

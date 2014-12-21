@@ -95,29 +95,27 @@ engine.isoEngine.Camera.setMouse = function() {
 	engine.isoEngine.Camera.camera.mousemove = engine.isoEngine.Camera.mousemove;
 };
 engine.isoEngine.Camera.mousemove = function(mouseData) {
-	var px = new utils.Vector2(mouseData.global.x,mouseData.global.y);
+	var newPos = engine.isoEngine.Camera.pxToCoord(new utils.Vector2(mouseData.global.x,mouseData.global.y));
+	if(engine.isoEngine.Camera.tileChanged(newPos)) {
+		var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
+		if(tile != null) tile.mouseExit();
+		tile = engine.isoEngine.Camera.isoEngine.getMapedTile(newPos.x,newPos.y);
+		if(tile != null) tile.mouseEnter();
+	}
+	engine.isoEngine.Camera.currentPos = newPos;
+};
+engine.isoEngine.Camera.tileChanged = function(newPos) {
+	return newPos.x != engine.isoEngine.Camera.currentPos.x || newPos.y != engine.isoEngine.Camera.currentPos.y;
+};
+engine.isoEngine.Camera.pxToCoord = function(px) {
 	px.x -= engine.isoEngine.Camera.camera.x;
 	px.y -= engine.isoEngine.Camera.camera.y;
 	var newPos = new utils.Vector2(-1,-1);
 	newPos.x = Math.round((px.x - engine.isoEngine.Camera.isoEngine.size) / engine.isoEngine.Camera.isoEngine.size + px.y / (engine.isoEngine.Camera.isoEngine.size / 2));
-	newPos.y = Math.round(px.x / engine.isoEngine.Camera.isoEngine.size - px.y / (engine.isoEngine.Camera.isoEngine.size / 2)) * -1;
-	if(newPos.x != engine.isoEngine.Camera.currentPos.x || newPos.y != engine.isoEngine.Camera.currentPos.y) {
-		var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
-		if(tile != null) tile.changeGround("ground");
-	}
-	var tile1 = engine.isoEngine.Camera.isoEngine.getMapedTile(newPos.x,newPos.y);
-	if(tile1 != null) tile1.changeGround("water");
-	engine.isoEngine.Camera.currentPos = newPos;
+	newPos.y = Math.round(px.y / (engine.isoEngine.Camera.isoEngine.size / 2) - px.x / engine.isoEngine.Camera.isoEngine.size);
+	return newPos;
 };
 engine.isoEngine.InteractiveTile = function() {
-};
-engine.isoEngine.InteractiveTile.prototype = {
-	bindTo: function(mc,mouseover,mouseout) {
-		mc.interactive = true;
-	}
-	,isOn: function() {
-		return true;
-	}
 };
 engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
@@ -190,6 +188,7 @@ engine.isoEngine.Mouse.mouseMove = function(mouseData) {
 };
 engine.isoEngine.Tile = function() {
 	engine.isoEngine.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
+	this.isInteractive = false;
 };
 engine.isoEngine.Tile.prototype = {
 	addGround: function(name) {
@@ -212,14 +211,21 @@ engine.isoEngine.Tile.prototype = {
 		this.place(_x,_y);
 		if(this.coord.i >= 0) engine.isoEngine.Tile.referent.addMapedTile(this);
 	}
+	,setInteractive: function(_mouseEnter,_mouseExit) {
+		this.mouseEnter = _mouseEnter;
+		this.mouseExit = _mouseExit;
+	}
+	,mouseEnter: function() {
+	}
+	,mouseExit: function() {
+	}
 };
 var entities = {};
 entities.Tile = function() {
 	GameObject.call(this);
 	this.addComponent("graphicTile");
-	this.addComponent("interactiveTile");
 	this.graphicTile.addGround("ground");
-	this.interactiveTile.bindTo(this.graphicTile.ground,$bind(this,this.mouseover),$bind(this,this.mousequit));
+	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit));
 };
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{

@@ -7,11 +7,12 @@ class Tile extends GameObject
 	{
 		super();
         addComponent("graphicTile");
-        addComponent("interactiveTile");
+        // addComponent("interactiveTile");
 
         graphicTile.addGround("ground");
-        interactiveTile.bindTo(graphicTile.ground, mouseover, mousequit);
-	}
+        // interactiveTile.bindTo(graphicTile.ground, mouseover, mousequit);
+        graphicTile.setInteractive(mouseover, mousequit);
+    }
 
     public function mouseover () {
         graphicTile.changeGround("water");
