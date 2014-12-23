@@ -4,6 +4,7 @@ import pixi.primitives.Graphics;
 import utils.Vector2;
 import engine.isoEngine.Tile;
 import engine.isoEngine.IsoEngine;
+import engine.isoEngine.Displaying;
 
 class Camera
 {
@@ -13,8 +14,8 @@ class Camera
     static private var isoEngine:IsoEngine;
     static private var currentPos:Vector2;
 
-    static public function setRef (cameraRef, peonWhileTrue) { // IsoEngine.getInstance == crash
-        camera     = cameraRef;
+    static public function setRef (peonWhileTrue) { // IsoEngine.getInstance == crash
+        camera     = Displaying.getInstance().getCamera();
         isoEngine  = peonWhileTrue;
         currentPos = new Vector2(-1, -1);
         setMouse();
@@ -42,8 +43,16 @@ class Camera
             tile = isoEngine.getMapedTile(cast newPos.x, cast newPos.y);
             if (tile != null) {
                 tile.mouseEnter();
+                if (tile.isInteractive) {
+                    isoEngine.tileIndicator.overOn(cast newPos.x, cast newPos.y);
+                }
+                else {
+                    isoEngine.tileIndicator.hide();
+                }
             }
-
+            else {
+                isoEngine.tileIndicator.hide();
+            }
         }
         currentPos = newPos;
     }

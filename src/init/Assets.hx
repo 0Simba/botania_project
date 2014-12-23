@@ -15,11 +15,11 @@ class Assets
     }
 
     static private function assetLoaded () {
-        isoEngine.addTexture("ground", "grass");
+        isoEngine.addTexture("grass", "grass");
         isoEngine.addTexture("water", "water");
         var list:Array<String> = new Array<String>();
-        list.push("ground");
         list.push("water");
+        list.push("grass");
         isoEngine.createAnimation("ground", list);
 
         Main.ready();

@@ -6,9 +6,13 @@ import pixi.utils.Detector;
 import pixi.loaders.AssetLoader;
 import pixi.textures.Texture;
 import pixi.primitives.Graphics;
+import pixi.display.MovieClip;
 
 import engine.isoEngine.Tile;
 import engine.isoEngine.Mouse;
+import engine.isoEngine.TileSelectionIndicator;
+import engine.isoEngine.IsoUtils;
+import engine.isoEngine.Displaying;
 
 import js.Browser;
 
@@ -19,19 +23,20 @@ class IsoEngine
     public var animations:Map<String, Array<Texture>>;
     public var textures:Map<String, Texture>;
     public var mapTiles:Array<Array<Tile>>;
+    public var tileIndicator:TileSelectionIndicator;
 
     private static var instance: IsoEngine;
 
 
     public function setTileSize (_size:Int) {
         size = _size;
+        IsoUtils.setSize(size);
     }
 
 
     public function addTexture (name, from) {
         textures.set(name, Texture.fromFrame(from));
     }
-
 
     public function createAnimation(name:String, listTexture:Array<String>) {
         animations.set(name, new Array<Texture>());
@@ -45,9 +50,11 @@ class IsoEngine
         /***** SURELY NOT INTEREST YOU *****/
 
     public function load (assets:Array<String>, callback) {
+        assets.push('../assets/selection.json');
         var loader:AssetLoader = new AssetLoader(assets);
 
         loader.onComplete = function () {
+            tileIndicator.assetLoaded();
             callback();
         };
 
@@ -70,6 +77,7 @@ class IsoEngine
 
     private var renderer:WebGLRenderer;
     private var stage:Stage;
+    private var displaying:Displaying;
 
     public var size:Int;
     public var camera:Graphics;
@@ -84,26 +92,23 @@ class IsoEngine
         instance = null;
     }
 
-	private function new(width:Int, height:Int)
+	private function new (width:Int, height:Int)
 	{
-        stage       = new Stage(0xCFCFCF);
-        textures    = new Map<String, Texture>();
-        animations  = new Map<String, Array<Texture>>();
-        mapTiles    = new Array<Array<Tile>>();
-        size        = 0;
+        stage         = new Stage(0xCFCFCF);
+        textures      = new Map<String, Texture>();
+        animations    = new Map<String, Array<Texture>>();
+        mapTiles      = new Array<Array<Tile>>();
+        tileIndicator = TileSelectionIndicator.getInstance();
+        size          = 0;
 
         renderer = Detector.autoDetectRenderer(width, height);
         Browser.document.body.appendChild(renderer.view);
 
-        setCamera();
-        Mouse.setRef(stage);
-	}
 
-    private function setCamera () {
-        camera = new Graphics();
-        Camera.setRef(camera, this);
-        stage.addChild(camera);
-    }
+        displaying = Displaying.getInstance(stage);
+        Mouse.setRef(stage);
+        Camera.setRef(this);
+	}
 
     public function render () {
         renderer.render(stage);

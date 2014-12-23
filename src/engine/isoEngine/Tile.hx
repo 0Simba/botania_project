@@ -3,7 +3,8 @@ package engine.isoEngine;
 import pixi.display.MovieClip;
 import engine.isoEngine.IsoEngine;
 import js.Browser;
-
+import engine.isoEngine.IsoUtils;
+import engine.isoEngine.Displaying;
 
 class Tile {
 
@@ -19,19 +20,17 @@ class Tile {
         ground.width  = Tile.referent.size;
         ground.height = Tile.referent.size / 2;
 
-        Tile.referent.camera.addChild(ground);
+        Displaying.getInstance().displayMcOn(ground, "tiles");
     }
 
     public function changeGround (name:String) {
         ground.texture = Tile.referent.textures.get(name);
     }
 
-    private function place (x:Float, y:Float) {
-        var pxX:Float = x * Tile.referent.size / 2 - (y * Tile.referent.size / 2);
-        var pxY:Float = x * Tile.referent.size / 4 + (y * Tile.referent.size / 4);
-
-        ground.x = pxX;
-        ground.y = pxY;
+    private function place (x:Int, y:Int) {
+        var px = IsoUtils.coordToPx(x, y);
+        ground.x = px.x;
+        ground.y = px.y;
     }
 
     public function new () {
@@ -54,8 +53,9 @@ class Tile {
     public var isInteractive:Bool;
 
     public function setInteractive (_mouseEnter, _mouseExit) {
-        mouseEnter = _mouseEnter;
-        mouseExit  = _mouseExit;
+        mouseEnter    = _mouseEnter;
+        mouseExit     = _mouseExit;
+        isInteractive = true;
     }
 
 
