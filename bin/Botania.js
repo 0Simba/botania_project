@@ -9,7 +9,7 @@ var GameObject = function() {
 };
 GameObject.prototype = {
 	addComponent: function(name) {
-		if(name == "graphicTile") this.graphicTile = new engine.isoEngine.Tile(); else if(name == "interactiveTile") this.interactiveTile = new engine.isoEngine.InteractiveTile();
+		if(name == "graphicTile") this.graphicTile = new engine.isoEngine.components.Tile(); else if(name == "hudElement") this.hudElement = new engine.isoEngine.components.Hud();
 	}
 };
 var Main = function() {
@@ -77,95 +77,18 @@ engine.input.Keyboard.init = function() {
 	window.onkeyup = engine.input.Keyboard.onKeyUp;
 };
 engine.isoEngine = {};
-engine.isoEngine.Camera = function() { };
-engine.isoEngine.Camera.setRef = function(peonWhileTrue) {
-	engine.isoEngine.Camera.camera = engine.isoEngine.Displaying.getInstance().getCamera();
-	engine.isoEngine.Camera.isoEngine = peonWhileTrue;
-	engine.isoEngine.Camera.currentPos = new utils.Vector2(-1,-1);
-	engine.isoEngine.Camera.setMouse();
-};
-engine.isoEngine.Camera.move = function(x,y) {
-	if(y == null) y = 0;
-	if(x == null) x = 0;
-	engine.isoEngine.Camera.camera.x += x;
-	engine.isoEngine.Camera.camera.y += y;
-};
-engine.isoEngine.Camera.setMouse = function() {
-	engine.isoEngine.Camera.camera.interactive = true;
-	engine.isoEngine.Camera.camera.mousemove = engine.isoEngine.Camera.mousemove;
-};
-engine.isoEngine.Camera.mousemove = function(mouseData) {
-	var newPos = engine.isoEngine.Camera.pxToCoord(new utils.Vector2(mouseData.global.x,mouseData.global.y));
-	if(engine.isoEngine.Camera.tileChanged(newPos)) {
-		var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
-		if(tile != null) tile.mouseExit();
-		tile = engine.isoEngine.Camera.isoEngine.getMapedTile(newPos.x,newPos.y);
-		if(tile != null) {
-			tile.mouseEnter();
-			if(tile.isInteractive) engine.isoEngine.Camera.isoEngine.tileIndicator.overOn(newPos.x,newPos.y); else engine.isoEngine.Camera.isoEngine.tileIndicator.hide();
-		} else engine.isoEngine.Camera.isoEngine.tileIndicator.hide();
-	}
-	engine.isoEngine.Camera.currentPos = newPos;
-};
-engine.isoEngine.Camera.tileChanged = function(newPos) {
-	return newPos.x != engine.isoEngine.Camera.currentPos.x || newPos.y != engine.isoEngine.Camera.currentPos.y;
-};
-engine.isoEngine.Camera.pxToCoord = function(px) {
-	px.x -= engine.isoEngine.Camera.camera.x;
-	px.y -= engine.isoEngine.Camera.camera.y;
-	var newPos = new utils.Vector2(-1,-1);
-	newPos.x = Math.round((px.x - engine.isoEngine.Camera.isoEngine.size) / engine.isoEngine.Camera.isoEngine.size + px.y / (engine.isoEngine.Camera.isoEngine.size / 2));
-	newPos.y = Math.round(px.y / (engine.isoEngine.Camera.isoEngine.size / 2) - px.x / engine.isoEngine.Camera.isoEngine.size);
-	return newPos;
-};
-engine.isoEngine.Camera.onClick = function() {
-	var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
-	tile.mouseClick();
-};
-engine.isoEngine.Displaying = function(_stage) {
-	this.layers = new haxe.ds.StringMap();
-	this.stage = _stage;
-	this.createMainLayer("camera");
-	this.createMainLayer("hud");
-	this.createChildLayer("tiles","camera");
-	this.createChildLayer("overTiles","camera");
-};
-engine.isoEngine.Displaying.getInstance = function(stage) {
-	if(engine.isoEngine.Displaying.instance == null) engine.isoEngine.Displaying.instance = new engine.isoEngine.Displaying(stage);
-	return engine.isoEngine.Displaying.instance;
-};
-engine.isoEngine.Displaying.prototype = {
-	displayMcOn: function(mc,layer) {
-		this.layers.get(layer).addChild(mc);
-	}
-	,getCamera: function() {
-		return this.layers.get("camera");
-	}
-	,createMainLayer: function(name) {
-		var layer = new PIXI.Graphics();
-		this.stage.addChild(layer);
-		this.layers.set(name,layer);
-	}
-	,createChildLayer: function(name,parent) {
-		var layer = new PIXI.Graphics();
-		this.layers.get(parent).addChild(layer);
-		this.layers.set(name,layer);
-	}
-};
-engine.isoEngine.InteractiveTile = function() {
-};
 engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
 	this.mapTiles = new Array();
-	this.tileIndicator = engine.isoEngine.TileSelectionIndicator.getInstance();
+	this.tileIndicator = engine.isoEngine.controls.TileSelectionIndicator.getInstance();
 	this.size = 0;
 	this.renderer = PIXI.autoDetectRenderer(width,height);
 	window.document.body.appendChild(this.renderer.view);
-	this.displaying = engine.isoEngine.Displaying.getInstance(this.stage);
-	engine.isoEngine.Mouse.setRef(this.stage);
-	engine.isoEngine.Camera.setRef(this);
+	this.displaying = engine.isoEngine.controls.Displaying.getInstance(this.stage);
+	engine.isoEngine.controls.Mouse.setRef(this.stage);
+	engine.isoEngine.controls.Camera.setRef(this);
 };
 engine.isoEngine.IsoEngine.getInstance = function(_width,_height) {
 	if(_height == null) _height = 900;
@@ -227,38 +150,22 @@ engine.isoEngine.IsoUtils.coordToPx = function(x,y) {
 engine.isoEngine.IsoUtils.setSize = function(_size) {
 	engine.isoEngine.IsoUtils.size = _size;
 };
-engine.isoEngine.Mouse = function() { };
-engine.isoEngine.Mouse.onClick = function() {
-	engine.isoEngine.Camera.onClick();
+engine.isoEngine.components = {};
+engine.isoEngine.components.Hud = function() {
 };
-engine.isoEngine.Mouse.setRef = function(stage) {
-	engine.isoEngine.Mouse.stageRef = stage;
-	stage.mousemove = engine.isoEngine.Mouse.mouseMove;
-	stage.mousedown = engine.isoEngine.Mouse.mousedown;
-	stage.mouseup = engine.isoEngine.Mouse.mouseup;
-};
-engine.isoEngine.Mouse.mousedown = function(mouseData) {
-	engine.isoEngine.Mouse.status = "down";
-};
-engine.isoEngine.Mouse.mouseup = function(mouseData) {
-	engine.isoEngine.Mouse.status = "up";
-	engine.isoEngine.Mouse.onClick();
-};
-engine.isoEngine.Mouse.mouseMove = function(mouseData) {
-};
-engine.isoEngine.Tile = function() {
-	engine.isoEngine.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
+engine.isoEngine.components.Tile = function() {
+	engine.isoEngine.components.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
 	this.isInteractive = false;
 };
-engine.isoEngine.Tile.prototype = {
+engine.isoEngine.components.Tile.prototype = {
 	addGround: function(name) {
-		this.ground = new PIXI.MovieClip(engine.isoEngine.Tile.referent.animations.get(name));
-		this.ground.width = engine.isoEngine.Tile.referent.size;
-		this.ground.height = engine.isoEngine.Tile.referent.size / 2;
-		engine.isoEngine.Displaying.getInstance().displayMcOn(this.ground,"tiles");
+		this.ground = new PIXI.MovieClip(engine.isoEngine.components.Tile.referent.animations.get(name));
+		this.ground.width = engine.isoEngine.components.Tile.referent.size;
+		this.ground.height = engine.isoEngine.components.Tile.referent.size / 2;
+		engine.isoEngine.controls.Displaying.getInstance().displayMcOn(this.ground,"tiles");
 	}
 	,changeGround: function(name) {
-		this.ground.texture = engine.isoEngine.Tile.referent.textures.get(name);
+		this.ground.texture = engine.isoEngine.components.Tile.referent.textures.get(name);
 	}
 	,place: function(x,y) {
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
@@ -268,7 +175,7 @@ engine.isoEngine.Tile.prototype = {
 	,setPlace: function(_x,_y,_i) {
 		this.coord = new utils.ArrayCoord(_x,_y,_i);
 		this.place(_x,_y);
-		if(this.coord.i >= 0) engine.isoEngine.Tile.referent.addMapedTile(this);
+		if(this.coord.i >= 0) engine.isoEngine.components.Tile.referent.addMapedTile(this);
 	}
 	,setInteractive: function(_mouseEnter,_mouseExit,_mouseClick) {
 		this.mouseEnter = _mouseEnter;
@@ -283,13 +190,108 @@ engine.isoEngine.Tile.prototype = {
 	,mouseClick: function() {
 	}
 };
-engine.isoEngine.TileSelectionIndicator = function() {
+engine.isoEngine.controls = {};
+engine.isoEngine.controls.Camera = function() { };
+engine.isoEngine.controls.Camera.setRef = function(peonWhileTrue) {
+	engine.isoEngine.controls.Camera.camera = engine.isoEngine.controls.Displaying.getInstance().getCamera();
+	engine.isoEngine.controls.Camera.isoEngine = peonWhileTrue;
+	engine.isoEngine.controls.Camera.currentPos = new utils.Vector2(-1,-1);
+	engine.isoEngine.controls.Camera.setMouse();
 };
-engine.isoEngine.TileSelectionIndicator.getInstance = function() {
-	if(engine.isoEngine.TileSelectionIndicator.instance == null) engine.isoEngine.TileSelectionIndicator.instance = new engine.isoEngine.TileSelectionIndicator();
-	return engine.isoEngine.TileSelectionIndicator.instance;
+engine.isoEngine.controls.Camera.move = function(x,y) {
+	if(y == null) y = 0;
+	if(x == null) x = 0;
+	engine.isoEngine.controls.Camera.camera.x += x;
+	engine.isoEngine.controls.Camera.camera.y += y;
 };
-engine.isoEngine.TileSelectionIndicator.prototype = {
+engine.isoEngine.controls.Camera.setMouse = function() {
+	engine.isoEngine.controls.Camera.camera.interactive = true;
+	engine.isoEngine.controls.Camera.camera.mousemove = engine.isoEngine.controls.Camera.mousemove;
+};
+engine.isoEngine.controls.Camera.mousemove = function(mouseData) {
+	var newPos = engine.isoEngine.controls.Camera.pxToCoord(new utils.Vector2(mouseData.global.x,mouseData.global.y));
+	if(engine.isoEngine.controls.Camera.tileChanged(newPos)) {
+		var tile = engine.isoEngine.controls.Camera.isoEngine.getMapedTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
+		if(tile != null) tile.mouseExit();
+		tile = engine.isoEngine.controls.Camera.isoEngine.getMapedTile(newPos.x,newPos.y);
+		if(tile != null) {
+			tile.mouseEnter();
+			if(tile.isInteractive) engine.isoEngine.controls.Camera.isoEngine.tileIndicator.overOn(newPos.x,newPos.y); else engine.isoEngine.controls.Camera.isoEngine.tileIndicator.hide();
+		} else engine.isoEngine.controls.Camera.isoEngine.tileIndicator.hide();
+	}
+	engine.isoEngine.controls.Camera.currentPos = newPos;
+};
+engine.isoEngine.controls.Camera.tileChanged = function(newPos) {
+	return newPos.x != engine.isoEngine.controls.Camera.currentPos.x || newPos.y != engine.isoEngine.controls.Camera.currentPos.y;
+};
+engine.isoEngine.controls.Camera.pxToCoord = function(px) {
+	px.x -= engine.isoEngine.controls.Camera.camera.x;
+	px.y -= engine.isoEngine.controls.Camera.camera.y;
+	var newPos = new utils.Vector2(-1,-1);
+	newPos.x = Math.round((px.x - engine.isoEngine.controls.Camera.isoEngine.size) / engine.isoEngine.controls.Camera.isoEngine.size + px.y / (engine.isoEngine.controls.Camera.isoEngine.size / 2));
+	newPos.y = Math.round(px.y / (engine.isoEngine.controls.Camera.isoEngine.size / 2) - px.x / engine.isoEngine.controls.Camera.isoEngine.size);
+	return newPos;
+};
+engine.isoEngine.controls.Camera.onClick = function() {
+	var tile = engine.isoEngine.controls.Camera.isoEngine.getMapedTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
+	tile.mouseClick();
+};
+engine.isoEngine.controls.Displaying = function(_stage) {
+	this.layers = new haxe.ds.StringMap();
+	this.stage = _stage;
+	this.createMainLayer("camera");
+	this.createMainLayer("hud");
+	this.createChildLayer("tiles","camera");
+	this.createChildLayer("overTiles","camera");
+};
+engine.isoEngine.controls.Displaying.getInstance = function(stage) {
+	if(engine.isoEngine.controls.Displaying.instance == null) engine.isoEngine.controls.Displaying.instance = new engine.isoEngine.controls.Displaying(stage);
+	return engine.isoEngine.controls.Displaying.instance;
+};
+engine.isoEngine.controls.Displaying.prototype = {
+	displayMcOn: function(mc,layer) {
+		this.layers.get(layer).addChild(mc);
+	}
+	,getCamera: function() {
+		return this.layers.get("camera");
+	}
+	,createMainLayer: function(name) {
+		var layer = new PIXI.Graphics();
+		this.stage.addChild(layer);
+		this.layers.set(name,layer);
+	}
+	,createChildLayer: function(name,parent) {
+		var layer = new PIXI.Graphics();
+		this.layers.get(parent).addChild(layer);
+		this.layers.set(name,layer);
+	}
+};
+engine.isoEngine.controls.Mouse = function() { };
+engine.isoEngine.controls.Mouse.onClick = function() {
+	engine.isoEngine.controls.Camera.onClick();
+};
+engine.isoEngine.controls.Mouse.setRef = function(stage) {
+	engine.isoEngine.controls.Mouse.stageRef = stage;
+	stage.mousemove = engine.isoEngine.controls.Mouse.mouseMove;
+	stage.mousedown = engine.isoEngine.controls.Mouse.mousedown;
+	stage.mouseup = engine.isoEngine.controls.Mouse.mouseup;
+};
+engine.isoEngine.controls.Mouse.mousedown = function(mouseData) {
+	engine.isoEngine.controls.Mouse.status = "down";
+};
+engine.isoEngine.controls.Mouse.mouseup = function(mouseData) {
+	engine.isoEngine.controls.Mouse.status = "up";
+	engine.isoEngine.controls.Mouse.onClick();
+};
+engine.isoEngine.controls.Mouse.mouseMove = function(mouseData) {
+};
+engine.isoEngine.controls.TileSelectionIndicator = function() {
+};
+engine.isoEngine.controls.TileSelectionIndicator.getInstance = function() {
+	if(engine.isoEngine.controls.TileSelectionIndicator.instance == null) engine.isoEngine.controls.TileSelectionIndicator.instance = new engine.isoEngine.controls.TileSelectionIndicator();
+	return engine.isoEngine.controls.TileSelectionIndicator.instance;
+};
+engine.isoEngine.controls.TileSelectionIndicator.prototype = {
 	overOn: function(x,y) {
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
 		this.movieClip.x = px.x;
@@ -305,7 +307,7 @@ engine.isoEngine.TileSelectionIndicator.prototype = {
 		this.movieClip = new PIXI.MovieClip(this.isoEngine.animations.get("tileIndicator"));
 		this.movieClip.width = this.isoEngine.size;
 		this.movieClip.height = this.isoEngine.size / 2;
-		engine.isoEngine.Displaying.getInstance().displayMcOn(this.movieClip,"overTiles");
+		engine.isoEngine.controls.Displaying.getInstance().displayMcOn(this.movieClip,"overTiles");
 	}
 	,createAnimation: function(isoEngine) {
 		isoEngine.addTexture("over","over");
@@ -384,10 +386,10 @@ var manager = {};
 manager.CameraManager = function() { };
 manager.CameraManager.update = function() {
 	var speed = 20 * Main.deltaTime;
-	if(engine.input.Keyboard.key.get("right")) engine.isoEngine.Camera.move(-speed,0);
-	if(engine.input.Keyboard.key.get("left")) engine.isoEngine.Camera.move(speed,0);
-	if(engine.input.Keyboard.key.get("up")) engine.isoEngine.Camera.move(0,speed);
-	if(engine.input.Keyboard.key.get("down")) engine.isoEngine.Camera.move(0,-speed);
+	if(engine.input.Keyboard.key.get("right")) engine.isoEngine.controls.Camera.move(-speed,0);
+	if(engine.input.Keyboard.key.get("left")) engine.isoEngine.controls.Camera.move(speed,0);
+	if(engine.input.Keyboard.key.get("up")) engine.isoEngine.controls.Camera.move(0,speed);
+	if(engine.input.Keyboard.key.get("down")) engine.isoEngine.controls.Camera.move(0,-speed);
 };
 manager.Map = function() {
 	this.tiles = new Array();
@@ -439,9 +441,6 @@ utils.ArrayCoord = function(_x,_y,_i) {
 	this.y = _y;
 	this.i = _i;
 };
-utils.Event = function(_event) {
-	this.event = _event;
-};
 utils.Vector2 = function(_x,_y) {
 	if(_x == null) _x = 0;
 	this.x = _x;
@@ -461,6 +460,6 @@ Math.isNaN = function(i1) {
 Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
 engine.isoEngine.IsoUtils.size = 0;
-engine.isoEngine.Mouse.status = "up";
+engine.isoEngine.controls.Mouse.status = "up";
 Main.main();
 })();

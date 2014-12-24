@@ -3,7 +3,7 @@ package ;
 import engine.input.Keyboard;
 import js.Browser;
 import engine.isoEngine.IsoEngine;
-import engine.isoEngine.Camera;
+import engine.isoEngine.controls.Camera;
 import manager.Camera.CameraManager;
 class Main
 {

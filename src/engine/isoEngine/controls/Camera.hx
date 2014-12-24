@@ -1,10 +1,10 @@
-package engine.isoEngine;
+package engine.isoEngine.controls;
 
 import pixi.primitives.Graphics;
 import utils.Vector2;
-import engine.isoEngine.Tile;
+import engine.isoEngine.components.Tile;
 import engine.isoEngine.IsoEngine;
-import engine.isoEngine.Displaying;
+import engine.isoEngine.controls.Displaying;
 
 class Camera
 {

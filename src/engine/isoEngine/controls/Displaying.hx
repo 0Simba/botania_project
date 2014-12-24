@@ -1,4 +1,4 @@
-package engine.isoEngine;
+package engine.isoEngine.controls;
 
 import js.Browser;
 import pixi.primitives.Graphics;
@@ -6,7 +6,7 @@ import pixi.display.MovieClip;
 import pixi.display.Stage;
 
 import engine.isoEngine.IsoEngine;
-import engine.isoEngine.Camera;
+import engine.isoEngine.controls.Camera;
 
 class Displaying
 {

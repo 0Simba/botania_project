@@ -1,10 +1,10 @@
-package engine.isoEngine;
+package engine.isoEngine.components;
 
 import pixi.display.MovieClip;
 import engine.isoEngine.IsoEngine;
 import js.Browser;
 import engine.isoEngine.IsoUtils;
-import engine.isoEngine.Displaying;
+import engine.isoEngine.controls.Displaying;
 
 class Tile {
 

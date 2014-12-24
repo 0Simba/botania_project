@@ -1,7 +1,7 @@
 package manager;
 
 import engine.input.Keyboard;
-import engine.isoEngine.Camera;
+import engine.isoEngine.controls.Camera;
 
 class CameraManager {
 

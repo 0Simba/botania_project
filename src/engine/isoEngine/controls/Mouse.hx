@@ -1,8 +1,7 @@
-package engine.isoEngine;
+package engine.isoEngine.controls;
 
 import pixi.display.Stage;
 import utils.Vector2;
-import utils.Event;
 
 class Mouse
 {

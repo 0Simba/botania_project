@@ -8,11 +8,12 @@ import pixi.textures.Texture;
 import pixi.primitives.Graphics;
 import pixi.display.MovieClip;
 
-import engine.isoEngine.Tile;
-import engine.isoEngine.Mouse;
-import engine.isoEngine.TileSelectionIndicator;
+import engine.isoEngine.components.Tile;
+import engine.isoEngine.controls.Mouse;
+import engine.isoEngine.controls.TileSelectionIndicator;
 import engine.isoEngine.IsoUtils;
-import engine.isoEngine.Displaying;
+import engine.isoEngine.controls.Displaying;
+import engine.isoEngine.controls.Camera;
 
 import js.Browser;
 
