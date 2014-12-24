@@ -8,6 +8,14 @@
     "spriteSourceSize": {"x":0,"y":0,"w":64,"h":32},
     "sourceSize": {"w":64,"h":32}
 },
+"corner":
+{
+    "frame": {"x":0, "y":202,"w":64,"h":32},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":64,"h":32},
+    "sourceSize": {"w":64,"h":32}
+},
 "water":
 {
     "frame": {"x":192,"y":342,"w":64,"h":32},

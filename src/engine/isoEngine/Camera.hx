@@ -72,4 +72,9 @@ class Camera
         return newPos;
     }
 
+    static public function onClick () {
+        var tile = isoEngine.getMapedTile(cast currentPos.x, cast currentPos.y);
+        tile.mouseClick();
+    }
+
 }

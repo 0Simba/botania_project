@@ -118,10 +118,15 @@ engine.isoEngine.Camera.pxToCoord = function(px) {
 	newPos.y = Math.round(px.y / (engine.isoEngine.Camera.isoEngine.size / 2) - px.x / engine.isoEngine.Camera.isoEngine.size);
 	return newPos;
 };
+engine.isoEngine.Camera.onClick = function() {
+	var tile = engine.isoEngine.Camera.isoEngine.getMapedTile(engine.isoEngine.Camera.currentPos.x,engine.isoEngine.Camera.currentPos.y);
+	tile.mouseClick();
+};
 engine.isoEngine.Displaying = function(_stage) {
 	this.layers = new haxe.ds.StringMap();
 	this.stage = _stage;
 	this.createMainLayer("camera");
+	this.createMainLayer("hud");
 	this.createChildLayer("tiles","camera");
 	this.createChildLayer("overTiles","camera");
 };
@@ -132,8 +137,6 @@ engine.isoEngine.Displaying.getInstance = function(stage) {
 engine.isoEngine.Displaying.prototype = {
 	displayMcOn: function(mc,layer) {
 		this.layers.get(layer).addChild(mc);
-	}
-	,displayOn: function(movieClip,layerName) {
 	}
 	,getCamera: function() {
 		return this.layers.get("camera");
@@ -225,9 +228,21 @@ engine.isoEngine.IsoUtils.setSize = function(_size) {
 	engine.isoEngine.IsoUtils.size = _size;
 };
 engine.isoEngine.Mouse = function() { };
+engine.isoEngine.Mouse.onClick = function() {
+	engine.isoEngine.Camera.onClick();
+};
 engine.isoEngine.Mouse.setRef = function(stage) {
 	engine.isoEngine.Mouse.stageRef = stage;
 	stage.mousemove = engine.isoEngine.Mouse.mouseMove;
+	stage.mousedown = engine.isoEngine.Mouse.mousedown;
+	stage.mouseup = engine.isoEngine.Mouse.mouseup;
+};
+engine.isoEngine.Mouse.mousedown = function(mouseData) {
+	engine.isoEngine.Mouse.status = "down";
+};
+engine.isoEngine.Mouse.mouseup = function(mouseData) {
+	engine.isoEngine.Mouse.status = "up";
+	engine.isoEngine.Mouse.onClick();
 };
 engine.isoEngine.Mouse.mouseMove = function(mouseData) {
 };
@@ -255,14 +270,17 @@ engine.isoEngine.Tile.prototype = {
 		this.place(_x,_y);
 		if(this.coord.i >= 0) engine.isoEngine.Tile.referent.addMapedTile(this);
 	}
-	,setInteractive: function(_mouseEnter,_mouseExit) {
+	,setInteractive: function(_mouseEnter,_mouseExit,_mouseClick) {
 		this.mouseEnter = _mouseEnter;
 		this.mouseExit = _mouseExit;
+		this.mouseClick = _mouseClick;
 		this.isInteractive = true;
 	}
 	,mouseEnter: function() {
 	}
 	,mouseExit: function() {
+	}
+	,mouseClick: function() {
 	}
 };
 engine.isoEngine.TileSelectionIndicator = function() {
@@ -301,13 +319,16 @@ entities.Tile = function() {
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
-	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit));
+	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
 	}
 	,mousequit: function() {
+	}
+	,mouseClick: function() {
+		this.graphicTile.changeGround("grass");
 	}
 });
 var haxe = {};
@@ -346,9 +367,11 @@ init.Assets.load = function() {
 init.Assets.assetLoaded = function() {
 	init.Assets.isoEngine.addTexture("grass","grass");
 	init.Assets.isoEngine.addTexture("water","water");
+	init.Assets.isoEngine.addTexture("corner","corner");
 	var list = new Array();
 	list.push("water");
 	list.push("grass");
+	list.push("corner");
 	init.Assets.isoEngine.createAnimation("ground",list);
 	Main.ready();
 };
@@ -416,6 +439,9 @@ utils.ArrayCoord = function(_x,_y,_i) {
 	this.y = _y;
 	this.i = _i;
 };
+utils.Event = function(_event) {
+	this.event = _event;
+};
 utils.Vector2 = function(_x,_y) {
 	if(_x == null) _x = 0;
 	this.x = _x;
@@ -435,5 +461,6 @@ Math.isNaN = function(i1) {
 Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
 engine.isoEngine.IsoUtils.size = 0;
+engine.isoEngine.Mouse.status = "up";
 Main.main();
 })();

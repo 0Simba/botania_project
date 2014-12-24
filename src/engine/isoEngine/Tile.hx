@@ -52,13 +52,15 @@ class Tile {
 
     public var isInteractive:Bool;
 
-    public function setInteractive (_mouseEnter, _mouseExit) {
+    public function setInteractive (_mouseEnter, _mouseExit, _mouseClick) {
         mouseEnter    = _mouseEnter;
         mouseExit     = _mouseExit;
+        mouseClick    = _mouseClick;
         isInteractive = true;
     }
 
 
     dynamic public function mouseEnter () {}
     dynamic public function mouseExit () {}
+    dynamic public function mouseClick () {}
 }

@@ -16,9 +16,7 @@ class Displaying
         layers.get(layer).addChild(mc);
     }
 
-    public function displayOn (movieClip:MovieClip, layerName:String) {
 
-    }
 
 
 
@@ -36,6 +34,7 @@ class Displaying
         stage = _stage;
 
         createMainLayer("camera");
+        createMainLayer("hud");
         createChildLayer("tiles", "camera");
         createChildLayer("overTiles", "camera");
     }
