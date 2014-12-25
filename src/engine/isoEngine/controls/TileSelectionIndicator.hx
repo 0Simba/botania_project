@@ -32,24 +32,19 @@ class TileSelectionIndicator {
         isoEngine = IsoEngine.getInstance();
         createAnimation(isoEngine);
 
-        movieClip = new MovieClip(isoEngine.animations.get("tileIndicator"));
+        movieClip = new MovieClip(isoEngine.assets.animations.get("tileIndicator"));
         movieClip.width  = isoEngine.size;
         movieClip.height = isoEngine.size / 2;
 
-        Displaying.getInstance().displayMcOn(movieClip, "overTiles");
+        isoEngine.displaying.displayMcOn(movieClip, "overTiles");
     }
 
     public function createAnimation (isoEngine:IsoEngine) {
-        isoEngine.addTexture("over", "over");
+        isoEngine.assets.addTexture("over", "over");
         var list:Array<String> = new Array<String>();
         list.push("over");
-        isoEngine.createAnimation("tileIndicator", list);
+        isoEngine.assets.createAnimation("tileIndicator", list);
     }
 
-    private function new () {};
-
-    static public function getInstance () {
-        if (instance == null) instance = new TileSelectionIndicator();
-        return instance;
-    }
+    public function new () {}
 }

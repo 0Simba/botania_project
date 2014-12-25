@@ -17,6 +17,7 @@ class Main
 	private function new () {
 		deltaTime = 0;
 					// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
+		IsoEngine.init(1120, 630);
 		init.Assets.load();
 	}
 

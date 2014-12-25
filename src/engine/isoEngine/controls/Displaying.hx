@@ -29,7 +29,7 @@ class Displaying
         return layers.get('camera');
     }
 
-    private function new (_stage:Stage) {
+    public function new (_stage:Stage) {
         layers = new Map<String, Graphics>();
         stage = _stage;
 
@@ -49,10 +49,5 @@ class Displaying
         var layer = new Graphics();
         layers.get(parent).addChild(layer);
         layers.set(name, layer);
-    }
-
-    public static function getInstance (stage:Stage = null) {
-        if (instance == null) instance = new Displaying(stage);
-        return instance;
     }
 }

@@ -15,16 +15,16 @@ class Tile {
     public var coord:utils.ArrayCoord;
 
     public function addGround (name:String) {
-        ground = new MovieClip(Tile.referent.animations.get(name));
+        ground = new MovieClip(Tile.referent.assets.animations.get(name));
 
         ground.width  = Tile.referent.size;
         ground.height = Tile.referent.size / 2;
 
-        Displaying.getInstance().displayMcOn(ground, "tiles");
+        Tile.referent.displaying.displayMcOn(ground, "tiles");
     }
 
     public function changeGround (name:String) {
-        ground.texture = Tile.referent.textures.get(name);
+        ground.texture = Tile.referent.assets.textures.get(name);
     }
 
     private function place (x:Int, y:Int) {
@@ -43,7 +43,7 @@ class Tile {
         place(_x, _y);
 
         if (coord.i >= 0) {
-            Tile.referent.addMapedTile(this);
+            Tile.referent.map.addTile(this);
         }
     }
 

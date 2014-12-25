@@ -8,21 +8,21 @@ class Assets
     static private var isoEngine:IsoEngine;
 
     static public function load () {
-        isoEngine = IsoEngine.getInstance(1120, 630);
+        isoEngine = IsoEngine.getInstance();
         isoEngine.setTileSize(128);
 
-        isoEngine.load(["../assets/iso.json"], assetLoaded);
+        isoEngine.assets.load(["../assets/iso.json"], assetLoaded);
     }
 
     static private function assetLoaded () {
-        isoEngine.addTexture("grass", "grass");
-        isoEngine.addTexture("water", "water");
-        isoEngine.addTexture("corner", "corner");
+        isoEngine.assets.addTexture("grass", "grass");
+        isoEngine.assets.addTexture("water", "water");
+        isoEngine.assets.addTexture("corner", "corner");
         var list:Array<String> = new Array<String>();
         list.push("water");
         list.push("grass");
         list.push("corner");
-        isoEngine.createAnimation("ground", list);
+        isoEngine.assets.createAnimation("ground", list);
 
         Main.ready();
     }

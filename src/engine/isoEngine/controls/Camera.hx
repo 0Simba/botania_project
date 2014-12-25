@@ -15,8 +15,8 @@ class Camera
     static private var currentPos:Vector2;
 
     static public function setRef (peonWhileTrue) { // IsoEngine.getInstance == crash
-        camera     = Displaying.getInstance().getCamera();
         isoEngine  = peonWhileTrue;
+        camera     = isoEngine.displaying.getCamera();
         currentPos = new Vector2(-1, -1);
         setMouse();
     }
@@ -35,12 +35,12 @@ class Camera
         var newPos = pxToCoord(new Vector2(mouseData.global.x, mouseData.global.y));
 
         if (tileChanged(newPos)) {
-            var tile = isoEngine.getMapedTile(cast currentPos.x, cast currentPos.y);
+            var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);
             if (tile != null) {
                 tile.mouseExit();
             }
 
-            tile = isoEngine.getMapedTile(cast newPos.x, cast newPos.y);
+            tile = isoEngine.map.getTile(cast newPos.x, cast newPos.y);
             if (tile != null) {
                 tile.mouseEnter();
                 if (tile.isInteractive) {
@@ -73,7 +73,7 @@ class Camera
     }
 
     static public function onClick () {
-        var tile = isoEngine.getMapedTile(cast currentPos.x, cast currentPos.y);
+        var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);
         tile.mouseClick();
     }
 
