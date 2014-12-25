@@ -2,6 +2,7 @@ package engine.isoEngine.managers;
 
 import pixi.display.MovieClip;
 import engine.isoEngine.IsoEngine;
+import engine.isoEngine.components.Tile;
 
 class TileSelectionIndicator {
 
@@ -33,8 +34,8 @@ class TileSelectionIndicator {
         createAnimation(isoEngine);
 
         movieClip = new MovieClip(isoEngine.assets.animations.get("tileIndicator"));
-        movieClip.width  = isoEngine.size;
-        movieClip.height = isoEngine.size / 2;
+        movieClip.width  = Tile.size;
+        movieClip.height = Tile.size / 2;
 
         isoEngine.displaying.displayMcOn(movieClip, "overTiles");
     }

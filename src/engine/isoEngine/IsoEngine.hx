@@ -3,7 +3,6 @@ package engine.isoEngine;
 import pixi.display.Stage;
 import pixi.renderers.webgl.WebGLRenderer;
 import pixi.utils.Detector;
-import pixi.loaders.AssetLoader;
 
 import engine.isoEngine.managers.TileSelectionIndicator;
 import engine.isoEngine.managers.Displaying;
@@ -32,6 +31,14 @@ class IsoEngine
 
 
     private function new (width:Int, height:Int) {
+        build();
+
+        renderer = Detector.autoDetectRenderer(width, height);
+        Browser.document.body.appendChild(renderer.view);
+    }
+
+
+    private function build () {
         stage         = new Stage(0xCFCFCF);
         map           = new Maping();
         assets        = new Assets(this);
@@ -39,15 +46,8 @@ class IsoEngine
         displaying    = new Displaying(stage);
         Mouse.setRef(stage);
         Camera.setRef(this);
-
-        size          = 0;
-
-
-
-
-        renderer = Detector.autoDetectRenderer(width, height);
-        Browser.document.body.appendChild(renderer.view);
     }
+
 
     static public function init (width:Int = 1600, height:Int = 900) {
         if (instance == null) {
@@ -57,27 +57,14 @@ class IsoEngine
 
         /***** YOU DON'T CARE *****/
 
-    private var renderer:WebGLRenderer;
-
-    public var size:Int;
-
     private static var instance: IsoEngine;
-
+    private var renderer:WebGLRenderer;
 
     public function destroy (): Void {
         instance = null;
     }
 
-
-
     public function render () {
         renderer.render(stage);
     }
-
-    public function setTileSize (_size:Int) {
-        size = _size;
-        IsoUtils.setSize(size);
-    }
-
-
 }

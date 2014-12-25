@@ -66,8 +66,8 @@ class Camera
         px.y -= camera.y;
 
         var newPos = new Vector2(-1, -1);
-        newPos.x = Math.round( (px.x - isoEngine.size) / (isoEngine.size) + px.y / (isoEngine.size / 2) );
-        newPos.y = Math.round( (px.y / (isoEngine.size / 2)) - px.x / (isoEngine.size));
+        newPos.x = Math.round( (px.x - Tile.size) / (Tile.size) + px.y / (Tile.size / 2) );
+        newPos.y = Math.round( (px.y / (Tile.size / 2)) - px.x / (Tile.size));
 
         return newPos;
     }

@@ -1,6 +1,7 @@
 package init;
 
 import engine.isoEngine.IsoEngine;
+import engine.isoEngine.components.Tile;
 
 class Assets
 {
@@ -8,8 +9,8 @@ class Assets
     static private var isoEngine:IsoEngine;
 
     static public function load () {
+        Tile.setSize(128);
         isoEngine = IsoEngine.getInstance();
-        isoEngine.setTileSize(128);
 
         isoEngine.assets.load(["../assets/iso.json"], assetLoaded);
     }
