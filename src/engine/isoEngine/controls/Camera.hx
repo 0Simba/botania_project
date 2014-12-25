@@ -4,7 +4,7 @@ import pixi.primitives.Graphics;
 import utils.Vector2;
 import engine.isoEngine.components.Tile;
 import engine.isoEngine.IsoEngine;
-import engine.isoEngine.controls.Displaying;
+import engine.isoEngine.managers.Displaying;
 
 class Camera
 {

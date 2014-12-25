@@ -82,8 +82,8 @@ engine.isoEngine.IsoEngine = function(width,height) {
 	this.stage = new PIXI.Stage(13619151);
 	this.map = new engine.isoEngine.managers.Maping();
 	this.assets = new engine.isoEngine.managers.Assets(this);
-	this.tileIndicator = new engine.isoEngine.controls.TileSelectionIndicator();
-	this.displaying = new engine.isoEngine.controls.Displaying(this.stage);
+	this.tileIndicator = new engine.isoEngine.managers.TileSelectionIndicator();
+	this.displaying = new engine.isoEngine.managers.Displaying(this.stage);
 	engine.isoEngine.controls.Mouse.setRef(this.stage);
 	engine.isoEngine.controls.Camera.setRef(this);
 	this.size = 0;
@@ -206,32 +206,6 @@ engine.isoEngine.controls.Camera.onClick = function() {
 	var tile = engine.isoEngine.controls.Camera.isoEngine.map.getTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
 	tile.mouseClick();
 };
-engine.isoEngine.controls.Displaying = function(_stage) {
-	this.layers = new haxe.ds.StringMap();
-	this.stage = _stage;
-	this.createMainLayer("camera");
-	this.createMainLayer("hud");
-	this.createChildLayer("tiles","camera");
-	this.createChildLayer("overTiles","camera");
-};
-engine.isoEngine.controls.Displaying.prototype = {
-	displayMcOn: function(mc,layer) {
-		this.layers.get(layer).addChild(mc);
-	}
-	,getCamera: function() {
-		return this.layers.get("camera");
-	}
-	,createMainLayer: function(name) {
-		var layer = new PIXI.Graphics();
-		this.stage.addChild(layer);
-		this.layers.set(name,layer);
-	}
-	,createChildLayer: function(name,parent) {
-		var layer = new PIXI.Graphics();
-		this.layers.get(parent).addChild(layer);
-		this.layers.set(name,layer);
-	}
-};
 engine.isoEngine.controls.Mouse = function() { };
 engine.isoEngine.controls.Mouse.onClick = function() {
 	engine.isoEngine.controls.Camera.onClick();
@@ -250,33 +224,6 @@ engine.isoEngine.controls.Mouse.mouseup = function(mouseData) {
 	engine.isoEngine.controls.Mouse.onClick();
 };
 engine.isoEngine.controls.Mouse.mouseMove = function(mouseData) {
-};
-engine.isoEngine.controls.TileSelectionIndicator = function() {
-};
-engine.isoEngine.controls.TileSelectionIndicator.prototype = {
-	overOn: function(x,y) {
-		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
-		this.movieClip.x = px.x;
-		this.movieClip.y = px.y;
-		this.movieClip.visible = true;
-	}
-	,hide: function() {
-		this.movieClip.visible = false;
-	}
-	,assetLoaded: function() {
-		this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
-		this.createAnimation(this.isoEngine);
-		this.movieClip = new PIXI.MovieClip(this.isoEngine.assets.animations.get("tileIndicator"));
-		this.movieClip.width = this.isoEngine.size;
-		this.movieClip.height = this.isoEngine.size / 2;
-		this.isoEngine.displaying.displayMcOn(this.movieClip,"overTiles");
-	}
-	,createAnimation: function(isoEngine) {
-		isoEngine.assets.addTexture("over","over");
-		var list = new Array();
-		list.push("over");
-		isoEngine.assets.createAnimation("tileIndicator",list);
-	}
 };
 engine.isoEngine.managers = {};
 engine.isoEngine.managers.Assets = function(_sup) {
@@ -310,6 +257,32 @@ engine.isoEngine.managers.Assets.prototype = {
 		loader.load();
 	}
 };
+engine.isoEngine.managers.Displaying = function(_stage) {
+	this.layers = new haxe.ds.StringMap();
+	this.stage = _stage;
+	this.createMainLayer("camera");
+	this.createMainLayer("hud");
+	this.createChildLayer("tiles","camera");
+	this.createChildLayer("overTiles","camera");
+};
+engine.isoEngine.managers.Displaying.prototype = {
+	displayMcOn: function(mc,layer) {
+		this.layers.get(layer).addChild(mc);
+	}
+	,getCamera: function() {
+		return this.layers.get("camera");
+	}
+	,createMainLayer: function(name) {
+		var layer = new PIXI.Graphics();
+		this.stage.addChild(layer);
+		this.layers.set(name,layer);
+	}
+	,createChildLayer: function(name,parent) {
+		var layer = new PIXI.Graphics();
+		this.layers.get(parent).addChild(layer);
+		this.layers.set(name,layer);
+	}
+};
 engine.isoEngine.managers.Maping = function() {
 	this.tiles = new Array();
 };
@@ -321,6 +294,33 @@ engine.isoEngine.managers.Maping.prototype = {
 	,addTile: function(tile) {
 		if(this.tiles[tile.coord.x] == null) this.tiles[tile.coord.x] = new Array();
 		this.tiles[tile.coord.x][tile.coord.y] = tile;
+	}
+};
+engine.isoEngine.managers.TileSelectionIndicator = function() {
+};
+engine.isoEngine.managers.TileSelectionIndicator.prototype = {
+	overOn: function(x,y) {
+		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
+		this.movieClip.x = px.x;
+		this.movieClip.y = px.y;
+		this.movieClip.visible = true;
+	}
+	,hide: function() {
+		this.movieClip.visible = false;
+	}
+	,assetLoaded: function() {
+		this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+		this.createAnimation(this.isoEngine);
+		this.movieClip = new PIXI.MovieClip(this.isoEngine.assets.animations.get("tileIndicator"));
+		this.movieClip.width = this.isoEngine.size;
+		this.movieClip.height = this.isoEngine.size / 2;
+		this.isoEngine.displaying.displayMcOn(this.movieClip,"overTiles");
+	}
+	,createAnimation: function(isoEngine) {
+		isoEngine.assets.addTexture("over","over");
+		var list = new Array();
+		list.push("over");
+		isoEngine.assets.createAnimation("tileIndicator",list);
 	}
 };
 var entities = {};

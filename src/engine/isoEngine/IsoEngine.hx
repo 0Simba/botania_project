@@ -5,14 +5,14 @@ import pixi.renderers.webgl.WebGLRenderer;
 import pixi.utils.Detector;
 import pixi.loaders.AssetLoader;
 
-import engine.isoEngine.components.Tile;
-import engine.isoEngine.controls.Mouse;
-import engine.isoEngine.controls.TileSelectionIndicator;
-import engine.isoEngine.IsoUtils;
-import engine.isoEngine.controls.Displaying;
-import engine.isoEngine.controls.Camera;
+import engine.isoEngine.managers.TileSelectionIndicator;
+import engine.isoEngine.managers.Displaying;
 import engine.isoEngine.managers.Maping;
 import engine.isoEngine.managers.Assets;
+import engine.isoEngine.components.Tile;
+import engine.isoEngine.controls.Camera;
+import engine.isoEngine.controls.Mouse;
+import engine.isoEngine.IsoUtils;
 
 import js.Browser;
 

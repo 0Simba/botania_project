@@ -1,4 +1,4 @@
-package engine.isoEngine.controls;
+package engine.isoEngine.managers;
 
 import js.Browser;
 import pixi.primitives.Graphics;

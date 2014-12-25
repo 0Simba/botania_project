@@ -1,4 +1,4 @@
-package engine.isoEngine.controls;
+package engine.isoEngine.managers;
 
 import pixi.display.MovieClip;
 import engine.isoEngine.IsoEngine;

@@ -4,7 +4,7 @@ import pixi.display.MovieClip;
 import engine.isoEngine.IsoEngine;
 import js.Browser;
 import engine.isoEngine.IsoUtils;
-import engine.isoEngine.controls.Displaying;
+import engine.isoEngine.managers.Displaying;
 
 class Tile {
 
