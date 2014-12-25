@@ -8,7 +8,7 @@ import engine.isoEngine.managers.Displaying;
 
 class Tile {
 
-    static var referent:IsoEngine;
+    static var isoEngine:IsoEngine;
     static public var size:Int = 64;
 
     public var ground:MovieClip;
@@ -20,17 +20,17 @@ class Tile {
 
             /***** GROUND *****/
     public function addGround (name:String) {
-        ground = new MovieClip(Tile.referent.assets.animations.get(name));
+        ground = new MovieClip(isoEngine.assets.animations.get(name));
 
         ground.width  = size;
         ground.height = size / 2;
 
-        Tile.referent.displaying.displayMcOn(ground, "tiles");
+        isoEngine.displaying.displayMcOn(ground, "tiles");
     }
 
 
     public function changeGround (name:String) {
-        ground.texture = Tile.referent.assets.textures.get(name);
+        ground.texture = isoEngine.assets.textures.get(name);
     }
 
 
@@ -48,7 +48,7 @@ class Tile {
         place(_x, _y);
 
         if (coord.i >= 0) {
-            Tile.referent.map.addTile(this);
+            isoEngine.map.addTile(this);
         }
     }
 
@@ -74,7 +74,7 @@ class Tile {
 
         /***** YOU DON'T CARE *****/
     public function new () {
-        Tile.referent = IsoEngine.getInstance();
+        isoEngine = IsoEngine.getInstance();
         isInteractive = false;
     }
 

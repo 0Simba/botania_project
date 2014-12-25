@@ -127,7 +127,7 @@ engine.isoEngine.components.Hud.prototype = {
 	}
 };
 engine.isoEngine.components.Tile = function() {
-	engine.isoEngine.components.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
+	engine.isoEngine.components.Tile.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	this.isInteractive = false;
 };
 engine.isoEngine.components.Tile.setSize = function(_size) {
@@ -135,13 +135,13 @@ engine.isoEngine.components.Tile.setSize = function(_size) {
 };
 engine.isoEngine.components.Tile.prototype = {
 	addGround: function(name) {
-		this.ground = new PIXI.MovieClip(engine.isoEngine.components.Tile.referent.assets.animations.get(name));
+		this.ground = new PIXI.MovieClip(engine.isoEngine.components.Tile.isoEngine.assets.animations.get(name));
 		this.ground.width = engine.isoEngine.components.Tile.size;
 		this.ground.height = engine.isoEngine.components.Tile.size / 2;
-		engine.isoEngine.components.Tile.referent.displaying.displayMcOn(this.ground,"tiles");
+		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.ground,"tiles");
 	}
 	,changeGround: function(name) {
-		this.ground.texture = engine.isoEngine.components.Tile.referent.assets.textures.get(name);
+		this.ground.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(name);
 	}
 	,place: function(x,y) {
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
@@ -151,7 +151,7 @@ engine.isoEngine.components.Tile.prototype = {
 	,setPlace: function(_x,_y,_i) {
 		this.coord = new utils.ArrayCoord(_x,_y,_i);
 		this.place(_x,_y);
-		if(this.coord.i >= 0) engine.isoEngine.components.Tile.referent.map.addTile(this);
+		if(this.coord.i >= 0) engine.isoEngine.components.Tile.isoEngine.map.addTile(this);
 	}
 	,setInteractive: function(_mouseEnter,_mouseExit,_mouseClick) {
 		this.mouseEnter = _mouseEnter;
