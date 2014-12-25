@@ -1,7 +1,11 @@
 package entities;
 
+import manager.Selection;
+
 class Tile extends GameObject
 {
+
+    public var currentAsset = "water";
 
 	public function new()
 	{
@@ -13,15 +17,18 @@ class Tile extends GameObject
     }
 
     public function mouseover () {
-        // graphicTile.changeGround("grass");
+        if (Selection.contain != null) graphicTile.changeGround(Selection.contain);
     }
 
     public function mousequit () {
-        // graphicTile.changeGround("water");
+        graphicTile.changeGround(currentAsset);
     }
 
     public function mouseClick () {
-        graphicTile.changeGround("grass");
+        if (Selection.contain != null) {
+            currentAsset = Selection.contain;
+            graphicTile.changeGround(currentAsset);
+        }
     }
 
 }

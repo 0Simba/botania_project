@@ -12,6 +12,7 @@ class TileSelectionIndicator {
     private var isoEngine:IsoEngine;
 
     public function overOn (x:Int, y:Int) {
+                            return; //!\               ************ DISABLED **********
         var px = engine.isoEngine.IsoUtils.coordToPx(x, y);
         movieClip.x = px.x;
         movieClip.y = px.y;

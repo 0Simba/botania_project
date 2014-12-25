@@ -79,9 +79,11 @@ engine.input.Keyboard.init = function() {
 	window.onkeyup = engine.input.Keyboard.onKeyUp;
 };
 engine.isoEngine = {};
-engine.isoEngine.IsoEngine = function(width,height) {
+engine.isoEngine.IsoEngine = function(_width,_height) {
 	this.build();
-	this.renderer = PIXI.autoDetectRenderer(width,height);
+	this.width = _width;
+	this.height = _height;
+	this.renderer = PIXI.autoDetectRenderer(_width,_height);
 	window.document.body.appendChild(this.renderer.view);
 };
 engine.isoEngine.IsoEngine.getInstance = function() {
@@ -120,10 +122,53 @@ engine.isoEngine.components = {};
 engine.isoEngine.components.Hud = function() {
 	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 };
+engine.isoEngine.components.Hud.onClick = function() {
+	if(engine.isoEngine.components.Hud.currentOver != null) engine.isoEngine.components.Hud.currentOver.clickBind();
+};
 engine.isoEngine.components.Hud.prototype = {
-	set: function(percentSize,percentPos,animationName) {
+	set: function(percentSize,percentPos,animationName,textureName) {
 		this.movieClip = new PIXI.MovieClip(this.isoEngine.assets.animations.get(animationName));
+		this.resize(percentSize);
+		this.replace(percentPos);
+		if(textureName != null) this.changeTexture(textureName);
 		this.isoEngine.displaying.displayMcOn(this.movieClip,"hud");
+		this.initInteractivity();
+	}
+	,bindEvents: function(_mouseover,_mouseout,_mouseclick) {
+		this.overBind = _mouseover;
+		this.outBind = _mouseout;
+		this.clickBind = _mouseclick;
+	}
+	,changeTexture: function(name) {
+		this.movieClip.texture = this.isoEngine.assets.textures.get(name);
+	}
+	,replace: function(pos) {
+		this.movieClip.x = this.isoEngine.width * pos.x;
+		this.movieClip.y = this.isoEngine.height * pos.y;
+	}
+	,resize: function(size) {
+		this.movieClip.width = this.isoEngine.width * size.x;
+		this.movieClip.height = this.isoEngine.height * size.y;
+	}
+	,initInteractivity: function() {
+		this.movieClip.interactive = true;
+		this.movieClip.mouseover = $bind(this,this.alwaysOver);
+		this.movieClip.mouseout = $bind(this,this.alwaysOut);
+	}
+	,overBind: function() {
+	}
+	,outBind: function() {
+	}
+	,clickBind: function() {
+		console.log("petasse");
+	}
+	,alwaysOver: function(mouseData) {
+		engine.isoEngine.components.Hud.currentOver = this;
+		this.overBind();
+	}
+	,alwaysOut: function(mouseData) {
+		engine.isoEngine.components.Hud.currentOver = null;
+		this.outBind();
 	}
 };
 engine.isoEngine.components.Tile = function() {
@@ -210,11 +255,12 @@ engine.isoEngine.controls.Camera.pxToCoord = function(px) {
 };
 engine.isoEngine.controls.Camera.onClick = function() {
 	var tile = engine.isoEngine.controls.Camera.isoEngine.map.getTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
-	tile.mouseClick();
+	if(tile != null) tile.mouseClick();
 };
 engine.isoEngine.controls.Mouse = function() { };
 engine.isoEngine.controls.Mouse.onClick = function() {
 	engine.isoEngine.controls.Camera.onClick();
+	engine.isoEngine.components.Hud.onClick();
 };
 engine.isoEngine.controls.Mouse.setRef = function(stage) {
 	engine.isoEngine.controls.Mouse.stageRef = stage;
@@ -306,6 +352,7 @@ engine.isoEngine.managers.TileSelectionIndicator = function() {
 };
 engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 	overOn: function(x,y) {
+		return;
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
 		this.movieClip.x = px.x;
 		this.movieClip.y = px.y;
@@ -330,22 +377,8 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 	}
 };
 var entities = {};
-entities.Biome = function() {
-	GameObject.call(this);
-	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(0.2,0.2),new utils.Vector2(0.2,0.2),"ground");
-};
-entities.Biome.__super__ = GameObject;
-entities.Biome.prototype = $extend(GameObject.prototype,{
-	mouseover: function() {
-	}
-	,mousequit: function() {
-	}
-	,mouseClick: function() {
-		this.graphicTile.changeGround("grass");
-	}
-});
 entities.Tile = function() {
+	this.currentAsset = "water";
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
@@ -354,11 +387,53 @@ entities.Tile = function() {
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
+		if(manager.Selection.contain != null) this.graphicTile.changeGround(manager.Selection.contain);
 	}
 	,mousequit: function() {
+		this.graphicTile.changeGround(this.currentAsset);
 	}
 	,mouseClick: function() {
-		this.graphicTile.changeGround("grass");
+		if(manager.Selection.contain != null) {
+			this.currentAsset = manager.Selection.contain;
+			this.graphicTile.changeGround(this.currentAsset);
+		}
+	}
+});
+entities.biomeHud = {};
+entities.biomeHud.Grass = function() {
+	GameObject.call(this);
+	this.addComponent("hudElement");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.15),"ground","grass");
+	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+};
+entities.biomeHud.Grass.__super__ = GameObject;
+entities.biomeHud.Grass.prototype = $extend(GameObject.prototype,{
+	mouseover: function() {
+		this.hudElement.replace(new utils.Vector2(0.88,0.15));
+	}
+	,mousequit: function() {
+		this.hudElement.replace(new utils.Vector2(0.9,0.15));
+	}
+	,mouseClick: function() {
+		manager.Selection.contain = "grass";
+	}
+});
+entities.biomeHud.Water = function() {
+	GameObject.call(this);
+	this.addComponent("hudElement");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.05),"ground","water");
+	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+};
+entities.biomeHud.Water.__super__ = GameObject;
+entities.biomeHud.Water.prototype = $extend(GameObject.prototype,{
+	mouseover: function() {
+		this.hudElement.replace(new utils.Vector2(0.88,0.05));
+	}
+	,mousequit: function() {
+		this.hudElement.replace(new utils.Vector2(0.9,0.05));
+	}
+	,mouseClick: function() {
+		manager.Selection.contain = "water";
 	}
 });
 var haxe = {};
@@ -421,7 +496,8 @@ manager.CameraManager.update = function() {
 };
 manager.Hud = function() { };
 manager.Hud.init = function() {
-	new entities.Biome();
+	new entities.biomeHud.Water();
+	new entities.biomeHud.Grass();
 };
 manager.Map = function() {
 	this.tiles = new Array();
@@ -466,6 +542,7 @@ manager.Map.prototype = {
 		manager.Map.instance = null;
 	}
 };
+manager.Selection = function() { };
 var utils = {};
 utils.ArrayCoord = function(_x,_y,_i) {
 	if(_x == null) _x = 0;
@@ -493,5 +570,6 @@ Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
 engine.isoEngine.components.Tile.size = 64;
 engine.isoEngine.controls.Mouse.status = "up";
+manager.Selection.contain = "grass";
 Main.main();
 })();

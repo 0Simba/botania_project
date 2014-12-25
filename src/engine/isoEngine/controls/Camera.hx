@@ -74,7 +74,7 @@ class Camera
 
     static public function onClick () {
         var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);
-        tile.mouseClick();
+        if (tile != null) tile.mouseClick();
     }
 
 }

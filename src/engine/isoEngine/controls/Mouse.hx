@@ -1,6 +1,7 @@
 package engine.isoEngine.controls;
 
 import pixi.display.Stage;
+import engine.isoEngine.components.Hud;
 import utils.Vector2;
 
 class Mouse
@@ -8,6 +9,7 @@ class Mouse
 
 	static private function onClick () { // Add mouse event... Here...... really put it here
 		Camera.onClick();
+		Hud.onClick();
 	}
 
 
@@ -29,7 +31,7 @@ class Mouse
 		stage.mouseup   = mouseup;
 	}
 
-	private  static function mousedown (mouseData) {
+	private static function mousedown (mouseData) {
 		status = "down";
 	}
 

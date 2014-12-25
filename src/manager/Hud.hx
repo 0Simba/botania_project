@@ -5,6 +5,7 @@ import entities.Tile;
 class Hud
 {
     static public function init () {
-        new entities.Biome();
+        new entities.biomeHud.Water();
+        new entities.biomeHud.Grass();
     }
 }

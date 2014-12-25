@@ -1,7 +1,7 @@
-package engine.isoEngine;
+package manager;
 
 class Selection
 {
-    static var actionType:String;
-    static var contain:String;
+    static public var actionType:String = null;
+    static public var contain:String = "grass";
 }

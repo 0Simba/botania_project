@@ -28,12 +28,16 @@ class IsoEngine
     public var assets:Assets;
 
     public var stage:Stage;
+    public var width:Int;
+    public var height:Int;
 
-
-    private function new (width:Int, height:Int) {
+    private function new (_width:Int, _height:Int) {
         build();
 
-        renderer = Detector.autoDetectRenderer(width, height);
+        width  = _width;
+        height = _height;
+
+        renderer = Detector.autoDetectRenderer(_width, _height);
         Browser.document.body.appendChild(renderer.view);
     }
 
