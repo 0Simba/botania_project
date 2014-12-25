@@ -27,6 +27,7 @@ class Main
 		if (nbCall == nbAsynchronousCallback) {
 					// Put here all synchronous loading function.
 			init.Map.load();
+			manager.Hud.init();
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 

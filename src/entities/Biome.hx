@@ -1,12 +1,15 @@
 package entities;
 
-class Tile extends GameObject
+import utils.Vector2;
+
+class Biome extends GameObject
 {
 
     public function new()
     {
         super();
         addComponent("hudElement");
+        hudElement.set(new Vector2(0.2, 0.2), new Vector2(0.2, 0.2), "ground");
     }
 
     public function mouseover () {

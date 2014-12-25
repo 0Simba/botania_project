@@ -21,6 +21,7 @@ Main.ready = function() {
 	Main.nbCall++;
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
 		init.Map.load();
+		manager.Hud.init();
 		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 		engine.input.Keyboard.init();
 		Main.lastTS = new Date().getTime();
@@ -122,6 +123,13 @@ engine.isoEngine.IsoUtils.setSize = function(_size) {
 };
 engine.isoEngine.components = {};
 engine.isoEngine.components.Hud = function() {
+	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+};
+engine.isoEngine.components.Hud.prototype = {
+	set: function(percentSize,percentPos,animationName) {
+		this.movieClip = new PIXI.MovieClip(this.isoEngine.assets.animations.get(animationName));
+		this.isoEngine.displaying.displayMcOn(this.movieClip,"hud");
+	}
 };
 engine.isoEngine.components.Tile = function() {
 	engine.isoEngine.components.Tile.referent = engine.isoEngine.IsoEngine.getInstance();
@@ -324,6 +332,21 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 	}
 };
 var entities = {};
+entities.Biome = function() {
+	GameObject.call(this);
+	this.addComponent("hudElement");
+	this.hudElement.set(new utils.Vector2(0.2,0.2),new utils.Vector2(0.2,0.2),"ground");
+};
+entities.Biome.__super__ = GameObject;
+entities.Biome.prototype = $extend(GameObject.prototype,{
+	mouseover: function() {
+	}
+	,mousequit: function() {
+	}
+	,mouseClick: function() {
+		this.graphicTile.changeGround("grass");
+	}
+});
 entities.Tile = function() {
 	GameObject.call(this);
 	this.addComponent("graphicTile");
@@ -397,6 +420,10 @@ manager.CameraManager.update = function() {
 	if(engine.input.Keyboard.key.get("left")) engine.isoEngine.controls.Camera.move(speed,0);
 	if(engine.input.Keyboard.key.get("up")) engine.isoEngine.controls.Camera.move(0,speed);
 	if(engine.input.Keyboard.key.get("down")) engine.isoEngine.controls.Camera.move(0,-speed);
+};
+manager.Hud = function() { };
+manager.Hud.init = function() {
+	new entities.Biome();
 };
 manager.Map = function() {
 	this.tiles = new Array();

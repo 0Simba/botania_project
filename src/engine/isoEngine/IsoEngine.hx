@@ -28,6 +28,9 @@ class IsoEngine
     public var map:Maping;
     public var assets:Assets;
 
+    public var stage:Stage;
+
+
     private function new (width:Int, height:Int) {
         stage         = new Stage(0xCFCFCF);
         map           = new Maping();
@@ -55,7 +58,6 @@ class IsoEngine
         /***** YOU DON'T CARE *****/
 
     private var renderer:WebGLRenderer;
-    private var stage:Stage;
 
     public var size:Int;
 
