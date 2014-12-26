@@ -20,7 +20,7 @@ class TileSelectionIndicator {
     }
 
     public function hide () {
-        movieClip.visible = false;
+        //movieClip.visible = false;
     }
 
 

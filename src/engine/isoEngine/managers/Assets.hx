@@ -37,7 +37,6 @@ class Assets
         var loader:AssetLoader = new AssetLoader(assets);
 
         loader.onComplete = function () {
-            sup.tileIndicator.assetLoaded();
             callback();
         };
 

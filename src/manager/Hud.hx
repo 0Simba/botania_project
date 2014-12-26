@@ -7,5 +7,6 @@ class Hud
     static public function init () {
         new entities.biomeHud.Water();
         new entities.biomeHud.Grass();
+        new entities.flowerHud.BrownFlower();
     }
 }

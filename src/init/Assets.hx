@@ -12,10 +12,11 @@ class Assets
         Tile.setSize(128);
         isoEngine = IsoEngine.getInstance();
 
-        isoEngine.assets.load(["../assets/iso.json"], assetLoaded);
+        isoEngine.assets.load(["../assets/iso.json", "../assets/flowers.json"], assetLoaded);
     }
 
     static private function assetLoaded () {
+        isoEngine.assets.addTexture("brownFlower", "brownFlower");
         isoEngine.assets.addTexture("grass", "grass");
         isoEngine.assets.addTexture("water", "water");
         isoEngine.assets.addTexture("corner", "corner");

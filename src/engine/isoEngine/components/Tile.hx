@@ -34,6 +34,35 @@ class Tile {
     }
 
 
+            /***** BUILDING *****/
+    public function addBuild (textureName:String) {
+        building = new MovieClip(isoEngine.assets.animations.get("ground"));
+        building.texture = isoEngine.assets.textures.get(textureName);
+
+        building.width  = size;
+        building.height = size;
+
+        building.x = ground.x;
+        building.y = ground.y - size / 2;
+
+        isoEngine.displaying.displayMcOn(building, "tiles");
+    }
+
+    public function changeBuild (name:String = null) {
+        if (name == null) {
+            building.visible = false;
+        }
+        else {
+            if (building == null) {
+                addBuild(name);
+            }
+            else {
+                building.texture = isoEngine.assets.textures.get(name);
+            }
+            building.visible = true;
+        }
+    }
+
 
             /***** POSITION *****/
     private function place (x:Int, y:Int) {

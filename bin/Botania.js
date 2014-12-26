@@ -188,6 +188,21 @@ engine.isoEngine.components.Tile.prototype = {
 	,changeGround: function(name) {
 		this.ground.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(name);
 	}
+	,addBuild: function(textureName) {
+		this.building = new PIXI.MovieClip(engine.isoEngine.components.Tile.isoEngine.assets.animations.get("ground"));
+		this.building.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(textureName);
+		this.building.width = engine.isoEngine.components.Tile.size;
+		this.building.height = engine.isoEngine.components.Tile.size;
+		this.building.x = this.ground.x;
+		this.building.y = this.ground.y - engine.isoEngine.components.Tile.size / 2;
+		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.building,"tiles");
+	}
+	,changeBuild: function(name) {
+		if(name == null) this.building.visible = false; else {
+			if(this.building == null) this.addBuild(name); else this.building.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(name);
+			this.building.visible = true;
+		}
+	}
 	,place: function(x,y) {
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
 		this.ground.x = px.x;
@@ -299,11 +314,9 @@ engine.isoEngine.managers.Assets.prototype = {
 		}
 	}
 	,load: function(assets,callback) {
-		var _g = this;
 		assets.push("../assets/selection.json");
 		var loader = new PIXI.AssetLoader(assets);
 		loader.onComplete = function() {
-			_g.sup.tileIndicator.assetLoaded();
 			callback();
 		};
 		loader.load();
@@ -359,7 +372,6 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 		this.movieClip.visible = true;
 	}
 	,hide: function() {
-		this.movieClip.visible = false;
 	}
 	,assetLoaded: function() {
 		this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
@@ -378,6 +390,7 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 };
 var entities = {};
 entities.Tile = function() {
+	this.currentBuild = null;
 	this.currentAsset = "water";
 	GameObject.call(this);
 	this.addComponent("graphicTile");
@@ -387,15 +400,20 @@ entities.Tile = function() {
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
-		if(manager.Selection.contain != null) this.graphicTile.changeGround(manager.Selection.contain);
+		if(manager.Selection.contain == null) return;
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(manager.Selection.contain);
 	}
 	,mousequit: function() {
-		this.graphicTile.changeGround(this.currentAsset);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentAsset); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(this.currentBuild);
 	}
 	,mouseClick: function() {
-		if(manager.Selection.contain != null) {
+		if(manager.Selection.contain == null) return;
+		if(manager.Selection.actionType == "ground") {
 			this.currentAsset = manager.Selection.contain;
 			this.graphicTile.changeGround(this.currentAsset);
+		} else if(manager.Selection.actionType == "build") {
+			this.currentBuild = manager.Selection.contain;
+			this.graphicTile.changeBuild(this.currentBuild);
 		}
 	}
 });
@@ -415,6 +433,7 @@ entities.biomeHud.Grass.prototype = $extend(GameObject.prototype,{
 		this.hudElement.replace(new utils.Vector2(0.9,0.15));
 	}
 	,mouseClick: function() {
+		manager.Selection.actionType = "ground";
 		manager.Selection.contain = "grass";
 	}
 });
@@ -433,7 +452,28 @@ entities.biomeHud.Water.prototype = $extend(GameObject.prototype,{
 		this.hudElement.replace(new utils.Vector2(0.9,0.05));
 	}
 	,mouseClick: function() {
+		manager.Selection.actionType = "ground";
 		manager.Selection.contain = "water";
+	}
+});
+entities.flowerHud = {};
+entities.flowerHud.BrownFlower = function() {
+	GameObject.call(this);
+	this.addComponent("hudElement");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.25),"ground","brownFlower");
+	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+};
+entities.flowerHud.BrownFlower.__super__ = GameObject;
+entities.flowerHud.BrownFlower.prototype = $extend(GameObject.prototype,{
+	mouseover: function() {
+		this.hudElement.replace(new utils.Vector2(0.88,0.25));
+	}
+	,mousequit: function() {
+		this.hudElement.replace(new utils.Vector2(0.9,0.25));
+	}
+	,mouseClick: function() {
+		manager.Selection.actionType = "build";
+		manager.Selection.contain = "brownFlower";
 	}
 });
 var haxe = {};
@@ -467,9 +507,10 @@ init.Assets = function() { };
 init.Assets.load = function() {
 	engine.isoEngine.components.Tile.setSize(128);
 	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
-	init.Assets.isoEngine.assets.load(["../assets/iso.json"],init.Assets.assetLoaded);
+	init.Assets.isoEngine.assets.load(["../assets/iso.json","../assets/flowers.json"],init.Assets.assetLoaded);
 };
 init.Assets.assetLoaded = function() {
+	init.Assets.isoEngine.assets.addTexture("brownFlower","brownFlower");
 	init.Assets.isoEngine.assets.addTexture("grass","grass");
 	init.Assets.isoEngine.assets.addTexture("water","water");
 	init.Assets.isoEngine.assets.addTexture("corner","corner");
@@ -498,6 +539,7 @@ manager.Hud = function() { };
 manager.Hud.init = function() {
 	new entities.biomeHud.Water();
 	new entities.biomeHud.Grass();
+	new entities.flowerHud.BrownFlower();
 };
 manager.Map = function() {
 	this.tiles = new Array();
@@ -570,6 +612,7 @@ Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
 engine.isoEngine.components.Tile.size = 64;
 engine.isoEngine.controls.Mouse.status = "up";
+manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();
 })();
