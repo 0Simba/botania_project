@@ -16,7 +16,6 @@ class Assets
     }
 
     static private function assetLoaded () {
-        isoEngine.assets.addTexture("brownFlower", "brownFlower");
         isoEngine.assets.addTexture("grass", "grass");
         isoEngine.assets.addTexture("automn", "automn");
         isoEngine.assets.addTexture("swamp", "swamp");

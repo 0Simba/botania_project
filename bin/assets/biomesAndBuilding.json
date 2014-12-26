@@ -45,7 +45,7 @@
     "version": "1.0",
     "image": "biomesAndBuilding.png",
     "format": "RGBA8888",
-    "size": {"w":256,"h":243},
+    "size": {"w":256,"h":256},
     "scale": "1",
     "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
 }

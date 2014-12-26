@@ -391,7 +391,7 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 var entities = {};
 entities.Tile = function() {
 	this.currentBuild = null;
-	this.currentAsset = "water";
+	this.currentAsset = "grass";
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
@@ -440,7 +440,7 @@ entities.biomeHud.Grass.prototype = $extend(GameObject.prototype,{
 entities.biomeHud.Water = function() {
 	GameObject.call(this);
 	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.05),"ground","water");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.05),"ground","automn");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
 entities.biomeHud.Water.__super__ = GameObject;
@@ -453,14 +453,14 @@ entities.biomeHud.Water.prototype = $extend(GameObject.prototype,{
 	}
 	,mouseClick: function() {
 		manager.Selection.actionType = "ground";
-		manager.Selection.contain = "water";
+		manager.Selection.contain = "automn";
 	}
 });
 entities.flowerHud = {};
 entities.flowerHud.BrownFlower = function() {
 	GameObject.call(this);
 	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.25),"ground","brownFlower");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.25),"ground","breaker");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
 entities.flowerHud.BrownFlower.__super__ = GameObject;
@@ -473,7 +473,7 @@ entities.flowerHud.BrownFlower.prototype = $extend(GameObject.prototype,{
 	}
 	,mouseClick: function() {
 		manager.Selection.actionType = "build";
-		manager.Selection.contain = "brownFlower";
+		manager.Selection.contain = "breaker";
 	}
 });
 var haxe = {};
@@ -507,17 +507,20 @@ init.Assets = function() { };
 init.Assets.load = function() {
 	engine.isoEngine.components.Tile.setSize(128);
 	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
-	init.Assets.isoEngine.assets.load(["../assets/iso.json","../assets/flowers.json"],init.Assets.assetLoaded);
+	init.Assets.isoEngine.assets.load(["../assets/biomesAndBuilding.json"],init.Assets.assetLoaded);
 };
 init.Assets.assetLoaded = function() {
-	init.Assets.isoEngine.assets.addTexture("brownFlower","brownFlower");
 	init.Assets.isoEngine.assets.addTexture("grass","grass");
-	init.Assets.isoEngine.assets.addTexture("water","water");
-	init.Assets.isoEngine.assets.addTexture("corner","corner");
+	init.Assets.isoEngine.assets.addTexture("automn","automn");
+	init.Assets.isoEngine.assets.addTexture("swamp","swamp");
+	init.Assets.isoEngine.assets.addTexture("savana","savana");
+	init.Assets.isoEngine.assets.addTexture("breaker","breaker");
 	var list = new Array();
-	list.push("water");
 	list.push("grass");
-	list.push("corner");
+	list.push("automn");
+	list.push("swamp");
+	list.push("automn");
+	list.push("breaker");
 	init.Assets.isoEngine.assets.createAnimation("ground",list);
 	Main.ready();
 };
