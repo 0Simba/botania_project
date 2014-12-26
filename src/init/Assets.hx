@@ -12,18 +12,22 @@ class Assets
         Tile.setSize(128);
         isoEngine = IsoEngine.getInstance();
 
-        isoEngine.assets.load(["../assets/iso.json", "../assets/flowers.json"], assetLoaded);
+        isoEngine.assets.load(["../assets/biomesAndBuilding.json"], assetLoaded);
     }
 
     static private function assetLoaded () {
         isoEngine.assets.addTexture("brownFlower", "brownFlower");
         isoEngine.assets.addTexture("grass", "grass");
-        isoEngine.assets.addTexture("water", "water");
-        isoEngine.assets.addTexture("corner", "corner");
+        isoEngine.assets.addTexture("automn", "automn");
+        isoEngine.assets.addTexture("swamp", "swamp");
+        isoEngine.assets.addTexture("savana", "savana");
+        isoEngine.assets.addTexture("breaker", "breaker");
         var list:Array<String> = new Array<String>();
-        list.push("water");
         list.push("grass");
-        list.push("corner");
+        list.push("automn");
+        list.push("swamp");
+        list.push("automn");
+        list.push("breaker");
         isoEngine.assets.createAnimation("ground", list);
 
         Main.ready();

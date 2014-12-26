@@ -5,7 +5,7 @@ import manager.Selection;
 class Tile extends GameObject
 {
 
-    public var currentAsset = "water";
+    public var currentAsset = "grass";
     public var currentBuild = null;
 
 	public function new()
@@ -50,5 +50,4 @@ class Tile extends GameObject
             graphicTile.changeBuild(currentBuild);
         }
     }
-
 }

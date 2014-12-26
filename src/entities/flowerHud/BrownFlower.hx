@@ -10,7 +10,7 @@ class BrownFlower extends GameObject
     {
         super();
         addComponent("hudElement");
-        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "ground", "brownFlower");
+        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "ground", "breaker");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
 
@@ -24,7 +24,7 @@ class BrownFlower extends GameObject
 
     public function mouseClick () {
         Selection.actionType = "build";
-        Selection.contain = "brownFlower";
+        Selection.contain = "breaker";
     }
 
 }

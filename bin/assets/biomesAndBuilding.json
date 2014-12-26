@@ -1,0 +1,52 @@
+{"frames": {
+
+"grass":
+{
+    "frame": {"x":0, "y":0,"w":128,"h":64},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
+    "sourceSize": {"w":128,"h":64}
+},
+"automn":
+{
+    "frame": {"x":128, "y":0,"w":128,"h":64},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
+    "sourceSize": {"w":128,"h":64}
+},
+"swamp":
+{
+    "frame": {"x":0,"y":64,"w":128,"h":64},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
+    "sourceSize": {"w":128,"h":64}
+},
+"savana":
+{
+    "frame": {"x":128,"y":64,"w":128,"h":64},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
+    "sourceSize": {"w":128,"h":64}
+},
+"breaker":
+{
+    "frame": {"x":0,"y":128,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+}},
+"meta": {
+    "app": "http://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "biomesAndBuilding.png",
+    "format": "RGBA8888",
+    "size": {"w":256,"h":243},
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
+}
+}
