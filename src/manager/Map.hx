@@ -7,28 +7,19 @@ class Map
 {
 
 	private static var instance: Map;
-	private var isoEngine:IsoEngine;
 
 	public var tiles:Array<Tile>;
-	public var cols:Int;
-
 
 	public function set (nbCols:Int, nbRows:Int): Void {
 		if (isAlreadySet()) { return; };
 
-		addLayer();
-
-		cols = nbCols;
-
-		for (i in 0...nbRows + nbCols) {
-		    isoEngine.displaying.createChildLayer("buildingHeight" + i, "overTiles");
-		}
+		addLayer(nbRows + nbCols);
 
 		for (i in 0...nbCols * nbRows) {
 			tiles[i] = new Tile();
 
-            var x:Int = i % cols;
-            var y:Int = Math.floor(i / cols);
+            var x:Int = i % nbCols;
+            var y:Int = Math.floor(i / nbCols);
 
 			tiles[i].graphicTile.setPlace(x, y, i);
 		}
@@ -45,6 +36,7 @@ class Map
 
 		/***** YOU DON'T CARE *****/
 	static private var alreadySet:Bool;
+	private var isoEngine:IsoEngine;
 
 	private function isAlreadySet():Bool {
 		if (alreadySet) {
@@ -56,29 +48,29 @@ class Map
 		return false;
 	}
 
+
 	private function new()
 	{
 		tiles = new Array<Tile>();
-		cols  = 0;
 		alreadySet = false;
 		isoEngine = IsoEngine.getInstance();
 	}
+
 
 	public static function getInstance (): Map {
 		if (instance == null) instance = new Map();
 		return instance;
 	}
 
+
 	public function destroy (): Void {
 		instance = null;
 	}
 
-	private function addLayer () {
-		var displaying = isoEngine.displaying;
-        for (i in 0...20) {
-        	var name = "tileY" + i;
-            displaying.createChildLayer(name, "tiles");
-        }
-	}
 
+	private function addLayer (nb) {
+		for (i in 0...nb) {
+		    isoEngine.displaying.createChildLayer("buildingHeight" + i, "overTiles");
+		}
+	}
 }

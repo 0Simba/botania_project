@@ -27,14 +27,17 @@ class Displaying
 
 
 
+        /***** SURELY NOT INTERST YOU *****/
+
+    public function getCamera ():Graphics {
+        return layers.get('camera');
+    }
+
         /***** YOU DON'T CARE *****/
 
     private var layers:Map<String, Graphics>;
     private var stage:Stage;
 
-    public function getCamera ():Graphics {
-        return layers.get('camera');
-    }
 
     public function new (_stage:Stage) {
         layers = new Map<String, Graphics>();

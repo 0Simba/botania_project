@@ -8,22 +8,13 @@ class Assets
 {
 
     public var animations:Map<String, Array<Texture>>;
-    public var textures:Map<String, Texture>;
-
-    private var sup:IsoEngine;
-
-    public function new (_sup:IsoEngine) {
-        sup      = _sup;
-        textures   = new Map<String, Texture>();
-        animations = new Map<String, Array<Texture>>();
-    }
-
-
+    public var textures:  Map<String, Texture>;
 
 
     public function addTexture (name, from) {
         textures.set(name, Texture.fromFrame(from));
     }
+
 
     public function createAnimation(name:String, listTexture:Array<String>) {
         animations.set(name, new Array<Texture>());
@@ -31,6 +22,7 @@ class Assets
             animations.get(name).push(textures.get(listTexture[i]));
         }
     }
+
 
     public function load (assets:Array<String>, callback) {
         assets.push('../assets/selection.json');
@@ -41,5 +33,14 @@ class Assets
         };
 
         loader.load();
+    }
+
+
+
+
+        /***** YOU DON'T CARE *****/
+    public function new () {
+        textures   = new Map<String, Texture>();
+        animations = new Map<String, Array<Texture>>();
     }
 }

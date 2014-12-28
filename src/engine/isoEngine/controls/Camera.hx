@@ -9,6 +9,20 @@ import engine.isoEngine.managers.Displaying;
 class Camera
 {
 
+    static public function move (x:Float = 0, y:Float = 0) {
+        camera.x += x;
+        camera.y += y;
+    }
+
+
+    static public function onClick () {
+        var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);
+        if (tile != null) tile.mouseClick();
+    }
+
+
+
+        /***** YOU DON'T CARE *****/
     static private var camera:Graphics;
     static private var tileOn:Tile;
     static private var isoEngine:IsoEngine;
@@ -21,15 +35,12 @@ class Camera
         setMouse();
     }
 
-    static public function move (x:Float = 0, y:Float = 0) {
-        camera.x += x;
-        camera.y += y;
-    }
 
     static private function setMouse () {
         camera.interactive = true;
         camera.mousemove = mousemove;
     }
+
 
     static private function mousemove (mouseData) {
         var newPos = pxToCoord(new Vector2(mouseData.global.x, mouseData.global.y));
@@ -57,9 +68,11 @@ class Camera
         currentPos = newPos;
     }
 
+
     static private function tileChanged (newPos):Bool {
         return (newPos.x != currentPos.x || newPos.y != currentPos.y);
     }
+
 
     static private function pxToCoord (px:Vector2) {
         px.x -= camera.x;
@@ -71,10 +84,4 @@ class Camera
 
         return newPos;
     }
-
-    static public function onClick () {
-        var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);
-        if (tile != null) tile.mouseClick();
-    }
-
 }

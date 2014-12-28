@@ -7,6 +7,8 @@ import pixi.display.MovieClip;
 class Hud
 {
 
+    static public var currentOver:Hud;
+
     public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String = null) {
         movieClip = new MovieClip(isoEngine.assets.animations.get(animationName));
 
@@ -44,6 +46,8 @@ class Hud
     }
 
 
+
+
         /****** YOU DON'T CARE *****/
     public var movieClip:MovieClip;
     public var isoEngine:IsoEngine;
@@ -59,6 +63,7 @@ class Hud
         movieClip.mouseout    = alwaysOut;
     }
 
+
     dynamic private function overBind () {};
     dynamic private function outBind  () {};
     dynamic public function clickBind  () { trace("petasse"); };
@@ -69,17 +74,14 @@ class Hud
         overBind();
     }
 
+
     public function alwaysOut (mouseData) {
         Hud.currentOver = null;
         outBind();
     }
 
 
-
-    static public var currentOver:Hud;
     static public function onClick () {
         if (currentOver != null) currentOver.clickBind();
     }
-
-
 }

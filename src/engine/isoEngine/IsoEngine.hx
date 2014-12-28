@@ -31,6 +31,13 @@ class IsoEngine
     public var width:Int;
     public var height:Int;
 
+
+
+            /***** YOU DON'T CARE *****/
+    private static var instance: IsoEngine;
+    private var renderer:WebGLRenderer;
+
+
     private function new (_width:Int, _height:Int) {
         build();
 
@@ -45,7 +52,7 @@ class IsoEngine
     private function build () {
         stage         = new Stage(0xCFCFCF);
         map           = new Maping();
-        assets        = new Assets(this);
+        assets        = new Assets();
         tileIndicator = new TileSelectionIndicator();
         displaying    = new Displaying(stage);
         Mouse.setRef(stage);
@@ -59,14 +66,11 @@ class IsoEngine
         }
     }
 
-        /***** YOU DON'T CARE *****/
-
-    private static var instance: IsoEngine;
-    private var renderer:WebGLRenderer;
 
     public function destroy (): Void {
         instance = null;
     }
+
 
     public function render () {
         renderer.render(stage);

@@ -98,7 +98,7 @@ engine.isoEngine.IsoEngine.prototype = {
 	build: function() {
 		this.stage = new PIXI.Stage(13619151);
 		this.map = new engine.isoEngine.managers.Maping();
-		this.assets = new engine.isoEngine.managers.Assets(this);
+		this.assets = new engine.isoEngine.managers.Assets();
 		this.tileIndicator = new engine.isoEngine.managers.TileSelectionIndicator();
 		this.displaying = new engine.isoEngine.managers.Displaying(this.stage);
 		engine.isoEngine.controls.Mouse.setRef(this.stage);
@@ -230,17 +230,21 @@ engine.isoEngine.components.Tile.prototype = {
 };
 engine.isoEngine.controls = {};
 engine.isoEngine.controls.Camera = function() { };
-engine.isoEngine.controls.Camera.setRef = function(peonWhileTrue) {
-	engine.isoEngine.controls.Camera.isoEngine = peonWhileTrue;
-	engine.isoEngine.controls.Camera.camera = engine.isoEngine.controls.Camera.isoEngine.displaying.getCamera();
-	engine.isoEngine.controls.Camera.currentPos = new utils.Vector2(-1,-1);
-	engine.isoEngine.controls.Camera.setMouse();
-};
 engine.isoEngine.controls.Camera.move = function(x,y) {
 	if(y == null) y = 0;
 	if(x == null) x = 0;
 	engine.isoEngine.controls.Camera.camera.x += x;
 	engine.isoEngine.controls.Camera.camera.y += y;
+};
+engine.isoEngine.controls.Camera.onClick = function() {
+	var tile = engine.isoEngine.controls.Camera.isoEngine.map.getTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
+	if(tile != null) tile.mouseClick();
+};
+engine.isoEngine.controls.Camera.setRef = function(peonWhileTrue) {
+	engine.isoEngine.controls.Camera.isoEngine = peonWhileTrue;
+	engine.isoEngine.controls.Camera.camera = engine.isoEngine.controls.Camera.isoEngine.displaying.getCamera();
+	engine.isoEngine.controls.Camera.currentPos = new utils.Vector2(-1,-1);
+	engine.isoEngine.controls.Camera.setMouse();
 };
 engine.isoEngine.controls.Camera.setMouse = function() {
 	engine.isoEngine.controls.Camera.camera.interactive = true;
@@ -270,10 +274,6 @@ engine.isoEngine.controls.Camera.pxToCoord = function(px) {
 	newPos.y = Math.round(px.y / (engine.isoEngine.components.Tile.size / 2) - px.x / engine.isoEngine.components.Tile.size);
 	return newPos;
 };
-engine.isoEngine.controls.Camera.onClick = function() {
-	var tile = engine.isoEngine.controls.Camera.isoEngine.map.getTile(engine.isoEngine.controls.Camera.currentPos.x,engine.isoEngine.controls.Camera.currentPos.y);
-	if(tile != null) tile.mouseClick();
-};
 engine.isoEngine.controls.Mouse = function() { };
 engine.isoEngine.controls.Mouse.onClick = function() {
 	engine.isoEngine.controls.Camera.onClick();
@@ -295,8 +295,7 @@ engine.isoEngine.controls.Mouse.mouseup = function(mouseData) {
 engine.isoEngine.controls.Mouse.mouseMove = function(mouseData) {
 };
 engine.isoEngine.managers = {};
-engine.isoEngine.managers.Assets = function(_sup) {
-	this.sup = _sup;
+engine.isoEngine.managers.Assets = function() {
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
 };
@@ -550,7 +549,6 @@ manager.Hud.init = function() {
 };
 manager.Map = function() {
 	this.tiles = new Array();
-	this.cols = 0;
 	manager.Map.alreadySet = false;
 	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 };
@@ -561,22 +559,15 @@ manager.Map.getInstance = function() {
 manager.Map.prototype = {
 	set: function(nbCols,nbRows) {
 		if(this.isAlreadySet()) return;
-		this.addLayer();
-		this.cols = nbCols;
+		this.addLayer(nbRows + nbCols);
 		var _g1 = 0;
-		var _g = nbRows + nbCols;
+		var _g = nbCols * nbRows;
 		while(_g1 < _g) {
 			var i = _g1++;
-			this.isoEngine.displaying.createChildLayer("buildingHeight" + i,"overTiles");
-		}
-		var _g11 = 0;
-		var _g2 = nbCols * nbRows;
-		while(_g11 < _g2) {
-			var i1 = _g11++;
-			this.tiles[i1] = new entities.Tile();
-			var x = i1 % this.cols;
-			var y = Math.floor(i1 / this.cols);
-			this.tiles[i1].graphicTile.setPlace(x,y,i1);
+			this.tiles[i] = new entities.Tile();
+			var x = i % nbCols;
+			var y = Math.floor(i / nbCols);
+			this.tiles[i].graphicTile.setPlace(x,y,i);
 		}
 	}
 	,fill: function(name) {
@@ -598,13 +589,11 @@ manager.Map.prototype = {
 	,destroy: function() {
 		manager.Map.instance = null;
 	}
-	,addLayer: function() {
-		var displaying = this.isoEngine.displaying;
+	,addLayer: function(nb) {
 		var _g = 0;
-		while(_g < 20) {
+		while(_g < nb) {
 			var i = _g++;
-			var name = "tileY" + i;
-			displaying.createChildLayer(name,"tiles");
+			this.isoEngine.displaying.createChildLayer("buildingHeight" + i,"overTiles");
 		}
 	}
 };
