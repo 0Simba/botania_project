@@ -1,19 +1,29 @@
 package manager;
 
 import entities.Tile;
+import engine.isoEngine.IsoEngine;
 
 class Map
 {
 
 	private static var instance: Map;
+	private var isoEngine:IsoEngine;
 
 	public var tiles:Array<Tile>;
 	public var cols:Int;
 
+
 	public function set (nbCols:Int, nbRows:Int): Void {
 		if (isAlreadySet()) { return; };
 
+		addLayer();
+
 		cols = nbCols;
+
+		for (i in 0...nbRows + nbCols) {
+		    isoEngine.displaying.createChildLayer("buildingHeight" + i, "overTiles");
+		}
+
 		for (i in 0...nbCols * nbRows) {
 			tiles[i] = new Tile();
 
@@ -51,6 +61,7 @@ class Map
 		tiles = new Array<Tile>();
 		cols  = 0;
 		alreadySet = false;
+		isoEngine = IsoEngine.getInstance();
 	}
 
 	public static function getInstance (): Map {
@@ -60,6 +71,14 @@ class Map
 
 	public function destroy (): Void {
 		instance = null;
+	}
+
+	private function addLayer () {
+		var displaying = isoEngine.displaying;
+        for (i in 0...20) {
+        	var name = "tileY" + i;
+            displaying.createChildLayer(name, "tiles");
+        }
 	}
 
 }

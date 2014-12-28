@@ -24,8 +24,6 @@ class Tile {
 
         ground.width  = size;
         ground.height = size / 2;
-
-        isoEngine.displaying.displayMcOn(ground, "tiles");
     }
 
 
@@ -45,7 +43,11 @@ class Tile {
         building.x = ground.x;
         building.y = ground.y - size / 2;
 
-        isoEngine.displaying.displayMcOn(building, "tiles");
+
+        var layerNumber:Int  = coord.x + coord.y;
+        var layerName:String = "buildingHeight" + layerNumber;
+
+        isoEngine.displaying.displayMcOn(building, layerName);
     }
 
     public function changeBuild (name:String = null) {
@@ -69,6 +71,8 @@ class Tile {
         var px = IsoUtils.coordToPx(x, y);
         ground.x = px.x;
         ground.y = px.y;
+
+        isoEngine.displaying.displayMcOn(ground, "tiles");
     }
 
 

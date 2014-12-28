@@ -183,7 +183,6 @@ engine.isoEngine.components.Tile.prototype = {
 		this.ground = new PIXI.MovieClip(engine.isoEngine.components.Tile.isoEngine.assets.animations.get(name));
 		this.ground.width = engine.isoEngine.components.Tile.size;
 		this.ground.height = engine.isoEngine.components.Tile.size / 2;
-		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.ground,"tiles");
 	}
 	,changeGround: function(name) {
 		this.ground.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(name);
@@ -195,7 +194,9 @@ engine.isoEngine.components.Tile.prototype = {
 		this.building.height = engine.isoEngine.components.Tile.size;
 		this.building.x = this.ground.x;
 		this.building.y = this.ground.y - engine.isoEngine.components.Tile.size / 2;
-		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.building,"tiles");
+		var layerNumber = this.coord.x + this.coord.y;
+		var layerName = "buildingHeight" + layerNumber;
+		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.building,layerName);
 	}
 	,changeBuild: function(name) {
 		if(name == null) this.building.visible = false; else {
@@ -207,6 +208,7 @@ engine.isoEngine.components.Tile.prototype = {
 		var px = engine.isoEngine.IsoUtils.coordToPx(x,y);
 		this.ground.x = px.x;
 		this.ground.y = px.y;
+		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.ground,"tiles");
 	}
 	,setPlace: function(_x,_y,_i) {
 		this.coord = new utils.ArrayCoord(_x,_y,_i);
@@ -334,17 +336,19 @@ engine.isoEngine.managers.Displaying.prototype = {
 	displayMcOn: function(mc,layer) {
 		this.layers.get(layer).addChild(mc);
 	}
+	,createChildLayer: function(name,parent) {
+		if(this.layers.get(name) == null) {
+			var layer = new PIXI.Graphics();
+			this.layers.get(parent).addChild(layer);
+			this.layers.set(name,layer);
+		}
+	}
 	,getCamera: function() {
 		return this.layers.get("camera");
 	}
 	,createMainLayer: function(name) {
 		var layer = new PIXI.Graphics();
 		this.stage.addChild(layer);
-		this.layers.set(name,layer);
-	}
-	,createChildLayer: function(name,parent) {
-		var layer = new PIXI.Graphics();
-		this.layers.get(parent).addChild(layer);
 		this.layers.set(name,layer);
 	}
 };
@@ -548,6 +552,7 @@ manager.Map = function() {
 	this.tiles = new Array();
 	this.cols = 0;
 	manager.Map.alreadySet = false;
+	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 };
 manager.Map.getInstance = function() {
 	if(manager.Map.instance == null) manager.Map.instance = new manager.Map();
@@ -556,15 +561,22 @@ manager.Map.getInstance = function() {
 manager.Map.prototype = {
 	set: function(nbCols,nbRows) {
 		if(this.isAlreadySet()) return;
+		this.addLayer();
 		this.cols = nbCols;
 		var _g1 = 0;
-		var _g = nbCols * nbRows;
+		var _g = nbRows + nbCols;
 		while(_g1 < _g) {
 			var i = _g1++;
-			this.tiles[i] = new entities.Tile();
-			var x = i % this.cols;
-			var y = Math.floor(i / this.cols);
-			this.tiles[i].graphicTile.setPlace(x,y,i);
+			this.isoEngine.displaying.createChildLayer("buildingHeight" + i,"overTiles");
+		}
+		var _g11 = 0;
+		var _g2 = nbCols * nbRows;
+		while(_g11 < _g2) {
+			var i1 = _g11++;
+			this.tiles[i1] = new entities.Tile();
+			var x = i1 % this.cols;
+			var y = Math.floor(i1 / this.cols);
+			this.tiles[i1].graphicTile.setPlace(x,y,i1);
 		}
 	}
 	,fill: function(name) {
@@ -585,6 +597,15 @@ manager.Map.prototype = {
 	}
 	,destroy: function() {
 		manager.Map.instance = null;
+	}
+	,addLayer: function() {
+		var displaying = this.isoEngine.displaying;
+		var _g = 0;
+		while(_g < 20) {
+			var i = _g++;
+			var name = "tileY" + i;
+			displaying.createChildLayer(name,"tiles");
+		}
 	}
 };
 manager.Selection = function() { };

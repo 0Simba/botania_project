@@ -17,6 +17,13 @@ class Displaying
     }
 
 
+    public function createChildLayer (name:String, parent:String) {
+        if (layers.get(name) == null) {
+            var layer = new Graphics();
+            layers.get(parent).addChild(layer);
+            layers.set(name, layer);
+        }
+    }
 
 
 
@@ -42,12 +49,6 @@ class Displaying
     private function createMainLayer (name:String) {
         var layer = new Graphics();
         stage.addChild(layer);
-        layers.set(name, layer);
-    }
-
-    private function createChildLayer (name:String, parent:String) {
-        var layer = new Graphics();
-        layers.get(parent).addChild(layer);
         layers.set(name, layer);
     }
 }
