@@ -16,4 +16,9 @@ class GameObject
             hudElement = new engine.isoEngine.components.Hud();
         }
     }
+
+/*
+    public function addComponent (name:Class) {
+        graphicTile = new name();
+    }*/
 }

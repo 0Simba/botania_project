@@ -392,9 +392,22 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 	}
 };
 var entities = {};
+entities.Flower = function(_referent,_state) {
+	if(_state == null) _state = "baby";
+	this.timeToBeAdult = 5;
+	GameObject.call(this);
+	this.referent = _referent;
+	this.state = _state;
+	haxe.Timer.delay($bind(this,this.endDelay),2000);
+};
+entities.Flower.__super__ = GameObject;
+entities.Flower.prototype = $extend(GameObject.prototype,{
+	endDelay: function() {
+	}
+});
 entities.Tile = function() {
 	this.currentBuild = null;
-	this.currentAsset = "grass";
+	this.currentGround = "grass";
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
@@ -402,21 +415,25 @@ entities.Tile = function() {
 };
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
-	mouseover: function() {
+	createFlower: function() {
+		this.flowerRef = new entities.Flower(this);
+	}
+	,mouseover: function() {
 		if(manager.Selection.contain == null) return;
 		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(manager.Selection.contain);
 	}
 	,mousequit: function() {
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentAsset); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(this.currentBuild);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(this.currentBuild);
 	}
 	,mouseClick: function() {
 		if(manager.Selection.contain == null) return;
 		if(manager.Selection.actionType == "ground") {
-			this.currentAsset = manager.Selection.contain;
-			this.graphicTile.changeGround(this.currentAsset);
+			this.currentGround = manager.Selection.contain;
+			this.graphicTile.changeGround(this.currentGround);
 		} else if(manager.Selection.actionType == "build") {
 			this.currentBuild = manager.Selection.contain;
 			this.graphicTile.changeBuild(this.currentBuild);
+			this.createFlower();
 		}
 	}
 });
@@ -479,7 +496,49 @@ entities.flowerHud.BrownFlower.prototype = $extend(GameObject.prototype,{
 		manager.Selection.contain = "breaker";
 	}
 });
+entities.flowerHud.TestFlower = function() {
+	GameObject.call(this);
+	this.addComponent("hudElement");
+	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.35),"ground","adultFlower");
+	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+};
+entities.flowerHud.TestFlower.__super__ = GameObject;
+entities.flowerHud.TestFlower.prototype = $extend(GameObject.prototype,{
+	mouseover: function() {
+		this.hudElement.replace(new utils.Vector2(0.88,0.35));
+	}
+	,mousequit: function() {
+		this.hudElement.replace(new utils.Vector2(0.9,0.35));
+	}
+	,mouseClick: function() {
+		manager.Selection.actionType = "build";
+		manager.Selection.contain = "breaker";
+	}
+});
 var haxe = {};
+haxe.Timer = function(time_ms) {
+	var me = this;
+	this.id = setInterval(function() {
+		me.run();
+	},time_ms);
+};
+haxe.Timer.delay = function(f,time_ms) {
+	var t = new haxe.Timer(time_ms);
+	t.run = function() {
+		t.stop();
+		f();
+	};
+	return t;
+};
+haxe.Timer.prototype = {
+	stop: function() {
+		if(this.id == null) return;
+		clearInterval(this.id);
+		this.id = null;
+	}
+	,run: function() {
+	}
+};
 haxe.ds = {};
 haxe.ds.IntMap = function() {
 	this.h = { };
@@ -518,6 +577,10 @@ init.Assets.assetLoaded = function() {
 	init.Assets.isoEngine.assets.addTexture("swamp","swamp");
 	init.Assets.isoEngine.assets.addTexture("savana","savana");
 	init.Assets.isoEngine.assets.addTexture("breaker","breaker");
+	init.Assets.isoEngine.assets.addTexture("adultFlower","adultFlower");
+	init.Assets.isoEngine.assets.addTexture("teenageFlower","teenageFlower");
+	init.Assets.isoEngine.assets.addTexture("babyFlower","babyFlower");
+	init.Assets.isoEngine.assets.addTexture("childFlower","childFlower");
 	var list = new Array();
 	list.push("grass");
 	list.push("automn");
@@ -546,6 +609,7 @@ manager.Hud.init = function() {
 	new entities.biomeHud.Water();
 	new entities.biomeHud.Grass();
 	new entities.flowerHud.BrownFlower();
+	new entities.flowerHud.TestFlower();
 };
 manager.Map = function() {
 	this.tiles = new Array();

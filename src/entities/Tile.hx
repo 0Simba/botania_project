@@ -1,14 +1,17 @@
 package entities;
 
 import manager.Selection;
+import entities.Flower;
 
 class Tile extends GameObject
 {
 
-    public var currentAsset = "grass";
+    public var currentGround = "grass";
     public var currentBuild = null;
 
-	public function new()
+    public var flowerRef:Flower;
+
+	public function new ()
 	{
 		super();
         addComponent("graphicTile");
@@ -16,6 +19,16 @@ class Tile extends GameObject
         graphicTile.addGround("ground");
         graphicTile.setInteractive(mouseover, mousequit, mouseClick);
     }
+
+
+
+    public function createFlower () {
+        flowerRef = new Flower(this);
+    }
+
+
+
+    /***** MOUSE EVENTS *****/
 
     public function mouseover () {
         if (Selection.contain == null) return;
@@ -30,7 +43,7 @@ class Tile extends GameObject
 
     public function mousequit () {
         if (Selection.actionType == "ground") {
-            graphicTile.changeGround(currentAsset);
+            graphicTile.changeGround(currentGround);
         }
         else if (Selection.actionType == "build") {
             graphicTile.changeBuild(currentBuild);
@@ -42,12 +55,14 @@ class Tile extends GameObject
 
 
         if (Selection.actionType == "ground") {
-            currentAsset = Selection.contain;
-            graphicTile.changeGround(currentAsset);
+            currentGround = Selection.contain;
+            graphicTile.changeGround(currentGround);
         }
         else if (Selection.actionType == "build") {
             currentBuild = Selection.contain;
             graphicTile.changeBuild(currentBuild);
+
+            createFlower();                             //!\ remove this after test ! /!\
         }
     }
 }

@@ -8,5 +8,6 @@ class Hud
         new entities.biomeHud.Water();
         new entities.biomeHud.Grass();
         new entities.flowerHud.BrownFlower();
+        new entities.flowerHud.TestFlower();
     }
 }

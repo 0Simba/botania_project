@@ -32,6 +32,38 @@
     "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
     "sourceSize": {"w":128,"h":64}
 },
+"adultFlower":
+{
+    "frame": {"x":128,"y":128,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+},
+"teenageFlower":
+{
+    "frame": {"x":256,"y":128,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+},
+"childFlower":
+{
+    "frame": {"x":384,"y":128,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+},
+"babyFlower":
+{
+    "frame": {"x":512,"y":128,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+},
 "breaker":
 {
     "frame": {"x":0,"y":128,"w":128,"h":128},
@@ -45,7 +77,7 @@
     "version": "1.0",
     "image": "biomesAndBuilding.png",
     "format": "RGBA8888",
-    "size": {"w":256,"h":256},
+    "size": {"w":1280,"h":800},
     "scale": "1",
     "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
 }

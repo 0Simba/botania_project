@@ -21,6 +21,10 @@ class Assets
         isoEngine.assets.addTexture("swamp", "swamp");
         isoEngine.assets.addTexture("savana", "savana");
         isoEngine.assets.addTexture("breaker", "breaker");
+        isoEngine.assets.addTexture("adultFlower", "adultFlower");
+        isoEngine.assets.addTexture("teenageFlower", "teenageFlower");
+        isoEngine.assets.addTexture("babyFlower", "babyFlower");
+        isoEngine.assets.addTexture("childFlower", "childFlower");
         var list:Array<String> = new Array<String>();
         list.push("grass");
         list.push("automn");

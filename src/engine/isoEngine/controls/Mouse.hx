@@ -7,7 +7,7 @@ import utils.Vector2;
 class Mouse
 {
 
-	static private function onClick () { // Add mouse event... Here...... really put it here
+	static private function onClick () {
 		Camera.onClick();
 		Hud.onClick();
 	}
