@@ -54,6 +54,7 @@ class Hud
 
     public function new () {
         isoEngine = IsoEngine.getInstance();
+        if (!Hud.isBinded) Hud.bindToCamera();
     }
 
 
@@ -66,7 +67,7 @@ class Hud
 
     dynamic private function overBind () {};
     dynamic private function outBind  () {};
-    dynamic public function clickBind  () { trace("petasse"); };
+    dynamic public function clickBind  () {};
 
 
     public function alwaysOver (mouseData) {
@@ -80,6 +81,13 @@ class Hud
         outBind();
     }
 
+
+
+    static private var isBinded:Bool = false;
+
+    static private function bindToCamera () {
+        engine.isoEngine.controls.Mouse.addOnClickEvent(cast onClick); //WARNING --> unsafe
+    }
 
     static public function onClick () {
         if (currentOver != null) currentOver.clickBind();

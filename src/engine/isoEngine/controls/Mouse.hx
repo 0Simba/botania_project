@@ -3,15 +3,27 @@ package engine.isoEngine.controls;
 import pixi.display.Stage;
 import engine.isoEngine.components.Hud;
 import utils.Vector2;
+import js.html.VoidCallback;
+
 
 class Mouse
 {
 
+	static private var onClickCallback:Array<VoidCallback> = new Array<VoidCallback>();
+
 	static private function onClick () {
-		Camera.onClick();
-		Hud.onClick();
+		for (i in 0...onClickCallback.length) {
+			onClickCallback[i]();
+		}
+		// Camera.onClick();
+		// Hud.onClick();
 	}
 
+	static public function addOnClickEvent (callback:VoidCallback) {
+		// if (!onClickCallback) {
+		// }
+		onClickCallback.push(callback);
+	}
 
 
 

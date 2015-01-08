@@ -1,10 +1,12 @@
 package engine.isoEngine.controls;
 
+import js.html.VoidCallback;
 import pixi.primitives.Graphics;
 import utils.Vector2;
 import engine.isoEngine.components.Tile;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.managers.Displaying;
+import engine.isoEngine.controls.Mouse;
 
 class Camera
 {
@@ -39,6 +41,7 @@ class Camera
     static private function setMouse () {
         camera.interactive = true;
         camera.mousemove = mousemove;
+        Mouse.addOnClickEvent(cast onClick); // WARNING --> unsafe
     }
 
 

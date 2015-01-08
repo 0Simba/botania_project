@@ -59,8 +59,8 @@ class Tile extends GameObject
             graphicTile.changeGround(currentGround);
         }
         else if (Selection.actionType == "build") {
-            currentBuild = Selection.contain;
-            graphicTile.changeBuild(currentBuild);
+            //currentBuild = Selection.contain;
+            //graphicTile.changeBuild(currentBuild);
 
             createFlower();                             //!\ remove this after test ! /!\
         }

@@ -15,11 +15,13 @@ class Flower extends GameObject
         state    = _state;
 
         haxe.Timer.delay(endDelay, 2000);
+
+        //emit("");
     }
 
 
     public function endDelay () {
-        
+
     }
 
 
