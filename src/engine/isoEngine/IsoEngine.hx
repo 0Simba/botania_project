@@ -13,6 +13,8 @@ import engine.isoEngine.controls.Camera;
 import engine.isoEngine.controls.Mouse;
 import engine.isoEngine.IsoUtils;
 
+import engine.eventsDispatcher.EventDispatcher;
+
 import js.Browser;
 
 class IsoEngine
@@ -26,6 +28,7 @@ class IsoEngine
     public var displaying:Displaying;
     public var map:Maping;
     public var assets:Assets;
+    public var events:EventDispatcher;
 
     public var stage:Stage;
     public var width:Int;
@@ -55,6 +58,7 @@ class IsoEngine
         assets        = new Assets();
         tileIndicator = new TileSelectionIndicator();
         displaying    = new Displaying(stage);
+        events        = new EventDispatcher();
         Mouse.setRef(stage);
         Camera.setRef(this);
     }

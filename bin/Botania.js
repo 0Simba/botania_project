@@ -7,7 +7,7 @@ function $extend(from, fields) {
 }
 var GameObject = function() {
 };
-GameObject.__name__ = true;
+GameObject.__name__ = ["GameObject"];
 GameObject.prototype = {
 	addComponent: function(name) {
 		if(name == "graphicTile") this.graphicTile = new engine.isoEngine.components.Tile(); else if(name == "hudElement") this.hudElement = new engine.isoEngine.components.Hud();
@@ -19,7 +19,7 @@ var Main = function() {
 	engine.isoEngine.IsoEngine.init(1120,630);
 	init.Assets.load();
 };
-Main.__name__ = true;
+Main.__name__ = ["Main"];
 Main.ready = function() {
 	Main.nbCall++;
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
@@ -52,10 +52,17 @@ Main.prototype = {
 	,__class__: Main
 };
 var IMap = function() { };
-IMap.__name__ = true;
-Math.__name__ = true;
+IMap.__name__ = ["IMap"];
+Math.__name__ = ["Math"];
 var Reflect = function() { };
-Reflect.__name__ = true;
+Reflect.__name__ = ["Reflect"];
+Reflect.field = function(o,field) {
+	try {
+		return o[field];
+	} catch( e ) {
+		return null;
+	}
+};
 Reflect.fields = function(o) {
 	var a = [];
 	if(o != null) {
@@ -67,14 +74,95 @@ Reflect.fields = function(o) {
 	return a;
 };
 var Std = function() { };
-Std.__name__ = true;
+Std.__name__ = ["Std"];
 Std.string = function(s) {
 	return js.Boot.__string_rec(s,"");
 };
+var Type = function() { };
+Type.__name__ = ["Type"];
+Type.getClass = function(o) {
+	if(o == null) return null;
+	if((o instanceof Array) && o.__enum__ == null) return Array; else return o.__class__;
+};
+Type.getClassName = function(c) {
+	var a = c.__name__;
+	return a.join(".");
+};
 var engine = {};
+engine.eventsDispatcher = {};
+engine.eventsDispatcher.Event = function(pType) {
+	this.type = pType;
+};
+engine.eventsDispatcher.Event.__name__ = ["engine","eventsDispatcher","Event"];
+engine.eventsDispatcher.Event.prototype = {
+	formatToString: function(pArgs) {
+		var lTxt = "[" + Type.getClassName(Type.getClass(this));
+		var _g1 = 0;
+		var _g = pArgs.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			lTxt += " " + pArgs[i] + "=" + Std.string(Reflect.field(this,pArgs[i]));
+		}
+		return lTxt + "]";
+	}
+	,toString: function() {
+		return this.formatToString(["type"]);
+	}
+	,__class__: engine.eventsDispatcher.Event
+};
+engine.eventsDispatcher.EventDispatcher = function() {
+	this.listeners = [];
+};
+engine.eventsDispatcher.EventDispatcher.__name__ = ["engine","eventsDispatcher","EventDispatcher"];
+engine.eventsDispatcher.EventDispatcher.prototype = {
+	hasEventListener: function(pType,pListener) {
+		var _g1 = 0;
+		var _g = this.listeners.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(this.listeners[i].type == pType && this.listeners[i].listener == pListener) return i;
+		}
+		return -1;
+	}
+	,addEventListener: function(pType,pListener) {
+		if(this._disposed) return;
+		var lId = this.hasEventListener(pType,pListener);
+		if(lId == -1) this.listeners.push({ type : pType, listener : pListener, target : this, currentTarget : this});
+	}
+	,removeEventListener: function(pType,pListener) {
+		if(this._disposed) return;
+		var lId = this.hasEventListener(pType,pListener);
+		if(lId != -1) this.listeners.splice(lId,1);
+	}
+	,dispatchEvent: function(pEvt) {
+		var lDispatch = [];
+		var _g1 = 0;
+		var _g = this.listeners.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(this.listeners[i].type == pEvt.type) lDispatch.push(this.listeners[i]);
+		}
+		pEvt.currentTarget = this;
+		pEvt.target = this;
+		var _g11 = 0;
+		var _g2 = lDispatch.length;
+		while(_g11 < _g2) {
+			var i1 = _g11++;
+			lDispatch[i1].listener.apply(this,[pEvt]);
+		}
+	}
+	,destroy: function(pEvent) {
+		this.listeners = null;
+		this._disposed = true;
+	}
+	,get_disposed: function() {
+		return this._disposed;
+	}
+	,__class__: engine.eventsDispatcher.EventDispatcher
+};
 engine.input = {};
 engine.input.KeyName = function() { };
-engine.input.KeyName.__name__ = true;
+engine.input.KeyName.__name__ = ["engine","input","KeyName"];
 engine.input.KeyName.set = function() {
 	engine.input.KeyName.list = new haxe.ds.IntMap();
 	engine.input.KeyName.list.set(37,"left");
@@ -83,7 +171,7 @@ engine.input.KeyName.set = function() {
 	engine.input.KeyName.list.set(40,"down");
 };
 engine.input.Keyboard = function() { };
-engine.input.Keyboard.__name__ = true;
+engine.input.Keyboard.__name__ = ["engine","input","Keyboard"];
 engine.input.Keyboard.onKeyDown = function(pEvent) {
 	engine.input.Keyboard.keyChange(pEvent.keyCode,true);
 };
@@ -111,7 +199,7 @@ engine.isoEngine.IsoEngine = function(_width,_height) {
 	this.renderer = PIXI.autoDetectRenderer(_width,_height);
 	window.document.body.appendChild(this.renderer.view);
 };
-engine.isoEngine.IsoEngine.__name__ = true;
+engine.isoEngine.IsoEngine.__name__ = ["engine","isoEngine","IsoEngine"];
 engine.isoEngine.IsoEngine.getInstance = function() {
 	return engine.isoEngine.IsoEngine.instance;
 };
@@ -127,6 +215,7 @@ engine.isoEngine.IsoEngine.prototype = {
 		this.assets = new engine.isoEngine.managers.Assets();
 		this.tileIndicator = new engine.isoEngine.managers.TileSelectionIndicator();
 		this.displaying = new engine.isoEngine.managers.Displaying(this.stage);
+		this.events = new engine.eventsDispatcher.EventDispatcher();
 		engine.isoEngine.controls.Mouse.setRef(this.stage);
 		engine.isoEngine.controls.Camera.setRef(this);
 	}
@@ -139,7 +228,7 @@ engine.isoEngine.IsoEngine.prototype = {
 	,__class__: engine.isoEngine.IsoEngine
 };
 engine.isoEngine.IsoUtils = function() { };
-engine.isoEngine.IsoUtils.__name__ = true;
+engine.isoEngine.IsoUtils.__name__ = ["engine","isoEngine","IsoUtils"];
 engine.isoEngine.IsoUtils.coordToPx = function(x,y) {
 	var px = new utils.Vector2(0,0);
 	px.x = x * engine.isoEngine.components.Tile.size / 2 - y * engine.isoEngine.components.Tile.size / 2;
@@ -151,7 +240,7 @@ engine.isoEngine.components.Hud = function() {
 	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	if(!engine.isoEngine.components.Hud.isBinded) engine.isoEngine.components.Hud.bindToCamera();
 };
-engine.isoEngine.components.Hud.__name__ = true;
+engine.isoEngine.components.Hud.__name__ = ["engine","isoEngine","components","Hud"];
 engine.isoEngine.components.Hud.bindToCamera = function() {
 	engine.isoEngine.controls.Mouse.addOnClickEvent(engine.isoEngine.components.Hud.onClick);
 };
@@ -208,7 +297,7 @@ engine.isoEngine.components.Tile = function() {
 	engine.isoEngine.components.Tile.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	this.isInteractive = false;
 };
-engine.isoEngine.components.Tile.__name__ = true;
+engine.isoEngine.components.Tile.__name__ = ["engine","isoEngine","components","Tile"];
 engine.isoEngine.components.Tile.setSize = function(_size) {
 	engine.isoEngine.components.Tile.size = _size;
 };
@@ -274,7 +363,7 @@ engine.isoEngine.components.Tile.prototype = {
 };
 engine.isoEngine.controls = {};
 engine.isoEngine.controls.Camera = function() { };
-engine.isoEngine.controls.Camera.__name__ = true;
+engine.isoEngine.controls.Camera.__name__ = ["engine","isoEngine","controls","Camera"];
 engine.isoEngine.controls.Camera.move = function(x,y) {
 	if(y == null) y = 0;
 	if(x == null) x = 0;
@@ -321,7 +410,7 @@ engine.isoEngine.controls.Camera.pxToCoord = function(px) {
 	return newPos;
 };
 engine.isoEngine.controls.Mouse = function() { };
-engine.isoEngine.controls.Mouse.__name__ = true;
+engine.isoEngine.controls.Mouse.__name__ = ["engine","isoEngine","controls","Mouse"];
 engine.isoEngine.controls.Mouse.onClick = function() {
 	var _g1 = 0;
 	var _g = engine.isoEngine.controls.Mouse.onClickCallback.length;
@@ -353,7 +442,7 @@ engine.isoEngine.managers.Assets = function() {
 	this.textures = new haxe.ds.StringMap();
 	this.animations = new haxe.ds.StringMap();
 };
-engine.isoEngine.managers.Assets.__name__ = true;
+engine.isoEngine.managers.Assets.__name__ = ["engine","isoEngine","managers","Assets"];
 engine.isoEngine.managers.Assets.prototype = {
 	addTexture: function(name,from) {
 		var value = PIXI.Texture.fromFrame(from);
@@ -387,7 +476,7 @@ engine.isoEngine.managers.Displaying = function(_stage) {
 	this.createChildLayer("tiles","camera");
 	this.createChildLayer("overTiles","camera");
 };
-engine.isoEngine.managers.Displaying.__name__ = true;
+engine.isoEngine.managers.Displaying.__name__ = ["engine","isoEngine","managers","Displaying"];
 engine.isoEngine.managers.Displaying.prototype = {
 	displayMcOn: function(mc,layer) {
 		this.layers.get(layer).addChild(mc);
@@ -412,7 +501,7 @@ engine.isoEngine.managers.Displaying.prototype = {
 engine.isoEngine.managers.Maping = function() {
 	this.tiles = new Array();
 };
-engine.isoEngine.managers.Maping.__name__ = true;
+engine.isoEngine.managers.Maping.__name__ = ["engine","isoEngine","managers","Maping"];
 engine.isoEngine.managers.Maping.prototype = {
 	getTile: function(x,y) {
 		if(this.tiles[x] != null) return this.tiles[x][y];
@@ -426,7 +515,7 @@ engine.isoEngine.managers.Maping.prototype = {
 };
 engine.isoEngine.managers.TileSelectionIndicator = function() {
 };
-engine.isoEngine.managers.TileSelectionIndicator.__name__ = true;
+engine.isoEngine.managers.TileSelectionIndicator.__name__ = ["engine","isoEngine","managers","TileSelectionIndicator"];
 engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 	overOn: function(x,y) {
 		return;
@@ -461,7 +550,7 @@ entities.Flower = function(_referent,_state) {
 	this.state = _state;
 	haxe.Timer.delay($bind(this,this.endDelay),2000);
 };
-entities.Flower.__name__ = true;
+entities.Flower.__name__ = ["entities","Flower"];
 entities.Flower.prototype = {
 	endDelay: function() {
 	}
@@ -475,7 +564,7 @@ entities.Tile = function() {
 	this.graphicTile.addGround("ground");
 	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
-entities.Tile.__name__ = true;
+entities.Tile.__name__ = ["entities","Tile"];
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	createFlower: function() {
@@ -504,7 +593,7 @@ entities.biomeHud.Grass = function() {
 	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.15),"ground","grass");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
-entities.biomeHud.Grass.__name__ = true;
+entities.biomeHud.Grass.__name__ = ["entities","biomeHud","Grass"];
 entities.biomeHud.Grass.__super__ = GameObject;
 entities.biomeHud.Grass.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
@@ -525,7 +614,7 @@ entities.biomeHud.Water = function() {
 	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.05),"ground","automn");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
-entities.biomeHud.Water.__name__ = true;
+entities.biomeHud.Water.__name__ = ["entities","biomeHud","Water"];
 entities.biomeHud.Water.__super__ = GameObject;
 entities.biomeHud.Water.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
@@ -547,7 +636,7 @@ entities.flowerHud.BrownFlower = function() {
 	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.25),"ground","breaker");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
-entities.flowerHud.BrownFlower.__name__ = true;
+entities.flowerHud.BrownFlower.__name__ = ["entities","flowerHud","BrownFlower"];
 entities.flowerHud.BrownFlower.__super__ = GameObject;
 entities.flowerHud.BrownFlower.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
@@ -568,7 +657,7 @@ entities.flowerHud.TestFlower = function() {
 	this.hudElement.set(new utils.Vector2(0.1,0.1),new utils.Vector2(0.9,0.35),"ground","adultFlower");
 	this.hudElement.bindEvents($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
 };
-entities.flowerHud.TestFlower.__name__ = true;
+entities.flowerHud.TestFlower.__name__ = ["entities","flowerHud","TestFlower"];
 entities.flowerHud.TestFlower.__super__ = GameObject;
 entities.flowerHud.TestFlower.prototype = $extend(GameObject.prototype,{
 	mouseover: function() {
@@ -590,7 +679,7 @@ haxe.Timer = function(time_ms) {
 		me.run();
 	},time_ms);
 };
-haxe.Timer.__name__ = true;
+haxe.Timer.__name__ = ["haxe","Timer"];
 haxe.Timer.delay = function(f,time_ms) {
 	var t = new haxe.Timer(time_ms);
 	t.run = function() {
@@ -613,7 +702,7 @@ haxe.ds = {};
 haxe.ds.IntMap = function() {
 	this.h = { };
 };
-haxe.ds.IntMap.__name__ = true;
+haxe.ds.IntMap.__name__ = ["haxe","ds","IntMap"];
 haxe.ds.IntMap.__interfaces__ = [IMap];
 haxe.ds.IntMap.prototype = {
 	set: function(key,value) {
@@ -627,7 +716,7 @@ haxe.ds.IntMap.prototype = {
 haxe.ds.StringMap = function() {
 	this.h = { };
 };
-haxe.ds.StringMap.__name__ = true;
+haxe.ds.StringMap.__name__ = ["haxe","ds","StringMap"];
 haxe.ds.StringMap.__interfaces__ = [IMap];
 haxe.ds.StringMap.prototype = {
 	set: function(key,value) {
@@ -640,7 +729,7 @@ haxe.ds.StringMap.prototype = {
 };
 var init = {};
 init.Assets = function() { };
-init.Assets.__name__ = true;
+init.Assets.__name__ = ["init","Assets"];
 init.Assets.load = function() {
 	engine.isoEngine.components.Tile.setSize(128);
 	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
@@ -667,14 +756,14 @@ init.Assets.assetLoaded = function() {
 	Main.ready();
 };
 init.Map = function() { };
-init.Map.__name__ = true;
+init.Map.__name__ = ["init","Map"];
 init.Map.load = function() {
 	var map = manager.Map.getInstance();
 	map.set(10,10);
 };
 var js = {};
 js.Boot = function() { };
-js.Boot.__name__ = true;
+js.Boot.__name__ = ["js","Boot"];
 js.Boot.getClass = function(o) {
 	if((o instanceof Array) && o.__enum__ == null) return Array; else return o.__class__;
 };
@@ -792,7 +881,7 @@ js.Boot.__cast = function(o,t) {
 };
 var manager = {};
 manager.CameraManager = function() { };
-manager.CameraManager.__name__ = true;
+manager.CameraManager.__name__ = ["manager","CameraManager"];
 manager.CameraManager.update = function() {
 	var speed = 20 * Main.deltaTime;
 	if(engine.input.Keyboard.key.get("right")) engine.isoEngine.controls.Camera.move(-speed,0);
@@ -801,7 +890,7 @@ manager.CameraManager.update = function() {
 	if(engine.input.Keyboard.key.get("down")) engine.isoEngine.controls.Camera.move(0,-speed);
 };
 manager.Hud = function() { };
-manager.Hud.__name__ = true;
+manager.Hud.__name__ = ["manager","Hud"];
 manager.Hud.init = function() {
 	new entities.biomeHud.Water();
 	new entities.biomeHud.Grass();
@@ -814,7 +903,7 @@ manager.Map = function() {
 	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	this.bindEvents();
 };
-manager.Map.__name__ = true;
+manager.Map.__name__ = ["manager","Map"];
 manager.Map.getInstance = function() {
 	if(manager.Map.instance == null) manager.Map.instance = new manager.Map();
 	return manager.Map.instance;
@@ -870,7 +959,7 @@ manager.Map.prototype = {
 	,__class__: manager.Map
 };
 manager.Selection = function() { };
-manager.Selection.__name__ = true;
+manager.Selection.__name__ = ["manager","Selection"];
 var utils = {};
 utils.ArrayCoord = function(_x,_y,_i) {
 	if(_x == null) _x = 0;
@@ -878,7 +967,7 @@ utils.ArrayCoord = function(_x,_y,_i) {
 	this.y = _y;
 	this.i = _i;
 };
-utils.ArrayCoord.__name__ = true;
+utils.ArrayCoord.__name__ = ["utils","ArrayCoord"];
 utils.ArrayCoord.prototype = {
 	__class__: utils.ArrayCoord
 };
@@ -887,7 +976,7 @@ utils.Vector2 = function(_x,_y) {
 	this.x = _x;
 	this.y = _y;
 };
-utils.Vector2.__name__ = true;
+utils.Vector2.__name__ = ["utils","Vector2"];
 utils.Vector2.prototype = {
 	__class__: utils.Vector2
 };
@@ -903,8 +992,8 @@ Math.isNaN = function(i1) {
 	return isNaN(i1);
 };
 String.prototype.__class__ = String;
-String.__name__ = true;
-Array.__name__ = true;
+String.__name__ = ["String"];
+Array.__name__ = ["Array"];
 Date.prototype.__class__ = Date;
 Date.__name__ = ["Date"];
 var Int = { __name__ : ["Int"]};
@@ -917,6 +1006,12 @@ var Class = { __name__ : ["Class"]};
 var Enum = { };
 Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
+engine.eventsDispatcher.Event.COMPLETE = "Event.COMPLETE";
+engine.eventsDispatcher.Event.ADDED = "Event.ADDED";
+engine.eventsDispatcher.Event.ADDED_TO_STAGE = "Event.ADDED_TO_STAGE";
+engine.eventsDispatcher.Event.REMOVED = "Event.REMOVED";
+engine.eventsDispatcher.Event.REMOVED_FROM_STAGE = "Event.REMOVED_FROM_STAGE";
+engine.eventsDispatcher.Event.ENTER_FRAME = "Event.ENTER_FRAME";
 engine.isoEngine.components.Hud.isBinded = false;
 engine.isoEngine.components.Tile.size = 64;
 engine.isoEngine.controls.Mouse.onClickCallback = new Array();
