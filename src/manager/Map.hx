@@ -32,6 +32,17 @@ class Map
 	}
 
 
+	private function tileOn () {
+
+	}
+
+	private function tileOut () {
+
+	}
+
+	private function tileClick () {
+
+	}
 
 
 		/***** YOU DON'T CARE *****/
@@ -54,6 +65,8 @@ class Map
 		tiles = new Array<Tile>();
 		alreadySet = false;
 		isoEngine = IsoEngine.getInstance();
+
+		bindEvents();
 	}
 
 
@@ -73,4 +86,12 @@ class Map
 		    isoEngine.displaying.createChildLayer("buildingHeight" + i, "overTiles");
 		}
 	}
+
+
+	private function bindEvents () {
+		// isoEngine.on("tileMouseEnter", tileOn);
+		// isoEngine.on("tileMouseExit" , tileOut);
+		// isoEngine.on("tileMouseClick", tileClick);
+	}
+
 }

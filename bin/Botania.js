@@ -250,16 +250,25 @@ engine.isoEngine.components.Tile.prototype = {
 		if(this.coord.i >= 0) engine.isoEngine.components.Tile.isoEngine.map.addTile(this);
 	}
 	,setInteractive: function(_mouseEnter,_mouseExit,_mouseClick) {
-		this.mouseEnter = _mouseEnter;
-		this.mouseExit = _mouseExit;
-		this.mouseClick = _mouseClick;
+		this.personalMouseEnter = _mouseEnter;
+		this.personalMouseExit = _mouseExit;
+		this.personalMouseClick = _mouseClick;
 		this.isInteractive = true;
 	}
 	,mouseEnter: function() {
+		this.personalMouseEnter();
 	}
 	,mouseExit: function() {
+		this.personalMouseExit();
 	}
 	,mouseClick: function() {
+		this.personalMouseClick();
+	}
+	,personalMouseEnter: function() {
+	}
+	,personalMouseExit: function() {
+	}
+	,personalMouseClick: function() {
 	}
 	,__class__: engine.isoEngine.components.Tile
 };
@@ -448,18 +457,16 @@ var entities = {};
 entities.Flower = function(_referent,_state) {
 	if(_state == null) _state = "baby";
 	this.timeToBeAdult = 5;
-	GameObject.call(this);
 	this.referent = _referent;
 	this.state = _state;
 	haxe.Timer.delay($bind(this,this.endDelay),2000);
 };
 entities.Flower.__name__ = true;
-entities.Flower.__super__ = GameObject;
-entities.Flower.prototype = $extend(GameObject.prototype,{
+entities.Flower.prototype = {
 	endDelay: function() {
 	}
 	,__class__: entities.Flower
-});
+};
 entities.Tile = function() {
 	this.currentBuild = null;
 	this.currentGround = "grass";
@@ -805,6 +812,7 @@ manager.Map = function() {
 	this.tiles = new Array();
 	manager.Map.alreadySet = false;
 	this.isoEngine = engine.isoEngine.IsoEngine.getInstance();
+	this.bindEvents();
 };
 manager.Map.__name__ = true;
 manager.Map.getInstance = function() {
@@ -833,6 +841,12 @@ manager.Map.prototype = {
 			this.tiles[i].graphicTile.addGround(name);
 		}
 	}
+	,tileOn: function() {
+	}
+	,tileOut: function() {
+	}
+	,tileClick: function() {
+	}
 	,isAlreadySet: function() {
 		if(manager.Map.alreadySet) {
 			console.log("Le manager de la map à déjà été initialisé");
@@ -850,6 +864,8 @@ manager.Map.prototype = {
 			var i = _g++;
 			this.isoEngine.displaying.createChildLayer("buildingHeight" + i,"overTiles");
 		}
+	}
+	,bindEvents: function() {
 	}
 	,__class__: manager.Map
 };

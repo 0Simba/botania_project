@@ -96,9 +96,9 @@ class Tile {
 
         /***** INTERACTION *****/
     public function setInteractive (_mouseEnter, _mouseExit, _mouseClick) {
-        mouseEnter    = _mouseEnter;
-        mouseExit     = _mouseExit;
-        mouseClick    = _mouseClick;
+        personalMouseEnter = _mouseEnter;
+        personalMouseExit  = _mouseExit;
+        personalMouseClick = _mouseClick;
         isInteractive = true;
     }
 
@@ -112,7 +112,22 @@ class Tile {
     }
 
 
-    dynamic public function mouseEnter () {}
-    dynamic public function mouseExit () {}
-    dynamic public function mouseClick () {}
+    dynamic public function mouseEnter () {
+        // isoEngine.emit("tileMouseEnter", this);
+        personalMouseEnter();
+    }
+    dynamic public function mouseExit () {
+        // isoEngine.emit("tileMouseExit", this);
+        personalMouseExit();
+    }
+    dynamic public function mouseClick () {
+        // isoEngine.emit("tileMouseClick", this);
+        personalMouseClick();
+    }
+
+
+    dynamic public function personalMouseEnter () {}
+    dynamic public function personalMouseExit () {}
+    dynamic public function personalMouseClick () {}
+
 }

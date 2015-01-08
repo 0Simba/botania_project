@@ -2,21 +2,19 @@ package entities;
 
 import entities.Tile;
 
-class Flower extends GameObject
+class Flower
 {
     private var referent:Tile;
 
     private var state:String;
 
     public function new (_referent, _state = "baby") {
-        super();
+        //super();
 
         referent = _referent;
         state    = _state;
 
         haxe.Timer.delay(endDelay, 2000);
-
-        //emit("");
     }
 
 

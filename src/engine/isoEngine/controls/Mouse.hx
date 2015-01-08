@@ -15,13 +15,9 @@ class Mouse
 		for (i in 0...onClickCallback.length) {
 			onClickCallback[i]();
 		}
-		// Camera.onClick();
-		// Hud.onClick();
 	}
 
 	static public function addOnClickEvent (callback:VoidCallback) {
-		// if (!onClickCallback) {
-		// }
 		onClickCallback.push(callback);
 	}
 
