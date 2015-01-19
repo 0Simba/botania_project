@@ -89,6 +89,31 @@ Type.getClassName = function(c) {
 	return a.join(".");
 };
 var engine = {};
+engine.events = {};
+engine.events.Events = function() {
+	this.listeners = new haxe.ds.StringMap();
+};
+engine.events.Events.__name__ = ["engine","events","Events"];
+engine.events.Events.prototype = {
+	emit: function(name,data) {
+		if(this.listeners.exists(name)) {
+			var _g1 = 0;
+			var _g = this.listeners.get(name).length;
+			while(_g1 < _g) {
+				var i = _g1++;
+				this.listeners.get(name)[i](data);
+			}
+		}
+	}
+	,on: function(name,func) {
+		if(!this.listeners.exists(name)) {
+			var value = new Array();
+			this.listeners.set(name,value);
+		}
+		this.listeners.get(name).push(func);
+	}
+	,__class__: engine.events.Events
+};
 engine.eventsDispatcher = {};
 engine.eventsDispatcher.Event = function(pType) {
 	this.type = pType;
@@ -115,7 +140,7 @@ engine.eventsDispatcher.EventDispatcher = function() {
 };
 engine.eventsDispatcher.EventDispatcher.__name__ = ["engine","eventsDispatcher","EventDispatcher"];
 engine.eventsDispatcher.EventDispatcher.prototype = {
-	hasEventListener: function(pType,pListener) {
+	get: function(pType,pListener) {
 		var _g1 = 0;
 		var _g = this.listeners.length;
 		while(_g1 < _g) {
@@ -124,17 +149,17 @@ engine.eventsDispatcher.EventDispatcher.prototype = {
 		}
 		return -1;
 	}
-	,addEventListener: function(pType,pListener) {
+	,on: function(pType,pListener) {
 		if(this._disposed) return;
-		var lId = this.hasEventListener(pType,pListener);
+		var lId = this.get(pType,pListener);
 		if(lId == -1) this.listeners.push({ type : pType, listener : pListener, target : this, currentTarget : this});
 	}
-	,removeEventListener: function(pType,pListener) {
+	,remove: function(pType,pListener) {
 		if(this._disposed) return;
-		var lId = this.hasEventListener(pType,pListener);
+		var lId = this.get(pType,pListener);
 		if(lId != -1) this.listeners.splice(lId,1);
 	}
-	,dispatchEvent: function(pEvt) {
+	,emit: function(pEvt) {
 		var lDispatch = [];
 		var _g1 = 0;
 		var _g = this.listeners.length;
@@ -544,38 +569,47 @@ engine.isoEngine.managers.TileSelectionIndicator.prototype = {
 };
 var entities = {};
 entities.Flower = function(_referent,_state) {
-	if(_state == null) _state = "baby";
+	if(_state == null) _state = 0;
 	this.timeToBeAdult = 5;
 	this.referent = _referent;
-	this.state = _state;
+	this.stateIndex = _state;
+	this.referent.emit("state changed",entities.Flower.stateList[this.stateIndex]);
 	haxe.Timer.delay($bind(this,this.endDelay),2000);
 };
 entities.Flower.__name__ = ["entities","Flower"];
 entities.Flower.prototype = {
 	endDelay: function() {
+		this.stateIndex++;
+		this.referent.emit("state changed",entities.Flower.stateList[this.stateIndex]);
+		if(entities.Flower.stateList.length - 1 > this.stateIndex) haxe.Timer.delay($bind(this,this.endDelay),2000);
 	}
 	,__class__: entities.Flower
 };
 entities.Tile = function() {
 	this.currentBuild = null;
 	this.currentGround = "grass";
+	var _g = this;
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
 	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+	this.buildingEvents = new engine.events.Events();
+	this.buildingEvents.on("state changed",function(state) {
+		_g.graphicTile.changeBuild(state + "Flower");
+	});
 };
 entities.Tile.__name__ = ["entities","Tile"];
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	createFlower: function() {
-		this.flowerRef = new entities.Flower(this);
+		this.flowerRef = new entities.Flower(this.buildingEvents);
 	}
 	,mouseover: function() {
 		if(manager.Selection.contain == null) return;
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(manager.Selection.contain);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build" && this.currentBuild != null) this.graphicTile.changeBuild(manager.Selection.contain);
 	}
 	,mousequit: function() {
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build") this.graphicTile.changeBuild(this.currentBuild);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build" && this.currentBuild != null) this.graphicTile.changeBuild(this.currentBuild);
 	}
 	,mouseClick: function() {
 		if(manager.Selection.contain == null) return;
@@ -724,6 +758,9 @@ haxe.ds.StringMap.prototype = {
 	}
 	,get: function(key) {
 		return this.h["$" + key];
+	}
+	,exists: function(key) {
+		return this.h.hasOwnProperty("$" + key);
 	}
 	,__class__: haxe.ds.StringMap
 };
@@ -1006,16 +1043,11 @@ var Class = { __name__ : ["Class"]};
 var Enum = { };
 Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
-engine.eventsDispatcher.Event.COMPLETE = "Event.COMPLETE";
-engine.eventsDispatcher.Event.ADDED = "Event.ADDED";
-engine.eventsDispatcher.Event.ADDED_TO_STAGE = "Event.ADDED_TO_STAGE";
-engine.eventsDispatcher.Event.REMOVED = "Event.REMOVED";
-engine.eventsDispatcher.Event.REMOVED_FROM_STAGE = "Event.REMOVED_FROM_STAGE";
-engine.eventsDispatcher.Event.ENTER_FRAME = "Event.ENTER_FRAME";
 engine.isoEngine.components.Hud.isBinded = false;
 engine.isoEngine.components.Tile.size = 64;
 engine.isoEngine.controls.Mouse.onClickCallback = new Array();
 engine.isoEngine.controls.Mouse.status = "up";
+entities.Flower.stateList = ["baby","child","teenage","adult"];
 manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();

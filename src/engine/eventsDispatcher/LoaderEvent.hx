@@ -1,11 +1,5 @@
-/**
-* classe d'evenement li�e � la classe ConfigLoader
-* @author nicolas
-* @version 0.0.1
-*/
 
 package engine.eventsDispatcher;
-
 
 import engine.events.Event;
 
@@ -22,11 +16,6 @@ class LoaderEvent extends Event {
 
 	}
 
-		/**
-	 * Returns a String containing all the properties of the current
-	 * instance.
-	 * @return A string representation of the current instance.
-	 */
 	override public function toString():String {
 		if ( type==PROGRESS) return formatToString(["type","progress"]);
 		return super.toString();

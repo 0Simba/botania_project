@@ -1,25 +1,28 @@
 package entities;
 
-import entities.Tile;
+import engine.events.Events;
 
 class Flower
 {
-    private var referent:Tile;
+    static private var stateList:Array<String> = ["baby", "child", "teenage", "adult"];
+    private var referent:Events;
+    private var stateIndex:Int;
 
-    private var state:String;
+    public function new (_referent, _state = 0) {
+        referent   = _referent;
+        stateIndex = _state;
 
-    public function new (_referent, _state = "baby") {
-        //super();
-
-        referent = _referent;
-        state    = _state;
-
+        referent.emit("state changed", stateList[stateIndex]);
         haxe.Timer.delay(endDelay, 2000);
     }
 
 
     public function endDelay () {
-
+        stateIndex++;
+        referent.emit("state changed", stateList[stateIndex]);
+        if (stateList.length - 1 > stateIndex) {
+            haxe.Timer.delay(endDelay, 2000);
+        }
     }
 
 
