@@ -571,6 +571,7 @@ var entities = {};
 entities.Flower = function(_referent,_state) {
 	if(_state == null) _state = 0;
 	this.timeToBeAdult = 5;
+	console.log("coucou");
 	this.referent = _referent;
 	this.stateIndex = _state;
 	this.referent.emit("state changed",entities.Flower.stateList[this.stateIndex]);
@@ -616,7 +617,10 @@ entities.Tile.prototype = $extend(GameObject.prototype,{
 		if(manager.Selection.actionType == "ground") {
 			this.currentGround = manager.Selection.contain;
 			this.graphicTile.changeGround(this.currentGround);
-		} else if(manager.Selection.actionType == "build") this.createFlower();
+		} else if(manager.Selection.actionType == "build" && this.currentBuild == null) {
+			console.log("bibiatch");
+			this.createFlower();
+		}
 	}
 	,__class__: entities.Tile
 });

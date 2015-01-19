@@ -62,12 +62,11 @@ class Tile extends GameObject
     public function mouseClick () {
         if (Selection.contain == null) return;
 
-
         if (Selection.actionType == "ground") {
             currentGround = Selection.contain;
             graphicTile.changeGround(currentGround);
         }
-        else if (Selection.actionType == "build" && currentBuild != null) {
+        else if (Selection.actionType == "build" && currentBuild == null) {
             createFlower();                             //!\ remove this after test ! /!\
         }
     }
