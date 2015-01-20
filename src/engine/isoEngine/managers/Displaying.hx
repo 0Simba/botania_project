@@ -43,8 +43,12 @@ class Displaying
         layers = new Map<String, Graphics>();
         stage = _stage;
 
+        createMainLayer("background");
         createMainLayer("camera");
+        createMainLayer("fx");
+        createMainLayer("foreground");
         createMainLayer("hud");
+
         createChildLayer("tiles", "camera");
         createChildLayer("overTiles", "camera");
     }

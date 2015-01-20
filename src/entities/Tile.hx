@@ -32,6 +32,7 @@ class Tile extends GameObject
 
 
     public function createFlower () {
+        currentBuild = "flower";
         flowerRef = new Flower(buildingEvents);
     }
 
@@ -45,7 +46,7 @@ class Tile extends GameObject
         if (Selection.actionType == "ground") {
             graphicTile.changeGround(Selection.contain);
         }
-        else if (Selection.actionType == "build" && currentBuild != null) {
+        else if (Selection.actionType == "build" && currentBuild == null) {
             graphicTile.changeBuild(Selection.contain);
         }
     }
@@ -54,7 +55,7 @@ class Tile extends GameObject
         if (Selection.actionType == "ground") {
             graphicTile.changeGround(currentGround);
         }
-        else if (Selection.actionType == "build" && currentBuild != null) {
+        else if (Selection.actionType == "build" && currentBuild == null) {
             graphicTile.changeBuild(currentBuild);
         }
     }
@@ -67,7 +68,7 @@ class Tile extends GameObject
             currentGround = Selection.contain;
             graphicTile.changeGround(currentGround);
         }
-        else if (Selection.actionType == "build" && currentBuild != null) {
+        else if (Selection.actionType == "build" && currentBuild == null) {
             createFlower();                             //!\ remove this after test ! /!\
         }
     }

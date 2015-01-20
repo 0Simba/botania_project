@@ -24,6 +24,7 @@ Main.ready = function() {
 	Main.nbCall++;
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
 		init.Map.load();
+		init.CircleHud.load();
 		manager.Hud.init();
 		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 		engine.input.Keyboard.init();
@@ -89,6 +90,50 @@ Type.getClassName = function(c) {
 	return a.join(".");
 };
 var engine = {};
+engine.circleHud = {};
+engine.circleHud.CircleBlock = function(_centerRadius,_elementsRadius,_layerName) {
+	this.centerRadius = _centerRadius;
+	this.elementsRadius = _elementsRadius;
+	this.layerName = _layerName;
+	engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer(this.layerName,"circleHud");
+	this.elements = new haxe.ds.StringMap();
+};
+engine.circleHud.CircleBlock.__name__ = ["engine","circleHud","CircleBlock"];
+engine.circleHud.CircleBlock.prototype = {
+	addOnce: function(name) {
+		var value = new engine.circleHud.CircleElement(this,name);
+		this.elements.set(name,value);
+	}
+	,__class__: engine.circleHud.CircleBlock
+};
+engine.circleHud.CircleElement = function(_parent,_name) {
+	GameObject.call(this);
+	this.parent = _parent;
+	this.name = _name;
+	console.log("ok ok");
+};
+engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
+engine.circleHud.CircleElement.__super__ = GameObject;
+engine.circleHud.CircleElement.prototype = $extend(GameObject.prototype,{
+	__class__: engine.circleHud.CircleElement
+});
+engine.circleHud.CirclesHudEngine = function() {
+	engine.circleHud.CirclesHudEngine.model = new haxe.ds.StringMap();
+	engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer("circleHud","fx");
+};
+engine.circleHud.CirclesHudEngine.__name__ = ["engine","circleHud","CirclesHudEngine"];
+engine.circleHud.CirclesHudEngine.getInstance = function() {
+	if(engine.circleHud.CirclesHudEngine.instance == null) engine.circleHud.CirclesHudEngine.instance = new engine.circleHud.CirclesHudEngine();
+	return engine.circleHud.CirclesHudEngine.instance;
+};
+engine.circleHud.CirclesHudEngine.prototype = {
+	createModel: function(name,centerRadius,elementsRadius) {
+		var value = new engine.circleHud.CircleBlock(centerRadius,elementsRadius,name);
+		engine.circleHud.CirclesHudEngine.model.set(name,value);
+		return engine.circleHud.CirclesHudEngine.model.get(name);
+	}
+	,__class__: engine.circleHud.CirclesHudEngine
+};
 engine.events = {};
 engine.events.Events = function() {
 	this.listeners = new haxe.ds.StringMap();
@@ -496,7 +541,10 @@ engine.isoEngine.managers.Assets.prototype = {
 engine.isoEngine.managers.Displaying = function(_stage) {
 	this.layers = new haxe.ds.StringMap();
 	this.stage = _stage;
+	this.createMainLayer("background");
 	this.createMainLayer("camera");
+	this.createMainLayer("fx");
+	this.createMainLayer("foreground");
 	this.createMainLayer("hud");
 	this.createChildLayer("tiles","camera");
 	this.createChildLayer("overTiles","camera");
@@ -602,21 +650,22 @@ entities.Tile.__name__ = ["entities","Tile"];
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
 	createFlower: function() {
+		this.currentBuild = "flower";
 		this.flowerRef = new entities.Flower(this.buildingEvents);
 	}
 	,mouseover: function() {
 		if(manager.Selection.contain == null) return;
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build" && this.currentBuild != null) this.graphicTile.changeBuild(manager.Selection.contain);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.graphicTile.changeBuild(manager.Selection.contain);
 	}
 	,mousequit: function() {
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build" && this.currentBuild != null) this.graphicTile.changeBuild(this.currentBuild);
+		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.graphicTile.changeBuild(this.currentBuild);
 	}
 	,mouseClick: function() {
 		if(manager.Selection.contain == null) return;
 		if(manager.Selection.actionType == "ground") {
 			this.currentGround = manager.Selection.contain;
 			this.graphicTile.changeGround(this.currentGround);
-		} else if(manager.Selection.actionType == "build") this.createFlower();
+		} else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.createFlower();
 	}
 	,__class__: entities.Tile
 });
@@ -791,6 +840,13 @@ init.Assets.preloadAssets = function(pEvent) {
 };
 init.Assets.assetLoaded = function() {
 	Main.ready();
+};
+init.CircleHud = function() { };
+init.CircleHud.__name__ = ["init","CircleHud"];
+init.CircleHud.load = function() {
+	var circleHud = engine.circleHud.CirclesHudEngine.getInstance();
+	var flowerHud = circleHud.createModel("flower",100,50);
+	flowerHud.addOnce("delete");
 };
 init.Map = function() { };
 init.Map.__name__ = ["init","Map"];
