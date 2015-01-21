@@ -13,7 +13,12 @@ class Displaying
     static private var instance;
 
     public function displayMcOn (mc:MovieClip, layer:String) {
-        layers.get(layer).addChild(mc);
+        if (layers.exists(layer)) {
+            layers.get(layer).addChild(mc);
+        }
+        else {
+            trace("Le layer " + layer + " n'existe pas");
+        }
     }
 
 
@@ -48,6 +53,7 @@ class Displaying
         createMainLayer("fx");
         createMainLayer("foreground");
         createMainLayer("hud");
+        createMainLayer("overlay");
 
         createChildLayer("tiles", "camera");
         createChildLayer("overTiles", "camera");

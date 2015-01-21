@@ -6,9 +6,9 @@ import engine.isoEngine.IsoEngine;
 class CircleBlock
 {
 
+    public var layerName:String;
     private var centerRadius:Int;
     private var elementsRadius:Int;
-    private var layerName:String;
     private var elements:Map<String, CircleElement>;
 
 
@@ -21,8 +21,8 @@ class CircleBlock
         elements = new Map<String, CircleElement>();
     }
 
-    public function addOnce (name:String) {
-        elements.set(name, new CircleElement(this, name));
+    public function addOnce (name:String, texture:String) {
+        elements.set(name, new CircleElement(this, name, texture));
     }
 
 }

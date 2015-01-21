@@ -9,7 +9,7 @@ class Hud
 
     static public var currentOver:Hud;
 
-    public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String = null) {
+    public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String = null, parentLayer:String = "hud") {
         movieClip = new MovieClip(isoEngine.assets.animations.get(animationName));
 
         resize(percentSize);
@@ -17,7 +17,7 @@ class Hud
 
         if (textureName != null) changeTexture(textureName);
 
-        isoEngine.displaying.displayMcOn(movieClip, "hud");
+        isoEngine.displaying.displayMcOn(movieClip, parentLayer);
         initInteractivity();
     }
 

@@ -6,10 +6,11 @@ class CircleHud
 {
 
     static public function load () {
-        var circleHud = CirclesHudEngine.getInstance();
-        var flowerHud = circleHud.createModel("flower", 100, 50);
+        var circleHudEngine = CirclesHudEngine.getInstance();
 
-        flowerHud.addOnce("delete");
+        var flowerHud = circleHudEngine.createModel("flower", 100, 50);
+
+        flowerHud.addOnce("pick", "pick");
     }
 
 }

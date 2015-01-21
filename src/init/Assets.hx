@@ -10,19 +10,30 @@ class Assets
 
     static private var isoEngine:IsoEngine;
     static private var biomesAndBuildingData:JsonLoader;
+    static private var circleNavigation:JsonLoader;
+    static private var nbToLoad = 3;
+    static private var nbLoaded = 0;
 
     static public function load () {
         Tile.setSize(128);
         isoEngine = IsoEngine.getInstance();
-        isoEngine.assets.load(["../assets/biomesAndBuilding.json"], assetLoaded);
+        isoEngine.assets.load(["../assets/biomesAndBuilding.json", "../assets/circleNavigation.json"], assetLoaded);
 
         biomesAndBuildingData = new JsonLoader("../assets/biomesAndBuilding.json");
-        biomesAndBuildingData.addEventListener("loaded", preloadAssets);
+        biomesAndBuildingData.addEventListener("loaded", function (pEvent:Event) {
+            preloadAssets(pEvent, biomesAndBuildingData, "ground");
+        });
         biomesAndBuildingData.load();
+
+        circleNavigation = new JsonLoader("../assets/circleNavigation.json");
+        circleNavigation.addEventListener("loaded", function (pEvent:Event) {
+            preloadAssets(pEvent, circleNavigation, "circleNavigation");
+        });
+        circleNavigation.load();
     }
 
-    static private function preloadAssets (pEvent:Event) {
-        biomesAndBuildingData.removeEventListener("loaded", preloadAssets);
+    static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
+        target.removeEventListener("loaded", preloadAssets);
         var myData = cast(pEvent.target, JsonLoader).json.frames;
 
         var list:Array<String> = new Array<String>();
@@ -30,10 +41,14 @@ class Assets
             list.push(n);
             isoEngine.assets.addTexture(n, n);
         }
-        isoEngine.assets.createAnimation("ground", list);
+        isoEngine.assets.createAnimation(animationName, list);
+        assetLoaded();
     }
 
     static private function assetLoaded () {
-        Main.ready();
+        nbLoaded++;
+        if (nbLoaded >= nbToLoad) {
+            Main.ready();
+        }
     }
 }
