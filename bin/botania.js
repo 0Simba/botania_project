@@ -14,6 +14,15 @@ GameObject.prototype = {
 	}
 	,__class__: GameObject
 };
+var HxOverrides = function() { };
+HxOverrides.__name__ = ["HxOverrides"];
+HxOverrides.iter = function(a) {
+	return { cur : 0, arr : a, hasNext : function() {
+		return this.cur < this.arr.length;
+	}, next : function() {
+		return this.arr[this.cur++];
+	}};
+};
 var Main = function() {
 	Main.deltaTime = 0;
 	engine.isoEngine.IsoEngine.init(1120,630);
@@ -96,7 +105,7 @@ engine.circleHud.CircleBlock = function(_centerRadius,_elementsRadius,_layerName
 	this.centerRadius = _centerRadius;
 	this.elementsRadius = _elementsRadius;
 	this.layerName = _layerName;
-	engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer(this.layerName,"circleHud");
+	this.layer = engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer(this.layerName,"circleHud");
 	this.elements = new haxe.ds.StringMap();
 };
 engine.circleHud.CircleBlock.__name__ = ["engine","circleHud","CircleBlock"];
@@ -104,6 +113,24 @@ engine.circleHud.CircleBlock.prototype = {
 	addOnce: function(name,texture) {
 		var value = new engine.circleHud.CircleElement(this,name,texture);
 		this.elements.set(name,value);
+		this.replaceElements();
+		return this.elements.get(name);
+	}
+	,replaceElements: function() {
+		var list = utils.MapManipulate.toArray(this.elements);
+		var angle = Math.PI * 2 / list.length;
+		var _g1 = 0;
+		var _g = list.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var x = Math.cos(angle * i) * this.centerRadius;
+			var y = Math.sin(angle * i) * this.centerRadius;
+			list[i].replace(new utils.Vector2(x,y));
+		}
+	}
+	,show: function(pos) {
+		this.layer.x = pos.x;
+		this.layer.y = pos.y;
 	}
 	,__class__: engine.circleHud.CircleBlock
 };
@@ -112,12 +139,15 @@ engine.circleHud.CircleElement = function(_parent,_name,texture) {
 	this.parent = _parent;
 	this.name = _name;
 	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(0,0),new utils.Vector2(0,0),"circleNavigation",texture,this.name);
+	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",texture,this.parent.layerName);
 };
 engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
 engine.circleHud.CircleElement.__super__ = GameObject;
 engine.circleHud.CircleElement.prototype = $extend(GameObject.prototype,{
-	__class__: engine.circleHud.CircleElement
+	replace: function(pos) {
+		this.hudElement.replace(pos,true);
+	}
+	,__class__: engine.circleHud.CircleElement
 });
 engine.circleHud.CirclesHudEngine = function() {
 	engine.circleHud.CirclesHudEngine.model = new haxe.ds.StringMap();
@@ -337,13 +367,24 @@ engine.isoEngine.components.Hud.prototype = {
 	,changeTexture: function(name) {
 		this.movieClip.texture = this.isoEngine.assets.textures.get(name);
 	}
-	,replace: function(pos) {
-		this.movieClip.x = this.isoEngine.width * pos.x;
-		this.movieClip.y = this.isoEngine.height * pos.y;
+	,replace: function(pos,forcePixel) {
+		if(forcePixel == null) forcePixel = false;
+		if(pos.x > 1 || pos.y > 1 || forcePixel) {
+			this.movieClip.x = pos.x;
+			this.movieClip.y = pos.y;
+		} else {
+			this.movieClip.x = this.isoEngine.width * pos.x;
+			this.movieClip.y = this.isoEngine.height * pos.y;
+		}
 	}
 	,resize: function(size) {
-		this.movieClip.width = this.isoEngine.width * size.x;
-		this.movieClip.height = this.isoEngine.height * size.y;
+		if(size.x > 1 || size.y > 1) {
+			this.movieClip.width = size.x;
+			this.movieClip.height = size.y;
+		} else {
+			this.movieClip.width = this.isoEngine.width * size.x;
+			this.movieClip.height = this.isoEngine.height * size.y;
+		}
 	}
 	,initInteractivity: function() {
 		this.movieClip.interactive = true;
@@ -563,7 +604,9 @@ engine.isoEngine.managers.Displaying.prototype = {
 			var layer = new PIXI.Graphics();
 			this.layers.get(parent).addChild(layer);
 			this.layers.set(name,layer);
+			return layer;
 		}
+		return null;
 	}
 	,getCamera: function() {
 		return this.layers.get("camera");
@@ -848,6 +891,21 @@ haxe.ds.StringMap.prototype = {
 	,exists: function(key) {
 		return this.h.hasOwnProperty("$" + key);
 	}
+	,keys: function() {
+		var a = [];
+		for( var key in this.h ) {
+		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
+		}
+		return HxOverrides.iter(a);
+	}
+	,iterator: function() {
+		return { ref : this.h, it : this.keys(), hasNext : function() {
+			return this.it.hasNext();
+		}, next : function() {
+			var i = this.it.next();
+			return this.ref["$" + i];
+		}};
+	}
 	,__class__: haxe.ds.StringMap
 };
 var init = {};
@@ -891,8 +949,12 @@ init.CircleHud = function() { };
 init.CircleHud.__name__ = ["init","CircleHud"];
 init.CircleHud.load = function() {
 	var circleHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
-	var flowerHud = circleHudEngine.createModel("flower",100,50);
+	var flowerHud = circleHudEngine.createModel("flower",150,100);
 	flowerHud.addOnce("pick","pick");
+	flowerHud.addOnce("dig","dig");
+	flowerHud.addOnce("water","water");
+	flowerHud.addOnce("fertilizer","fertilizer");
+	flowerHud.show(new utils.Vector2(150,200));
 };
 init.Map = function() { };
 init.Map.__name__ = ["init","Map"];
@@ -1114,6 +1176,17 @@ utils.ArrayCoord = function(_x,_y,_i) {
 utils.ArrayCoord.__name__ = ["utils","ArrayCoord"];
 utils.ArrayCoord.prototype = {
 	__class__: utils.ArrayCoord
+};
+utils.MapManipulate = function() { };
+utils.MapManipulate.__name__ = ["utils","MapManipulate"];
+utils.MapManipulate.toArray = function(map) {
+	var keyArr = new Array();
+	var $it0 = map.iterator();
+	while( $it0.hasNext() ) {
+		var key = $it0.next();
+		keyArr.push(key);
+	}
+	return keyArr;
 };
 utils.Vector2 = function(_x,_y) {
 	if(_x == null) _x = 0;
