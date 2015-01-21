@@ -18,6 +18,8 @@ var Main = function() {
 	Main.deltaTime = 0;
 	engine.isoEngine.IsoEngine.init(1120,630);
 	init.Assets.load();
+	init.Config.load();
+	console.log(init.Config.player);
 };
 Main.__name__ = ["Main"];
 Main.ready = function() {
@@ -894,6 +896,32 @@ init.CircleHud.load = function() {
 	var flowerHud = circleHudEngine.createModel("flower",100,50);
 	flowerHud.addOnce("pick","pick");
 };
+init.Config = function() { };
+init.Config.__name__ = ["init","Config"];
+init.Config.load = function() {
+	var _g = 0;
+	var _g1 = Reflect.fields(init.Config);
+	while(_g < _g1.length) {
+		var key = [_g1[_g]];
+		++_g;
+		var path = Reflect.field(init.Config,key[0]);
+		if(path == "toLoad") {
+			console.log(key[0]);
+			var tempSourceFiles = new PIXI.JsonLoader(init.Config.sourceFilesPath + key[0] + ".json");
+			tempSourceFiles.addEventListener("loaded",(function(key) {
+				return function(pEvent) {
+					init.Config.onLoadComplete(pEvent,key[0]);
+				};
+			})(key));
+			tempSourceFiles.load();
+		}
+	}
+};
+init.Config.onLoadComplete = function(pEvent,targetKey) {
+	var tempDatas = (js.Boot.__cast(pEvent.target , PIXI.JsonLoader)).json;
+	var file = (js.Boot.__cast(pEvent.target , PIXI.JsonLoader)).json;
+	init.Config[targetKey] = tempDatas;
+};
 init.Map = function() { };
 init.Map.__name__ = ["init","Map"];
 init.Map.load = function() {
@@ -1157,6 +1185,10 @@ engine.isoEngine.controls.Mouse.status = "up";
 entities.Flower.stateList = ["baby","child","teenage","adult"];
 init.Assets.nbToLoad = 3;
 init.Assets.nbLoaded = 0;
+init.Config.sourceFilesPath = "../assets/json/config/";
+init.Config.player = "toLoad";
+init.Config.currencies = "toLoad";
+init.Config.translate = "toLoad";
 manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();

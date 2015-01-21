@@ -1,0 +1,14 @@
+{
+	"fr" : {
+		"COINS": ["pièce d'or", "pièces d'or"],
+		"SUNS" : ["soleil", "soleils"],
+		"FLOWERS": ["fleur", "fleurs"],
+		"SEEDS": ["graine", "graines"]
+	},
+	"en" : {
+		"COINS": ["coin", "coins"],
+		"SUNS" : ["sun", "suns"],
+		"FLOWERS": ["flower", "flowers"],
+		"SEEDS": ["seed", "seeds"]
+	}
+}

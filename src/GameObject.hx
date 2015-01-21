@@ -18,7 +18,7 @@ class GameObject
     }
 
 /*
-    public function addComponent (name:Class) {
+    public function addComponent (name:Class) {	
         graphicTile = new name();
     }*/
 }

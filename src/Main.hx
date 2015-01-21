@@ -19,6 +19,8 @@ class Main
 					// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
 		IsoEngine.init(1120, 630);
 		init.Assets.load();
+		init.Config.load();
+		trace(init.Config.player);
 	}
 
 
