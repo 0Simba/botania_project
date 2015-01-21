@@ -35,8 +35,8 @@ class Hud
     }
 
 
-    public function replace (pos:Vector2) {
-        if (pos.x > 1 || pos.y > 1) {
+    public function replace (pos:Vector2, forcePixel:Bool = false) {
+        if (pos.x > 1 || pos.y > 1 || forcePixel) {
             movieClip.x = pos.x;
             movieClip.y = pos.y;
         }

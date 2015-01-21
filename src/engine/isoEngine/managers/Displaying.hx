@@ -22,12 +22,14 @@ class Displaying
     }
 
 
-    public function createChildLayer (name:String, parent:String) {
+    public function createChildLayer (name:String, parent:String):Graphics{
         if (layers.get(name) == null) {
             var layer = new Graphics();
             layers.get(parent).addChild(layer);
             layers.set(name, layer);
+            return layer;
         }
+        return null;
     }
 
 
