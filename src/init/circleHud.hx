@@ -9,7 +9,7 @@ class CircleHud
         var circleHudEngine = CirclesHudEngine.getInstance();
         var flowerHud       = circleHudEngine.createModel("flower", 100, 50);
 
-        // flowerHud.addOnce("pick", "pick");
+        flowerHud.addOnce("pick", "pick");
     }
 
 }
