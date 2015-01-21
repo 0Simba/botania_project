@@ -16,7 +16,11 @@ class CircleElement extends GameObject
         name   = _name;
 
         addComponent("hudElement");
-        hudElement.set(new Vector2(0, 0) , new Vector2(0, 0) , "circleNavigation", texture, name);
+        hudElement.set(new Vector2(100, 100) , new Vector2(0, 0) , "circleNavigation", texture, parent.layerName);
+    }
+
+    public function replace (pos:Vector2) {
+        hudElement.replace(pos, true);
     }
 
 }
