@@ -1,0 +1,5 @@
+{
+	"playerBasicDatas" : "../assets/json/config/player.json",
+	"currenciesBasicDatas" : "../assets/json/config/currencies.json",
+	"translateBasicDatas" : "../assets/json/config/translate.json"
+}

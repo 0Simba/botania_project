@@ -1,0 +1,9 @@
+{
+	"sun" : {
+
+	},
+	"coins": {
+		"growthIndex" : 2.8,
+		"basicIndex" : 1
+	}
+}
