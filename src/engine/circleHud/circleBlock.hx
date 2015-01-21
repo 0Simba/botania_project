@@ -23,6 +23,7 @@ class CircleBlock
 
     public function addOnce (name:String, texture:String) {
         elements.set(name, new CircleElement(this, name, texture));
+        return elements.get(name);
     }
 
 }

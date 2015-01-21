@@ -9,6 +9,7 @@ class Hud
 
     static public var currentOver:Hud;
 
+            // if percentSize || percentPos > 1 => pixel
     public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String = null, parentLayer:String = "hud") {
         movieClip = new MovieClip(isoEngine.assets.animations.get(animationName));
 
@@ -35,14 +36,26 @@ class Hud
 
 
     public function replace (pos:Vector2) {
-        movieClip.x = isoEngine.width  * pos.x;
-        movieClip.y = isoEngine.height * pos.y;
+        if (pos.x > 1 || pos.y > 1) {
+            movieClip.x = pos.x;
+            movieClip.y = pos.y;
+        }
+        else {
+            movieClip.x = isoEngine.width  * pos.x;
+            movieClip.y = isoEngine.height * pos.y;
+        }
     }
 
 
     public function resize (size:Vector2) {
-        movieClip.width  = isoEngine.width  * size.x;
-        movieClip.height = isoEngine.height * size.y;
+        if (size.x > 1 || size.y > 1) {
+            movieClip.width  = size.x;
+            movieClip.height = size.y;
+        }
+        else {
+            movieClip.width  = isoEngine.width  * size.x;
+            movieClip.height = isoEngine.height * size.y;
+        }
     }
 
 
