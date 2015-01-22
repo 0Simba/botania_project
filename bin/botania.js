@@ -147,7 +147,8 @@ engine.circleHud.CircleElement = function(_parent,_name,texture) {
 	this.parent = _parent;
 	this.name = _name;
 	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",texture,this.parent.layerName);
+	var config = init.Config.display.hud.circle;
+	this.hudElement.set(new utils.Vector2(config.percentSize,config.percentSize),new utils.Vector2(config.percentPos,config.percentPos),"circleNavigation",texture,this.parent.layerName);
 	this.hudElement.resize(new utils.Vector2(this.parent.elementsRadius,this.parent.elementsRadius));
 };
 engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
@@ -276,10 +277,15 @@ engine.input.KeyName = function() { };
 engine.input.KeyName.__name__ = ["engine","input","KeyName"];
 engine.input.KeyName.set = function() {
 	engine.input.KeyName.list = new haxe.ds.IntMap();
-	engine.input.KeyName.list.set(37,"left");
-	engine.input.KeyName.list.set(38,"up");
-	engine.input.KeyName.list.set(39,"right");
-	engine.input.KeyName.list.set(40,"down");
+	var keyboard = init.Config.camera.keyboard;
+	var _g = 0;
+	var _g1 = Reflect.fields(keyboard);
+	while(_g < _g1.length) {
+		var keyName = _g1[_g];
+		++_g;
+		var keyCode = Reflect.field(keyboard,keyName);
+		engine.input.KeyName.list.set(keyCode,keyName);
+	}
 };
 engine.input.Keyboard = function() { };
 engine.input.Keyboard.__name__ = ["engine","input","Keyboard"];
@@ -418,6 +424,8 @@ engine.isoEngine.components.Hud.prototype = {
 	,__class__: engine.isoEngine.components.Hud
 };
 engine.isoEngine.components.Tile = function() {
+	engine.isoEngine.components.Tile.size = init.Config.display.tile.size;
+	engine.isoEngine.components.Tile.ratio = init.Config.display.tile.ratio;
 	engine.isoEngine.components.Tile.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	this.isInteractive = false;
 };
@@ -429,7 +437,7 @@ engine.isoEngine.components.Tile.prototype = {
 	addGround: function(name) {
 		this.ground = new PIXI.MovieClip(engine.isoEngine.components.Tile.isoEngine.assets.animations.get(name));
 		this.ground.width = engine.isoEngine.components.Tile.size;
-		this.ground.height = engine.isoEngine.components.Tile.size / 2;
+		this.ground.height = engine.isoEngine.components.Tile.size / engine.isoEngine.components.Tile.ratio;
 	}
 	,changeGround: function(name) {
 		this.ground.texture = engine.isoEngine.components.Tile.isoEngine.assets.textures.get(name);
@@ -440,7 +448,7 @@ engine.isoEngine.components.Tile.prototype = {
 		this.building.width = engine.isoEngine.components.Tile.size;
 		this.building.height = engine.isoEngine.components.Tile.size;
 		this.building.x = this.ground.x;
-		this.building.y = this.ground.y - engine.isoEngine.components.Tile.size / 2;
+		this.building.y = this.ground.y - engine.isoEngine.components.Tile.size / engine.isoEngine.components.Tile.ratio;
 		var layerNumber = this.coord.x + this.coord.y;
 		var layerName = "buildingHeight" + layerNumber;
 		engine.isoEngine.components.Tile.isoEngine.displaying.displayMcOn(this.building,layerName);
@@ -529,8 +537,8 @@ engine.isoEngine.controls.Camera.pxToCoord = function(px) {
 	px.x -= engine.isoEngine.controls.Camera.camera.x;
 	px.y -= engine.isoEngine.controls.Camera.camera.y;
 	var newPos = new utils.Vector2(-1,-1);
-	newPos.x = Math.round((px.x - engine.isoEngine.components.Tile.size) / engine.isoEngine.components.Tile.size + px.y / (engine.isoEngine.components.Tile.size / 2));
-	newPos.y = Math.round(px.y / (engine.isoEngine.components.Tile.size / 2) - px.x / engine.isoEngine.components.Tile.size);
+	newPos.x = Math.round((px.x - engine.isoEngine.components.Tile.size) / engine.isoEngine.components.Tile.size + px.y / (engine.isoEngine.components.Tile.size / engine.isoEngine.components.Tile.ratio));
+	newPos.y = Math.round(px.y / (engine.isoEngine.components.Tile.size / engine.isoEngine.components.Tile.ratio) - px.x / engine.isoEngine.components.Tile.size);
 	return newPos;
 };
 engine.isoEngine.controls.Mouse = function() { };
@@ -708,18 +716,19 @@ engine.popUpEngine.PopUpEngineMain.prototype = {
 var entities = {};
 entities.Flower = function(_referent,_state) {
 	if(_state == null) _state = 0;
-	this.timeToBeAdult = 5;
+	entities.Flower.config = init.Config.flower;
+	entities.Flower.stateList = entities.Flower.config.states;
 	this.referent = _referent;
 	this.stateIndex = _state;
 	this.referent.emit("state changed",entities.Flower.stateList[this.stateIndex]);
-	haxe.Timer.delay($bind(this,this.endDelay),2000);
+	haxe.Timer.delay($bind(this,this.endDelay),entities.Flower.config.time.delay);
 };
 entities.Flower.__name__ = ["entities","Flower"];
 entities.Flower.prototype = {
 	endDelay: function() {
 		this.stateIndex++;
 		this.referent.emit("state changed",entities.Flower.stateList[this.stateIndex]);
-		if(entities.Flower.stateList.length - 1 > this.stateIndex) haxe.Timer.delay($bind(this,this.endDelay),2000);
+		if(entities.Flower.stateList.length - 1 > this.stateIndex) haxe.Timer.delay($bind(this,this.endDelay),entities.Flower.config.time.delay);
 	}
 	,__class__: entities.Flower
 };
@@ -952,6 +961,7 @@ init.Assets.preloadAssets = function(pEvent,target,animationName) {
 	init.Assets.assetLoaded();
 };
 init.Assets.assetLoaded = function() {
+	init.Assets.nbToLoad = init.Config.assets.nbToLoad;
 	init.Assets.nbLoaded++;
 	if(init.Assets.nbLoaded >= init.Assets.nbToLoad) Main.ready();
 };
@@ -1007,7 +1017,8 @@ init.Map = function() { };
 init.Map.__name__ = ["init","Map"];
 init.Map.load = function() {
 	var map = manager.Map.getInstance();
-	map.set(10,10);
+	var config = init.Config.display.map;
+	map.set(config.pos.x,config.pos.y);
 };
 init.PopUp = function() { };
 init.PopUp.__name__ = ["init","PopUp"];
@@ -1136,7 +1147,7 @@ var manager = {};
 manager.CameraManager = function() { };
 manager.CameraManager.__name__ = ["manager","CameraManager"];
 manager.CameraManager.update = function() {
-	var speed = 20 * Main.deltaTime;
+	var speed = init.Config.camera.speed * Main.deltaTime;
 	if(engine.input.Keyboard.key.get("right")) engine.isoEngine.controls.Camera.move(-speed,0);
 	if(engine.input.Keyboard.key.get("left")) engine.isoEngine.controls.Camera.move(speed,0);
 	if(engine.input.Keyboard.key.get("up")) engine.isoEngine.controls.Camera.move(0,speed);
@@ -1271,17 +1282,17 @@ var Enum = { };
 Main.nbAsynchronousCallback = 1;
 Main.nbCall = 0;
 engine.isoEngine.components.Hud.isBinded = false;
-engine.isoEngine.components.Tile.size = 64;
 engine.isoEngine.controls.Mouse.onClickCallback = new Array();
 engine.isoEngine.controls.Mouse.status = "up";
-entities.Flower.stateList = ["baby","child","teenage","adult"];
-init.Assets.nbToLoad = 3;
 init.Assets.nbLoaded = 0;
 init.Config.sourceFilesPath = "../assets/config/json/";
 init.Config.player = "toLoad";
 init.Config.currencies = "toLoad";
 init.Config.translate = "toLoad";
 init.Config.display = "toLoad";
+init.Config.flower = "toLoad";
+init.Config.camera = "toLoad";
+init.Config.assets = "toLoad";
 manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();

@@ -13,6 +13,9 @@ class Config
 	public static var currencies:Dynamic = "toLoad";
 	public static var translate:Dynamic = "toLoad";
 	public static var display:Dynamic = "toLoad";
+	public static var flower:Dynamic = "toLoad";
+	public static var camera:Dynamic = "toLoad";
+	public static var assets:Dynamic = "toLoad";
 
 	static public function load ():Void {
 		for (key in Reflect.fields(Config)) {

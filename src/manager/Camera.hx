@@ -2,11 +2,11 @@ package manager;
 
 import engine.input.Keyboard;
 import engine.isoEngine.controls.Camera;
-
+import init.Config;
 class CameraManager {
 
     static public function update () {
-        var speed:Float = 20 * Main.deltaTime;
+        var speed:Float = Config.camera.speed * Main.deltaTime;
         if (Keyboard.key.get("right")) {
             Camera.move(-speed, 0);
         }

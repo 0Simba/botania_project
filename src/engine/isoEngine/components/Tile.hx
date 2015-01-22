@@ -5,11 +5,13 @@ import engine.isoEngine.IsoEngine;
 import js.Browser;
 import engine.isoEngine.IsoUtils;
 import engine.isoEngine.managers.Displaying;
+import init.Config;
 
 class Tile {
 
     static var isoEngine:IsoEngine;
-    static public var size:Int = 64;
+    static public var size:Int;
+    static public var ratio:Int;
 
     public var ground:MovieClip;
     public var building:MovieClip;
@@ -23,7 +25,7 @@ class Tile {
         ground = new MovieClip(isoEngine.assets.animations.get(name));
 
         ground.width  = size;
-        ground.height = size / 2;
+        ground.height = size / ratio;
     }
 
 
@@ -41,7 +43,7 @@ class Tile {
         building.height = size;
 
         building.x = ground.x;
-        building.y = ground.y - size / 2;
+        building.y = ground.y - size / ratio;
 
 
         var layerNumber:Int  = coord.x + coord.y;
@@ -107,6 +109,8 @@ class Tile {
 
         /***** YOU DON'T CARE *****/
     public function new () {
+        size = Config.display.tile.size;
+        ratio = Config.display.tile.ratio;
         isoEngine = IsoEngine.getInstance();
         isInteractive = false;
     }

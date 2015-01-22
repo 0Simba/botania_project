@@ -3,6 +3,7 @@ package engine.circleHud;
 import engine.circleHud.CircleBlock;
 import engine.events.Events;
 import utils.Vector2;
+import init.Config;
 
 class CircleElement extends GameObject
 {
@@ -16,7 +17,14 @@ class CircleElement extends GameObject
         name   = _name;
 
         addComponent("hudElement");
-        hudElement.set(new Vector2(100, 100) , new Vector2(0, 0) , "circleNavigation", texture, parent.layerName);
+        var config:Dynamic = Config.display.hud.circle;
+        hudElement.set(
+            new Vector2(config.percentSize, config.percentSize),
+            new Vector2(config.percentPos,  config.percentPos ),
+            "circleNavigation",
+            texture,
+            parent.layerName
+        );
         hudElement.resize(new Vector2(parent.elementsRadius, parent.elementsRadius));
     }
 
