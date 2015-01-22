@@ -12,6 +12,7 @@ class CirclesHudEngine
         return model.get(name);
     }
 
+
     public function get (name:String):CircleBlock {
         if (model.exists(name)) {
             return model.get(name);
@@ -23,10 +24,19 @@ class CirclesHudEngine
 
 
 
+    /****** SURELY NOT INTERSET YOU *****/
+
+    public function setBlockOffset (_x:Float, _y:Float) {
+        offsetX = _x;
+        offsetY = _y;
+    }
 
     /****** YOU DON'T CARE *****/
 
     private static var model:Map<String, CircleBlock>;
+
+    public var offsetX:Float = 0;
+    public var offsetY:Float = 0;
 
     public static function getInstance (): CirclesHudEngine {
         if (instance == null) {

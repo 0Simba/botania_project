@@ -17,8 +17,8 @@
 	},
 	"hud" : {
 		"circle" : {
-			"percentSize" : 100,
-			"percentPos" : 0
+			"centerRadius"  : 64,
+			"elementsRadius": 64
 		}
 	}
 }

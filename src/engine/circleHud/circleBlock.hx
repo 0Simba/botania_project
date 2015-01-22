@@ -4,6 +4,7 @@ import engine.circleHud.CircleElement;
 import engine.isoEngine.IsoEngine;
 import utils.MapManipulate;
 import utils.Vector2;
+import engine.circleHud.CirclesHudEngine;
 
 import pixi.primitives.Graphics;
 
@@ -15,7 +16,7 @@ class CircleBlock
     public  var elementsRadius:Int;
     private var centerRadius:Int;
     private var elements:Map<String, CircleElement>;
-
+    private var parent:CirclesHudEngine;
 
     public function new (_centerRadius:Int, _elementsRadius:Int, _layerName:String) {
         centerRadius   = _centerRadius;
@@ -24,6 +25,12 @@ class CircleBlock
 
         layer    = IsoEngine.getInstance().displaying.createChildLayer(layerName, "circleHud");
         elements = new Map<String, CircleElement>();
+
+        parent = CirclesHudEngine.getInstance();
+
+        layer.beginFill(202020, 0.3);
+        layer.drawCircle(parent.offsetX, parent.offsetY, centerRadius);
+        layer.endFill();
 
         layer.visible = false;
     }
@@ -43,7 +50,7 @@ class CircleBlock
             var x = Math.cos(angle * i) * centerRadius;
             var y = Math.sin(angle * i) * centerRadius;
 
-            list[i].replace(new Vector2 (x, y));
+            list[i].replace(new Vector2 (x + parent.offsetX - centerRadius / 2, y + parent.offsetY - centerRadius / 2));
         }
     }
 

@@ -45,7 +45,8 @@ class MouseTile
                 tile.createFlower();                             //!\ MOVE THIS ! /!\
             }
             else {
-                circlesHudEngine.get("flower").show(engine.isoEngine.IsoUtils.coordToPx(tile.coord.x, tile.coord.y));
+                trace(tile.coordInPixel());
+                circlesHudEngine.get("flower").show(tile.coordInPixel());
             }
         }
     }
