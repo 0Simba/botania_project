@@ -22,8 +22,10 @@ class CircleBlock
         elementsRadius = _elementsRadius;
         layerName      = _layerName;
 
-        layer = IsoEngine.getInstance().displaying.createChildLayer(layerName, "circleHud");
+        layer    = IsoEngine.getInstance().displaying.createChildLayer(layerName, "circleHud");
         elements = new Map<String, CircleElement>();
+
+        layer.visible = false;
     }
 
     public function addOnce (name:String, texture:String) {
@@ -48,6 +50,11 @@ class CircleBlock
     public function show (pos:Vector2) {
         layer.x = pos.x;
         layer.y = pos.y;
+        layer.visible = true;
+    }
+
+    public function hide () {
+        layer.visible = false;
     }
 
 }
