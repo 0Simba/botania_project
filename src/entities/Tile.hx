@@ -3,6 +3,7 @@ package entities;
 import manager.Selection;
 import entities.Flower;
 import engine.events.Events;
+import utils.ArrayCoord;
 
 class Tile extends GameObject
 {
@@ -15,18 +16,23 @@ class Tile extends GameObject
 
     public var flowerRef:Flower;
 
-	public function new ()
+    public var coord:ArrayCoord;
+
+	public function new (_coord:ArrayCoord)
 	{
 		super();
         addComponent("graphicTile");
 
         graphicTile.addGround("ground");
-        graphicTile.setInteractive(mouseover, mousequit, mouseClick);
+        graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
         buildingEvents = new Events();
         buildingEvents.on("state changed", function (state:String) {
             graphicTile.changeBuild(state + "Flower");
         });
+
+        coord = _coord;
+        graphicTile.setPlace(coord.x, coord.y, coord.i);
     }
 
 
@@ -41,34 +47,14 @@ class Tile extends GameObject
     /***** MOUSE EVENTS *****/
 
     public function mouseover () {
-        if (Selection.contain == null) return;
-
-        if (Selection.actionType == "ground") {
-            graphicTile.changeGround(Selection.contain);
-        }
-        else if (Selection.actionType == "build" && currentBuild == null) {
-            graphicTile.changeBuild(Selection.contain);
-        }
+        manager.MouseTile.over(this);
     }
 
-    public function mousequit () {
-        if (Selection.actionType == "ground") {
-            graphicTile.changeGround(currentGround);
-        }
-        else if (Selection.actionType == "build" && currentBuild == null) {
-            graphicTile.changeBuild(currentBuild);
-        }
+    public function mouseout () {
+        manager.MouseTile.out(this);
     }
 
-    public function mouseClick () {
-        if (Selection.contain == null) return;
-
-        if (Selection.actionType == "ground") {
-            currentGround = Selection.contain;
-            graphicTile.changeGround(currentGround);
-        }
-        else if (Selection.actionType == "build" && currentBuild == null) {
-            createFlower();                             //!\ remove this after test ! /!\
-        }
+    public function mouseclick () {
+        manager.MouseTile.click(this);
     }
 }

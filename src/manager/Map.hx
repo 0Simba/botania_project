@@ -2,6 +2,7 @@ package manager;
 
 import entities.Tile;
 import engine.isoEngine.IsoEngine;
+import utils.ArrayCoord;
 
 class Map
 {
@@ -16,12 +17,12 @@ class Map
 		addLayer(nbRows + nbCols);
 
 		for (i in 0...nbCols * nbRows) {
-			tiles[i] = new Tile();
-
             var x:Int = i % nbCols;
             var y:Int = Math.floor(i / nbCols);
 
-			tiles[i].graphicTile.setPlace(x, y, i);
+			tiles[i] = new Tile(new ArrayCoord(x, y, i));
+
+			// tiles[i].graphicTile.setPlace(x, y, i);
 		}
 	}
 
@@ -30,20 +31,6 @@ class Map
 			tiles[i].graphicTile.addGround(name);
 		}
 	}
-
-
-	private function tileOn () {
-
-	}
-
-	private function tileOut () {
-
-	}
-
-	private function tileClick () {
-
-	}
-
 
 		/***** YOU DON'T CARE *****/
 	static private var alreadySet:Bool;

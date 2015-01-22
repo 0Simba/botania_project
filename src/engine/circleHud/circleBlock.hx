@@ -28,8 +28,8 @@ class CircleBlock
         layer.visible = false;
     }
 
-    public function addOnce (name:String, texture:String) {
-        elements.set(name, new CircleElement(this, name, texture));
+    public function addOnce (name:String, basicTexture:String, hoverTexture:String, clickTexture:String) {
+        elements.set(name, new CircleElement(this, name, basicTexture, hoverTexture, clickTexture));
         replaceElements ();
         return elements.get(name);
     }

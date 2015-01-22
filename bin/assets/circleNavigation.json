@@ -1,6 +1,6 @@
 {"frames": {
 
-"dig":
+"digBasic":
 {
     "frame": {"x":0, "y":0,"w":100,"h":100},
     "rotated": false,
@@ -8,7 +8,7 @@
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
 },
-"water":
+"waterBasic":
 {
     "frame": {"x":100, "y":0,"w":100,"h":100},
     "rotated": false,
@@ -16,7 +16,7 @@
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
 },
-"pick":
+"pickBasic":
 {
     "frame": {"x":0, "y":100,"w":100,"h":100},
     "rotated": false,
@@ -24,9 +24,75 @@
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
 },
-"fertilizer":
+"fertilizerBasic":
 {
     "frame": {"x":100, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+
+"digHover":
+{
+    "frame": {"x":200, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"waterHover":
+{
+    "frame": {"x":300, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"pickHover":
+{
+    "frame": {"x":200, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"fertilizerHover":
+{
+    "frame": {"x":300, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+
+"digClick":
+{
+    "frame": {"x":400, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"waterClick":
+{
+    "frame": {"x":500, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"pickClick":
+{
+    "frame": {"x":400, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"fertilizerClick":
+{
+    "frame": {"x":500, "y":100,"w":100,"h":100},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
@@ -38,7 +104,7 @@
     "version": "1.0",
     "image": "circlenavigation.png",
     "format": "RGBA8888",
-    "size": {"w":200,"h":200},
+    "size": {"w":600,"h":600},
     "scale": "1",
     "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
 }
