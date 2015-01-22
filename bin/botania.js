@@ -109,11 +109,12 @@ engine.circleHud.CircleBlock = function(_centerRadius,_elementsRadius,_layerName
 	this.layerName = _layerName;
 	this.layer = engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer(this.layerName,"circleHud");
 	this.elements = new haxe.ds.StringMap();
+	this.layer.visible = false;
 };
 engine.circleHud.CircleBlock.__name__ = ["engine","circleHud","CircleBlock"];
 engine.circleHud.CircleBlock.prototype = {
-	addOnce: function(name,texture) {
-		var value = new engine.circleHud.CircleElement(this,name,texture);
+	addOnce: function(name,basicTexture,hoverTexture,clickTexture) {
+		var value = new engine.circleHud.CircleElement(this,name,basicTexture,hoverTexture,clickTexture);
 		this.elements.set(name,value);
 		this.replaceElements();
 		return this.elements.get(name);
@@ -133,21 +134,39 @@ engine.circleHud.CircleBlock.prototype = {
 	,show: function(pos) {
 		this.layer.x = pos.x;
 		this.layer.y = pos.y;
+		this.layer.visible = true;
+	}
+	,hide: function() {
+		this.layer.visible = false;
 	}
 	,__class__: engine.circleHud.CircleBlock
 };
-engine.circleHud.CircleElement = function(_parent,_name,texture) {
+engine.circleHud.CircleElement = function(_parent,_name,_basicTexture,_hoverTexture,_clickTexture) {
 	GameObject.call(this);
 	this.parent = _parent;
 	this.name = _name;
+	this.basicTexture = _basicTexture;
+	this.hoverTexture = _hoverTexture;
+	this.clickTexture = _clickTexture;
 	this.addComponent("hudElement");
-	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",texture,this.parent.layerName);
+	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",this.basicTexture,this.parent.layerName);
+	this.hudElement.resize(new utils.Vector2(this.parent.elementsRadius,this.parent.elementsRadius));
+	this.hudElement.bindEvents($bind(this,this.over),$bind(this,this.out),$bind(this,this.click));
 };
 engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
 engine.circleHud.CircleElement.__super__ = GameObject;
 engine.circleHud.CircleElement.prototype = $extend(GameObject.prototype,{
 	replace: function(pos) {
 		this.hudElement.replace(pos,true);
+	}
+	,over: function() {
+		this.hudElement.changeTexture(this.hoverTexture);
+	}
+	,out: function() {
+		this.hudElement.changeTexture(this.basicTexture);
+	}
+	,click: function() {
+		this.hudElement.changeTexture(this.clickTexture);
 	}
 	,__class__: engine.circleHud.CircleElement
 });
@@ -379,8 +398,9 @@ engine.isoEngine.components.Hud.prototype = {
 			this.movieClip.y = this.isoEngine.height * pos.y;
 		}
 	}
-	,resize: function(size) {
-		if(size.x > 1 || size.y > 1) {
+	,resize: function(size,forcePixel) {
+		if(forcePixel == null) forcePixel = false;
+		if(size.x > 1 || size.y > 1 || forcePixel) {
 			this.movieClip.width = size.x;
 			this.movieClip.height = size.y;
 		} else {
@@ -951,11 +971,11 @@ init.CircleHud = function() { };
 init.CircleHud.__name__ = ["init","CircleHud"];
 init.CircleHud.load = function() {
 	var circleHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
-	var flowerHud = circleHudEngine.createModel("flower",150,100);
-	flowerHud.addOnce("pick","pick");
-	flowerHud.addOnce("dig","dig");
-	flowerHud.addOnce("water","water");
-	flowerHud.addOnce("fertilizer","fertilizer");
+	var flowerHud = circleHudEngine.createModel("flower",128,128);
+	flowerHud.addOnce("pick","pickBasic","pickHover","pickClick");
+	flowerHud.addOnce("dig","digBasic","digHover","digClick");
+	flowerHud.addOnce("water","waterBasic","waterHover","waterClick");
+	flowerHud.addOnce("fertilizer","fertilizerBasic","fertilizerHover","fertilizerClick");
 	flowerHud.show(new utils.Vector2(150,200));
 };
 init.Config = function() { };
