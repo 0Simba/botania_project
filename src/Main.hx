@@ -18,12 +18,12 @@ class Main
 		deltaTime = 0;
 					// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
 		IsoEngine.init(1120, 630);
-		init.Assets.load();
 		init.Config.load();
-		trace(init.Config.player);
 	}
 
-
+	static public function ConfigLoaded(){
+		init.Assets.load();
+	}
 	static public function ready () {
 		nbCall++;
 		if (nbCall == nbAsynchronousCallback) {

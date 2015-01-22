@@ -26,11 +26,12 @@ HxOverrides.iter = function(a) {
 var Main = function() {
 	Main.deltaTime = 0;
 	engine.isoEngine.IsoEngine.init(1120,630);
-	init.Assets.load();
 	init.Config.load();
-	console.log(init.Config.player);
 };
 Main.__name__ = ["Main"];
+Main.ConfigLoaded = function() {
+	init.Assets.load();
+};
 Main.ready = function() {
 	Main.nbCall++;
 	if(Main.nbCall == Main.nbAsynchronousCallback) {
@@ -142,6 +143,7 @@ engine.circleHud.CircleElement = function(_parent,_name,texture) {
 	this.name = _name;
 	this.addComponent("hudElement");
 	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",texture,this.parent.layerName);
+	this.hudElement.resize(new utils.Vector2(this.parent.elementsRadius,this.parent.elementsRadius));
 };
 engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
 engine.circleHud.CircleElement.__super__ = GameObject;
@@ -379,8 +381,9 @@ engine.isoEngine.components.Hud.prototype = {
 			this.movieClip.y = this.isoEngine.height * pos.y;
 		}
 	}
-	,resize: function(size) {
-		if(size.x > 1 || size.y > 1) {
+	,resize: function(size,forcePixel) {
+		if(forcePixel == null) forcePixel = false;
+		if(size.x > 1 || size.y > 1 || forcePixel) {
 			this.movieClip.width = size.x;
 			this.movieClip.height = size.y;
 		} else {
@@ -914,7 +917,7 @@ var init = {};
 init.Assets = function() { };
 init.Assets.__name__ = ["init","Assets"];
 init.Assets.load = function() {
-	engine.isoEngine.components.Tile.setSize(128);
+	engine.isoEngine.components.Tile.setSize(init.Config.tile.size);
 	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	init.Assets.isoEngine.assets.load(["../assets/biomesAndBuilding.json","../assets/circleNavigation.json"],init.Assets.assetLoaded);
 	init.Assets.biomesAndBuildingData = new PIXI.JsonLoader("../assets/biomesAndBuilding.json");
@@ -951,7 +954,7 @@ init.CircleHud = function() { };
 init.CircleHud.__name__ = ["init","CircleHud"];
 init.CircleHud.load = function() {
 	var circleHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
-	var flowerHud = circleHudEngine.createModel("flower",150,100);
+	var flowerHud = circleHudEngine.createModel("flower",init.Config.tile.size,init.Config.tile.size);
 	flowerHud.addOnce("pick","pick");
 	flowerHud.addOnce("dig","dig");
 	flowerHud.addOnce("water","water");
@@ -979,10 +982,22 @@ init.Config.load = function() {
 		}
 	}
 };
+init.Config.CheckIsEnded = function() {
+	var _g = 0;
+	var _g1 = Reflect.fields(init.Config);
+	while(_g < _g1.length) {
+		var key = _g1[_g];
+		++_g;
+		var path = Reflect.field(init.Config,key);
+		if(path == "toLoad") return;
+	}
+	Main.ConfigLoaded();
+};
 init.Config.onLoadComplete = function(pEvent,targetKey) {
 	var tempDatas = (js.Boot.__cast(pEvent.target , PIXI.JsonLoader)).json;
 	var file = (js.Boot.__cast(pEvent.target , PIXI.JsonLoader)).json;
 	init.Config[targetKey] = tempDatas;
+	init.Config.CheckIsEnded();
 };
 init.Map = function() { };
 init.Map.__name__ = ["init","Map"];
@@ -1258,10 +1273,11 @@ engine.isoEngine.controls.Mouse.status = "up";
 entities.Flower.stateList = ["baby","child","teenage","adult"];
 init.Assets.nbToLoad = 3;
 init.Assets.nbLoaded = 0;
-init.Config.sourceFilesPath = "../assets/json/config/";
+init.Config.sourceFilesPath = "../assets/config/json/";
 init.Config.player = "toLoad";
 init.Config.currencies = "toLoad";
 init.Config.translate = "toLoad";
+init.Config.tile = "toLoad";
 manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();

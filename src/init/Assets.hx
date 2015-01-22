@@ -1,5 +1,6 @@
 package init;
 
+import init.Config;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.components.Tile;
 import js.html.Event;
@@ -15,7 +16,7 @@ class Assets
     static private var nbLoaded = 0;
 
     static public function load () {
-        Tile.setSize(128);
+        Tile.setSize(Config.tile.size);
         isoEngine = IsoEngine.getInstance();
         isoEngine.assets.load(["../assets/biomesAndBuilding.json", "../assets/circleNavigation.json"], assetLoaded);
 

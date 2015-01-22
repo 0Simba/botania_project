@@ -8,7 +8,7 @@ class CircleHud
 
     static public function load () {
         var circleHudEngine = CirclesHudEngine.getInstance();
-        var flowerHud       = circleHudEngine.createModel("flower", 128, 128);
+        var flowerHud       = circleHudEngine.createModel("flower", Config.tile.size, Config.tile.size);
 
         flowerHud.addOnce("pick", "pick");
         flowerHud.addOnce("dig", "dig");
