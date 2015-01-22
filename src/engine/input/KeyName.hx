@@ -6,10 +6,10 @@ class KeyName
 
     static public function set () {
         list  = new Map<Int, String>();
-        var keyboard = init.Config.camera.keyboard;
-        for(keyName in Reflect.fields(keyboard)){
-        	var keyCode:Int = Reflect.field(keyboard, keyName);
-        	list.set(keyCode, keyName);
-        }
+
+        list.set(37, "left");
+        list.set(38, "up");
+        list.set(39, "right");
+        list.set(40, "down");
     }
 }
