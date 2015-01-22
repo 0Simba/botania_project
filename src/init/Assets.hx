@@ -12,7 +12,7 @@ class Assets
     static private var isoEngine:IsoEngine;
     static private var biomesAndBuildingData:JsonLoader;
     static private var circleNavigation:JsonLoader;
-    static private var nbToLoad = 3;
+    static private var nbToLoad;
     static private var nbLoaded = 0;
 
     static public function load () {
@@ -47,6 +47,7 @@ class Assets
     }
 
     static private function assetLoaded () {
+        nbToLoad = Config.assets.nbToLoad;
         nbLoaded++;
         if (nbLoaded >= nbToLoad) {
             Main.ready();

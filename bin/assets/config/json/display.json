@@ -5,7 +5,20 @@
 			"height" : 630
 		}
 	},
+	"map" : {
+		"pos": {
+			"x" : 10,
+			"y" : 10
+		}
+	},
 	"tile" : {
-		"size" : 128
+		"size" : 128,
+		"ratio" : 2
+	},
+	"hud" : {
+		"circle" : {
+			"percentSize" : 100,
+			"percentPos" : 0
+		}
 	}
 }
