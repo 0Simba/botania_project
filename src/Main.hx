@@ -29,10 +29,14 @@ class Main
 		nbCall++;
 		if (nbCall == nbAsynchronousCallback) {
 					// Put here all synchronous loading function.
+				//init
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();
+				//manager
 			manager.Hud.init();
+			manager.MouseTile.init();
+
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 

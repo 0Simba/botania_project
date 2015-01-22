@@ -4,6 +4,7 @@ import manager.Selection;
 import entities.Flower;
 import engine.events.Events;
 import utils.ArrayCoord;
+import utils.Vector2;
 
 class Tile extends GameObject
 {
@@ -33,6 +34,11 @@ class Tile extends GameObject
 
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);
+    }
+
+
+    public function coordInPixel ():Vector2 {
+        return graphicTile.coordInPixel();
     }
 
 
