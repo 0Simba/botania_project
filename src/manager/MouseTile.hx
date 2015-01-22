@@ -1,6 +1,8 @@
 package manager;
 
+import engine.circleHud.CirclesHudEngine;
 import entities.Tile;
+import utils.Vector2;
 
 class MouseTile
 {
@@ -33,8 +35,13 @@ class MouseTile
             tile.currentGround = Selection.contain;
             tile.graphicTile.changeGround(tile.currentGround);
         }
-        else if (Selection.actionType == "build" && tile.currentBuild == null) {
-            tile.createFlower();                             //!\ MOVE THIS ! /!\
+        else if (Selection.actionType == "build") {
+            if (tile.currentBuild == null) {
+                tile.createFlower();                             //!\ MOVE THIS ! /!\
+            }
+            else {
+                CirclesHudEngine.getInstance().get("flower").show(new Vector2(tile.coord.x * 128, tile.coord.y * 64));
+            }
         }
     }
 

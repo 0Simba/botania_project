@@ -3,6 +3,7 @@ package entities;
 import manager.Selection;
 import entities.Flower;
 import engine.events.Events;
+import utils.ArrayCoord;
 
 class Tile extends GameObject
 {
@@ -15,7 +16,9 @@ class Tile extends GameObject
 
     public var flowerRef:Flower;
 
-	public function new ()
+    public var coord:ArrayCoord;
+
+	public function new (_coord:ArrayCoord)
 	{
 		super();
         addComponent("graphicTile");
@@ -27,6 +30,9 @@ class Tile extends GameObject
         buildingEvents.on("state changed", function (state:String) {
             graphicTile.changeBuild(state + "Flower");
         });
+
+        coord = _coord;
+        graphicTile.setPlace(coord.x, coord.y, coord.i);
     }
 
 
