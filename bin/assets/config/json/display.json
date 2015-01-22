@@ -1,0 +1,11 @@
+{
+	"canvas" : {
+		"size" : {
+			"width" : 1120,
+			"height" : 630
+		}
+	},
+	"tile" : {
+		"size" : 128
+	}
+}

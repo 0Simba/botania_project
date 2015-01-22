@@ -5,6 +5,7 @@ import js.Browser;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.controls.Camera;
 import manager.Camera.CameraManager;
+import init.Config;
 class Main
 {
 	public  static var deltaTime:Float;
@@ -15,13 +16,13 @@ class Main
 
 
 	private function new () {
-		deltaTime = 0;
-					// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
-		IsoEngine.init(1120, 630);
 		init.Config.load();
 	}
 
 	static public function ConfigLoaded(){
+		deltaTime = 0;
+		// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
+		IsoEngine.init(Config.display.canvas.size.width, Config.display.canvas.size.height);
 		init.Assets.load();
 	}
 	static public function ready () {

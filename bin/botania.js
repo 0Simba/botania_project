@@ -24,12 +24,12 @@ HxOverrides.iter = function(a) {
 	}};
 };
 var Main = function() {
-	Main.deltaTime = 0;
-	engine.isoEngine.IsoEngine.init(1120,630);
 	init.Config.load();
 };
 Main.__name__ = ["Main"];
 Main.ConfigLoaded = function() {
+	Main.deltaTime = 0;
+	engine.isoEngine.IsoEngine.init(init.Config.display.canvas.size.width,init.Config.display.canvas.size.height);
 	init.Assets.load();
 };
 Main.ready = function() {
@@ -110,6 +110,7 @@ engine.circleHud.CircleBlock = function(_centerRadius,_elementsRadius,_layerName
 	this.layerName = _layerName;
 	this.layer = engine.isoEngine.IsoEngine.getInstance().displaying.createChildLayer(this.layerName,"circleHud");
 	this.elements = new haxe.ds.StringMap();
+	this.layer.visible = false;
 };
 engine.circleHud.CircleBlock.__name__ = ["engine","circleHud","CircleBlock"];
 engine.circleHud.CircleBlock.prototype = {
@@ -134,6 +135,10 @@ engine.circleHud.CircleBlock.prototype = {
 	,show: function(pos) {
 		this.layer.x = pos.x;
 		this.layer.y = pos.y;
+		this.layer.visible = true;
+	}
+	,hide: function() {
+		this.layer.visible = false;
 	}
 	,__class__: engine.circleHud.CircleBlock
 };
@@ -917,7 +922,7 @@ var init = {};
 init.Assets = function() { };
 init.Assets.__name__ = ["init","Assets"];
 init.Assets.load = function() {
-	engine.isoEngine.components.Tile.setSize(init.Config.tile.size);
+	engine.isoEngine.components.Tile.setSize(init.Config.display.tile.size);
 	init.Assets.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 	init.Assets.isoEngine.assets.load(["../assets/biomesAndBuilding.json","../assets/circleNavigation.json"],init.Assets.assetLoaded);
 	init.Assets.biomesAndBuildingData = new PIXI.JsonLoader("../assets/biomesAndBuilding.json");
@@ -954,7 +959,7 @@ init.CircleHud = function() { };
 init.CircleHud.__name__ = ["init","CircleHud"];
 init.CircleHud.load = function() {
 	var circleHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
-	var flowerHud = circleHudEngine.createModel("flower",init.Config.tile.size,init.Config.tile.size);
+	var flowerHud = circleHudEngine.createModel("flower",init.Config.display.tile.size,init.Config.display.tile.size);
 	flowerHud.addOnce("pick","pick");
 	flowerHud.addOnce("dig","dig");
 	flowerHud.addOnce("water","water");
@@ -971,7 +976,6 @@ init.Config.load = function() {
 		++_g;
 		var path = Reflect.field(init.Config,key[0]);
 		if(path == "toLoad") {
-			console.log(key[0]);
 			var tempSourceFiles = new PIXI.JsonLoader(init.Config.sourceFilesPath + key[0] + ".json");
 			tempSourceFiles.addEventListener("loaded",(function(key) {
 				return function(pEvent) {
@@ -1277,7 +1281,7 @@ init.Config.sourceFilesPath = "../assets/config/json/";
 init.Config.player = "toLoad";
 init.Config.currencies = "toLoad";
 init.Config.translate = "toLoad";
-init.Config.tile = "toLoad";
+init.Config.display = "toLoad";
 manager.Selection.actionType = "ground";
 manager.Selection.contain = "grass";
 Main.main();
