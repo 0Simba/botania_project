@@ -39,6 +39,7 @@ Main.ready = function() {
 		init.PopUp.load();
 		init.CircleHud.load();
 		manager.Hud.init();
+		manager.MouseTile.init();
 		Main.isoEngine = engine.isoEngine.IsoEngine.getInstance();
 		engine.input.Keyboard.init();
 		Main.lastTS = new Date().getTime();
@@ -150,14 +151,9 @@ engine.circleHud.CircleElement = function(_parent,_name,_basicTexture,_hoverText
 	this.hoverTexture = _hoverTexture;
 	this.clickTexture = _clickTexture;
 	this.addComponent("hudElement");
-<<<<<<< HEAD
 	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",this.basicTexture,this.parent.layerName);
 	this.hudElement.resize(new utils.Vector2(this.parent.elementsRadius,this.parent.elementsRadius));
 	this.hudElement.bindEvents($bind(this,this.over),$bind(this,this.out),$bind(this,this.click));
-=======
-	this.hudElement.set(new utils.Vector2(100,100),new utils.Vector2(0,0),"circleNavigation",texture,this.parent.layerName);
-	this.hudElement.resize(new utils.Vector2(this.parent.elementsRadius,this.parent.elementsRadius));
->>>>>>> ba7c966fd947346f173bf0ebf49944da24bb3070
 };
 engine.circleHud.CircleElement.__name__ = ["engine","circleHud","CircleElement"];
 engine.circleHud.CircleElement.__super__ = GameObject;
@@ -190,6 +186,11 @@ engine.circleHud.CirclesHudEngine.prototype = {
 		var value = new engine.circleHud.CircleBlock(centerRadius,elementsRadius,name);
 		engine.circleHud.CirclesHudEngine.model.set(name,value);
 		return engine.circleHud.CirclesHudEngine.model.get(name);
+	}
+	,get: function(name) {
+		if(engine.circleHud.CirclesHudEngine.model.exists(name)) return engine.circleHud.CirclesHudEngine.model.get(name);
+		console.log("Il n'existe pas de model " + name + " dans CirclesHudEngine");
+		return null;
 	}
 	,__class__: engine.circleHud.CirclesHudEngine
 };
@@ -480,6 +481,9 @@ engine.isoEngine.components.Tile.prototype = {
 		this.place(_x,_y);
 		if(this.coord.i >= 0) engine.isoEngine.components.Tile.isoEngine.map.addTile(this);
 	}
+	,coordInPixel: function() {
+		return engine.isoEngine.IsoUtils.coordToPx(this.coord.x,this.coord.y);
+	}
 	,setInteractive: function(_mouseEnter,_mouseExit,_mouseClick) {
 		this.personalMouseEnter = _mouseEnter;
 		this.personalMouseExit = _mouseExit;
@@ -615,12 +619,12 @@ engine.isoEngine.managers.Displaying = function(_stage) {
 	this.stage = _stage;
 	this.createMainLayer("background");
 	this.createMainLayer("camera");
-	this.createMainLayer("fx");
 	this.createMainLayer("foreground");
 	this.createMainLayer("hud");
 	this.createMainLayer("overlay");
 	this.createChildLayer("tiles","camera");
 	this.createChildLayer("overTiles","camera");
+	this.createChildLayer("fx","camera");
 };
 engine.isoEngine.managers.Displaying.__name__ = ["engine","isoEngine","managers","Displaying"];
 engine.isoEngine.managers.Displaying.prototype = {
@@ -741,39 +745,39 @@ entities.Flower.prototype = {
 	}
 	,__class__: entities.Flower
 };
-entities.Tile = function() {
+entities.Tile = function(_coord) {
 	this.currentBuild = null;
 	this.currentGround = "grass";
 	var _g = this;
 	GameObject.call(this);
 	this.addComponent("graphicTile");
 	this.graphicTile.addGround("ground");
-	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mousequit),$bind(this,this.mouseClick));
+	this.graphicTile.setInteractive($bind(this,this.mouseover),$bind(this,this.mouseout),$bind(this,this.mouseclick));
 	this.buildingEvents = new engine.events.Events();
 	this.buildingEvents.on("state changed",function(state) {
 		_g.graphicTile.changeBuild(state + "Flower");
 	});
+	this.coord = _coord;
+	this.graphicTile.setPlace(this.coord.x,this.coord.y,this.coord.i);
 };
 entities.Tile.__name__ = ["entities","Tile"];
 entities.Tile.__super__ = GameObject;
 entities.Tile.prototype = $extend(GameObject.prototype,{
-	createFlower: function() {
+	coordInPixel: function() {
+		return this.graphicTile.coordInPixel();
+	}
+	,createFlower: function() {
 		this.currentBuild = "flower";
 		this.flowerRef = new entities.Flower(this.buildingEvents);
 	}
 	,mouseover: function() {
-		if(manager.Selection.contain == null) return;
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.graphicTile.changeBuild(manager.Selection.contain);
+		manager.MouseTile.over(this);
 	}
-	,mousequit: function() {
-		if(manager.Selection.actionType == "ground") this.graphicTile.changeGround(this.currentGround); else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.graphicTile.changeBuild(this.currentBuild);
+	,mouseout: function() {
+		manager.MouseTile.out(this);
 	}
-	,mouseClick: function() {
-		if(manager.Selection.contain == null) return;
-		if(manager.Selection.actionType == "ground") {
-			this.currentGround = manager.Selection.contain;
-			this.graphicTile.changeGround(this.currentGround);
-		} else if(manager.Selection.actionType == "build" && this.currentBuild == null) this.createFlower();
+	,mouseclick: function() {
+		manager.MouseTile.click(this);
 	}
 	,__class__: entities.Tile
 });
@@ -977,19 +981,11 @@ init.CircleHud = function() { };
 init.CircleHud.__name__ = ["init","CircleHud"];
 init.CircleHud.load = function() {
 	var circleHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
-<<<<<<< HEAD
-	var flowerHud = circleHudEngine.createModel("flower",128,128);
+	var flowerHud = circleHudEngine.createModel("flower",init.Config.display.tile.size,init.Config.display.tile.size);
 	flowerHud.addOnce("pick","pickBasic","pickHover","pickClick");
 	flowerHud.addOnce("dig","digBasic","digHover","digClick");
 	flowerHud.addOnce("water","waterBasic","waterHover","waterClick");
 	flowerHud.addOnce("fertilizer","fertilizerBasic","fertilizerHover","fertilizerClick");
-=======
-	var flowerHud = circleHudEngine.createModel("flower",init.Config.display.tile.size,init.Config.display.tile.size);
-	flowerHud.addOnce("pick","pick");
-	flowerHud.addOnce("dig","dig");
-	flowerHud.addOnce("water","water");
-	flowerHud.addOnce("fertilizer","fertilizer");
->>>>>>> ba7c966fd947346f173bf0ebf49944da24bb3070
 	flowerHud.show(new utils.Vector2(150,200));
 };
 init.Config = function() { };
@@ -1195,10 +1191,9 @@ manager.Map.prototype = {
 		var _g = nbCols * nbRows;
 		while(_g1 < _g) {
 			var i = _g1++;
-			this.tiles[i] = new entities.Tile();
 			var x = i % nbCols;
 			var y = Math.floor(i / nbCols);
-			this.tiles[i].graphicTile.setPlace(x,y,i);
+			this.tiles[i] = new entities.Tile(new utils.ArrayCoord(x,y,i));
 		}
 	}
 	,fill: function(name) {
@@ -1208,12 +1203,6 @@ manager.Map.prototype = {
 			var i = _g1++;
 			this.tiles[i].graphicTile.addGround(name);
 		}
-	}
-	,tileOn: function() {
-	}
-	,tileOut: function() {
-	}
-	,tileClick: function() {
 	}
 	,isAlreadySet: function() {
 		if(manager.Map.alreadySet) {
@@ -1236,6 +1225,27 @@ manager.Map.prototype = {
 	,bindEvents: function() {
 	}
 	,__class__: manager.Map
+};
+manager.MouseTile = function() { };
+manager.MouseTile.__name__ = ["manager","MouseTile"];
+manager.MouseTile.init = function() {
+	manager.MouseTile.circlesHudEngine = engine.circleHud.CirclesHudEngine.getInstance();
+};
+manager.MouseTile.over = function(tile) {
+	if(manager.Selection.contain == null) return;
+	if(manager.Selection.actionType == "ground") tile.graphicTile.changeGround(manager.Selection.contain); else if(manager.Selection.actionType == "build" && tile.currentBuild == null) tile.graphicTile.changeBuild(manager.Selection.contain);
+};
+manager.MouseTile.out = function(tile) {
+	if(manager.Selection.actionType == "ground") tile.graphicTile.changeGround(tile.currentGround); else if(manager.Selection.actionType == "build" && tile.currentBuild == null) tile.graphicTile.changeBuild(tile.currentBuild);
+};
+manager.MouseTile.click = function(tile) {
+	if(manager.Selection.contain == null) return;
+	if(manager.Selection.actionType == "ground") {
+		tile.currentGround = manager.Selection.contain;
+		tile.graphicTile.changeGround(tile.currentGround);
+	} else if(manager.Selection.actionType == "build") {
+		if(tile.currentBuild == null) tile.createFlower(); else manager.MouseTile.circlesHudEngine.get("flower").show(engine.isoEngine.IsoUtils.coordToPx(tile.coord.x,tile.coord.y));
+	}
 };
 manager.Selection = function() { };
 manager.Selection.__name__ = ["manager","Selection"];
