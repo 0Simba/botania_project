@@ -5,6 +5,7 @@ import engine.isoEngine.IsoEngine;
 import js.Browser;
 import engine.isoEngine.IsoUtils;
 import engine.isoEngine.managers.Displaying;
+import utils.Vector2;
 
 class Tile {
 
@@ -85,6 +86,9 @@ class Tile {
         }
     }
 
+    public function coordInPixel ():Vector2 {
+        return IsoUtils.coordToPx(coord.x, coord.y);
+    }
 
 
         /***** SIZE *****/

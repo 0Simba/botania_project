@@ -6,6 +6,11 @@ import utils.Vector2;
 
 class MouseTile
 {
+    static private var circlesHudEngine:CirclesHudEngine;
+
+    static public function init () {
+        circlesHudEngine = CirclesHudEngine.getInstance();
+    }
 
     static public function over (tile:Tile) {
         if (Selection.contain == null) return;
@@ -40,7 +45,7 @@ class MouseTile
                 tile.createFlower();                             //!\ MOVE THIS ! /!\
             }
             else {
-                CirclesHudEngine.getInstance().get("flower").show(engine.isoEngine.IsoUtils.coordToPx(tile.coord.x, tile.coord.y));
+                circlesHudEngine.get("flower").show(engine.isoEngine.IsoUtils.coordToPx(tile.coord.x, tile.coord.y));
             }
         }
     }
