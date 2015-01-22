@@ -17,6 +17,7 @@ class CircleElement extends GameObject
 
         addComponent("hudElement");
         hudElement.set(new Vector2(100, 100) , new Vector2(0, 0) , "circleNavigation", texture, parent.layerName);
+        hudElement.resize(new Vector2(parent.elementsRadius, parent.elementsRadius));
     }
 
     public function replace (pos:Vector2) {

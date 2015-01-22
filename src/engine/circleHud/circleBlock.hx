@@ -12,8 +12,8 @@ class CircleBlock
 
     public  var layerName:String;
     public  var layer:Graphics;
+    public  var elementsRadius:Int;
     private var centerRadius:Int;
-    private var elementsRadius:Int;
     private var elements:Map<String, CircleElement>;
 
 

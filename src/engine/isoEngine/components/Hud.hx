@@ -47,8 +47,8 @@ class Hud
     }
 
 
-    public function resize (size:Vector2) {
-        if (size.x > 1 || size.y > 1) {
+    public function resize (size:Vector2, forcePixel:Bool = false) {
+        if (size.x > 1 || size.y > 1 || forcePixel) {
             movieClip.width  = size.x;
             movieClip.height = size.y;
         }
