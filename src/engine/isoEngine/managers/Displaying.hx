@@ -52,13 +52,14 @@ class Displaying
 
         createMainLayer("background");
         createMainLayer("camera");
-        createMainLayer("fx");
         createMainLayer("foreground");
         createMainLayer("hud");
         createMainLayer("overlay");
 
-        createChildLayer("tiles", "camera");
+        createChildLayer("tiles"    , "camera");
         createChildLayer("overTiles", "camera");
+        createChildLayer("fx"       , "camera");
+
     }
 
     private function createMainLayer (name:String) {

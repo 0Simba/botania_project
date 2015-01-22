@@ -40,7 +40,7 @@ class MouseTile
                 tile.createFlower();                             //!\ MOVE THIS ! /!\
             }
             else {
-                CirclesHudEngine.getInstance().get("flower").show(new Vector2(tile.coord.x * 128, tile.coord.y * 64));
+                CirclesHudEngine.getInstance().get("flower").show(engine.isoEngine.IsoUtils.coordToPx(tile.coord.x, tile.coord.y));
             }
         }
     }
