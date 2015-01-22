@@ -17,7 +17,7 @@
 	},
 	"hud" : {
 		"circle" : {
-			"centerRadius"  : 64,
+			"centerRadius"  : 100,
 			"elementsRadius": 64
 		}
 	}

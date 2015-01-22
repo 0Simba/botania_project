@@ -47,10 +47,10 @@ class CircleBlock
         var angle:Float = Math.PI * 2 / list.length;
 
         for (i in 0...list.length) {
-            var x = Math.cos(angle * i) * centerRadius;
-            var y = Math.sin(angle * i) * centerRadius;
+            var x = Math.cos(angle * i) * (centerRadius);
+            var y = Math.sin(angle * i) * (centerRadius);
 
-            list[i].replace(new Vector2 (x + parent.offsetX - centerRadius / 2, y + parent.offsetY - centerRadius / 2));
+            list[i].replace(new Vector2 (x + parent.offsetX - elementsRadius / 2, y + parent.offsetY - elementsRadius / 2));
         }
     }
 

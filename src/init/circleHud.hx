@@ -8,7 +8,7 @@ class CircleHud
 
     static public function load () {
         var circleHudEngine = CirclesHudEngine.getInstance();
-        circleHudEngine.setBlockOffset(Config.display.tile.size / 2, Config.display.tile.size / 4);
+        circleHudEngine.setBlockOffset(Config.display.tile.size / 2, 0);
         var flowerHud       = circleHudEngine.createModel("flower", Config.display.hud.circle.centerRadius, Config.display.hud.circle.elementsRadius);
 
         flowerHud.addOnce("pick"      , "pickBasic"      , "pickHover"      , "pickClick");
