@@ -10,10 +10,10 @@ class CircleHud
         var circleHudEngine = CirclesHudEngine.getInstance();
         var flowerHud       = circleHudEngine.createModel("flower", 128, 128);
 
-        flowerHud.addOnce("pick", "pick");
-        flowerHud.addOnce("dig", "dig");
-        flowerHud.addOnce("water", "water");
-        flowerHud.addOnce("fertilizer", "fertilizer");
+        flowerHud.addOnce("pick"      , "pickBasic"      , "pickHover"      , "pickClick");
+        flowerHud.addOnce("dig"       , "digBasic"       , "digHover"       , "digClick");
+        flowerHud.addOnce("water"     , "waterBasic"     , "waterHover"     , "waterClick");
+        flowerHud.addOnce("fertilizer", "fertilizerBasic", "fertilizerHover", "fertilizerClick");
         flowerHud.show(new Vector2(150, 200));
     }
 
