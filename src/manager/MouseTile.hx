@@ -24,6 +24,7 @@ class MouseTile
 
     }
 
+
     static public function out (tile:Tile) {
         if (Selection.actionType == "ground") {
             tile.graphicTile.changeGround(tile.currentGround);
@@ -32,6 +33,7 @@ class MouseTile
             tile.graphicTile.changeBuild(tile.currentBuild);
         }
     }
+
 
     static public function click (tile:Tile) {
         if (tile.currentBuild != null) {
@@ -47,9 +49,16 @@ class MouseTile
             tile.currentGround = Selection.contain;
             tile.graphicTile.changeGround(tile.currentGround);
         }
-        else if (Selection.actionType == "build") {
-            if (tile.currentBuild == null) {
-                tile.createFlower();                             //!\ MOVE THIS ! /!\
+        else if (Selection.actionType == "build" && tile.currentBuild == null) {
+                /***** FIXME MOVE THIS LATER *****/
+            if (Selection.contain == "adultFlower") {
+                tile.createFlower();
+            }
+            else if (Selection.contain == "breaker") {
+                tile.createBreaker();
+            }
+            else {
+                trace("MouseTile.click -> pas d'action pour Selection.contain " + Selection.contain);
             }
         }
     }

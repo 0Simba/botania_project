@@ -5,6 +5,7 @@ import entities.Flower;
 import engine.events.Events;
 import utils.ArrayCoord;
 import utils.Vector2;
+import entities.building.Breaker;
 
 class Tile extends GameObject
 {
@@ -16,6 +17,7 @@ class Tile extends GameObject
     public var buildingEvents:Events;
 
     public var flowerRef:Flower;
+    public var breakerRef:Breaker;
 
     public var coord:ArrayCoord;
 
@@ -42,17 +44,29 @@ class Tile extends GameObject
         return graphicTile.coordInPixel();
     }
 
-    public function createFlower () {
-        currentBuild = "flower";
-        flowerRef = new Flower(buildingEvents);
-    }
 
     public function destroyBuilding () {
         currentBuild = null;
         graphicTile.changeBuild();
     }
 
-    /***** MOUSE EVENTS *****/
+
+
+        /***** CREATING -> FIXME REFACTOR LATER *****/
+    public function createFlower () {
+        currentBuild = "flower";
+        flowerRef    = new Flower(buildingEvents);
+    }
+
+    public function createBreaker () {
+        currentBuild = "breaker";
+        breakerRef   = new Breaker(buildingEvents);
+    }
+
+
+
+
+    /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/
 
     public function mouseover () {
         manager.MouseTile.over(this);
