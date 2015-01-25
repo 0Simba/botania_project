@@ -9,4 +9,8 @@ class Breaker
     public function new (_referent:Events) {
         referent = _referent;
     }
+
+    public function destroy () {
+        
+    }
 }
