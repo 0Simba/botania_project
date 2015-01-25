@@ -67,10 +67,6 @@ class Tile {
         }
     }
 
-    public function destroyBuild () {
-        isoEngine.displaying.removeMcIn(building, layerName);
-    }
-
 
             /***** POSITION *****/
     private function place (x:Int, y:Int) {

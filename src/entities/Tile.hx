@@ -31,10 +31,7 @@ class Tile extends GameObject
         buildingEvents.on("state changed", function (state:String) {
             graphicTile.changeBuild(state + "Flower");
         });
-        buildingEvents.on("destroying", function () {
-            currentBuild = null;
-            graphicTile.destroyBuild();
-        });
+        buildingEvents.on("destroying", destroyBuilding);
 
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);
@@ -45,14 +42,15 @@ class Tile extends GameObject
         return graphicTile.coordInPixel();
     }
 
-
-
     public function createFlower () {
         currentBuild = "flower";
         flowerRef = new Flower(buildingEvents);
     }
 
-
+    public function destroyBuilding () {
+        currentBuild = null;
+        graphicTile.changeBuild();
+    }
 
     /***** MOUSE EVENTS *****/
 

@@ -27,7 +27,6 @@ class CirclesHudManager
         if (list == null) {
             list = new Map<String, CirclesHudManager>();
         }
-
         list.set(name, circleHudManager);
     }
 
