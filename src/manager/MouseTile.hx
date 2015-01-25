@@ -45,8 +45,8 @@ class MouseTile
                 tile.createFlower();                             //!\ MOVE THIS ! /!\
             }
             else {
-                trace(tile.coordInPixel());
-                circlesHudEngine.get("flower").show(tile.coordInPixel());
+                circlesHudEngine.get("flower").show(tile.coordInPixel(), tile.flowerRef);
+                Selection.actionType = "hud";
             }
         }
     }

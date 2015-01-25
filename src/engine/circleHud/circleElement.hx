@@ -44,5 +44,6 @@ class CircleElement extends GameObject
 
     private function click () {
         hudElement.changeTexture(clickTexture);
+        parent.referent.emit(name, parent.targetShowed);
     }
 }

@@ -31,6 +31,10 @@ class Tile extends GameObject
         buildingEvents.on("state changed", function (state:String) {
             graphicTile.changeBuild(state + "Flower");
         });
+        buildingEvents.on("destroying", function () {
+            currentBuild = null;
+            graphicTile.destroyBuild();
+        });
 
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);

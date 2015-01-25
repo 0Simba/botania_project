@@ -1,6 +1,7 @@
 package engine.isoEngine.components;
 
 import pixi.display.MovieClip;
+import pixi.primitives.Graphics;
 import engine.isoEngine.IsoEngine;
 import js.Browser;
 import engine.isoEngine.IsoUtils;
@@ -46,7 +47,7 @@ class Tile {
 
 
         var layerNumber:Int  = coord.x + coord.y;
-        var layerName:String = "buildingHeight" + layerNumber;
+        layerName = "buildingHeight" + layerNumber;
 
         isoEngine.displaying.displayMcOn(building, layerName);
     }
@@ -64,6 +65,10 @@ class Tile {
             }
             building.visible = true;
         }
+    }
+
+    public function destroyBuild () {
+        isoEngine.displaying.removeMcIn(building, layerName);
     }
 
 
@@ -110,6 +115,9 @@ class Tile {
 
 
         /***** YOU DON'T CARE *****/
+
+    private var layerName:String;
+
     public function new () {
         isoEngine = IsoEngine.getInstance();
         isInteractive = false;

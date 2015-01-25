@@ -11,8 +11,8 @@ class Flower
     private var stateIndex:Int;
 
     public function new (_referent, _state = 0) {
-        config = Config.flower;
-        stateList = config.states;
+        config     = Config.flower;
+        stateList  = config.states;
         referent   = _referent;
         stateIndex = _state;
 
@@ -27,5 +27,9 @@ class Flower
         if (stateList.length - 1 > stateIndex) {
             haxe.Timer.delay(endDelay, config.time.delay);
         }
+    }
+
+    public function destroy () {
+        referent.emit('destroying', null);
     }
 }

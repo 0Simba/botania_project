@@ -17,7 +17,16 @@ class Displaying
             layers.get(layer).addChild(mc);
         }
         else {
-            trace("Le layer " + layer + " n'existe pas");
+            logLayerDoesntExist(layer);
+        }
+    }
+
+    public function removeMcIn (mc:MovieClip, layer:String) {
+        if (layers.exists(layer)) {
+                layers.get(layer).removeChild(mc);
+        }
+        else {
+            logLayerDoesntExist(layer);
         }
     }
 
@@ -66,5 +75,9 @@ class Displaying
         var layer = new Graphics();
         stage.addChild(layer);
         layers.set(name, layer);
+    }
+
+    private function logLayerDoesntExist (layer:String) {
+        trace("Le layer " + layer + " n'existe pas");
     }
 }

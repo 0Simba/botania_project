@@ -2,13 +2,14 @@ package engine.circleHud;
 
 import engine.circleHud.CircleBlock;
 import engine.isoEngine.IsoEngine;
+import engine.events.Events;
 
 class CirclesHudEngine
 {
     private static var instance:CirclesHudEngine;
 
-    public function createModel (name:String, centerRadius:Int, elementsRadius:Int) {
-        model.set(name, new CircleBlock(centerRadius, elementsRadius, name));
+    public function createModel (name:String, referent:Events, centerRadius:Int, elementsRadius:Int) {
+        model.set(name, new CircleBlock(referent, centerRadius, elementsRadius, name));
         return model.get(name);
     }
 
