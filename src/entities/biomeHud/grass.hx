@@ -23,8 +23,8 @@ class Grass extends GameObject
     }
 
     public function mouseClick () {
-        Selection.actionType = "ground";
-        Selection.contain = "grass";
+        Selection.setActionType("ground");
+        Selection.setContain("grass");
     }
 
 }

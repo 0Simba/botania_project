@@ -23,8 +23,8 @@ class TestFlower extends GameObject
     }
 
     public function mouseClick () {
-        Selection.actionType = "build";
-        Selection.contain = "adultFlower";
+        Selection.setActionType("build");
+        Selection.setContain("adultFlower");
     }
 
 }

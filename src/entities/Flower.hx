@@ -78,5 +78,6 @@ class Flower
     static private function remove (flower:Flower) {
         var i = list.indexOf(flower);
         list.splice(i, 1);
+        flower = null;
     }
 }

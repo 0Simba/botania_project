@@ -16,7 +16,7 @@ class CirclesHudManager
         if (list.exists(hudName)) {
             var targetManager = list.get(hudName);
             targetManager.managedHud.show(tile.coordInPixel(), tile.flowerRef);
-            Selection.actionType = "hud";
+            Selection.setActionType("hud");
         }
         else {
             trace("CirclesHudManager -> Il n'existe pas de hud au nom de " + hudName);

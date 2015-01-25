@@ -23,8 +23,8 @@ class BrownFlower extends GameObject
     }
 
     public function mouseClick () {
-        Selection.actionType = "build";
-        Selection.contain = "breaker";
+        Selection.setActionType("build");
+        Selection.setContain("breaker");
     }
 
 }
