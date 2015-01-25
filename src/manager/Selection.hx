@@ -1,7 +1,11 @@
 package manager;
 
+import engine.events.Events;
+
 class Selection
 {
+    static public var events:Events = new Events();
+
     static public var actionType:String = "ground";
     static public var contain:String    = "grass";
 
@@ -19,6 +23,7 @@ class Selection
             contain     = lastContain;
             lastContain = null;
         }
+        events.emit("contain changed", contain);
         // trace("lastContain : " +  lastContain + " - contain : " + contain);
     }
 
@@ -33,6 +38,7 @@ class Selection
             actionType     = lastActionType;
             lastActionType = null;
         }
+        events.emit("actionType changed", actionType);
         // trace("lastActionType : " +  lastActionType + " - actionType : " + actionType);
     }
 }

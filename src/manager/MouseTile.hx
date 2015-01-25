@@ -36,11 +36,14 @@ class MouseTile
     static public function click (tile:Tile) {
         if (tile.currentBuild != null) {
             manager.circlesHud.CirclesHudManager.displayForTile(tile);
+            return;
         }
-        if (Selection.contain == null) return;
-
-
-        if (Selection.actionType == "ground") {
+        else if (Selection.actionType == "circleHud") {
+            manager.circlesHud.CirclesHudManager.hide();
+            return;
+        }
+        else if (Selection.contain == null) return;
+        else if (Selection.actionType == "ground") {
             tile.currentGround = Selection.contain;
             tile.graphicTile.changeGround(tile.currentGround);
         }
