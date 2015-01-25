@@ -75,12 +75,13 @@ class Hud
         movieClip.interactive = true;
         movieClip.mouseover   = alwaysOver;
         movieClip.mouseout    = alwaysOut;
+        movieClip.mouseup     = alwaysClick;
     }
 
 
     dynamic private function overBind () {};
     dynamic private function outBind  () {};
-    dynamic public function clickBind  () {};
+    dynamic public  function clickBind  () {};
 
 
     public function alwaysOver (mouseData) {
@@ -88,18 +89,20 @@ class Hud
         overBind();
     }
 
-
     public function alwaysOut (mouseData) {
         Hud.currentOver = null;
         outBind();
     }
 
+    public function alwaysClick (mouseData) {
+        clickBind();
+    }
 
 
     static private var isBinded:Bool = false;
 
     static private function bindToCamera () {
-        engine.isoEngine.controls.Mouse.addOnClickEvent(cast onClick); //WARNING --> unsafe
+        // engine.isoEngine.controls.Mouse.addOnClickEvent(cast onClick); //WARNING --> unsafe
     }
 
     static public function onClick () {

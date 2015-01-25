@@ -49,6 +49,16 @@ class Displaying
         return layers.get('camera');
     }
 
+    public function getLayer (name:String):Graphics {
+        if (layers.exists(name)) {
+            return layers.get(name);
+        }
+        else {
+            trace("isoEngine.displaying.getLayer(name:String) -> Pas de layer existant au nom de " + name);
+            return null;
+        }
+    }
+
         /***** YOU DON'T CARE *****/
 
     private var layers:Map<String, Graphics>;
@@ -61,14 +71,13 @@ class Displaying
 
         createMainLayer("background");
         createMainLayer("camera");
+            createChildLayer("playArea", "camera");
+                createChildLayer("tiles"    , "playArea");
+                createChildLayer("overTiles", "playArea");
+            createChildLayer("fx", "camera");
         createMainLayer("foreground");
         createMainLayer("hud");
         createMainLayer("overlay");
-
-        createChildLayer("tiles"    , "camera");
-        createChildLayer("overTiles", "camera");
-        createChildLayer("fx"       , "camera");
-
     }
 
     private function createMainLayer (name:String) {

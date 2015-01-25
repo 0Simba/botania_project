@@ -59,7 +59,7 @@ class IsoEngine
         tileIndicator = new TileSelectionIndicator();
         displaying    = new Displaying(stage);
         events        = new EventDispatcher();
-        Mouse.setRef(stage);
+        Mouse.setRef(displaying.getLayer("playArea"));
         Camera.setRef(this);
     }
 

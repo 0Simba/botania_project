@@ -30,13 +30,14 @@ class Mouse
 
 
 		/***** YOU DON'T CARE *****/
-	static private var stageRef:Stage;
+	static private var playArea:pixi.primitives.Graphics;
 
-	public static function setRef (stage) {
-		stageRef = stage;
-		stage.mousemove = mouseMove;
-		stage.mousedown = mousedown;
-		stage.mouseup   = mouseup;
+	public static function setRef (camera:pixi.primitives.Graphics) {
+		playArea = camera;
+		camera.interactive = true;
+		camera.mousemove = mouseMove;
+		camera.mousedown = mousedown;
+		camera.mouseup   = mouseup;
 	}
 
 	private static function mousedown (mouseData) {
