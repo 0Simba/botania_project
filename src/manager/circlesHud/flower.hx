@@ -3,7 +3,7 @@ package manager.circlesHud;
 class Flower extends CirclesHudManager
 {
     public function new () {
-        super();
+        super("flower");
         events.on('dig', removeFlower);
     }
 

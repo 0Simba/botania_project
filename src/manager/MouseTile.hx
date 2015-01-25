@@ -34,7 +34,11 @@ class MouseTile
     }
 
     static public function click (tile:Tile) {
+        if (tile.currentBuild != null) {
+            manager.circlesHud.CirclesHudManager.displayForTile(tile);
+        }
         if (Selection.contain == null) return;
+
 
         if (Selection.actionType == "ground") {
             tile.currentGround = Selection.contain;
@@ -43,10 +47,6 @@ class MouseTile
         else if (Selection.actionType == "build") {
             if (tile.currentBuild == null) {
                 tile.createFlower();                             //!\ MOVE THIS ! /!\
-            }
-            else {
-                circlesHudEngine.get("flower").show(tile.coordInPixel(), tile.flowerRef);
-                Selection.actionType = "hud";
             }
         }
     }
