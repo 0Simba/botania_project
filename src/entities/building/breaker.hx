@@ -13,5 +13,6 @@ class Breaker extends GameObject
     }
 
     override public function destroy () {
+        referent.emit("destroying", null);
     }
 }

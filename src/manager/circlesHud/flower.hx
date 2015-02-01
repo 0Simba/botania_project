@@ -8,7 +8,7 @@ class Flower extends CirclesHudManager
     }
 
     public function removeFlower (targetFlower:entities.Flower) {
-        this.close();
+        close();
         targetFlower.destroy();
     }
 }

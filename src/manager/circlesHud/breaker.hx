@@ -8,7 +8,7 @@ class Breaker extends CirclesHudManager
     }
 
     public function removeBreaker (targetBreaker:entities.building.Breaker) {
+        close();
         targetBreaker.destroy();
-        managedHud.hide();
     }
 }
