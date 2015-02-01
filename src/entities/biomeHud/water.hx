@@ -23,8 +23,7 @@ class Water extends GameObject
     }
 
     public function mouseClick () {
-        Selection.setActionType("ground");
-        Selection.setContain("automn");
+        Selection.setNew("ground", "automn");
     }
 
 }

@@ -12,33 +12,38 @@ class Selection
     static private var lastActionType:String = null;
     static private var lastContain:String   = null;
 
-    static public function setContain (name:String = null) {
-        if (contain == name) return;
 
-        if (name != null) {
-            lastContain = contain;
-            contain     = name;
-        }
-        else if (lastContain != null) {
-            contain     = lastContain;
-            lastContain = null;
-        }
-        events.emit("contain changed", contain);
-        // trace("lastContain : " +  lastContain + " - contain : " + contain);
+    static public function setNew (newAction:String, newContain:String = null) {
+        if (actionType == newAction && contain == newContain) return;
+
+        lastActionType = actionType;
+        lastContain    = contain;
+
+        actionType = newAction;
+        contain    = newContain;
     }
 
-    static public function setActionType (name:String = null) {
-        if (actionType == name) return;
+    static public function backToLast () {
+        actionType = lastActionType;
+        contain    = lastContain;
 
-        if (name != null) {
-            lastActionType = actionType;
-            actionType     = name;
-        }
-        else if (lastActionType != null) {
-            actionType     = lastActionType;
-            lastActionType = null;
-        }
-        events.emit("actionType changed", actionType);
-        // trace("lastActionType : " +  lastActionType + " - actionType : " + actionType);
+        lastContain    = null;
+        lastActionType = null;
+
+    }
+
+    static public function clear () {
+        backToLast();
+        backToLast();
+    }
+
+        /***** UTILS *****/
+    static public function logState () {
+        js.Browser.window.console.group("Selection.logState");
+        trace("actionType : "     + actionType);
+        trace("contain : "        + contain);
+        trace("lastActionType : " + lastActionType);
+        trace("lastContain : "    + lastContain);
+        js.Browser.window.console.groupEnd();
     }
 }

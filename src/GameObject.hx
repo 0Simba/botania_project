@@ -17,8 +17,8 @@ class GameObject
         }
     }
 
-/*
-    public function addComponent (name:Class) {	
-        graphicTile = new name();
-    }*/
+    public function destroy () {
+        trace("GameObject destroy -> empty");
+        trace(this);
+    }
 }

@@ -16,8 +16,11 @@ class CirclesHudManager
 
         if (list.exists(hudName)) {
             currentShowed = list.get(hudName);
-            currentShowed.managedHud.show(tile.coordInPixel(), tile.flowerRef);
-            Selection.setActionType("circleHud");
+
+            if (tile.buildingRef != null) { //FIXME
+                currentShowed.managedHud.show(tile.coordInPixel(), tile.buildingRef);
+            }
+            Selection.setNew("circleHud");
         }
         else {
             trace("CirclesHudManager -> Il n'existe pas de circleHud au nom de " + hudName);
@@ -25,7 +28,7 @@ class CirclesHudManager
     }
 
     static public function hide () {
-        Selection.setActionType(null);
+        Selection.backToLast();
         currentShowed.managedHud.hide();
         currentShowed = null;
     }
@@ -50,6 +53,11 @@ class CirclesHudManager
 
     public function setTargetHud (circleBlock:CircleBlock) {
         managedHud = circleBlock;
+    }
+
+    public function close () {
+        managedHud.hide();
+        hide();
     }
 
 }

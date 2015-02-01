@@ -1,9 +1,10 @@
 package entities;
 
 import engine.events.Events;
+import GameObject;
 import init.Config;
 
-class Flower
+class Flower extends GameObject
 {
     static private var stateList:Array<String>;
     static private var config:Dynamic;
@@ -12,6 +13,7 @@ class Flower
     private var stateIndex:Int;
 
     public function new (_referent, _state = 0) {
+        super();
         config     = Config.flower;
         stateList  = config.states;
         referent   = _referent;
@@ -32,7 +34,7 @@ class Flower
         }
     }
 
-    public function destroy () {
+    override public function destroy () {
         referent.emit('destroying', null);
         if (waitingCallback == 0) {
             Flower.remove(this);

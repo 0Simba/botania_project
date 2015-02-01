@@ -16,8 +16,7 @@ class Tile extends GameObject
     public var groundEvents:Events;
     public var buildingEvents:Events;
 
-    public var flowerRef:Flower;
-    public var breakerRef:Breaker;
+    public var buildingRef:GameObject;
 
     public var coord:ArrayCoord;
 
@@ -55,12 +54,12 @@ class Tile extends GameObject
         /***** CREATING -> FIXME REFACTOR LATER *****/
     public function createFlower () {
         currentBuild = "flower";
-        flowerRef    = new Flower(buildingEvents);
+        buildingRef  = new Flower(buildingEvents);
     }
 
     public function createBreaker () {
         currentBuild = "breaker";
-        breakerRef   = new Breaker(buildingEvents);
+        buildingRef   = new Breaker(buildingEvents);
     }
 
 
