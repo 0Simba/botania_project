@@ -12,4 +12,7 @@ class Vector2
         y = _y;
     }
 
+    static public var zero = new Vector2(0, 0);
+
+    static public var full = new Vector2(1, 1);
 }

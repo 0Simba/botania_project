@@ -5,6 +5,7 @@ import engine.isoEngine.components.Hud;
 import pixi.primitives.Graphics;
 import engine.isoEngine.IsoEngine;
 import engine.popUpEngine.Bloc;
+import engine.popUpEngine.PopUpEngineMain;
 
 class PopUp
 {
@@ -17,9 +18,12 @@ class PopUp
     public var pxPos:Vector2;
 
     private var isoEngine:IsoEngine;
+    private var popUpEngineMain:PopUpEngineMain;
 
     public function new (_name:String, pos:Vector2, size:Vector2) {
-        isoEngine = IsoEngine.getInstance();
+        isoEngine       = IsoEngine.getInstance();
+        popUpEngineMain = PopUpEngineMain.getInstance();
+
         name      = _name;
         container = isoEngine.displaying.createChildLayer(name, "popUp");
 
@@ -35,6 +39,11 @@ class PopUp
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
         var bloc = new Bloc(pos, size, textureName);
+        bloc.addOn(container, name);
+    }
+
+    public function addGenericBloc (blocName:String) {
+        var bloc = popUpEngineMain.getBlocPattern(blocName);
         bloc.addOn(container, name);
     }
 
