@@ -28,6 +28,8 @@ class PopUp
         container.beginFill(255255255, 0.7);
         container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
         container.endFill();
+
+        hide();
     }
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
@@ -48,11 +50,11 @@ class PopUp
 
     }
 
-    public function hide () {
-
+    public function show () {
+        container.visible = true;
     }
 
-    public function show () {
-
+    public function hide () {
+        container.visible = false;
     }
 }

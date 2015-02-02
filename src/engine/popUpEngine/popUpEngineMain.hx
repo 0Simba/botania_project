@@ -16,6 +16,18 @@ class PopUpEngineMain
         return popUp;
     }
 
+    public function show (name):PopUp {
+        if (popUps.exists(name)) {
+            var popUp = popUps.get(name);
+            popUp.show();
+            return popUp;
+        }
+        else {
+            trace("PopUpEngineMain.show -> Il n'existe pas de pop up au nom de " + name);
+            return null;
+        }
+    }
+
 
 
         /***** YOU DON'T CARE *****/
