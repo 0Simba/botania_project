@@ -34,6 +34,11 @@ class Displaying
 
 
     public function createChildLayer (name:String, parent:String):Graphics{
+        if (layers.exists(name)) {
+            trace("IsoEngine.displaying.createChildLayer -> un layer " + name + " existe déjà. opération refusé.");
+            return null;
+        }
+
         if (layers.get(name) == null) {
             var layer = new Graphics();
             layers.get(parent).addChild(layer);
