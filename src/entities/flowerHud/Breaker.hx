@@ -3,7 +3,7 @@ package entities.flowerHud;
 import utils.Vector2;
 import manager.Selection;
 
-class BrownFlower extends GameObject
+class Breaker extends GameObject
 {
 
     public function new()

@@ -3,7 +3,7 @@ package entities.biomeHud;
 import utils.Vector2;
 import manager.Selection;
 
-class Water extends GameObject
+class Automn extends GameObject
 {
 
     public function new()
