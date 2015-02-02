@@ -7,12 +7,13 @@ import pixi.display.Stage;
 
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.controls.Camera;
+import pixi.display.Sprite;
 
 class Displaying
 {
     static private var instance;
 
-    public function displayMcOn (mc:MovieClip, layer:String) {
+    public function displayMcOn (mc, layer:String) {
         if (layers.exists(layer)) {
             layers.get(layer).addChild(mc);
         }
@@ -20,6 +21,7 @@ class Displaying
             logLayerDoesntExist(layer);
         }
     }
+
 
     public function removeMcIn (mc:MovieClip, layer:String) {
         if (layers.exists(layer)) {

@@ -2,7 +2,7 @@ package engine.isoEngine.components;
 
 import utils.Vector2;
 import engine.isoEngine.IsoEngine;
-import pixi.display.MovieClip;
+import pixi.display.Sprite;
 
 class Hud
 {
@@ -10,15 +10,15 @@ class Hud
     static public var currentOver:Hud;
 
             // if percentSize || percentPos > 1 => pixel
-    public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String = null, parentLayer:String = "hud") {
-        movieClip = new MovieClip(isoEngine.assets.animations.get(animationName));
+    public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String, parentLayer:String = "hud") {
+        sprite = new Sprite(isoEngine.assets.textures.get(textureName));
 
         resize(percentSize);
         replace(percentPos);
 
         if (textureName != null) changeTexture(textureName);
 
-        isoEngine.displaying.displayMcOn(movieClip, parentLayer);
+        isoEngine.displaying.displayMcOn(sprite, parentLayer);
         initInteractivity();
     }
 
@@ -31,30 +31,30 @@ class Hud
 
 
     public function changeTexture (name) {
-        movieClip.texture = isoEngine.assets.textures.get(name);
+        sprite.texture = isoEngine.assets.textures.get(name);
     }
 
 
     public function replace (pos:Vector2, forcePixel:Bool = false) {
         if (pos.x > 1 || pos.y > 1 || forcePixel) {
-            movieClip.x = pos.x;
-            movieClip.y = pos.y;
+            sprite.x = pos.x;
+            sprite.y = pos.y;
         }
         else {
-            movieClip.x = isoEngine.width  * pos.x;
-            movieClip.y = isoEngine.height * pos.y;
+            sprite.x = isoEngine.width  * pos.x;
+            sprite.y = isoEngine.height * pos.y;
         }
     }
 
 
     public function resize (size:Vector2, forcePixel:Bool = false) {
         if (size.x > 1 || size.y > 1 || forcePixel) {
-            movieClip.width  = size.x;
-            movieClip.height = size.y;
+            sprite.width  = size.x;
+            sprite.height = size.y;
         }
         else {
-            movieClip.width  = isoEngine.width  * size.x;
-            movieClip.height = isoEngine.height * size.y;
+            sprite.width  = isoEngine.width  * size.x;
+            sprite.height = isoEngine.height * size.y;
         }
     }
 
@@ -62,7 +62,7 @@ class Hud
 
 
         /****** YOU DON'T CARE *****/
-    public var movieClip:MovieClip;
+    public var sprite:Sprite;
     public var isoEngine:IsoEngine;
 
     public function new () {
@@ -71,10 +71,10 @@ class Hud
 
 
     private function initInteractivity () {
-        movieClip.interactive = true;
-        movieClip.mouseover   = alwaysOver;
-        movieClip.mouseout    = alwaysOut;
-        movieClip.mouseup     = alwaysClick;
+        sprite.interactive = true;
+        sprite.mouseover   = alwaysOver;
+        sprite.mouseout    = alwaysOut;
+        sprite.mouseup     = alwaysClick;
     }
 
 

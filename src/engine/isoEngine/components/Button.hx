@@ -17,10 +17,10 @@ class Button extends Hud
     }
 
     override private function initInteractivity () {
-        movieClip.interactive = true;
-        movieClip.mouseover   = alwaysButtonOver;
-        movieClip.mouseout    = alwaysButtonOut;
-        movieClip.mouseup     = alwaysButtonClick;
+        sprite.interactive = true;
+        sprite.mouseover   = alwaysButtonOver;
+        sprite.mouseout    = alwaysButtonOut;
+        sprite.mouseup     = alwaysButtonClick;
     }
 
     override public function bindEvents (_mouseover, _mouseout, _mouseclick) {
@@ -39,10 +39,10 @@ class Button extends Hud
     }
 
     public function setInteractivity (basic) {
-        movieClip.interactive = true;
-        movieClip.mouseover   = alwaysOver;
-        movieClip.mouseout    = alwaysOut;
-        movieClip.mouseup     = alwaysClick;
+        sprite.interactive = true;
+        sprite.mouseover   = alwaysOver;
+        sprite.mouseout    = alwaysOut;
+        sprite.mouseup     = alwaysClick;
     }
 
 
