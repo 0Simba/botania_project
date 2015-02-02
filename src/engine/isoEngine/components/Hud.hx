@@ -10,7 +10,7 @@ class Hud
     static public var currentOver:Hud;
 
             // if percentSize || percentPos > 1 => pixel
-    public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String, parentLayer:String = "hud") {
+    public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud") {
         sprite = new Sprite(isoEngine.assets.getTexture(textureName));
 
         resize(percentSize);

@@ -10,7 +10,7 @@ class Water extends GameObject
     {
         super();
         addComponent("hudElement");
-        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.05), "ground", "automn");
+        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.05), "automn");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
 

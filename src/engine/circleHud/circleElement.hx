@@ -17,7 +17,7 @@ class CircleElement extends GameObject
         name   = _name;
 
         addComponent("hudButton");
-        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0) , "circleNavigation", basicTexture, parent.layerName); // TODO virer le vector2(100, 100)
+        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName); // TODO virer le vector2(100, 100)
         hudButton.setTextures(basicTexture, hoverTexture, clickTexture);
         hudButton.bindEvents(over, out, click);
     }

@@ -10,7 +10,7 @@ class BrownFlower extends GameObject
     {
         super();
         addComponent("hudElement");
-        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "ground", "breaker");
+        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "breaker");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
 
