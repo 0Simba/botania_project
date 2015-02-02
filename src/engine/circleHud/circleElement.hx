@@ -27,15 +27,12 @@ class CircleElement extends GameObject
     }
 
     private function over () {
-        // hudButton.changeTexture(hoverTexture);
     }
 
     private function out () {
-        // hudButton.changeTexture(basicTexture);
     }
 
     private function click () {
-        // hudButton.changeTexture(clickTexture);
         parent.referent.emit(name, parent.targetShowed);
     }
 }
