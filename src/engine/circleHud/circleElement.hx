@@ -10,26 +10,15 @@ class CircleElement extends GameObject
     private var parent:CircleBlock;
     private var referent:Events;
 
-    private var basicTexture:String;
-    private var hoverTexture:String;
-    private var clickTexture:String;
-
-    public function new (_parent:CircleBlock, _name:String, _basicTexture:String, _hoverTexture:String, _clickTexture:String) {
+    public function new (_parent:CircleBlock, _name:String, basicTexture:String, hoverTexture:String, clickTexture:String) {
         super();
 
         parent = _parent;
         name   = _name;
 
-
-        basicTexture = _basicTexture;
-        hoverTexture = _hoverTexture;
-        clickTexture = _clickTexture;
-
-
-
         addComponent("hudButton");
         hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0) , "circleNavigation", basicTexture, parent.layerName); // TODO virer le vector2(100, 100)
-        hudButton.setTextures(_basicTexture, _hoverTexture, _clickTexture);
+        hudButton.setTextures(basicTexture, hoverTexture, clickTexture);
         hudButton.bindEvents(over, out, click);
     }
 
