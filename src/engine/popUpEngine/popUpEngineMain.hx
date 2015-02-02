@@ -1,13 +1,14 @@
 package engine.popUpEngine;
 
 import engine.isoEngine.IsoEngine;
+import engine.isoEngine.components.Hud;
 
 class PopUpEngineMain
 {
     private static var instance:PopUpEngineMain;
     private var isoEngine:IsoEngine;
     private var popUps:Map<String, PopUp>;
-
+    // private var blocs:Map<String, Hud>;
 
 
     public function create (name, size, pos) {
@@ -15,6 +16,10 @@ class PopUpEngineMain
         popUps.set(name, popUp);
         return popUp;
     }
+
+    // public function genericBloc (name, size, pos) {
+    //     var bloc
+    // }
 
     public function show (name):PopUp {
         if (popUps.exists(name)) {

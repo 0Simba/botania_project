@@ -4,6 +4,7 @@ import utils.Vector2;
 import engine.isoEngine.components.Hud;
 import pixi.primitives.Graphics;
 import engine.isoEngine.IsoEngine;
+import engine.popUpEngine.Bloc;
 
 class PopUp
 {
@@ -25,7 +26,7 @@ class PopUp
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
         pxPos  = new Vector2(pos.x  * isoEngine.width, pos.y  * isoEngine.height);
 
-        container.beginFill(255255255, 0.7);
+        container.beginFill(255255255, 0.7);    // TODO remove this help display
         container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
         container.endFill();
 
@@ -33,17 +34,8 @@ class PopUp
     }
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
-        var newBloc = new Hud();
-        // newBloc.set( percentSize : utils.Vector2 , percentPos : utils.Vector2 , animationName : String , ?textureName : String , ?parentLayer : String )
-
-        if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
-            size.x *= pxSize.x;
-            size.y *= pxSize.y;
-            pos.x  = (pos.x * pxSize.x) + pxPos.x;
-            pos.y  = (pos.y * pxSize.y) + pxPos.y;
-        }
-
-        newBloc.set(size, pos, textureName, name);
+        var bloc = new Bloc(pos, size, textureName);
+        bloc.addOn(container, name);
     }
 
     public function addYesNo () {
