@@ -7,13 +7,34 @@ import engine.isoEngine.IsoEngine;
 class Assets
 {
 
-    public var animations:Map<String, Array<Texture>>;
-    public var textures:  Map<String, Texture>;
+    private var animations:Map<String, Array<Texture>>;
+    private var textures:  Map<String, Texture>;
 
 
     public function addTexture (name, from) {
         textures.set(name, Texture.fromFrame(from));
     }
+
+    public function getTexture (name:String):Texture {
+        if (textures.exists(name)) {
+            return textures.get(name);
+        }
+        else {
+            trace("isoEngine.Assets.getTexture -> la texture " + name + " n'existe pas");
+            return null;
+        }
+    }
+
+    public function getAnimation (name:String):Array<Texture> {
+        if (animations.exists(name)) {
+            return animations.get(name);
+        }
+        else {
+            trace("isoEngine.Assets.getAnimation -> l'animation' " + name + " n'existe pas");
+            return null;
+        }
+    }
+
 
 
     public function createAnimation(name:String, listTexture:Array<String>) {

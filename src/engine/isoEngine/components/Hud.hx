@@ -11,7 +11,7 @@ class Hud
 
             // if percentSize || percentPos > 1 => pixel
     public function set (percentSize:Vector2, percentPos:Vector2, animationName:String, textureName:String, parentLayer:String = "hud") {
-        sprite = new Sprite(isoEngine.assets.textures.get(textureName));
+        sprite = new Sprite(isoEngine.assets.getTexture(textureName));
 
         resize(percentSize);
         replace(percentPos);
@@ -31,7 +31,7 @@ class Hud
 
 
     public function changeTexture (name) {
-        sprite.texture = isoEngine.assets.textures.get(name);
+        sprite.texture = isoEngine.assets.getTexture(name);
     }
 
 

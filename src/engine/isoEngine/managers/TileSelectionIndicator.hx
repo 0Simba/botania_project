@@ -34,7 +34,7 @@ class TileSelectionIndicator {
         isoEngine = IsoEngine.getInstance();
         createAnimation(isoEngine);
 
-        movieClip = new MovieClip(isoEngine.assets.animations.get("tileIndicator"));
+        movieClip = new MovieClip(isoEngine.assets.getAnimation("tileIndicator"));
         movieClip.width  = Tile.size;
         movieClip.height = Tile.size / 2;
 

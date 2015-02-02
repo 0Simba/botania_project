@@ -22,7 +22,7 @@ class Tile {
 
             /***** GROUND *****/
     public function addGround (name:String) {
-        ground = new MovieClip(isoEngine.assets.animations.get(name));
+        ground = new MovieClip(isoEngine.assets.getAnimation(name));
 
         ground.width  = size;
         ground.height = size / 2;
@@ -30,14 +30,14 @@ class Tile {
 
 
     public function changeGround (name:String) {
-        ground.texture = isoEngine.assets.textures.get(name);
+        ground.texture = isoEngine.assets.getTexture(name);
     }
 
 
             /***** BUILDING *****/
     public function addBuild (textureName:String) {
-        building = new MovieClip(isoEngine.assets.animations.get("ground"));
-        building.texture = isoEngine.assets.textures.get(textureName);
+        building = new MovieClip(isoEngine.assets.getAnimation("ground"));
+        building.texture = isoEngine.assets.getTexture(textureName);
 
         building.width  = size;
         building.height = size;
@@ -61,7 +61,7 @@ class Tile {
                 addBuild(name);
             }
             else {
-                building.texture = isoEngine.assets.textures.get(name);
+                building.texture = isoEngine.assets.getTexture(name);
             }
             building.visible = true;
         }
