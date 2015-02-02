@@ -3,6 +3,7 @@ package engine.popUpEngine;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.components.Hud;
 import utils.Vector2;
+import utils.MapManipulate;
 
 class PopUpEngineMain
 {
@@ -20,31 +21,26 @@ class PopUpEngineMain
     }
 
     public function createBlocPattern (name:String, size:Vector2, pos:Vector2, textureName:String) {
-        if (!blocs.exists(name)) {
+        MapManipulate.ifIsFree(blocs, name, function () {
             var bloc = new Bloc(size, pos, textureName);
             blocs.set(name, bloc);
-        }
-        else trace("PopUpEngineMain.addBlocPattern -> un bloc sous le nom de " + name + " existe déjà.");
+        });
     }
 
     public function createButtonPattern (name:String, size:Vector2, pos:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
-        if (!buttons.exists(name)) {
+        MapManipulate.ifIsFree(buttons, name, function () {
             var button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
             buttons.set(name, button);
-        }
-        else trace("PopUpEngineMain.addButtonPattern -> un bloc sous le nom de " + name + " existe déjà.");
+        });
     }
 
     public function show (name):PopUp {
-        if (popUps.exists(name)) {
+        MapManipulate.ifExists(popUps, name, function () {
             var popUp = popUps.get(name);
             popUp.show();
             return popUp;
-        }
-        else {
-            trace("PopUpEngineMain.show -> Il n'existe pas de pop up au nom de " + name);
-            return null;
-        }
+        }, "popUps");
+        return null;
     }
 
         /***** SURELY NOT INTEREST YOU *****/
@@ -57,6 +53,10 @@ class PopUpEngineMain
             trace("PopUpEngineMain.getBlocPattern -> Il n'existe pas de bloc sous le nom de " + name);
             return null;
         }
+        // MapManipulate.ifExists(blocs, name, function () {
+        //     return blocs.get(name);
+        // });
+        // return null;
     }
 
     public function getButtonPattern (name:String):Button {
