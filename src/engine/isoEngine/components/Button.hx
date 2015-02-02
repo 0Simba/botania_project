@@ -23,26 +23,15 @@ class Button extends Hud
         sprite.mouseup     = alwaysButtonClick;
     }
 
-    override public function bindEvents (_mouseover, _mouseout, _mouseclick) {
-        overBind  = _mouseover;
-        outBind   = _mouseout;
-        clickBind = _mouseclick;
+    public function onClick (clickCallback) {
+        clickBind = clickCallback;
     }
-
-
 
     public function setTextures (_basicTexture:String, _hoverTexture:String, _clickTexture:String) {
         basicTexture = _basicTexture;
         hoverTexture = _hoverTexture;
         clickTexture = _clickTexture;
         changeTexture(basicTexture);
-    }
-
-    public function setInteractivity (basic) {
-        sprite.interactive = true;
-        sprite.mouseover   = alwaysOver;
-        sprite.mouseout    = alwaysOut;
-        sprite.mouseup     = alwaysClick;
     }
 
 

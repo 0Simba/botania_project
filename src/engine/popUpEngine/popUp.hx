@@ -42,13 +42,14 @@ class PopUp
         bloc.addOn(container, name);
     }
 
-    public function addGenericBloc (blocName:String) {
+    public function addBlocPattern (blocName:String) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
         bloc.addOn(container, name);
     }
 
-    public function addYesNo () {
-
+    public function addButtonPattern (buttonName:String) {
+        var button = popUpEngineMain.getButtonPattern(buttonName);
+        button.addOn(container, name);
     }
 
     public function show () {

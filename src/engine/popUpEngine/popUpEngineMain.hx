@@ -10,6 +10,7 @@ class PopUpEngineMain
     private var isoEngine:IsoEngine;
     private var popUps:Map<String, PopUp>;
     private var blocs:Map<String, Bloc>;
+    private var buttons:Map<String, Button>;
 
 
     public function createPopUp (name, size, pos) {
@@ -23,9 +24,15 @@ class PopUpEngineMain
             var bloc = new Bloc(size, pos, textureName);
             blocs.set(name, bloc);
         }
-        else {
-            trace("PopUpEngineMain.addBlocPattern -> un bloc sous le nom de " + name + " existe déjà.");
+        else trace("PopUpEngineMain.addBlocPattern -> un bloc sous le nom de " + name + " existe déjà.");
+    }
+
+    public function createButtonPattern (name:String, size:Vector2, pos:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
+        if (!buttons.exists(name)) {
+            var button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
+            buttons.set(name, button);
         }
+        else trace("PopUpEngineMain.addButtonPattern -> un bloc sous le nom de " + name + " existe déjà.");
     }
 
     public function show (name):PopUp {
@@ -42,7 +49,7 @@ class PopUpEngineMain
 
         /***** SURELY NOT INTEREST YOU *****/
 
-    public function getBlocPattern(name:String):Bloc {
+    public function getBlocPattern (name:String):Bloc {
         if (blocs.exists(name)) {
             return blocs.get(name);
         }
@@ -52,7 +59,15 @@ class PopUpEngineMain
         }
     }
 
-
+    public function getButtonPattern (name:String):Button {
+        if (buttons.exists(name)) {
+            return buttons.get(name);
+        }
+        else {
+            trace("PopUpEngineMain.getBlocPattern -> Il n'existe pas de bloc sous le nom de " + name);
+            return null;
+        }
+    }
 
         /***** YOU DON'T CARE *****/
 
@@ -64,8 +79,10 @@ class PopUpEngineMain
     }
 
     private function new () {
-        popUps = new Map<String, PopUp>();
-        blocs  = new Map<String, Bloc>();
+        popUps  = new Map<String, PopUp>();
+        blocs   = new Map<String, Bloc>();
+        buttons = new Map<String, Button>();
+
         isoEngine = IsoEngine.getInstance();
         isoEngine.displaying.createChildLayer("popUp", "foreground");
     }
