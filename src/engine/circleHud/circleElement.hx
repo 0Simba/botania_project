@@ -20,30 +20,31 @@ class CircleElement extends GameObject
         parent = _parent;
         name   = _name;
 
-        basicTexture = _basicTexture;
-        hoverTexture = _hoverTexture;
-        clickTexture = _clickTexture;
 
-        addComponent("hudElement");
-        hudElement.set(new Vector2(100, 100) , new Vector2(0, 0) , "circleNavigation", basicTexture, parent.layerName);
-        hudElement.resize(new Vector2(parent.elementsRadius, parent.elementsRadius));
-        hudElement.bindEvents(over, out, click);
+        // basicTexture = _basicTexture;
+        // hoverTexture = _hoverTexture;
+        // clickTexture = _clickTexture;
+
+        addComponent("hudButton");
+        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0) , "circleNavigation", basicTexture, parent.layerName); // TODO virer le vector2(100, 100)
+        hudButton.setTextures(_basicTexture, _hoverTexture, _clickTexture);
+        hudButton.bindEvents(over, out, click);
     }
 
     public function replace (pos:Vector2) {
-        hudElement.replace(pos, true);
+        hudButton.replace(pos, true);
     }
 
     private function over () {
-        hudElement.changeTexture(hoverTexture);
+        // hudButton.changeTexture(hoverTexture);
     }
 
     private function out () {
-        hudElement.changeTexture(basicTexture);
+        // hudButton.changeTexture(basicTexture);
     }
 
     private function click () {
-        hudElement.changeTexture(clickTexture);
+        // hudButton.changeTexture(clickTexture);
         parent.referent.emit(name, parent.targetShowed);
     }
 }

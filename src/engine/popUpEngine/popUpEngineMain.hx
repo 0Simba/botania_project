@@ -5,20 +5,20 @@ import engine.isoEngine.IsoEngine;
 class PopUpEngineMain
 {
     private static var instance:PopUpEngineMain;
+    private var isoEngine:IsoEngine;
     private var popUps:Map<String, PopUp>;
 
 
-    private function new () {
-        popUps = new Map<String, PopUp>();
-    }
 
-    public function create (name, size, pos, animation, texture) {
-        var popUp = new PopUp(size, pos, animation, texture);
+    public function create (name, size, pos) {
+        var popUp = new PopUp(name, size, pos);
         popUps.set(name, popUp);
-
         return popUp;
     }
 
+
+
+        /***** YOU DON'T CARE *****/
 
     public static function getInstance (): PopUpEngineMain {
         if (instance == null) {
@@ -26,4 +26,11 @@ class PopUpEngineMain
         }
         return instance;
     }
+
+    private function new () {
+        popUps = new Map<String, PopUp>();
+        isoEngine = IsoEngine.getInstance();
+        isoEngine.displaying.createChildLayer("popUp", "foreground");
+    }
+
 }

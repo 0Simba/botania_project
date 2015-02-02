@@ -29,8 +29,10 @@ class CirclesHudManager
 
     static public function hide () {
         Selection.backToLast();
-        currentShowed.managedHud.hide();
-        currentShowed = null;
+        if (currentShowed != null) {
+            currentShowed.managedHud.hide();
+            currentShowed = null;
+        }
     }
 
     static private function addOnce(name:String, circleHudManager:CirclesHudManager) {

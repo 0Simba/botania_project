@@ -67,7 +67,6 @@ class Hud
 
     public function new () {
         isoEngine = IsoEngine.getInstance();
-        if (!Hud.isBinded) Hud.bindToCamera();
     }
 
 
@@ -101,9 +100,6 @@ class Hud
 
     static private var isBinded:Bool = false;
 
-    static private function bindToCamera () {
-        // engine.isoEngine.controls.Mouse.addOnClickEvent(cast onClick); //WARNING --> unsafe
-    }
 
     static public function onClick () {
         if (currentOver != null) currentOver.clickBind();
