@@ -21,6 +21,8 @@ class Selection
 
         actionType = newAction;
         contain    = newContain;
+
+        events.emit("changed", null);
     }
 
     static public function backToLast () {
@@ -29,12 +31,13 @@ class Selection
 
         lastContain    = null;
         lastActionType = null;
-
+        events.emit("changed", null);
     }
 
     static public function clear () {
         backToLast();
         backToLast();
+        events.emit("changed", null);
     }
 
         /***** UTILS *****/

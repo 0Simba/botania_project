@@ -44,6 +44,13 @@ class CirclesHudManager
     }
 
 
+    static private function onSelectionChanged () {
+        if (Selection.actionType != "circleHud" && currentShowed != null) {
+            currentShowed.managedHud.hide();
+            currentShowed = null;
+        }
+    }
+
 
 
     public  var events:Events;
@@ -52,6 +59,8 @@ class CirclesHudManager
     public function new (name) {
         events = new Events();
         CirclesHudManager.addOnce(name, this);
+
+        Selection.events.on("changed", onSelectionChanged);
     }
 
     public function setTargetHud (circleBlock:CircleBlock) {
