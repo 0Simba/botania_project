@@ -46,11 +46,12 @@ class PopUp
     public function addBlocPattern (blocName:String) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
         bloc.addOn(container, name);
+        return bloc;
     }
 
-    public function addButtonPattern (buttonName:String) {
+    public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        button.addOn(container, name);
+        return button.addOn(container, name);
     }
 
     public function show () {
