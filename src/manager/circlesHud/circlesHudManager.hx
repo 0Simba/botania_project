@@ -13,6 +13,7 @@ class CirclesHudManager
 
     static public function displayForTile (tile:Tile) {
         var hudName = tile.currentBuild;
+        hide();
 
         if (list.exists(hudName)) {
             currentShowed = list.get(hudName);

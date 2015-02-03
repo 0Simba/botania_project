@@ -11,6 +11,7 @@ class PopUp
 
         popUpEngine.createBlocPattern("background", Vector2.full, Vector2.zero, "pickBasic");
         popUpEngine.createButtonPattern("close", new Vector2(0.08, 0.08), new Vector2(0.92, 0), "digBasic", "digHover", "digClick", function () {
+            
         });
 
 
@@ -24,7 +25,7 @@ class PopUp
         flowerPopUp.addBloc(new Vector2(0.7, 0.7), new Vector2(0.4, 0.2), "savana");
         flowerPopUp.addButtonPattern("close");
 
-        popUpEngine.show("lol");
+        // popUpEngine.show("lol");
     }
 
 }

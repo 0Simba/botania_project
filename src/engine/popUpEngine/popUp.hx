@@ -37,6 +37,7 @@ class PopUp
         hide();
     }
 
+
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
         var bloc = new Bloc(pos, size, textureName);
         bloc.addOn(container, name);

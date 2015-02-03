@@ -32,8 +32,6 @@ class CircleBlock
 
 
 
-
-
             /***** YOU DON'T CARE   *****/
 
     public  var layerName:String;
