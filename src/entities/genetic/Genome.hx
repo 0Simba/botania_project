@@ -6,8 +6,8 @@ import init.Config;
 
 class Genome extends GameObject
 {
-	public var name:string;
-	public var value:float;
+	public var name:String;
+	public var value:Float;
 
 	public function new(_name, _value){
         name  = _name;

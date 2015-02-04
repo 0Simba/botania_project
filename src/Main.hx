@@ -33,6 +33,7 @@ class Main
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();
+			init.ForTest.load();
 				//manager
 			manager.Hud.init();
 			manager.MouseTile.init();

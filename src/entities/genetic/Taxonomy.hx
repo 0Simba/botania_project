@@ -10,9 +10,9 @@ class Taxonomy extends GameObject
 	public var secondary:Genome;
 	public var tertiary:Genome;
 	public function new(_principal,_secondary,_tertiary){
-		principal = _principal;
-		secondary = _secondary;
-		tertiary = _tertiary;
+        principal = _principal;
+        secondary = _secondary;
+        tertiary  = _tertiary;
 	}
 }
 
