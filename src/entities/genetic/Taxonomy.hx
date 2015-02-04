@@ -1,4 +1,4 @@
-package entities;
+package entities.genetic;
 
 //import engine.events.Events;
 import GameObject;

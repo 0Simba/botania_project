@@ -12,6 +12,11 @@ class Breaker extends GameObject
         referent = _referent;
     }
 
+    // public function break (seedsA:Seeds, seedsB:Seeds):Seeds {
+        
+    // }
+
+
     override public function destroy () {
         referent.emit("destroying", null);
     }

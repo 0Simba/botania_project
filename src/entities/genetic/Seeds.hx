@@ -1,4 +1,4 @@
-package entities;
+package entities.genetic;
 
 //import engine.events.Events;
 import GameObject;
@@ -9,7 +9,7 @@ class Seeds extends GameObject
 	public var adn;
 	public var level;
 	public function new(_adn, _level = 0){
-		adn = _adn;
-		level = _level;
+        adn   = _adn;
+        level = _level;
 	}
 }

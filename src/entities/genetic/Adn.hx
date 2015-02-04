@@ -1,4 +1,4 @@
-package entities;
+package entities.genetic;
 
 //import engine.events.Events;
 import GameObject;
@@ -9,11 +9,12 @@ class Adn extends GameObject
 	public var family:Taxonomy;
 	public var order:Taxonomy;
 	public var genre:Taxonomy;
+
 	public function new(_family, _order, _genre)
 	{
-		family = _family;
-		order = _order;
-		genre = _genre;
+        family = _family;
+        order  = _order;
+        genre  = _genre;
 	}
 }
 

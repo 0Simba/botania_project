@@ -1,4 +1,4 @@
-package entities;
+package entities.genetic;
 
 //import engine.events.Events;
 import GameObject;
@@ -8,9 +8,10 @@ class Genome extends GameObject
 {
 	public var name:string;
 	public var value:float;
+
 	public function new(_name, _value){
-		name = _name;
-		value = _value;
+        name  = _name;
+        value = _value;
 	}
 }
 
