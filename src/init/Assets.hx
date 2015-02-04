@@ -12,6 +12,7 @@ class Assets
     static private var isoEngine:IsoEngine;
     static private var biomesAndBuildingData:JsonLoader;
     static private var circleNavigation:JsonLoader;
+    static private var colors:JsonLoader;
     static private var nbToLoad;
     static private var nbLoaded = 0;
 
@@ -31,6 +32,13 @@ class Assets
             preloadAssets(pEvent, circleNavigation, "circleNavigation");
         });
         circleNavigation.load();
+
+        colors = new JsonLoader("../assets/colors.json");
+        colors.addEventListener("loaded", function (pEvent:Event) {
+            trace("loaded");
+            preloadAssets(pEvent, colors, "colors");
+        });
+        colors.load();
     }
 
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {

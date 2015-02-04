@@ -9,11 +9,13 @@ class Bloc
     public var size:Vector2;
     public var pos:Vector2;
     public var textureName:String;
+    public var alpha:Float;
 
-    public function new (_size:Vector2, _pos:Vector2, _textureName:String) {
+    public function new (_size:Vector2, _pos:Vector2, _textureName:String, _alpha:Float = 1) {
         size        = _size;
         pos         = _pos;
         textureName = _textureName;
+        alpha       = _alpha;
     }
 
     public function addOn (pixiDisplayableElement:Graphics, layerName:String):Hud {
@@ -26,6 +28,7 @@ class Bloc
         }
 
         hud.set(size, pos, textureName, layerName);
+        hud.sprite.alpha = alpha;
         return hud;
     }
 }

@@ -13,6 +13,8 @@ class PopUp
     public var contents:Array<Hud>;
     public var name:String;
     public var container:Graphics;
+    public var fixed:Graphics;
+    public var scrollable:Graphics;
 
     public var pxSize:Vector2;
     public var pxPos:Vector2;
@@ -24,34 +26,40 @@ class PopUp
         isoEngine       = IsoEngine.getInstance();
         popUpEngineMain = PopUpEngineMain.getInstance();
 
-        name      = _name;
-        container = isoEngine.displaying.createChildLayer(name, "popUp");
+        name       = _name;
+        container  = isoEngine.displaying.createChildLayer(name, "popUp");
+        fixed      = isoEngine.displaying.createChildLayer("fixed"+name, name);
+        scrollable = isoEngine.displaying.createChildLayer("scrollable"+name, name);
 
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
         pxPos  = new Vector2(pos.x  * isoEngine.width, pos.y  * isoEngine.height);
 
-        container.beginFill(255255255, 0.7);    // TODO remove this help display
+        container.beginFill(0, 0);    // TODO FOUND WHY THIS IS NEEDED TO DISPLAY CHILDS
         container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
         container.endFill();
 
         hide();
     }
 
+    public function setInventory (pos:Vector2, size:Vector2, elementSize:Vector2) {
+
+    }
+
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
         var bloc = new Bloc(pos, size, textureName);
-        bloc.addOn(container, name);
+        bloc.addOn(/*scrollable*/container, name);
     }
 
     public function addBlocPattern (blocName:String) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
-        bloc.addOn(container, name);
+        bloc.addOn(/*scrollable*/container, name);
         return bloc;
     }
 
     public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        return button.addOn(container, name);
+        return button.addOn(/*scrollable*/container, name);
     }
 
     public function show () {
@@ -61,4 +69,6 @@ class PopUp
     public function hide () {
         container.visible = false;
     }
+
+            /***** YOU DON'T CARE *****/
 }

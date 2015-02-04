@@ -20,9 +20,9 @@ class PopUpEngineMain
         return popUp;
     }
 
-    public function createBlocPattern (name:String, size:Vector2, pos:Vector2, textureName:String) {
+    public function createBlocPattern (name:String, size:Vector2, pos:Vector2, textureName:String, alpha:Float = 1) {
         MapManipulate.ifIsFree(blocs, name, function () {
-            var bloc = new Bloc(size, pos, textureName);
+            var bloc = new Bloc(size, pos, textureName, alpha);
             blocs.set(name, bloc);
         });
     }
@@ -35,7 +35,6 @@ class PopUpEngineMain
             buttons.set(name, button);
         }, "buttons");
 
-        trace(button);
         return button;
     }
 
