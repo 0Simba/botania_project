@@ -1,0 +1,15 @@
+package entities;
+
+//import engine.events.Events;
+import GameObject;
+import init.Config;
+
+class Seeds extends GameObject
+{
+	public var adn;
+	public var level;
+	public function new(_adn, _level = 0){
+		adn = _adn;
+		level = _level;
+	}
+}
