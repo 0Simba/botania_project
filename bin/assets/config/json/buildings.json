@@ -1,0 +1,10 @@
+{
+	"breaker": {
+		"popUp" : {
+			"name" : "breakerInterface",
+			"size" : [0.8, 0.8],
+			"pos" : [0.1, 0.1]
+		}
+	},
+	"tamere" : {}
+}
