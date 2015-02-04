@@ -28,6 +28,7 @@ class CircleHud
         var breakerHudManager = new manager.circlesHud.Breaker();
         var breakerHud = circleHudEngine.createModel("breaker", breakerHudManager.events, centerRadius, elementsRadius);
         breakerHud.addOnce("remove", "digBasic", "digHover", "digClick");
+        breakerHud.addOnce("open", "fertilizerBasic", "fertilizerHover", "fertilizerClick");
         breakerHudManager.setTargetHud(breakerHud);
 
     }
