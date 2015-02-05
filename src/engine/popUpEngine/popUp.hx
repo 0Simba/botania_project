@@ -20,8 +20,10 @@ class PopUp
     private var popUpEngineMain:PopUpEngineMain;
 
     public var pxSize:Vector2;
-    public var pxPos:Vector2;
-
+    public var scrollableSize:Vector2;
+    public var pxInventory:Vector2;
+    public var nbElementX:Int;
+    public var nbElementY:Int;
 
     public function new (_name:String, pos:Vector2, size:Vector2) {
         isoEngine       = IsoEngine.getInstance();
@@ -38,32 +40,38 @@ class PopUp
         container.y      = pos.y  * isoEngine.height;
 
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
-        pxPos  = new Vector2(pos.x  * isoEngine.width, pos.y  * isoEngine.height);
 
         trace(pxSize);
 
         hide();
     }
 
-    public function setInventory (pos:Vector2, size:Vector2, elementSize:Vector2) {
+    public function setInventory (pos:Vector2, size:Vector2, elementSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
+        scrollable.x = pos.x * pxSize.x;
+        scrollable.y = pos.y * pxSize.y;
+        scrollable.width  = size.x * pxSize.x;
+        scrollable.height = size.y * pxSize.y;
+        scrollableSize = new Vector2(pxSize.x, pxSize.y);
 
+        nbElementX = _nbElementX;
+        nbElementY = _nbElementY;
     }
 
 
-    public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
+    public function addBloc (pos:Vector2, size:Vector2, textureName:String, inInventory = false) { // WARNING, don't try pass inIventory with default value and remove argument in call, this is fucked and crash code
         var bloc = new Bloc(pos, size, textureName);
-        bloc.addOn(/*scrollable*/container, pxSize, name);
+        bloc.addOn(fixed, pxSize, name);
     }
 
-    public function addBlocPattern (blocName:String) {
+    public function addBlocPattern (blocName:String, inInventory = false) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
-        bloc.addOn(/*scrollable*/container, pxSize, name);
+        bloc.addOn(fixed, pxSize, name);
         return bloc;
     }
 
-    public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
+    public function addButtonPattern (buttonName:String, inInventory = false):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        return button.addOn(/*scrollable*/container, pxSize, name);
+        return button.addOn(fixed, pxSize, name);
     }
 
     public function show () {

@@ -14,9 +14,7 @@ class PopUp
         popUpEngine.createButtonPattern("close", new Vector2(0.08, 0.08), new Vector2(0.92, 0), "digBasic", "digHover", "digClick", function(){});
 
             /***** Create PopUp *****/
-        init.popUps.BreakerPopUpInit.init(popUpEngine);
-        init.popUps.FlowerPopUpInit.init(popUpEngine);
+        init.popUps.BreakerPopUpInit.init();
+        init.popUps.FlowerPopUpInit.init();
     }
-
-
 }
