@@ -60,18 +60,23 @@ class PopUp
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String, inInventory = false) { // WARNING, don't try pass inIventory with default value and remove argument in call, this is fucked and crash code
         var bloc = new Bloc(pos, size, textureName);
-        bloc.addOn(fixed, pxSize, name);
+        return addSomethingOn(bloc, inInventory);
     }
 
     public function addBlocPattern (blocName:String, inInventory = false) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
-        bloc.addOn(fixed, pxSize, name);
-        return bloc;
+        return addSomethingOn(bloc, inInventory);
     }
 
     public function addButtonPattern (buttonName:String, inInventory = false):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        return button.addOn(fixed, pxSize, name);
+        return addSomethingOn(button, inInventory);
+    }
+
+    private function addSomethingOn (target:Dynamic, inInventory:Bool):Dynamic {
+        var targetContainer = (inInventory) ? scrollable     : fixed;
+        var targetSize      = (inInventory) ? scrollableSize : pxSize;
+        return target.addOn(targetContainer, targetSize, name);
     }
 
     public function show () {
