@@ -14,24 +14,24 @@ class PopUpEngineMain
     private var buttons:Map<String, Button>;
 
 
-    public function createPopUp (name, size, pos) {
-        var popUp = new PopUp(name, size, pos);
+    public function createPopUp (name, pos, size) {
+        var popUp = new PopUp(name, pos, size);
         popUps.set(name, popUp);
         return popUp;
     }
 
-    public function createBlocPattern (name:String, size:Vector2, pos:Vector2, textureName:String, alpha:Float = 1) {
+    public function createBlocPattern (name:String, pos:Vector2, size:Vector2, textureName:String, alpha:Float = 1) {
         MapManipulate.ifIsFree(blocs, name, function () {
-            var bloc = new Bloc(size, pos, textureName, alpha);
+            var bloc = new Bloc(pos, size, textureName, alpha);
             blocs.set(name, bloc);
         });
     }
 
-    public function createButtonPattern (name:String, size:Vector2, pos:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
+    public function createButtonPattern (name:String, pos:Vector2, size:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
         var button:Button;
 
         MapManipulate.ifIsFree(buttons, name, function () {
-            button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
+            button = new Button(pos, size, basicTexture, overTexture, clickTexture, callback);
             buttons.set(name, button);
         }, "buttons");
 

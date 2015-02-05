@@ -11,7 +11,7 @@ class Bloc
     public var textureName:String;
     public var alpha:Float;
 
-    public function new (_size:Vector2, _pos:Vector2, _textureName:String, _alpha:Float = 1) {
+    public function new (_pos:Vector2, _size:Vector2, _textureName:String, _alpha:Float = 1) {
         size        = _size;
         pos         = _pos;
         textureName = _textureName;

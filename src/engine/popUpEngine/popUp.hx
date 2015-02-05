@@ -41,8 +41,6 @@ class PopUp
 
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
 
-        trace(pxSize);
-
         hide();
     }
 
@@ -76,6 +74,10 @@ class PopUp
     private function addSomethingOn (target:Dynamic, inInventory:Bool):Dynamic {
         var targetContainer = (inInventory) ? scrollable     : fixed;
         var targetSize      = (inInventory) ? scrollableSize : pxSize;
+        if (inInventory && targetSize == null) {
+            trace("Immpossible d'ajouter l'éléement d'inventaire, parametrez un inventaire avant dans cette pop up");
+            return null;
+        }
         return target.addOn(targetContainer, targetSize, name);
     }
 
