@@ -16,11 +16,12 @@ class PopUp
     public var fixed:DisplayObjectContainer;
     public var scrollable:DisplayObjectContainer;
 
+    private var isoEngine:IsoEngine;
+    private var popUpEngineMain:PopUpEngineMain;
+
     public var pxSize:Vector2;
     public var pxPos:Vector2;
 
-    private var isoEngine:IsoEngine;
-    private var popUpEngineMain:PopUpEngineMain;
 
     public function new (_name:String, pos:Vector2, size:Vector2) {
         isoEngine       = IsoEngine.getInstance();
@@ -31,12 +32,15 @@ class PopUp
         fixed      = isoEngine.displaying.createChildLayer("fixed"+name, name);
         scrollable = isoEngine.displaying.createChildLayer("scrollable"+name, name);
 
+        container.width  = size.x * isoEngine.width;
+        container.height = size.y * isoEngine.height;
+        container.x      = pos.x  * isoEngine.width;
+        container.y      = pos.y  * isoEngine.height;
+
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
         pxPos  = new Vector2(pos.x  * isoEngine.width, pos.y  * isoEngine.height);
 
-        // container.beginFill(0, 0);    // TODO FOUND WHY THIS IS NEEDED TO DISPLAY CHILDS
-        // container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
-        // container.endFill();
+        trace(pxSize);
 
         hide();
     }
@@ -48,18 +52,18 @@ class PopUp
 
     public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
         var bloc = new Bloc(pos, size, textureName);
-        bloc.addOn(/*scrollable*/container, name);
+        bloc.addOn(/*scrollable*/container, pxSize, name);
     }
 
     public function addBlocPattern (blocName:String) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
-        bloc.addOn(/*scrollable*/container, name);
+        bloc.addOn(/*scrollable*/container, pxSize, name);
         return bloc;
     }
 
     public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        return button.addOn(/*scrollable*/container, name);
+        return button.addOn(/*scrollable*/container, pxSize, name);
     }
 
     public function show () {

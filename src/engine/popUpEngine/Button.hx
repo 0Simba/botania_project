@@ -24,13 +24,13 @@ class Button
     }
 
 
-    public function addOn (pixiDisplayableElement:DisplayObjectContainer, layerName:String):engine.isoEngine.components.Button {
+    public function addOn (pixiDisplayableElement:DisplayObjectContainer, pxSize:Vector2, layerName:String):engine.isoEngine.components.Button {
         var button = new engine.isoEngine.components.Button();
         if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
-            size.x *= pixiDisplayableElement.width;
-            size.y *= pixiDisplayableElement.height;
-            pos.x  = (pos.x * pixiDisplayableElement.width) + pixiDisplayableElement.x;
-            pos.y  = (pos.y * pixiDisplayableElement.height) + pixiDisplayableElement.y;
+            size.x *= pxSize.x;
+            size.y *= pxSize.y;
+            pos.x  *= pxSize.x;
+            pos.y  *= pxSize.y;
         }
 
         button.set(size, pos, basicTexture, layerName);

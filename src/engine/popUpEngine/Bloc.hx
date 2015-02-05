@@ -18,14 +18,17 @@ class Bloc
         alpha       = _alpha;
     }
 
-    public function addOn (pixiDisplayableElement:DisplayObjectContainer, layerName:String):Hud {
+    public function addOn (pixiDisplayableElement:DisplayObjectContainer, pxSize:Vector2, layerName:String):Hud {
         var hud = new Hud();
+
+
         if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
-            size.x *= pixiDisplayableElement.width;
-            size.y *= pixiDisplayableElement.height;
-            pos.x  = (pos.x * pixiDisplayableElement.width) + pixiDisplayableElement.x;
-            pos.y  = (pos.y * pixiDisplayableElement.height) + pixiDisplayableElement.y;
+            size.x *= pxSize.x;
+            size.y *= pxSize.y;
+            pos.x  *= pxSize.x;
+            pos.y  *= pxSize.y;
         }
+
 
         hud.set(size, pos, textureName, layerName);
         hud.sprite.alpha = alpha;
