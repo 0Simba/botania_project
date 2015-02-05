@@ -30,9 +30,9 @@ class Mouse
 
 
 		/***** YOU DON'T CARE *****/
-	static private var playArea:pixi.primitives.Graphics;
+	static private var playArea:pixi.display.DisplayObjectContainer;
 
-	public static function setRef (camera:pixi.primitives.Graphics) {
+	public static function setRef (camera:pixi.display.DisplayObjectContainer) {
 		playArea = camera;
 		camera.interactive = true;
 		camera.mousemove = mouseMove;

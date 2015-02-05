@@ -6,7 +6,7 @@ import utils.MapManipulate;
 import utils.Vector2;
 import engine.circleHud.CirclesHudEngine;
 
-import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 
 import engine.events.Events;
 
@@ -35,7 +35,7 @@ class CircleBlock
             /***** YOU DON'T CARE   *****/
 
     public  var layerName:String;
-    public  var layer:Graphics;
+    public  var layer:DisplayObjectContainer;
 
     public var referent:Events;
     public var targetShowed:Dynamic;
@@ -73,9 +73,9 @@ class CircleBlock
 
         parent = CirclesHudEngine.getInstance();
 
-        layer.beginFill(202020, 0.3);
-        layer.drawCircle(parent.offsetX, parent.offsetY, centerRadius);
-        layer.endFill();
+        // layer.beginFill(202020, 0.3);
+        // layer.drawCircle(parent.offsetX, parent.offsetY, centerRadius);
+        // layer.endFill();
 
         layer.visible = false;
     }

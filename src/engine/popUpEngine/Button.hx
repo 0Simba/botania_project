@@ -1,7 +1,7 @@
 package engine.popUpEngine;
 
 import utils.Vector2;
-import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 
 class Button
 {
@@ -24,7 +24,7 @@ class Button
     }
 
 
-    public function addOn (pixiDisplayableElement:Graphics, layerName:String):engine.isoEngine.components.Button {
+    public function addOn (pixiDisplayableElement:DisplayObjectContainer, layerName:String):engine.isoEngine.components.Button {
         var button = new engine.isoEngine.components.Button();
         if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
             size.x *= pixiDisplayableElement.width;

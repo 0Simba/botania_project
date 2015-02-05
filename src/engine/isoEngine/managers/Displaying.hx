@@ -1,7 +1,8 @@
 package engine.isoEngine.managers;
 
 import js.Browser;
-import pixi.primitives.Graphics;
+//import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 import pixi.display.MovieClip;
 import pixi.display.Stage;
 
@@ -33,14 +34,14 @@ class Displaying
     }
 
 
-    public function createChildLayer (name:String, parent:String):Graphics{
+    public function createChildLayer (name:String, parent:String):DisplayObjectContainer{
         if (layers.exists(name)) {
             trace("IsoEngine.displaying.createChildLayer -> un layer " + name + " existe déjà. opération refusé.");
             return null;
         }
 
         if (layers.get(name) == null) {
-            var layer = new Graphics();
+            var layer = new DisplayObjectContainer();
             layers.get(parent).addChild(layer);
             layers.set(name, layer);
             return layer;
@@ -52,11 +53,11 @@ class Displaying
 
         /***** SURELY NOT INTERST YOU *****/
 
-    public function getCamera ():Graphics {
+    public function getCamera ():DisplayObjectContainer {
         return layers.get('camera');
     }
 
-    public function getLayer (name:String):Graphics {
+    public function getLayer (name:String):DisplayObjectContainer {
         if (layers.exists(name)) {
             return layers.get(name);
         }
@@ -68,12 +69,12 @@ class Displaying
 
         /***** YOU DON'T CARE *****/
 
-    private var layers:Map<String, Graphics>;
+    private var layers:Map<String, DisplayObjectContainer>;
     private var stage:Stage;
 
 
     public function new (_stage:Stage) {
-        layers = new Map<String, Graphics>();
+        layers = new Map<String, DisplayObjectContainer>();
         stage = _stage;
 
         createMainLayer("background");
@@ -88,7 +89,7 @@ class Displaying
     }
 
     private function createMainLayer (name:String) {
-        var layer = new Graphics();
+        var layer = new DisplayObjectContainer();
         stage.addChild(layer);
         layers.set(name, layer);
     }

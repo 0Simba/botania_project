@@ -2,7 +2,7 @@ package engine.popUpEngine;
 
 import utils.Vector2;
 import engine.isoEngine.components.Hud;
-import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 import engine.isoEngine.IsoEngine;
 import engine.popUpEngine.Bloc;
 import engine.popUpEngine.PopUpEngineMain;
@@ -12,9 +12,9 @@ class PopUp
 
     public var contents:Array<Hud>;
     public var name:String;
-    public var container:Graphics;
-    public var fixed:Graphics;
-    public var scrollable:Graphics;
+    public var container:DisplayObjectContainer;
+    public var fixed:DisplayObjectContainer;
+    public var scrollable:DisplayObjectContainer;
 
     public var pxSize:Vector2;
     public var pxPos:Vector2;
@@ -34,9 +34,9 @@ class PopUp
         pxSize = new Vector2(size.x * isoEngine.width, size.y * isoEngine.height);
         pxPos  = new Vector2(pos.x  * isoEngine.width, pos.y  * isoEngine.height);
 
-        container.beginFill(0, 0);    // TODO FOUND WHY THIS IS NEEDED TO DISPLAY CHILDS
-        container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
-        container.endFill();
+        // container.beginFill(0, 0);    // TODO FOUND WHY THIS IS NEEDED TO DISPLAY CHILDS
+        // container.drawRect(pxPos.x, pxPos.y, pxSize.x, pxSize.y);
+        // container.endFill();
 
         hide();
     }

@@ -2,7 +2,7 @@ package engine.popUpEngine;
 
 import utils.Vector2;
 import engine.isoEngine.components.Hud;
-import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 
 class Bloc
 {
@@ -18,7 +18,7 @@ class Bloc
         alpha       = _alpha;
     }
 
-    public function addOn (pixiDisplayableElement:Graphics, layerName:String):Hud {
+    public function addOn (pixiDisplayableElement:DisplayObjectContainer, layerName:String):Hud {
         var hud = new Hud();
         if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
             size.x *= pixiDisplayableElement.width;

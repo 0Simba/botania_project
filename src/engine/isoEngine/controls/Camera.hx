@@ -1,7 +1,7 @@
 package engine.isoEngine.controls;
 
 import js.html.VoidCallback;
-import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 import utils.Vector2;
 import engine.isoEngine.components.Tile;
 import engine.isoEngine.IsoEngine;
@@ -25,7 +25,7 @@ class Camera
 
 
         /***** YOU DON'T CARE *****/
-    static private var camera:Graphics;
+    static private var camera:DisplayObjectContainer;
     static private var tileOn:Tile;
     static private var isoEngine:IsoEngine;
     static private var currentPos:Vector2;
