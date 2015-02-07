@@ -79,22 +79,25 @@ class Scrollbar
     private function setInteractive () {
         scrollIn.interactive = true;
         scrollIn.mousedown = clickScrollIn;
-        // Mouse.addOnClickEvent(cast upScrollIn); // /!\ WARNING UNSAFE
-        scrollIn.mousemove = moveScrollIn;
+        Mouse.events.on("stage mousemove", moveScrollIn);
+        Mouse.events.on("stage mouseup", stopScrolling);
     }
 
     private function clickScrollIn (mouseData):Void {
-        trace("ok mouse down");
         isMouseDown = true;
     }
-    private function upScrollIn (mouseData):Void {
+    private function stopScrolling (mouseData):Void {
         isMouseDown = false;
-        trace("ok on stope le mouse down");
     }
 
-    private function moveScrollIn (mouseData):Void {
+    private function moveScrollIn (position:Vector2):Void {
         if (isMouseDown) {
-            trace("et on cherche a déplacer la scroll bar");
+            if (isHorizontal) {
+                scrollIn.x = position.x;
+            }
+            else {
+                scrollIn.y = position.y;
+            }
         }
     }
 

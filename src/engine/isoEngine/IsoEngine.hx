@@ -60,7 +60,7 @@ class IsoEngine
         displaying    = new Displaying(stage);
         events        = new EventDispatcher();
         Mouse.setMap(displaying.getLayer("playArea"));
-        // Mouse.setStage(stage);
+        Mouse.setStage(stage);
         Camera.setRef(this);
     }
 
