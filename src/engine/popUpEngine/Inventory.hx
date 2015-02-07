@@ -6,6 +6,7 @@ import engine.isoEngine.components.Hud;
 import engine.isoEngine.IsoEngine;
 import pixi.display.DisplayObjectContainer;
 import engine.popUpEngine.Scrollbar;
+import pixi.primitives.Graphics;
 
 class Inventory
 {
@@ -18,6 +19,8 @@ class Inventory
     public var layer:DisplayObjectContainer;
     public var layerName:String;
     public var scrollbar:Scrollbar;
+    public var mask:Graphics;
+
 
     public var cellList:Array<Cell>;
 
@@ -39,12 +42,12 @@ class Inventory
         layer.x = pos.x;
         layer.y = pos.y;
 
-        var myMask = new pixi.primitives.Graphics();
-        myMask.beginFill(576);
-        myMask.drawRect(0, 0, size.x, size.y);
-        myMask.endFill();
-        layer.addChild(myMask);
-        layer.mask = myMask;
+        mask = new pixi.primitives.Graphics();
+        mask.beginFill(576);
+        mask.drawRect(0, 0, size.x, size.y);
+        mask.endFill();
+        layer.addChild(mask);
+        layer.mask = mask;
 
 
         scrollbar = new Scrollbar(this);

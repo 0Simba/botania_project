@@ -15,6 +15,7 @@ class Scrollbar
 
     private var inventory:Inventory;
     private var isHorizontal:Bool;
+    private var inventorySize:Vector2 = Vector2.zero;
     public  var layer:DisplayObjectContainer;
 
 
@@ -34,15 +35,26 @@ class Scrollbar
     }
 
 
-
-
-
-    private function updateContainer (ratioPosition) {
+    private function updateContainer () {
         if (isHorizontal) {
-            inventory.layer.x += 1;
+            var totalPxTraversable:Float = outWidth - inWidth;
+
+            if (scrollIn.x < 0) scrollIn.x = 0;
+            if (scrollIn.x > totalPxTraversable) scrollIn.x = totalPxTraversable;
+
+            var ratio = scrollIn.x / totalPxTraversable;
+            inventory.layer.x = ratio * -inventorySize.x;
+            inventory.mask.x  = ratio * inventorySize.x;
         }
         else {
-            inventory.layer.y += 1;
+            var totalPxTraversable:Float = outHeight - inHeight;
+
+            if (scrollIn.y < 0) scrollIn.y = 0;
+            if (scrollIn.y > totalPxTraversable) scrollIn.y = totalPxTraversable;
+
+            var ratio = scrollIn.y / totalPxTraversable;
+            inventory.layer.y = ratio * -inventorySize.y;
+            inventory.mask.y  = ratio * inventorySize.y;
         }
     }
 
@@ -79,14 +91,16 @@ class Scrollbar
 
 
     private function setHorizontalScrollIn () {
-        displayableRatio = inventory.elementSize.x / (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x);
+        inventorySize.x = (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x);
+        displayableRatio = inventory.elementSize.x / inventorySize.x;
         inWidth  = displayableRatio * outWidth;
         inHeight = outHeight - defaultInBroder * 2;
         drawScrollIn();
     }
 
     private function setVerticalScrollIn () {
-        displayableRatio = inventory.elementSize.y / (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y);
+        inventorySize.y = (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y);
+        displayableRatio = inventory.elementSize.y / inventorySize.y;
         inWidth  = outWidth - defaultInBroder * 2;
         inHeight = displayableRatio * outHeight;
         drawScrollIn();
@@ -130,7 +144,7 @@ class Scrollbar
             else {
                 scrollIn.y = lastInPosition.y + (Mouse.stagePosition.y - lastMousePosition.y);
             }
-            updateContainer(1);
+            updateContainer();
         }
     }
 
