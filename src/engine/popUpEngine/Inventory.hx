@@ -15,7 +15,7 @@ class Inventory
     public var elementSize:Vector2;
     public var nbElementX:Int;
     public var nbElementY:Int;
-    public var layer:pixi.display.DisplayObjectContainer;
+    public var layer:DisplayObjectContainer;
     public var layerName:String;
     public var scrollbar:Scrollbar;
 

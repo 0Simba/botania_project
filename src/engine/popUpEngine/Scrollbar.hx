@@ -1,23 +1,30 @@
 
 package engine.popUpEngine;
 
+import engine.isoEngine.IsoEngine;
 import utils.Vector2;
 import pixi.primitives.Graphics;
 import engine.isoEngine.controls.Mouse;
+import pixi.display.DisplayObjectContainer;
 
 class Scrollbar
 {
     static private var defaultSize:Float = 20;
     static private var defaultInBroder:Float = 2;
 
+
     private var inventory:Inventory;
     private var isHorizontal:Bool;
+    public  var layer:DisplayObjectContainer;
+
+
 
 
     public function new (_inventory:Inventory, _isHorizontal:Bool = false) {
         isHorizontal = _isHorizontal;
         inventory = _inventory;
 
+        createLayer();
         createScrollOut();
         createScrollIn();
     }
@@ -26,6 +33,28 @@ class Scrollbar
         setScrollIn();
     }
 
+
+
+
+
+    private function updateContainer (ratioPosition) {
+        if (isHorizontal) {
+            inventory.layer.x += 1;
+        }
+        else {
+            inventory.layer.y += 1;
+        }
+    }
+
+
+        /***** LAYER *****/
+    private function createLayer () {
+        layer = IsoEngine.getInstance().displaying.createChildLayer(inventory.layerName + "scroll", inventory.popUp.name);
+        layer.x = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
+        layer.y = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
+
+        trace(layer);
+    }
 
 
         /***** SCROLL IN *****/
@@ -40,7 +69,7 @@ class Scrollbar
         scrollIn = new Graphics();
         setScrollIn();
         setInteractive();
-        inventory.layer.addChild(scrollIn);
+        layer.addChild(scrollIn);
     }
 
 
@@ -67,7 +96,7 @@ class Scrollbar
     private function drawScrollIn () {
         scrollIn.clear();
         scrollIn.beginFill(122348);
-        scrollIn.drawRect(outX, outY, inWidth, inHeight);
+        scrollIn.drawRect(0, 0, inWidth, inHeight);
         scrollIn.endFill();
     }
 
@@ -101,6 +130,7 @@ class Scrollbar
             else {
                 scrollIn.y = lastInPosition.y + (Mouse.stagePosition.y - lastMousePosition.y);
             }
+            updateContainer(1);
         }
     }
 
@@ -108,8 +138,6 @@ class Scrollbar
     private var scrollOut:Graphics;
     private var outWidth:Float;
     private var outHeight:Float;
-    private var outX:Float;
-    private var outY:Float;
 
     private function createScrollOut () {
         setScrollOutValues();
@@ -119,15 +147,13 @@ class Scrollbar
     private function setScrollOutValues () {
         outWidth  = (isHorizontal)  ? inventory.size.x : defaultSize;
         outHeight = (!isHorizontal) ? inventory.size.y : defaultSize;
-        outX      = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
-        outY      = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
     }
 
     private function addScrollOut () {
         scrollOut = new Graphics();
         scrollOut.beginFill(977);
-        scrollOut.drawRect(outX, outY, outWidth, outHeight);
+        scrollOut.drawRect(0, 0, outWidth, outHeight);
         scrollOut.endFill();
-        inventory.layer.addChild(scrollOut);
+        layer.addChild(scrollOut);
     }
 }
