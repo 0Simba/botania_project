@@ -41,7 +41,7 @@ class Camera
     static private function setMouse () {
         camera.interactive = true;
         camera.mousemove = mousemove;
-        Mouse.addOnClickEvent(cast onClick); // WARNING --> unsafe
+        Mouse.events.on("map mouseup", onClick);
     }
 
 

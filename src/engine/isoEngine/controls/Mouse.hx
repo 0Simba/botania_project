@@ -4,27 +4,52 @@ import pixi.display.Stage;
 import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import js.html.VoidCallback;
-
+import engine.events.Events;
 
 class Mouse
 {
 
-	static private var onClickCallback:Array<VoidCallback> = new Array<VoidCallback>();
+	static public var events:Events = new Events();
 
-	static private function onClick () {
-		for (i in 0...onClickCallback.length) {
-			onClickCallback[i]();
-		}
+
+
+		/***** MAP *****/
+	public static var mapStatus:String = "up";
+	public static var mapPosition:Vector2;
+
+	private static function mapup (mouseData) {
+		mapStatus = "up";
+		events.emit("map mouseup", null);
+	}
+	private static function mapdown (mouseData) {
+		mapStatus = "down";
+		events.emit("map mousedown", null);
+	}
+	private static function mapmove (mouseData) {
+		mapPosition = new Vector2(mouseData.global.x, mouseData.global.y);
+		events.emit("map mousemove", mapPosition);
 	}
 
-	static public function addOnClickEvent (callback:VoidCallback) {
-		onClickCallback.push(callback);
+
+
+		/***** STAGE *****/
+	public static var stageStatus:String = "up";
+	public static var stagePosition:Vector2;
+
+
+	private static function stageup (mouseData) {
+		stageStatus = "up";
+		events.emit("stage mouseup", null);
+	}
+	private static function stagedown (mouseData) {
+		stageStatus = "down";
+		events.emit("stage mousedown", null);
+	}
+	private static function stagemove (mouseData) {
+		stagePosition = new Vector2(mouseData.global.x, mouseData.global.y);
+		events.emit("stage mousemove", stagePosition);
 	}
 
-
-
-	public static var status:String = "up";
-	public static var position:Vector2;
 
 
 
@@ -32,27 +57,19 @@ class Mouse
 		/***** YOU DON'T CARE *****/
 	static private var playArea:pixi.display.DisplayObjectContainer;
 
-	public static function setRef (camera:pixi.display.DisplayObjectContainer) {
+	public static function setMap (camera:pixi.display.DisplayObjectContainer) {
 		playArea = camera;
 		camera.interactive = true;
-		camera.mousemove = mouseMove;
-		camera.mousedown = mousedown;
-		camera.mouseup   = mouseup;
+		camera.mousemove = mapmove;
+		camera.mousedown = mapdown;
+		camera.mouseup   = mapup;
 	}
 
-	private static function mousedown (mouseData) {
-		status = "down";
-	}
-
-	private static function mouseup (mouseData) {
-		status = "up";
-		onClick();
-	}
-
-	private static function mouseMove (mouseData) {
-		// trace('move');
-		// position.x = mouseData.global.x;
-		// position.y = mouseData.global.y;
+	public static function setStage (stage:Stage) {
+		stage.interactive = true;
+		stage.mousemove = stagemove;
+		stage.mousedown = stagedown;
+		stage.mouseup   = stageup;
 	}
 
 }

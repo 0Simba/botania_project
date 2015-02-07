@@ -3,6 +3,7 @@ package engine.popUpEngine;
 
 import utils.Vector2;
 import pixi.primitives.Graphics;
+import engine.isoEngine.controls.Mouse;
 
 class Scrollbar
 {
@@ -38,6 +39,7 @@ class Scrollbar
     private function createScrollIn () {
         scrollIn = new Graphics();
         setScrollIn();
+        setInteractive();
         inventory.layer.addChild(scrollIn);
     }
 
@@ -69,6 +71,32 @@ class Scrollbar
         scrollIn.endFill();
     }
 
+
+
+    private var isMouseDown:Bool = false;
+
+
+    private function setInteractive () {
+        scrollIn.interactive = true;
+        scrollIn.mousedown = clickScrollIn;
+        // Mouse.addOnClickEvent(cast upScrollIn); // /!\ WARNING UNSAFE
+        scrollIn.mousemove = moveScrollIn;
+    }
+
+    private function clickScrollIn (mouseData):Void {
+        trace("ok mouse down");
+        isMouseDown = true;
+    }
+    private function upScrollIn (mouseData):Void {
+        isMouseDown = false;
+        trace("ok on stope le mouse down");
+    }
+
+    private function moveScrollIn (mouseData):Void {
+        if (isMouseDown) {
+            trace("et on cherche a déplacer la scroll bar");
+        }
+    }
 
         /***** SCROLL OUT *****/
     private var scrollOut:Graphics;
