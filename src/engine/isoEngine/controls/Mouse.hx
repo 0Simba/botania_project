@@ -39,11 +39,13 @@ class Mouse
 
 	private static function stageup (mouseData) {
 		stageStatus = "up";
-		events.emit("stage mouseup", null);
+		stagePosition = new Vector2(mouseData.global.x, mouseData.global.y);
+		events.emit("stage mouseup", stagePosition);
 	}
 	private static function stagedown (mouseData) {
 		stageStatus = "down";
-		events.emit("stage mousedown", null);
+
+		events.emit("stage mousedown", stagePosition);
 	}
 	private static function stagemove (mouseData) {
 		stagePosition = new Vector2(mouseData.global.x, mouseData.global.y);

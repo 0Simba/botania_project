@@ -73,8 +73,9 @@ class Scrollbar
 
 
 
-    private var isMouseDown:Bool = false;
-
+    private var isMouseDown:Bool   = false;
+    private var lastInPosition:Vector2    = Vector2.zero;
+    private var lastMousePosition:Vector2 = Vector2.zero;
 
     private function setInteractive () {
         scrollIn.interactive = true;
@@ -85,18 +86,20 @@ class Scrollbar
 
     private function clickScrollIn (mouseData):Void {
         isMouseDown = true;
+        lastInPosition    = new Vector2(scrollIn.x, scrollIn.y);
+        lastMousePosition = new Vector2(Mouse.stagePosition.x, Mouse.stagePosition.y);
     }
-    private function stopScrolling (mouseData):Void {
+    private function stopScrolling (position:Vector2):Void {
         isMouseDown = false;
     }
 
     private function moveScrollIn (position:Vector2):Void {
         if (isMouseDown) {
             if (isHorizontal) {
-                scrollIn.x = position.x;
+                scrollIn.x = lastInPosition.x + (Mouse.stagePosition.x - lastMousePosition.x);
             }
             else {
-                scrollIn.y = position.y;
+                scrollIn.y = lastInPosition.y + (Mouse.stagePosition.y - lastMousePosition.y);
             }
         }
     }
