@@ -6,6 +6,8 @@ import pixi.display.DisplayObjectContainer;
 import engine.isoEngine.IsoEngine;
 import engine.popUpEngine.Bloc;
 import engine.popUpEngine.PopUpEngineMain;
+import engine.popUpEngine.Inventory;
+
 
 class PopUp
 {
@@ -20,10 +22,7 @@ class PopUp
     private var popUpEngineMain:PopUpEngineMain;
 
     public var pxSize:Vector2;
-    public var scrollableSize:Vector2;
-    public var pxInventory:Vector2;
-    public var nbElementX:Int;
-    public var nbElementY:Int;
+    public var inventory:Inventory;
 
     public function new (_name:String, pos:Vector2, size:Vector2) {
         isoEngine       = IsoEngine.getInstance();
@@ -32,7 +31,6 @@ class PopUp
         name       = _name;
         container  = isoEngine.displaying.createChildLayer(name, "popUp");
         fixed      = isoEngine.displaying.createChildLayer("fixed"+name, name);
-        scrollable = isoEngine.displaying.createChildLayer("scrollable"+name, name);
 
         container.width  = size.x * isoEngine.width;
         container.height = size.y * isoEngine.height;
@@ -44,41 +42,37 @@ class PopUp
         hide();
     }
 
-    public function setInventory (pos:Vector2, size:Vector2, elementSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
-        scrollable.x = pos.x * pxSize.x;
-        scrollable.y = pos.y * pxSize.y;
-        scrollable.width  = size.x * pxSize.x;
-        scrollable.height = size.y * pxSize.y;
-        scrollableSize = new Vector2(pxSize.x, pxSize.y);
+    public function setInventory (pos:Vector2, size:Vector2, _elementsSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
+        pos.x *= pxSize.x;
+        pos.y *= pxSize.y;
 
-        nbElementX = _nbElementX;
-        nbElementY = _nbElementY;
+        size.x *= pxSize.x;
+        size.y *= pxSize.y;
+
+        _elementsSize.x *= size.x;
+        _elementsSize.y *= size.y;
+
+        inventory = new Inventory(this, pos, size, _elementsSize, _nbElementX, _nbElementY);
     }
 
 
-    public function addBloc (pos:Vector2, size:Vector2, textureName:String, inInventory = false) { // WARNING, don't try pass inIventory with default value and remove argument in call, this is fucked and crash code
+    public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
         var bloc = new Bloc(pos, size, textureName);
-        return addSomethingOn(bloc, inInventory);
+        return addSomethingOn(bloc);
     }
 
-    public function addBlocPattern (blocName:String, inInventory = false) {
+    public function addBlocPattern (blocName:String) {
         var bloc = popUpEngineMain.getBlocPattern(blocName);
-        return addSomethingOn(bloc, inInventory);
+        return addSomethingOn(bloc);
     }
 
-    public function addButtonPattern (buttonName:String, inInventory = false):engine.isoEngine.components.Button {
+    public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
-        return addSomethingOn(button, inInventory);
+        return addSomethingOn(button);
     }
 
-    private function addSomethingOn (target:Dynamic, inInventory:Bool):Dynamic {
-        var targetContainer = (inInventory) ? scrollable     : fixed;
-        var targetSize      = (inInventory) ? scrollableSize : pxSize;
-        if (inInventory && targetSize == null) {
-            trace("Immpossible d'ajouter l'éléement d'inventaire, parametrez un inventaire avant dans cette pop up");
-            return null;
-        }
-        return target.addOn(targetContainer, targetSize, name);
+    private function addSomethingOn (target:Dynamic):Dynamic {
+        return target.addOn(fixed, pxSize, name);
     }
 
     public function show () {
@@ -90,4 +84,7 @@ class PopUp
     }
 
             /***** YOU DON'T CARE *****/
+
+
+
 }
