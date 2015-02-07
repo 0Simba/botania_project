@@ -9,62 +9,91 @@ class Scrollbar
     static private var defaultSize:Float = 20;
     static private var defaultInBroder:Float = 2;
 
-    private var scrollIn:Graphics;
-    private var scrollOut:Graphics;
-
-    private var width:Float;
-    private var height:Float;
-    private var outX:Float;
-    private var outY:Float;
     private var inventory:Inventory;
     private var isHorizontal:Bool;
 
-    private var displayableRatio:Float;
 
     public function new (_inventory:Inventory, _isHorizontal:Bool = false) {
-        inventory = _inventory;
         isHorizontal = _isHorizontal;
-        width  = (isHorizontal)  ? inventory.size.x : defaultSize;
-        height = (!isHorizontal) ? inventory.size.y : defaultSize;
-        outX = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
-        outY = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
+        inventory = _inventory;
 
         createScrollOut();
         createScrollIn();
     }
 
     public function update () {
-        var inWidth:Float;
-        var inHeight:Float;
-        if (isHorizontal) {
-            displayableRatio = inventory.elementSize.x / (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x);
-            inWidth  = displayableRatio * width;
-            inHeight = height - defaultInBroder * 2;
-        }
-        else {
-            displayableRatio = inventory.elementSize.y / (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y);
-            inWidth  = width - defaultInBroder * 2;
-            inHeight = displayableRatio * height;
-        }
+        setScrollIn();
+    }
 
+
+
+        /***** SCROLL IN *****/
+    private var scrollIn:Graphics;
+    private var displayableRatio:Float;
+    private var inWidth:Float;
+    private var inHeight:Float;
+    private var inX:Float;
+    private var inY:Float;
+
+    private function createScrollIn () {
+        scrollIn = new Graphics();
+        setScrollIn();
+        inventory.layer.addChild(scrollIn);
+    }
+
+
+    private function setScrollIn () {
+        (isHorizontal) ? setHorizontalScrollIn() : setVerticalScrollIn();
+    }
+
+
+    private function setHorizontalScrollIn () {
+        displayableRatio = inventory.elementSize.x / (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x);
+        inWidth  = displayableRatio * outWidth;
+        inHeight = outHeight - defaultInBroder * 2;
+        drawScrollIn();
+    }
+
+    private function setVerticalScrollIn () {
+        displayableRatio = inventory.elementSize.y / (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y);
+        inWidth  = outWidth - defaultInBroder * 2;
+        inHeight = displayableRatio * outHeight;
+        drawScrollIn();
+    }
+
+
+    private function drawScrollIn () {
         scrollIn.clear();
         scrollIn.beginFill(122348);
         scrollIn.drawRect(outX, outY, inWidth, inHeight);
         scrollIn.endFill();
     }
 
-    private function createScrollIn () {
-        scrollIn = new Graphics();
-        update();
-        inventory.layer.addChild(scrollIn);
-    }
+
+        /***** SCROLL OUT *****/
+    private var scrollOut:Graphics;
+    private var outWidth:Float;
+    private var outHeight:Float;
+    private var outX:Float;
+    private var outY:Float;
 
     private function createScrollOut () {
+        setScrollOutValues();
+        addScrollOut();
+    }
+
+    private function setScrollOutValues () {
+        outWidth  = (isHorizontal)  ? inventory.size.x : defaultSize;
+        outHeight = (!isHorizontal) ? inventory.size.y : defaultSize;
+        outX      = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
+        outY      = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
+    }
+
+    private function addScrollOut () {
         scrollOut = new Graphics();
         scrollOut.beginFill(977);
-        scrollOut.drawRect(outX, outY, width, height);
+        scrollOut.drawRect(outX, outY, outWidth, outHeight);
         scrollOut.endFill();
         inventory.layer.addChild(scrollOut);
     }
-
 }
