@@ -20,7 +20,7 @@ class Assets
     static private var nbLoaded = 0;
 
     static public function load () {
-        Tile.setSize(new Vector2(Config.display.tile.xSize, Config.display.tile.xSize));
+        Tile.setSize(new Vector2(Config.display.tile.xSize, Config.display.tile.ySize));
         isoEngine = IsoEngine.getInstance();
         isoEngine.assets.load(["../assets/biomesAndBuilding.json", "../assets/circleNavigation.json"], assetLoaded);
 

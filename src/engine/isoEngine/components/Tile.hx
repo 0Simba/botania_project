@@ -24,10 +24,8 @@ class Tile {
     public function addGround (name:String) {
         ground = new MovieClip(isoEngine.assets.getAnimation(name));
 
-
-            //MEMO REFACTOR
         ground.width  = size.x;
-        ground.height = size.x / 2;
+        ground.height = size.y;
     }
 
 
@@ -41,13 +39,11 @@ class Tile {
         building = new MovieClip(isoEngine.assets.getAnimation("ground"));
         building.texture = isoEngine.assets.getTexture(textureName);
 
-        // MEMO REFACTOR
-
         building.width  = size.x;
-        building.height = size.x;
+        building.height = size.y;
 
         building.x = ground.x;
-        building.y = ground.y - size.x / 2;
+        building.y = ground.y - size.y;
 
 
         var layerNumber:Int  = coord.x + coord.y;
