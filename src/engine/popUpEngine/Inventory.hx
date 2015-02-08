@@ -33,6 +33,8 @@ class Inventory
 
         layerName  = "scrollable" + popUp.name;
         size       = _size;
+        if (nbElementX != -1) size.x += Scrollbar.defaultSize;
+        if (nbElementY != -1) size.y += Scrollbar.defaultSize;
         pos        = _pos;
         nbElementX = _nbElementX;
         nbElementY = _nbElementY;

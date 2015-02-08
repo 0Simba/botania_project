@@ -9,7 +9,7 @@ import pixi.display.DisplayObjectContainer;
 
 class Scrollbar
 {
-    static private var defaultSize:Float = 20;
+    static public var defaultSize:Float = 20;
     static private var defaultInBroder:Float = 2;
 
 
@@ -21,9 +21,9 @@ class Scrollbar
 
 
 
-    public function new (_inventory:Inventory, _isHorizontal:Bool = false) {
-        isHorizontal = _isHorizontal;
+    public function new (_inventory:Inventory) {
         inventory = _inventory;
+        isHorizontal = (inventory.nbElementX == -1) ? true : false;
 
         createLayer();
         createScrollOut();
@@ -43,7 +43,7 @@ class Scrollbar
             if (scrollIn.x > totalPxTraversable) scrollIn.x = totalPxTraversable;
 
             var ratio = scrollIn.x / totalPxTraversable;
-            inventory.layer.x = ratio * -inventorySize.x;
+            inventory.layer.x = ratio * -inventorySize.x + inventory.pos.x;
             inventory.mask.x  = ratio * inventorySize.x;
         }
         else {
@@ -53,7 +53,7 @@ class Scrollbar
             if (scrollIn.y > totalPxTraversable) scrollIn.y = totalPxTraversable;
 
             var ratio = scrollIn.y / totalPxTraversable;
-            inventory.layer.y = ratio * -inventorySize.y;
+            inventory.layer.y = ratio * -inventorySize.y + inventory.pos.y;
             inventory.mask.y  = ratio * inventorySize.y;
         }
     }
@@ -64,8 +64,8 @@ class Scrollbar
         layer = IsoEngine.getInstance().displaying.createChildLayer(inventory.layerName + "scroll", inventory.popUp.name);
         layer.x = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
         layer.y = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
-
-        trace(layer);
+        layer.x += inventory.pos.x;
+        layer.y += inventory.pos.y;
     }
 
 
@@ -87,11 +87,12 @@ class Scrollbar
 
     private function setScrollIn () {
         (isHorizontal) ? setHorizontalScrollIn() : setVerticalScrollIn();
+        layer.visible = (displayableRatio > 0) ? true : false;
     }
 
 
     private function setHorizontalScrollIn () {
-        inventorySize.x = (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x);
+        inventorySize.x = (Math.floor(inventory.cellList.length / inventory.nbElementY) * inventory.elementSize.x) - inventory.size.x;
         displayableRatio = inventory.elementSize.x / inventorySize.x;
         inWidth  = displayableRatio * outWidth;
         inHeight = outHeight - defaultInBroder * 2;
@@ -99,7 +100,7 @@ class Scrollbar
     }
 
     private function setVerticalScrollIn () {
-        inventorySize.y = (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y);
+        inventorySize.y = (Math.floor(inventory.cellList.length / inventory.nbElementX) * inventory.elementSize.y) - inventory.size.y;
         displayableRatio = inventory.elementSize.y / inventorySize.y;
         inWidth  = outWidth - defaultInBroder * 2;
         inHeight = displayableRatio * outHeight;
