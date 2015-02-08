@@ -40,7 +40,7 @@ class Tile {
         building.texture = isoEngine.assets.getTexture(textureName);
 
         building.width  = size.x;
-        building.height = size.y;
+        building.height = size.y * 2;
 
         building.x = ground.x;
         building.y = ground.y - size.y;

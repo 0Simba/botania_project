@@ -82,10 +82,9 @@ class Camera
         px.y -= camera.y;
 
 
-            // MEMO
         var newPos = new Vector2(-1, -1);
-        newPos.x = Math.round( (px.x - Tile.size.x) / (Tile.size.x) + px.y / (Tile.size.y) ) + 1;
-        newPos.y = Math.round( (px.y / (Tile.size.y)) - px.x / (Tile.size.x)) + 1;
+        newPos.x = Math.round( (px.x - Tile.size.x) / (Tile.size.x) + px.y / (Tile.size.y) );
+        newPos.y = Math.round( (px.y / (Tile.size.y)) - px.x / (Tile.size.x));
 
         return newPos;
     }
