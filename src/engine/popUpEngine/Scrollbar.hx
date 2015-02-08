@@ -59,6 +59,11 @@ class Scrollbar
     }
 
 
+
+
+
+
+
         /***** LAYER *****/
     private function createLayer () {
         layer = IsoEngine.getInstance().displaying.createChildLayer(inventory.layerName + "scroll", inventory.popUp.name);
@@ -67,6 +72,11 @@ class Scrollbar
         layer.x += inventory.pos.x;
         layer.y += inventory.pos.y;
     }
+
+
+
+
+
 
 
         /***** SCROLL IN *****/
@@ -149,6 +159,10 @@ class Scrollbar
         }
     }
 
+
+
+
+
         /***** SCROLL OUT *****/
     private var scrollOut:Graphics;
     private var outWidth:Float;
@@ -157,6 +171,7 @@ class Scrollbar
     private function createScrollOut () {
         setScrollOutValues();
         addScrollOut();
+        setScrollOutInteractivity();
     }
 
     private function setScrollOutValues () {
@@ -170,5 +185,25 @@ class Scrollbar
         scrollOut.drawRect(0, 0, outWidth, outHeight);
         scrollOut.endFill();
         layer.addChild(scrollOut);
+    }
+
+    private function setScrollOutInteractivity () {
+        scrollOut.interactive = true;
+        scrollOut.mousedown = scrollOutDown;
+    }
+
+    private function scrollOutDown (mouseData) {
+        var worldPosition = scrollOut.toGlobal( new pixi.core.Point(0, 0) );
+
+        var x:Float = mouseData.global.x; //Don't try unify this code -> haxe gonna fuck you
+        var y:Float = mouseData.global.y;
+        x -= worldPosition.x;
+        y -= worldPosition.y;
+
+        if (isHorizontal) scrollIn.x = inX = x - inWidth / 2;
+        else              scrollIn.y = inY = y - inHeight / 2;
+
+        clickScrollIn(mouseData);
+        updateContainer();
     }
 }
