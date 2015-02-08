@@ -17,13 +17,15 @@ class CircleElement extends GameObject
         name   = _name;
 
         addComponent("hudButton");
-        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName); // TODO virer le vector2(100, 100)
+        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName);
         hudButton.setTextures(basicTexture, hoverTexture, clickTexture);
         hudButton.onClick(click);
     }
 
     public function replace (pos:Vector2) {
-        hudButton.replace(pos, true);
+        pos.metaX = "px";
+        pos.metaY = "px";
+        hudButton.replace(pos);
     }
 
     private function over () {

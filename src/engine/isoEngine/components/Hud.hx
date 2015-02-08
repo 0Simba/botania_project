@@ -13,8 +13,8 @@ class Hud
     public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud", sizeOf:Vector2 = null) {
         sprite = new Sprite(isoEngine.assets.getTexture(textureName));
 
-        resize(percentSize, null, sizeOf);
-        replace(percentPos, null, sizeOf);
+        resize(percentSize, sizeOf);
+        replace(percentPos, sizeOf);
 
         if (textureName != null) changeTexture(textureName);
 
@@ -35,33 +35,23 @@ class Hud
     }
 
 
-    public function replace (pos:Vector2, forcePixel:Bool = false, sizeOf:Vector2 = null) {
-        if (pos.x > 1 || pos.y > 1 || forcePixel) {
-            sprite.x = pos.x;
-            sprite.y = pos.y;
-        }
-        else {
-            var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
-            sprite.x = target.x * pos.x;
-            sprite.y = target.y * pos.y;
-        }
-        if (pos.x < 0 && pos.x >= -1) sprite.x = sprite.y * pos.x * -1;
-        if (pos.y < 0 && pos.y >= -1) sprite.y = sprite.x * pos.y * -1;
+    public function replace (pos:Vector2, sizeOf:Vector2 = null) {
+        var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
+
+        sprite.x = getRealPositionningValue(pos.x, pos.metaX, target.x);
+        sprite.y = getRealPositionningValue(pos.y, pos.metaY, target.y);
+        sprite.x = checkPositionningOfHimself(sprite.x, pos.x, pos.metaX, sprite.y);
+        sprite.y = checkPositionningOfHimself(sprite.y, pos.y, pos.metaY, sprite.x);
     }
 
 
-    public function resize (size:Vector2, forcePixel:Bool = false, sizeOf:Vector2 = null) {
-        if (size.x > 1 || size.y > 1 || forcePixel) {
-            sprite.width  = size.x;
-            sprite.height = size.y;
-        }
-        else {
-            var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
-            sprite.width  = target.x * size.x;
-            sprite.height = target.y * size.y;
-        }
-        if (size.x < 0 && size.x >= -1) sprite.width  = sprite.height * size.x * -1;
-        if (size.y < 0 && size.y >= -1) sprite.height = sprite.width * size.y * -1;
+    public function resize (size:Vector2, sizeOf:Vector2 = null) {
+        var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
+
+        sprite.width  = getRealPositionningValue(size.x, size.metaX, target.x);
+        sprite.height = getRealPositionningValue(size.y, size.metaY, target.y);
+        sprite.width  = checkPositionningOfHimself(sprite.width , size.x, size.metaX, sprite.height);
+        sprite.height = checkPositionningOfHimself(sprite.height, size.y, size.metaY, sprite.width);
     }
 
 
@@ -109,5 +99,24 @@ class Hud
 
     static public function onClick () {
         if (currentOver != null) currentOver.clickBind();
+    }
+
+    private function getRealPositionningValue (value:Float, posType:String, referentValue:Float):Float {
+        var finalValue:Float = 0;
+
+        finalValue = value;
+        if (posType == null) {
+            if (value <= 1) finalValue *= referentValue;
+        }
+        else if (posType == "%")  finalValue = referentValue * value;
+        else if (posType == "px") finalValue = value;
+
+        return finalValue;
+    }
+
+    private function checkPositionningOfHimself (currentValue:Float, value:Float, posType:String, referentValue:Float):Float {
+        if      (posType == null && value < 0 && value >= -1) return referentValue * value * -1;
+        else if (posType == "%x" || posType == "%y")          return referentValue * value;
+        else                                                  return currentValue;
     }
 }
