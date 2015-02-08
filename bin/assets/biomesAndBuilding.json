@@ -10,11 +10,11 @@
 },
 "automn":
 {
-    "frame": {"x":128, "y":0,"w":128,"h":64},
+    "frame": {"x":128, "y":0,"w":128,"h":75},
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
-    "sourceSize": {"w":128,"h":64}
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":75},
+    "sourceSize": {"w":128,"h":75}
 },
 "swamp":
 {
@@ -66,11 +66,11 @@
 },
 "breaker":
 {
-    "frame": {"x":0,"y":128,"w":128,"h":128},
+    "frame": {"x":0,"y":256,"w":256,"h":300},
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
-    "sourceSize": {"w":128,"h":128}
+    "spriteSourceSize": {"x":0,"y":0,"w":256,"h":300},
+    "sourceSize": {"w":256,"h":300}
 }},
 "meta": {
     "app": "http://www.codeandweb.com/texturepacker",
