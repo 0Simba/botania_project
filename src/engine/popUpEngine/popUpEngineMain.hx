@@ -31,7 +31,7 @@ class PopUpEngineMain
         var button:Button;
 
         MapManipulate.ifIsFree(buttons, name, function () {
-            button = new Button(pos, size, basicTexture, overTexture, clickTexture, callback);
+            button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
             buttons.set(name, button);
         }, "buttons");
 

@@ -2,3 +2,6 @@ build.xml
 bin/Botania.js
 bin/botania.js
 bin/index.html
+node_modules
+launchServer.bat
+simpleServer.js

@@ -26,14 +26,14 @@ class Button
 
     public function addOn (pixiDisplayableElement:DisplayObjectContainer, pxSize:Vector2, layerName:String):engine.isoEngine.components.Button {
         var button = new engine.isoEngine.components.Button();
-        if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
-            size.x *= pxSize.x;
-            size.y *= pxSize.y;
-            pos.x  *= pxSize.x;
-            pos.y  *= pxSize.y;
-        }
+        // if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
+        //     size.x *= pxSize.x;
+        //     size.y *= pxSize.y;
+        //     pos.x  *= pxSize.x;
+        //     pos.y  *= pxSize.y;
+        // }
 
-        button.set(size, pos, basicTexture, layerName);
+        button.set(size, pos, basicTexture, layerName, pxSize);
         button.setTextures(basicTexture, hoverTexture, clickTexture);
         button.onClick(clickEvent);
 

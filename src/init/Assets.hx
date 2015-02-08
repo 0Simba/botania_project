@@ -13,6 +13,7 @@ class Assets
     static private var biomesAndBuildingData:JsonLoader;
     static private var circleNavigation:JsonLoader;
     static private var colors:JsonLoader;
+    static private var popup:JsonLoader;
     static private var nbToLoad;
     static private var nbLoaded = 0;
 
@@ -35,10 +36,15 @@ class Assets
 
         colors = new JsonLoader("../assets/colors.json");
         colors.addEventListener("loaded", function (pEvent:Event) {
-            trace("loaded");
             preloadAssets(pEvent, colors, "colors");
         });
         colors.load();
+
+        popup = new JsonLoader("../assets/popup.json");
+        popup.addEventListener("loaded", function (pEvent:Event) {
+            preloadAssets(pEvent, popup, "popup");
+        });
+        popup.load();
     }
 
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {

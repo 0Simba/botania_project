@@ -10,7 +10,7 @@ class Grass extends GameObject
     {
         super();
         addComponent("hudElement");
-        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.15), "grass");
+        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.15), "savana");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
 
@@ -23,7 +23,7 @@ class Grass extends GameObject
     }
 
     public function mouseClick () {
-        Selection.setNew("ground", "grass");
+        Selection.setNew("ground", "savana");
     }
 
 }

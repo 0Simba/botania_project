@@ -32,7 +32,14 @@
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
 },
-
+"crossBasic":
+{
+    "frame": {"x":0, "y":200,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
 "digHover":
 {
     "frame": {"x":200, "y":0,"w":100,"h":100},
@@ -65,7 +72,14 @@
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
 },
-
+"crossHover":
+{
+    "frame": {"x":200, "y":200,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
 "digClick":
 {
     "frame": {"x":400, "y":0,"w":100,"h":100},
@@ -93,6 +107,14 @@
 "fertilizerClick":
 {
     "frame": {"x":500, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"crossClick":
+{
+    "frame": {"x":400, "y":200,"w":100,"h":100},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},

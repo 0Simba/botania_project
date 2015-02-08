@@ -10,11 +10,11 @@ class Hud
     static public var currentOver:Hud;
 
             // if percentSize || percentPos > 1 => pixel
-    public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud") {
+    public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud", sizeOf:Vector2 = null) {
         sprite = new Sprite(isoEngine.assets.getTexture(textureName));
 
-        resize(percentSize);
-        replace(percentPos);
+        resize(percentSize, null, sizeOf);
+        replace(percentPos, null, sizeOf);
 
         if (textureName != null) changeTexture(textureName);
 
@@ -35,27 +35,33 @@ class Hud
     }
 
 
-    public function replace (pos:Vector2, forcePixel:Bool = false) {
+    public function replace (pos:Vector2, forcePixel:Bool = false, sizeOf:Vector2 = null) {
         if (pos.x > 1 || pos.y > 1 || forcePixel) {
             sprite.x = pos.x;
             sprite.y = pos.y;
         }
         else {
-            sprite.x = isoEngine.width  * pos.x;
-            sprite.y = isoEngine.height * pos.y;
+            var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
+            sprite.x = target.x * pos.x;
+            sprite.y = target.y * pos.y;
         }
+        if (pos.x < 0 && pos.x >= -1) sprite.x = sprite.y * pos.x * -1;
+        if (pos.y < 0 && pos.y >= -1) sprite.y = sprite.x * pos.y * -1;
     }
 
 
-    public function resize (size:Vector2, forcePixel:Bool = false) {
+    public function resize (size:Vector2, forcePixel:Bool = false, sizeOf:Vector2 = null) {
         if (size.x > 1 || size.y > 1 || forcePixel) {
             sprite.width  = size.x;
             sprite.height = size.y;
         }
         else {
-            sprite.width  = isoEngine.width  * size.x;
-            sprite.height = isoEngine.height * size.y;
+            var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
+            sprite.width  = target.x * size.x;
+            sprite.height = target.y * size.y;
         }
+        if (size.x < 0 && size.x >= -1) sprite.width  = sprite.height * size.x * -1;
+        if (size.y < 0 && size.y >= -1) sprite.height = sprite.width * size.y * -1;
     }
 
 
