@@ -13,6 +13,7 @@ class Assets
     static private var biomesAndBuildingData:JsonLoader;
     static private var circleNavigation:JsonLoader;
     static private var colors:JsonLoader;
+    static private var florist:JsonLoader;
     static private var popup:JsonLoader;
     static private var nbToLoad;
     static private var nbLoaded = 0;
@@ -45,6 +46,13 @@ class Assets
             preloadAssets(pEvent, popup, "popup");
         });
         popup.load();
+
+        florist = new JsonLoader("../assets/florist.json");
+        florist.addEventListener("loaded", function (pEvent:Event) {
+            preloadAssets(pEvent, florist, "florist");
+        });
+        florist.load();
+
     }
 
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
