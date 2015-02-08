@@ -66,6 +66,11 @@ class PopUp
         return addSomethingOn(bloc);
     }
 
+    public function addButton (pos:Vector2, size:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
+        var button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
+        return addSomethingOn(button);
+    }
+
     public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
         return addSomethingOn(button);

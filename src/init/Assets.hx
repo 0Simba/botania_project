@@ -16,6 +16,7 @@ class Assets
     static private var colors:JsonLoader;
     static private var florist:JsonLoader;
     static private var popup:JsonLoader;
+    static private var header:JsonLoader;
     static private var nbToLoad;
     static private var nbLoaded = 0;
 
@@ -53,6 +54,12 @@ class Assets
             preloadAssets(pEvent, florist, "florist");
         });
         florist.load();
+
+        header = new JsonLoader("../assets/header.json");
+        header.addEventListener("loaded", function (pEvent:Event) {
+            preloadAssets(pEvent, header, "header");
+        });
+        header.load();
 
     }
 

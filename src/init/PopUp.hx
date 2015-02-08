@@ -18,5 +18,8 @@ class PopUp
             /***** Create PopUp *****/
         init.popUps.BreakerPopUpInit.init();
         init.popUps.FlowerPopUpInit.init();
+        init.popUps.HeaderPopUpInit.init();
+
+        popUpEngine.show("header");
     }
 }
