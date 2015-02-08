@@ -7,5 +7,4 @@ class Map
         var config:Dynamic = Config.display.map;
         map.set(config.pos.x, config.pos.y);
     }
-
 }

@@ -12,8 +12,8 @@
 		}
 	},
 	"tile" : {
-		"size" : 128,
-		"ratio" : 2
+		"xSize" : 128,
+		"ySize" : 75
 	},
 	"hud" : {
 		"circle" : {

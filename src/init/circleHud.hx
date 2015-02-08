@@ -8,7 +8,7 @@ class CircleHud
 
     static public function load () {
         var circleHudEngine = CirclesHudEngine.getInstance();
-        circleHudEngine.setBlockOffset(Config.display.tile.size / 2, 0);
+        circleHudEngine.setBlockOffset(Config.display.tile.xSize / 2, 0);
 
         var centerRadius   = Config.display.hud.circle.centerRadius;
         var elementsRadius = Config.display.hud.circle.elementsRadius;

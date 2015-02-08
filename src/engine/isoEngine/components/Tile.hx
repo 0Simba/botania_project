@@ -11,7 +11,7 @@ import utils.Vector2;
 class Tile {
 
     static var isoEngine:IsoEngine;
-    static public var size:Int = 64;
+    static public var size:Vector2 = new Vector2(64, 32);
 
     public var ground:MovieClip;
     public var building:MovieClip;
@@ -24,8 +24,10 @@ class Tile {
     public function addGround (name:String) {
         ground = new MovieClip(isoEngine.assets.getAnimation(name));
 
-        ground.width  = size;
-        ground.height = size / 2;
+
+            //MEMO REFACTOR
+        ground.width  = size.x;
+        ground.height = size.x / 2;
     }
 
 
@@ -39,11 +41,13 @@ class Tile {
         building = new MovieClip(isoEngine.assets.getAnimation("ground"));
         building.texture = isoEngine.assets.getTexture(textureName);
 
-        building.width  = size;
-        building.height = size;
+        // MEMO REFACTOR
+
+        building.width  = size.x;
+        building.height = size.x;
 
         building.x = ground.x;
-        building.y = ground.y - size / 2;
+        building.y = ground.y - size.x / 2;
 
 
         var layerNumber:Int  = coord.x + coord.y;
@@ -93,7 +97,7 @@ class Tile {
 
 
         /***** SIZE *****/
-    static public function setSize (_size:Int) {
+    static public function setSize (_size:Vector2) {
         size = _size;
     }
 

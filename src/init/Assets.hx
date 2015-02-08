@@ -5,6 +5,7 @@ import engine.isoEngine.IsoEngine;
 import engine.isoEngine.components.Tile;
 import js.html.Event;
 import pixi.loaders.JsonLoader;
+import utils.Vector2;
 
 class Assets
 {
@@ -19,7 +20,7 @@ class Assets
     static private var nbLoaded = 0;
 
     static public function load () {
-        Tile.setSize(Config.display.tile.size);
+        Tile.setSize(new Vector2(Config.display.tile.xSize, Config.display.tile.xSize));
         isoEngine = IsoEngine.getInstance();
         isoEngine.assets.load(["../assets/biomesAndBuilding.json", "../assets/circleNavigation.json"], assetLoaded);
 

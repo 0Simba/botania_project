@@ -77,13 +77,14 @@ class Camera
     }
 
 
+        // MEMO REFACTOR
     static private function pxToCoord (px:Vector2) {
         px.x -= camera.x;
         px.y -= camera.y;
 
         var newPos = new Vector2(-1, -1);
-        newPos.x = Math.round( (px.x - Tile.size) / (Tile.size) + px.y / (Tile.size / 2) );
-        newPos.y = Math.round( (px.y / (Tile.size / 2)) - px.x / (Tile.size));
+        newPos.x = Math.round( (px.x - Tile.size.x) / (Tile.size.x) + px.y / (Tile.size.x / 2) );
+        newPos.y = Math.round( (px.y / (Tile.size.x / 2)) - px.x / (Tile.size.x));
 
         return newPos;
     }

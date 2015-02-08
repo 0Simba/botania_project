@@ -35,8 +35,8 @@ class TileSelectionIndicator {
         createAnimation(isoEngine);
 
         movieClip = new MovieClip(isoEngine.assets.getAnimation("tileIndicator"));
-        movieClip.width  = Tile.size;
-        movieClip.height = Tile.size / 2;
+        movieClip.width  = Tile.size.x;
+        movieClip.height = Tile.size.x / 2;
 
         isoEngine.displaying.displayMcOn(movieClip, "overTiles");
     }
