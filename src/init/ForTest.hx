@@ -20,9 +20,28 @@ class ForTest
         var Adn  = new Adn(family, order, genre);
         var Seed = new Seed(Adn, 1);
 
+        var Adn2 = new Adn(
+            new Taxonomy(
+                new Genome("A", 0.6),
+                new Genome("Z", 0.3),
+                new Genome("E", 0.1)
+            ),
+            new Taxonomy(
+                new Genome("R", 0.6),
+                new Genome("T", 0.3),
+                new Genome("Y", 0.1)
+            ),
+            new Taxonomy(
+                new Genome("Q", 0.6),
+                new Genome("S", 0.3),
+                new Genome("D", 0.1)
+            )
+        );
 
+        // trace(Adn.getCode());
+        // trace(Adn2.getCode());
 
         var text = new engine.isoEngine.components.Text();
-        text.set("SISI LA FAMIIIILLLE ont peux LE-CA tu >TEXTE<", new Vector2(0.1, 0.95), new Vector2(0.3, 0.2), null, "overlay");
+        text.set("SISI LA FAMIIIILLLE ont peux LE-CA du >TEXTE<", new Vector2(0.1, 0.95), new Vector2(0.3, 0.2), null, "overlay");
     }
 }
