@@ -42,6 +42,6 @@ class ForTest
         // trace(Adn2.getCode());
 
         var text = new engine.isoEngine.components.Text();
-        text.set("SISI LA FAMIIIILLLE ont peux LE-CA du >TEXTE<", new Vector2(0.1, 0.95), new Vector2(0.3, 0.2), null, "overlay");
+        // text.set("SISI LA FAMIIIILLLE ont peux LE-CA du >TEXTE<", new Vector2(0.1, 0.95), new Vector2(0.3, 0.2), null, "overlay");
     }
 }
