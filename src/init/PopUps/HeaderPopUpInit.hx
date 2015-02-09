@@ -15,6 +15,8 @@ class HeaderPopUpInit
         });
         headerPopUp.addButton(new Vector2(0.86, 0.71), new Vector2(0.09, 0.85, "%", "%x"), "caddy", "caddy", "caddy", function () {
         });
+        var t = headerPopUp.addText(new Vector2(0.02, 0.3), new Vector2(0.6, 0.5), "Botania", {"font" : "80px verdana", "fill" : "orange", "dropShadow" : true, "dropShadowColor" : "white", "stroke" : "green", "strokeThickness" : 4});
+        trace(t);
     }
 }
 

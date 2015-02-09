@@ -7,7 +7,7 @@ import engine.isoEngine.IsoEngine;
 import engine.popUpEngine.Bloc;
 import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.Inventory;
-
+import engine.popUpEngine.Text;
 
 class PopUp
 {
@@ -76,9 +76,9 @@ class PopUp
         return addSomethingOn(button);
     }
 
-    public function addText (text:String, style:pixi.text.Text.TextStyle) {
-        // var text = new Text (text, style);
-        // return addSomethingOn(text);
+    public function addText (pos:Vector2, size:Vector2, text:String, style:pixi.text.Text.TextStyle = null, alpha:Float = null) {
+        var text = new Text (pos , size , text, style, alpha);
+        return addSomethingOn(text);
     }
 
     private function addSomethingOn (target:Dynamic):Dynamic {

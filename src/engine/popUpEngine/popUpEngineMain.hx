@@ -60,10 +60,6 @@ class PopUpEngineMain
             trace("PopUpEngineMain.getBlocPattern -> Il n'existe pas de bloc sous le nom de " + name);
             return null;
         }
-        // MapManipulate.ifExists(blocs, name, function () {
-        //     return blocs.get(name);
-        // });
-        // return null;
     }
 
     public function getButtonPattern (name:String):Button {
