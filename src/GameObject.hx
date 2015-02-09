@@ -6,6 +6,7 @@ class GameObject
     public var graphicTile:engine.isoEngine.components.Tile;
     public var hudElement:engine.isoEngine.components.Hud;
     public var hudButton:engine.isoEngine.components.Button;
+    public var text:engine.isoEngine.components.Text;
 
     public function new () {};
 
@@ -18,6 +19,9 @@ class GameObject
         }
         else if (name == "hudButton") {
             hudButton = new engine.isoEngine.components.Button();
+        }
+        else if (name == "text") {
+            text = new engine.isoEngine.components.Text();
         }
         else {
             trace("GameObject.addComponent -> le component " + name + " n'existe pas");
