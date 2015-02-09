@@ -20,13 +20,6 @@ class Bloc
 
     public function addOn (pixiDisplayableElement:DisplayObjectContainer, pxSize:Vector2, layerName:String):Hud {
         var hud = new Hud();
-        // if (size.x <= 1 && size.y <= 1 && pos.x <= 1 && pos.y <= 1) {
-        //     size.x *= pxSize.x;
-        //     size.y *= pxSize.y;
-        //     pos.x  *= pxSize.x;
-        //     pos.y  *= pxSize.y;
-        // }
-
 
         hud.set(size, pos, textureName, layerName, pxSize);
         hud.sprite.alpha = alpha;

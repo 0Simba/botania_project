@@ -76,6 +76,11 @@ class PopUp
         return addSomethingOn(button);
     }
 
+    public function addText (text:String, style:pixi.text.Text.TextStyle) {
+        // var text = new Text (text, style);
+        // return addSomethingOn(text);
+    }
+
     private function addSomethingOn (target:Dynamic):Dynamic {
         return target.addOn(fixed, pxSize, name);
     }
