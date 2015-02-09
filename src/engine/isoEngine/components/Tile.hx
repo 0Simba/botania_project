@@ -7,10 +7,11 @@ import js.Browser;
 import engine.isoEngine.IsoUtils;
 import engine.isoEngine.managers.Displaying;
 import utils.Vector2;
+import engine.isoEngine.components.IsoComponent;
 
-class Tile {
+class Tile extends IsoComponent
+{
 
-    static var isoEngine:IsoEngine;
     static public var size:Vector2 = new Vector2(64, 32);
 
     public var ground:MovieClip;
@@ -115,7 +116,7 @@ class Tile {
     private var layerName:String;
 
     public function new () {
-        isoEngine = IsoEngine.getInstance();
+        super();
         isInteractive = false;
     }
 
