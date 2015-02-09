@@ -15,8 +15,6 @@ class HeaderPopUpInit
         });
         headerPopUp.addButton(new Vector2(0.86, 0.71), new Vector2(0.09, 0.85, "%", "%x"), "caddy", "caddy", "caddy", function () {
         });
-
-        // trace(b);
     }
 }
 

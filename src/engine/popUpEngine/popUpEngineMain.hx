@@ -4,14 +4,16 @@ import engine.isoEngine.IsoEngine;
 import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import utils.MapManipulate;
+import pixi.display.DisplayObjectContainer;
 
 class PopUpEngineMain
 {
     private static var instance:PopUpEngineMain;
     private var isoEngine:IsoEngine;
-    private var popUps:Map<String, PopUp>;
-    private var blocs:Map<String, Bloc>;
+    private var popUps :Map<String, PopUp>;
+    private var blocs  :Map<String, Bloc>;
     private var buttons:Map<String, Button>;
+    private var layer:DisplayObjectContainer;
 
 
     public function createPopUp (name, pos, size) {
@@ -41,6 +43,7 @@ class PopUpEngineMain
     public function show (name):PopUp {
         MapManipulate.ifExists(popUps, name, function () {
             var popUp = popUps.get(name);
+            layer.setChildIndex(popUp.container, layer.children.length - 1);
             popUp.show();
             return popUp;
         }, "popUps");
@@ -88,7 +91,7 @@ class PopUpEngineMain
         buttons = new Map<String, Button>();
 
         isoEngine = IsoEngine.getInstance();
-        isoEngine.displaying.createChildLayer("popUp", "foreground");
+        layer     = isoEngine.displaying.createChildLayer("popUp", "foreground");
     }
 
 }
