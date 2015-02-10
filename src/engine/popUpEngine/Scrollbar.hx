@@ -193,7 +193,7 @@ class Scrollbar
     }
 
     private function scrollOutDown (mouseData) {
-        var worldPosition = scrollOut.toGlobal( new pixi.core.Point(0, 0) );
+        var worldPosition = scrollOut.toGlobal( new pixi.geom.Point(0, 0) );
 
         var x:Float = mouseData.global.x; //Don't try unify this code -> haxe gonna fuck you
         var y:Float = mouseData.global.y;
