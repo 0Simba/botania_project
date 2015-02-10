@@ -39,6 +39,11 @@ class Displaying
             trace("IsoEngine.displaying.createChildLayer -> un layer " + name + " existe déjà. opération refusé.");
             return null;
         }
+        if (!layers.exists(parent)) {
+            trace("IsoEngine.displaying.createChildLayer -> Il n'existe pas de layer " + parent + " pour être le parent de " + name + ". opération refusé.");
+            js.Browser.window.console.trace();
+            return null;
+        }
 
         if (layers.get(name) == null) {
             var layer = new DisplayObjectContainer();

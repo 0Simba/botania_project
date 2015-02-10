@@ -43,7 +43,7 @@ class PopUpEngineMain
     public function show (name):PopUp {
         MapManipulate.ifExists(popUps, name, function () {
             var popUp = popUps.get(name);
-            layer.setChildIndex(popUp.container, layer.children.length - 1);
+            layer.setChildIndex(popUp.layer, layer.children.length - 1);
             popUp.show();
             return popUp;
         }, "popUps");
