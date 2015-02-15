@@ -19,7 +19,7 @@ class Main
 		init.Config.load();
 	}
 
-	static public function ConfigLoaded(){
+	static public function ConfigLoaded () {
 		deltaTime = 0;
 		// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
 		IsoEngine.init(Config.display.canvas.size.width, Config.display.canvas.size.height);

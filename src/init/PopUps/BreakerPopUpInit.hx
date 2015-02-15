@@ -2,7 +2,7 @@ package init.popUps;
 
 import utils.Vector2;
 import engine.popUpEngine.PopUpEngineMain;
-
+import engine.popUpEngine.Cell;
 
 class BreakerPopUpInit
 {
@@ -14,12 +14,19 @@ class BreakerPopUpInit
         breakerPopUp.addBlocPattern("border");
         breakerPopUp.addBlocPattern("florist");
 
-        breakerPopUp.setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.25, 0.25), 4, -1);
-        breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");
-        breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");breakerPopUp.inventory.addCell("savana");breakerPopUp.inventory.addCell("grass");breakerPopUp.inventory.addCell("automn");breakerPopUp.inventory.addCell("swamp");
+        breakerPopUp.setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.33, 0.33), 3, -1);
 
-        breakerPopUp.addBloc(new Vector2(0.2, 0.7), new Vector2(-1, 0.18), "dark");
-        breakerPopUp.addBloc(new Vector2(0.5, 0.7), new Vector2(-1, 0.18), "dark");
+        var textures = new Array<String>();textures.push("savana");textures.push("grass");textures.push("swamp");textures.push("automn");
+        for (i in 0...20) {
+            var cell:Cell = breakerPopUp.inventory.addCell();
+            var textName = textures[i % textures.length];
+
+            cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
+            cell.addBloc(textName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+        }
+
+        breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
+        breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
 
         breakerPopUp.addButtonPattern("close").onClick(function () {
             breakerPopUp.hide();

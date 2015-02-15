@@ -3,15 +3,18 @@ package engine.popUpEngine;
 import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import pixi.display.DisplayObjectContainer;
+import engine.popUpEngine.Inventory;
 
-class Cell
+class Cell extends engine.popUpEngine.Container
 {
-    public var hud:Hud;
-    public var id:Int;
-    public var meta:Dynamic;
+    private var inventory:Inventory;
+    private var meta:Dynamic;
 
-    public function new (pos:Vector2, size:Vector2, textureName:String, layerName:String, _id:Int, meta:Dynamic) {
-        var hud = new Hud();
-        hud.set(size, pos, textureName, layerName);
+    public function new (_inventory:Inventory, layerName:String, parentLayerName:String, pos:Vector2, size:Vector2, _meta:Dynamic) {
+        super(layerName, parentLayerName, new Vector2(1, 1), size);
+        layer.x = pos.x;
+        layer.y = pos.y;
+
+        inventory = _inventory;
     }
 }

@@ -55,9 +55,4 @@ class PopUp extends engine.popUpEngine.Container
     public function hide () {
         layer.visible = false;
     }
-
-            /***** YOU DON'T CARE *****/
-
-
-
 }

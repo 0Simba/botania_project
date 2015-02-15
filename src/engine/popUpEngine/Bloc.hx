@@ -23,6 +23,7 @@ class Bloc
 
         hud.set(size, pos, textureName, layerName, pxSize);
         hud.sprite.alpha = alpha;
+
         return hud;
     }
 }

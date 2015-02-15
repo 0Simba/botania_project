@@ -28,12 +28,13 @@ class Container
         pxSize = new Vector2(size.x * parentSize.x, size.y * parentSize.y);
 
 
-        name  = _name+parentLayer;
-        trace("on ajoute le layer " + name + " dans " + parentLayer);
+        name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
     }
 
-    public function addBloc (pos:Vector2, size:Vector2, textureName:String) {
+    public function addBloc (textureName:String, pos:Vector2 = null, size:Vector2 = null) {
+        pos = (pos == null) ? Vector2.zero : pos; size = (size == null) ? Vector2.full : size; // Impossible to put Vector2.zero as default... (lol)
+
         var bloc = new Bloc(pos, size, textureName);
         return addSomethingOn(bloc);
     }
