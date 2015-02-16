@@ -12,7 +12,7 @@ class BreakerPopUpInit
         var breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.1, 0.1), new Vector2(0.8, 0.8));
         breakerPopUp.addBlocPattern("background");
         breakerPopUp.addBlocPattern("border");
-        breakerPopUp.addBlocPattern("florist");
+        breakerPopUp.addBlocPattern("florist").setDroppable();
 
         breakerPopUp.setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.33, 0.33), 3, -1);
 
@@ -25,8 +25,9 @@ class BreakerPopUpInit
             cell.addBloc(textName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).setDraggable();
         }
 
-        breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
-        breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
+        breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18)).setDroppable();
+
+        breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18)).setDroppable();
 
         breakerPopUp.addButtonPattern("close").onClick(function () {
             breakerPopUp.hide();

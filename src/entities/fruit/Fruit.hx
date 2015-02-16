@@ -8,15 +8,18 @@ import entities.Seed;
 class Fruit extends GameObject
 {
 	static public list:Array<Fruit> =  new Array<Fruit>();
+
 	public var adn:Adn;
 	public var quality:Float;
 	public var nbSeed:Int;
-	
+
 	public function new (_adn:Adn,_quality:Float = 0) {
         super();
+
 		adn     = _adn;
 		quality = _quality;
         etablishNbSeed();
+
         list.push(this);
 	}
 
