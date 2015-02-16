@@ -4,13 +4,13 @@ import utils.Vector2;
 import engine.isoEngine.IsoEngine;
 import pixi.display.DisplayObject;
 
-class IsoComponent
+class IsoComponent extends DragNDrop
 {
     public var isoEngine:IsoEngine;
-    public var displayObject:pixi.display.DisplayObjectContainer;
 
 
     public function new () {
+        super();
         isoEngine = IsoEngine.getInstance();
     }
 

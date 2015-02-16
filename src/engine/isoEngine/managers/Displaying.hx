@@ -91,6 +91,7 @@ class Displaying
         createMainLayer("foreground");
         createMainLayer("hud");
         createMainLayer("overlay");
+        createMainLayer("debug");
     }
 
     private function createMainLayer (name:String) {

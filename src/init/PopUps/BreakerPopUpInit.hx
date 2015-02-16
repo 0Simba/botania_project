@@ -22,7 +22,7 @@ class BreakerPopUpInit
             var textName = textures[i % textures.length];
 
             cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
-            cell.addBloc(textName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            cell.addBloc(textName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).setDraggable();
         }
 
         breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
