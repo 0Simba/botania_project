@@ -9,14 +9,14 @@ class Config
 	public static var sourceFilesPath:String = "../assets/config/json/";
 	public static var sourceFiles:Json;
 
-	public static var player:Dynamic = "toLoad";
+	public static var player:Dynamic     = "toLoad";
 	public static var currencies:Dynamic = "toLoad";
-	public static var translate:Dynamic = "toLoad";
-	public static var display:Dynamic = "toLoad";
-	public static var flower:Dynamic = "toLoad";
-	public static var camera:Dynamic = "toLoad";
-	public static var assets:Dynamic = "toLoad";
-	public static var buildings:Dynamic = "toLoad";
+	public static var translate:Dynamic  = "toLoad";
+	public static var display:Dynamic    = "toLoad";
+	public static var flower:Dynamic     = "toLoad";
+	public static var camera:Dynamic     = "toLoad";
+	public static var assets:Dynamic     = "toLoad";
+	public static var buildings:Dynamic  = "toLoad";
 
 	static public function load ():Void {
 		for (key in Reflect.fields(Config)) {

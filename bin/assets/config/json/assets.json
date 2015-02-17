@@ -1,3 +1,11 @@
 {
-	"nbToLoad" : 7
+    "jsonList" : [
+        "ground",
+        "circleNavigation",
+        "colors",
+        "florist",
+        "popup",
+        "header",
+        "seeds"
+    ]
 }

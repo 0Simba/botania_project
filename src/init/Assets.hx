@@ -12,55 +12,20 @@ class Assets
 
     static private var isoEngine:IsoEngine;
     static private var biomesAndBuildingData:JsonLoader;
-    static private var circleNavigation:JsonLoader;
-    static private var colors:JsonLoader;
-    static private var florist:JsonLoader;
-    static private var popup:JsonLoader;
-    static private var header:JsonLoader;
-    static private var nbToLoad;
     static private var nbLoaded = 0;
+
 
     static public function load () {
         Tile.setSize(new Vector2(Config.display.tile.xSize, Config.display.tile.ySize));
         isoEngine = IsoEngine.getInstance();
-        isoEngine.assets.load(["../assets/biomesAndBuilding.json", "../assets/circleNavigation.json"], assetLoaded);
 
-        biomesAndBuildingData = new JsonLoader("../assets/biomesAndBuilding.json");
-        biomesAndBuildingData.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, biomesAndBuildingData, "ground");
-        });
-        biomesAndBuildingData.load();
-
-        circleNavigation = new JsonLoader("../assets/circleNavigation.json");
-        circleNavigation.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, circleNavigation, "circleNavigation");
-        });
-        circleNavigation.load();
-
-        colors = new JsonLoader("../assets/colors.json");
-        colors.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, colors, "colors");
-        });
-        colors.load();
-
-        popup = new JsonLoader("../assets/popup.json");
-        popup.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, popup, "popup");
-        });
-        popup.load();
-
-        florist = new JsonLoader("../assets/florist.json");
-        florist.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, florist, "florist");
-        });
-        florist.load();
-
-        header = new JsonLoader("../assets/header.json");
-        header.addEventListener("loaded", function (pEvent:Event) {
-            preloadAssets(pEvent, header, "header");
-        });
-        header.load();
-
+        for (i in 0...Config.assets.jsonList.length) {
+            var element = new JsonLoader("../assets/" + Config.assets.jsonList[i] + ".json");
+            element.addEventListener("loaded", function (pEvent:Event) {
+                preloadAssets(pEvent, element, Config.assets.jsonList[i]);
+            });
+            element.load();
+        }
     }
 
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
@@ -77,9 +42,8 @@ class Assets
     }
 
     static private function assetLoaded () {
-        nbToLoad = Config.assets.nbToLoad;
         nbLoaded++;
-        if (nbLoaded >= nbToLoad) {
+        if (nbLoaded >= Config.assets.jsonList.length) {
             Main.ready();
         }
     }
