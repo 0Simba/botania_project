@@ -25,7 +25,6 @@ class DragNDrop
         originPosition  = new Vector2(0, 0);
     }
 
-
         /***** DROPPABLE *****/
     public var dropFree:Bool = false;
     public var dropSprite:Sprite;
@@ -67,6 +66,8 @@ class DragNDrop
         lastDropTexture  = dropSprite.texture;
     }
 
+
+
     private function displayDropSprite () {
         if (dropSprite == null) {
             dropSprite = new Sprite (draggingTexture);
@@ -100,11 +101,13 @@ class DragNDrop
     public var startDragging:Vector2;
     public var originPosition:Vector2;
 
-    public function setDraggable () {
+    public function setDraggable (_meta:Dynamic = null) {
         displayObject.interactive = true;
 
         displayObject.mousedown = dragdown;
         displayObject.mousemove = dragmove;
+
+        meta = _meta;
     }
 
     private function dragmove (mouseData) {

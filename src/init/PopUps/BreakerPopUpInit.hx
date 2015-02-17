@@ -12,7 +12,7 @@ class BreakerPopUpInit
         var breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.1, 0.1), new Vector2(0.8, 0.8));
         breakerPopUp.addBlocPattern("background");
         breakerPopUp.addBlocPattern("border");
-        breakerPopUp.addBlocPattern("florist").setDroppable();
+        breakerPopUp.addBlocPattern("florist");
 
         breakerPopUp.setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.33, 0.33), 3, -1);
 
