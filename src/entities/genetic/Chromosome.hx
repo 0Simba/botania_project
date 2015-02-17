@@ -30,5 +30,15 @@ class Chromosome
         name  = _name;
         value = _value;
 	}
+
+    public function stringValue ():String {
+        return (value == Type.A) ? "A" :
+               (value == Type.B) ? "B" :
+               (value == Type.C) ? "C" :
+               (value == Type.D) ? "D" :
+               (value == Type.E) ? "E" :
+               (value == Type.F) ? "F" :
+                                   "null" ;
+    }
 }
 

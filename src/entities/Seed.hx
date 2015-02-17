@@ -13,11 +13,14 @@ class Seed extends GameObject
 
 	public var genome:Genome;
 	public var level:Int;
+    public var appearanceName:String;
+
 	public function new (_genome:Genome, _level:Int = 0) {
         super();
-        genome   = _genome;
-        level = _level;
+        genome = _genome;
+        level  = _level;
 
+        appearanceName = genome.getAppearanceName();
         list.push(this);
 	}
 }

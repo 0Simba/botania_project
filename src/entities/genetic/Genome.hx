@@ -16,6 +16,10 @@ class Genome
         tertiaire = _tertiaire;
 	}
 
+    public function getAppearanceName () {
+        return principal.getAsName();
+    }
+
 
     public function getCode ():String {
         // var code:String = "";

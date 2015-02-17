@@ -30,10 +30,10 @@ class Main
 		if (nbCall == nbAsynchronousCallback) {
 					// Put here all synchronous loading function.
 				//init
+			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();
-			init.ForTest.load();
 				//manager
 			manager.Hud.init();
 			manager.MouseTile.init();

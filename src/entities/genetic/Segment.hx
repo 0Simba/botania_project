@@ -19,5 +19,9 @@ class Segment
         order    = _order;
         genre    = _genre;
 	}
+
+    public function getAsName () {
+        return family.stringValue() + order.stringValue() + genre.stringValue();
+    }
 }
 
