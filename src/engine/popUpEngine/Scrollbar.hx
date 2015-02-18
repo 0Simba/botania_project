@@ -15,7 +15,7 @@ class Scrollbar
 
     private var inventory:Inventory;
     private var isHorizontal:Bool;
-    private var inventorySize:Vector2 = Vector2.zero;
+    private var inventorySize:Vector2 = new Vector2(0, 0);
     public  var layer:DisplayObjectContainer;
 
 

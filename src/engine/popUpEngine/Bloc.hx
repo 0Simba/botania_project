@@ -21,6 +21,7 @@ class Bloc
     public function addOn (pixiDisplayableElement:DisplayObjectContainer, pxSize:Vector2, layerName:String):Hud {
         var hud = new Hud();
 
+        if (textureName == "border") trace(pos);
         hud.set(size, pos, textureName, layerName, pxSize);
         hud.sprite.alpha = alpha;
 
