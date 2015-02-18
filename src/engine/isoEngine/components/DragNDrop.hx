@@ -63,6 +63,7 @@ class DragNDrop
 
     private function dropup (mouseData) {
         dropSprite.alpha = 1;
+        isDropping = false;
         lastDropTexture  = dropSprite.texture;
     }
 

@@ -22,7 +22,138 @@ class ForTest
                 new Genre(Type.A)
             )
         ));
-
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.A)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.B)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.C)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.D)
+            )
+        ));
+        new Seed(new Genome(
+            new Segment(1,
+                new Family(Type.A),
+                new Order(Type.A),
+                new Genre(Type.E)
+            )
+        ));
 
         // trace(Adn.getCode());
         // trace(Adn2.getCode());

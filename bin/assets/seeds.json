@@ -10,7 +10,7 @@
 },
 "AAB":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":150, "y":0,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -18,7 +18,7 @@
 },
 "AAC":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":300, "y":0,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -26,7 +26,7 @@
 },
 "AAD":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":450, "y":0,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -34,7 +34,7 @@
 },
 "AAE":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":0, "y":150,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -42,7 +42,7 @@
 },
 "ABA":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":150, "y":150,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -50,7 +50,7 @@
 },
 "ACA":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":300, "y":150,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},
@@ -58,7 +58,7 @@
 },
 "ADA":
 {
-    "frame": {"x":0, "y":0,"w":150,"h":150},
+    "frame": {"x":450, "y":150,"w":150,"h":150},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":150,"h":150},

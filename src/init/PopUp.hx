@@ -16,6 +16,7 @@ class PopUp
         popUpEngine.createButtonPattern("close", new Vector2(0.96, -0.04, "%", "%x"), new Vector2(0.08, -1),  "crossBasic", "crossHover", "crossClick", function(){});
 
             /***** Create PopUp *****/
+        init.popUps.InventoryPopUpInit.init();
         init.popUps.BreakerPopUpInit.init();
         init.popUps.FlowerPopUpInit.init();
         init.popUps.HeaderPopUpInit.init();
