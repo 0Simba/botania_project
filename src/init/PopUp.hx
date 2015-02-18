@@ -2,7 +2,6 @@ package init;
 
 import engine.popUpEngine.PopUpEngineMain;
 import utils.Vector2;
-
 class PopUp
 {
 

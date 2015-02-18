@@ -53,4 +53,10 @@ class IsoComponent extends DragNDrop
         else                                                  return currentValue;
     }
 
+    public function show(){
+        displayObject.visible = true;
+    }
+    public function hide(){
+        displayObject.visible = false;
+    }
 }
