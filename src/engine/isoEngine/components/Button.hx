@@ -46,7 +46,6 @@ class Button extends Hud
         changeTexture(basicTexture);
     }
     private function alwaysButtonClick (mouseData) {
-        alwaysClick(mouseData);
         clickBind();
         changeTexture(clickTexture);
     }

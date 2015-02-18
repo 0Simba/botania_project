@@ -25,8 +25,6 @@ class InventoryPopUpInit
         //     cell.addBloc(textName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).setDraggable();
         // }
         for (i in 0...Seed.list.length) {
-            trace(Seed.list[i].appearanceName);
-
             var cell:Cell = inventoryPopUp.inventory.addCell();
 
             cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));

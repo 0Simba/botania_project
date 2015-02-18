@@ -53,11 +53,11 @@ class BreakerPopUpInit
         seed1.setDroppable(); // Don't try put set droppable on declaration, haxe compilation give you a false error
         seed2.setDroppable();
 
-        breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", "gray", "darkGray", mergeSeeds);
+        var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", "gray", "darkGray", mergeSeeds);
     }
 
     static private function mergeSeeds () {
-        trace("merge");
+        trace("cette ligne");
     }
 }
 
