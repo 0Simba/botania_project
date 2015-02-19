@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $config = [
     "host"     => "localhost",
     "user"     => "root",
