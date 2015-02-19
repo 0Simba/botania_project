@@ -17,7 +17,7 @@ class InventoryPopUpInit
         inventoryPopUp.addBlocPattern("background");
         inventoryPopUp.addBlocPattern("border");
         inventoryPopUp.setInventory(new Vector2(0.1, 0.08), new Vector2(0.8, 0.6), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
-        pickButton  = inventoryPopUp.addButton(new Vector2(0.7, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", function(){});
+        pickButton  = inventoryPopUp.addButton(new Vector2(0.7, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", pickButtonClick);
         pickButton.hide();
         trashButton = inventoryPopUp.addButton(new Vector2(0.8, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", function(){});
         trashButton.hide();
@@ -46,6 +46,8 @@ class InventoryPopUpInit
         trashButton.show();
     }
 
-
+    private static function pickButtonClick(){
+        trace("Coucu");
+    }
 }
 
