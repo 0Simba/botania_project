@@ -1,0 +1,4 @@
+Options         +FollowSymLinks
+RewriteEngine   on
+#RewriteBase     /
+#RewriteRule     ^([a-zA-Z0-9\-\_\/]*)$      /bin/$1

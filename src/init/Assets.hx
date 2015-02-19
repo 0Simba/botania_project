@@ -20,7 +20,7 @@ class Assets
         isoEngine = IsoEngine.getInstance();
 
         for (i in 0...Config.assets.jsonList.length) {
-            var element = new JsonLoader("../assets/" + Config.assets.jsonList[i] + ".json");
+            var element = new JsonLoader("./assets/" + Config.assets.jsonList[i] + ".json");
             element.addEventListener("loaded", function (pEvent:Event) {
                 preloadAssets(pEvent, element, Config.assets.jsonList[i]);
             });

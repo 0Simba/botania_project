@@ -6,7 +6,7 @@ import haxe.Json;
 
 class Config
 {
-	public static var sourceFilesPath:String = "../assets/config/json/";
+	public static var sourceFilesPath:String = "./assets/config/json/";
 	public static var sourceFiles:Json;
 
 	public static var player:Dynamic     = "toLoad";
