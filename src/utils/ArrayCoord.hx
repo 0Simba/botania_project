@@ -14,4 +14,7 @@ class ArrayCoord
         i = _i;
     }
 
+    public function toVector2 ():utils.Vector2 {
+        return new Vector2(x, y);
+    }
 }

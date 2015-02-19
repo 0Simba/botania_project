@@ -14,9 +14,6 @@ import utils.Vector2;
 class ForTest
 {
     static public function load () {
-
-        utils.AjaxRequest.exec("lol");
-
         new Seed(new Genome(
             new Segment(1,
                 new Family(Type.A),

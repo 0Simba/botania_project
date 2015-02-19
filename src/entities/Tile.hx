@@ -59,7 +59,7 @@ class Tile extends GameObject
 
     public function createBreaker () {
         currentBuild = "breaker";
-        buildingRef   = new Breaker(buildingEvents);
+        buildingRef  = new Breaker(buildingEvents, coord.toVector2());
     }
 
 
