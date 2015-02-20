@@ -1,4 +1,4 @@
 Options         +FollowSymLinks
-RewriteEngine   on
-#RewriteBase     /
-#RewriteRule     ^([a-zA-Z0-9\-\_\/]*)$      /bin/$1
+#RewriteEngine   on
+#RewriteBase     /bin/
+#RewriteRule     ^\/request$     /server$1 [L]
