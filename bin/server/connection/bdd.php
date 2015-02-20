@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-$config = [
+$config = array(
     "host"     => "localhost",
     "user"     => "root",
     "password" => "",
     "database" => "botania",
-];
+);
 
 if (file_exists("server/config.php")) include "server/config.php";
 
