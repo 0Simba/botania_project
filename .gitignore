@@ -5,3 +5,4 @@ bin/index.html
 node_modules
 launchServer.bat
 simpleServer.js
+bin/server/connection/bdd.php
