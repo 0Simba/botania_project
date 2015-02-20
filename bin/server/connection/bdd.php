@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+            /* THIS IS THE DEAULT CONFIG, DON'T CHANGE IT !!! */
+            /* TO CHANGE CONFIG, USE "server/config.php" WHO'S IGNORED BY GIT */
 $config = array(
     "host"     => "localhost",
     "user"     => "root",
