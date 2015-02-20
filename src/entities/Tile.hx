@@ -58,6 +58,9 @@ class Tile extends GameObject
     }
 
     public function createBreaker () {
+        var data = haxe.Json.stringify(coord.toVector2());
+        utils.AjaxRequest.exec("buildBreaker", data);
+
         currentBuild = "breaker";
         buildingRef  = new Breaker(buildingEvents, coord.toVector2());
     }

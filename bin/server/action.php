@@ -5,4 +5,7 @@
     if ($action == "test") {
         echo "coucou les copain";
     }
+    else if ($action == "buildBreaker") {
+        echo "Ok on cherche a build un concasseur";
+    }
 ?>
