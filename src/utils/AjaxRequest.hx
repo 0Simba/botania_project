@@ -10,5 +10,8 @@ class AjaxRequest
         var response = haxe.Http.requestUrl(url);
 
         trace(response);
+        var log = js.Browser.window.document.createElement("p");
+        log.innerHTML = response;
+        js.Browser.window.document.body.appendChild(cast log);
     }
 }

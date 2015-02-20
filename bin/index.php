@@ -1,5 +1,6 @@
 <?php
     include "server/connection/bdd.php";
+    include "server/utils.php";
 
 
     if (isset($_SESSION["playerID"])) {
