@@ -9,9 +9,11 @@ class Map
 
 	private static var instance: Map;
 
-	public var tiles:Array<Tile>;
+	public  var tiles:Array<Tile>;
+	private var nbCols:Int;
 
-	public function set (nbCols:Int, nbRows:Int): Void {
+	public function set (_nbCols:Int, nbRows:Int): Void {
+		nbCols = _nbCols;
 		if (isAlreadySet()) { return; };
 
 		addLayer(nbRows + nbCols);
@@ -24,6 +26,11 @@ class Map
 
 			// tiles[i].graphicTile.setPlace(x, y, i);
 		}
+	}
+
+	public function get (x:Int, y:Int): Tile {
+		var i = x + y * nbCols;
+		return tiles[i];
 	}
 
 	public function fill (name:String) {

@@ -27,11 +27,15 @@
     function getBuidingsOf ($id) {
         global $mysqli;
 
-        $response = $mysql->query("SELECT * FROM playersBuildings WHERE PlayerID = '$id'");
+        $response = $mysqli->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersBuildings WHERE PlayerID = '$id'");
         if ($err = noError()) {
-            return $response->fetch_assoc();
+            $buildings = array();
+            while ($data = $response->fetch_array()) {
+                array_push($buildings, $data);
+            }
+            return $buildings;
         }
-        return false;
+        return $err;
     }
 
 

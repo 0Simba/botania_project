@@ -63,7 +63,6 @@ class Main
 
 
 
-
 		/****** YOU DON'T CARE *****/
 	private static var instance:Main;
 	private static var lastTS:Float;

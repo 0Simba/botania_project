@@ -52,24 +52,35 @@ class Tile extends GameObject
 
 
         /***** CREATING -> FIXME REFACTOR LATER *****/
+    public function create (name:Int) { // Server stock int, TODO refactor to get name !!!
+        if (name == 1) { //breaker
+            buildBreaker();
+        }
+    }
+
     public function createFlower () {
         currentBuild = "flower";
         buildingRef  = new Flower(buildingEvents);
     }
 
     public function createBreaker () {
+        init.PlayerDatas.load();
         var data:Dynamic = {};
         data.position = coord.toVector2();
         utils.AjaxRequest.exec("buildBreaker", haxe.Json.stringify(data), createBreakerCallback);
     }
     public function createBreakerCallback (response:Dynamic) {
         if (response.accepted) {
-            currentBuild = "breaker";
-            buildingRef  = new Breaker(buildingEvents, coord.toVector2());
+            buildBreaker();
         }
         else {
             trace("batiment refusé");
         }
+    }
+    private function buildBreaker () {
+        currentBuild = "breaker";
+        buildingRef  = new Breaker(buildingEvents, coord.toVector2());
+        graphicTile.changeBuild(currentBuild);
     }
 
 
