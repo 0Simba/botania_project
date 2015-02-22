@@ -12,6 +12,7 @@ class DragNDrop
     static private var displayDragging:Sprite;
     static private var isoEngine:IsoEngine;
     static private var currentDragging:DisplayObject;
+    static private var currentMeta:Dynamic;
     static private var isDragging:Bool = false;
     static private var isDropping:Bool = false;
     static private var draggingTexture:pixi.textures.Texture;
@@ -31,6 +32,7 @@ class DragNDrop
     public var dropSize:Vector2;
     public var dropPos:Vector2;
     public var lastDropTexture:Texture;
+    public var dropMeta:Dynamic;
 
     public function setDroppable (size:Vector2 = null, pos:Vector2 = null) {
         dropSize = (size == null) ? Vector2.full : size;
@@ -63,8 +65,10 @@ class DragNDrop
 
     private function dropup (mouseData) {
         dropSprite.alpha = 1;
-        isDropping = false;
+        isDropping       = false;
         lastDropTexture  = dropSprite.texture;
+        dropMeta         = currentMeta;
+        trace(dropMeta);
     }
 
 
@@ -119,6 +123,7 @@ class DragNDrop
 
     private function dragdown (mouseData) {
         isDragging = true;
+        currentMeta = meta;
 
         draggingTexture = displayObject.generateTexture(1, 1);
         displayDragging.texture = draggingTexture;

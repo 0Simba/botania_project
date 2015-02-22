@@ -48,16 +48,16 @@ class BreakerPopUpInit
     }
 
     static private function setSeedsMergingElements () {
-        seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18)); // cast to rectify haxe comilation musrake
+        seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18)); // cast to rectify haxe comilation fail
         seed2 = cast breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
-        seed1.setDroppable(); // Don't try put set droppable on declaration, haxe compilation give you a false error
+        seed1.setDroppable();
         seed2.setDroppable();
 
         var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", "gray", "darkGray", mergeSeeds);
     }
 
     static private function mergeSeeds () {
-        trace("cette ligne");
+        
     }
 }
 
