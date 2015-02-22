@@ -3,7 +3,7 @@
     $returnObject = array();
 
     if (tileFree($datas->position, $playerID)) {
-        if (addBuilding($datas->position, 1, $playerID)){
+        if ($returnObject["error"] = addBuilding($datas->position, 1, $playerID)){
             $returnObject["accepted"] = true;
         }
         else {

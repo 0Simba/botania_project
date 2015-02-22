@@ -1,6 +1,6 @@
 <?php
     $returnObject = array();
-
-    $returnObject['accepted'] = true;
+    $returnObject['buildings'] = getBuidingsOf($playerID);
+    $returnObject['accepted']  = true;
     echo json_encode($returnObject);
 ?>

@@ -7,7 +7,7 @@
         $y = $position->y;
 
         $response = $mysqli->query("SELECT * FROM playersBuildings WHERE PlayerID = '$id' && X = '$x' && Y = '$y'");
-        if (!noError()) return false;
+        if (!$err = noError()) return $err;
         $nbResult = $response->num_rows;
 
         return ($nbResult == 0);
@@ -28,6 +28,10 @@
         global $mysqli;
 
         $response = $mysql->query("SELECT * FROM playersBuildings WHERE PlayerID = '$id'");
+        if ($err = noError()) {
+            return $response->fetch_assoc();
+        }
+        return false;
     }
 
 
@@ -35,8 +39,7 @@
         global $mysqli;
 
         if ($mysqli->error) {
-            echo("erreur mysql : " . $mysqli->error);
-            return false;
+            return ("erreur mysql : " . $mysqli->error);
         }
 
         return true;

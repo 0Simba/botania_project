@@ -7,16 +7,22 @@ class AjaxRequest
         var url:String = "?action=" + type;
         if (datas != null) url += "&datas=" + StringTools.urlEncode(datas);
 
-        var response = haxe.Json.parse(haxe.Http.requestUrl(url));
-
+        var response = haxe.Http.requestUrl(url);
         displayAndLog(response);
-        callback(response);
+
+        if (!phpErrorInString(response)) callback(haxe.Json.parse(response));
     }
 
 
+    static private function phpErrorInString (response) {
+        var r = new EReg("<font", "g");
+        return r.match(response);
+    }
+
     static private function displayAndLog (response) {
         var log = js.Browser.window.document.createElement("p");
-        log.innerHTML = haxe.Json.stringify(response);
+        log.innerHTML = response;
         js.Browser.window.document.body.appendChild(cast log);
+        // trace(response);
     }
 }
