@@ -42,6 +42,7 @@ class Main
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 
+			utils.AjaxRequest.initLog();
 			PlayerDatas.load();
 
 			lastTS = Date.now().getTime();
