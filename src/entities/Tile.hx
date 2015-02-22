@@ -56,17 +56,15 @@ class Tile extends GameObject
         buildingEvents.on("callingServer", function () {
             graphicTile.building.alpha = 0.7;
         });
-        buildingEvents.on("serverResponse", function (ok) {
-            if (ok) {
+        buildingEvents.on("builded", function () {
                 graphicTile.building.alpha = 1;
-            }
-            else {
-                alertError();
-                destroyBuilding();
-            }
+        });
+        buildingEvents.on("unbuilded", function () {
+            alertError();
+            destroyBuilding();
         });
 
-        buildingEvents.on("destroying", destroyBuilding);
+        buildingEvents.on("destroyed", destroyBuilding);
 
     }
 

@@ -24,6 +24,20 @@
         return noError();
     }
 
+    function destroyBuilding ($id, $position) {
+        global $mysqli;
+
+        $x = $position->x;
+        $y = $position->y;
+
+        $response = $mysqli->query("DELETE FROM playersBuildings WHERE PlayerID = '$id' && X = '$x' && Y = '$y'");
+        if ($err = noError() != true) {
+            return noError();
+        }
+        return ($response == 1);
+    }
+
+
     function getBuidingsOf ($id) {
         global $mysqli;
 

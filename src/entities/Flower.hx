@@ -35,7 +35,7 @@ class Flower extends GameObject
     }
 
     override public function destroy () {
-        referent.emit('destroying', null);
+        referent.emit('destroyed', null);
         if (waitingCallback == 0) {
             Flower.remove(this);
         }

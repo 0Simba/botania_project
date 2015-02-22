@@ -8,10 +8,13 @@
         echo "coucou les copain";
     }
     else if ($action == "buildBreaker") {
-        sleep(2);
         include "server/buildBreaker.php";
+    }
+    else if ($action == "destroyBuilding") {
+        include "server/destroyBuilding.php";
     }
     else if ($action == "allDatas") {
         include "server/sendAllDatas.php";
     }
+
 ?>

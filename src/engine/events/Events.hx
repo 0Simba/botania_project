@@ -8,7 +8,7 @@ class Events
         listeners = new Map<String, Array<Dynamic>>();
     }
 
-    public function emit (name:String, data:Dynamic) {
+    public function emit (name:String, data:Dynamic = null) {
         if (listeners.exists(name)) {
             for (i in 0...listeners.get(name).length) {
                 listeners.get(name)[i](data);

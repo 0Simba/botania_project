@@ -17,7 +17,7 @@ class Breaker extends CirclesHudManager
 
     public function removeBreaker (targetBreaker:entities.building.Breaker) {
         close();
-        targetBreaker.destroy();
+        targetBreaker.destroyFromServer();
     }
 
     public function openPopUp (targetBreaker:entities.building.Breaker) {

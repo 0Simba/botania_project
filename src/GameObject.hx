@@ -29,7 +29,7 @@ class GameObject
     }
 
     public function callServer (requestName:String, datas:Dynamic, acceptedCallback, refusedCallback) {
-        utils.AjaxRequest.exec("buildBreaker", haxe.Json.stringify(datas), function (response) {
+        utils.AjaxRequest.exec(requestName, haxe.Json.stringify(datas), function (response) {
             if (response.accepted) {
                 acceptedCallback(response);
             }

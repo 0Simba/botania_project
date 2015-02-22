@@ -22,22 +22,40 @@ class Breaker extends GameObject
     public function serverCheck () {
         referent.emit("callingServer", null);
 
-        var data:Dynamic = {};
-        data.position = position;
-
-        callServer("buildBreaker", data, cast serverValidate, cast serverRefuse);
+        callServer("buildBreaker", getDatasForServer(), cast serverValidateBuild, cast serverRefuseBuild);
     }
 
-    private function serverValidate () {
-        referent.emit("serverResponse", true);
+    private function serverValidateBuild () {
+        referent.emit("builded", null);
     }
 
-    private function serverRefuse () {
-        referent.emit("serverResponse", false);
+    private function serverRefuseBuild () {
+        referent.emit("unbuilded", null);
         destroy();
     }
 
     override public function destroy () {
+        referent.emit("destroyed", null);
+    }
+
+    public function destroyFromServer () {
         referent.emit("destroying", null);
+        callServer("destroyBuilding", getDatasForServer(), cast serverValidateDestroy, cast serverRefuseDestroy);
+    }
+
+    private function serverValidateDestroy () {
+        destroy();
+    }
+
+    private function serverRefuseDestroy () {
+        referent.emit("not destroyed", null);
+    }
+
+
+    private function getDatasForServer ():Dynamic {
+        var data:Dynamic = {};
+        data.position = position;
+
+        return data;
     }
 }
