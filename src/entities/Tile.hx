@@ -64,26 +64,18 @@ class Tile extends GameObject
     }
 
     public function createBreaker () {
-        init.PlayerDatas.load();
         var data:Dynamic = {};
         data.position = coord.toVector2();
-        utils.AjaxRequest.exec("buildBreaker", haxe.Json.stringify(data), createBreakerCallback);
-    }
-    public function createBreakerCallback (response:Dynamic) {
-        if (response.accepted) {
-            buildBreaker();
-        }
-        else {
-            trace("batiment refusé");
-        }
+        callServer("buildBreaker", data, cast buildBreaker, cast alertError);
     }
     private function buildBreaker () {
         currentBuild = "breaker";
         buildingRef  = new Breaker(buildingEvents, coord.toVector2());
         graphicTile.changeBuild(currentBuild);
     }
-
-
+    private function alertError () {
+        js.Browser.window.alert("Erreur serveur");
+    }
 
     /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/
 
