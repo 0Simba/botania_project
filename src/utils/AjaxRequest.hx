@@ -7,11 +7,16 @@ class AjaxRequest
         var url:String = "?action=" + type;
         if (datas != null) url += "&datas=" + StringTools.urlEncode(datas);
 
-        var response = haxe.Http.requestUrl(url);
+        var response = haxe.Json.parse(haxe.Http.requestUrl(url));
 
-        trace(response);
+        displayAndLog(response);
+        callback(response);
+    }
+
+
+    static private function displayAndLog (response) {
         var log = js.Browser.window.document.createElement("p");
-        log.innerHTML = response;
+        log.innerHTML = haxe.Json.stringify(response);
         js.Browser.window.document.body.appendChild(cast log);
     }
 }

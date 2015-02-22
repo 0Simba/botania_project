@@ -60,12 +60,17 @@ class Tile extends GameObject
     public function createBreaker () {
         var data:Dynamic = {};
         data.position = coord.toVector2();
-        utils.AjaxRequest.exec("buildBreaker", haxe.Json.stringify(data));
-
-        currentBuild = "breaker";
-        buildingRef  = new Breaker(buildingEvents, coord.toVector2());
+        utils.AjaxRequest.exec("buildBreaker", haxe.Json.stringify(data), createBreakerCallback);
     }
-
+    public function createBreakerCallback (response:Dynamic) {
+        if (response.accepted) {
+            currentBuild = "breaker";
+            buildingRef  = new Breaker(buildingEvents, coord.toVector2());
+        }
+        else {
+            trace("batiment refusé");
+        }
+    }
 
 
 

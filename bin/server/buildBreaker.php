@@ -1,9 +1,18 @@
 
 <?php
+    $returnObject = array();
+
     if (tileFree($datas->position, $playerID)) {
-        echo addBuilding($datas->position, 1, $playerID) ? "accepted" : "refused";
+        if (addBuilding($datas->position, 1, $playerID)){
+            $returnObject["accepted"] = true;
+        }
+        else {
+            $returnObject["accepted"] = false;
+        }
     }
     else {
-        echo "refused";
+        $returnObject["accepted"] = false;
     }
+
+    echo json_encode($returnObject);
 ?>
