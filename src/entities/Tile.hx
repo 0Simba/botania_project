@@ -11,12 +11,13 @@ class Tile extends GameObject
 {
 
     public var currentGround = "grass";
-    public var currentBuild = null;
 
     public var groundEvents:Events;
-    public var buildingEvents:Events;
 
+    public var currentBuild = null;
+    public var buildingEvents:Events;
     public var buildingRef:GameObject;
+    public var buildingServerResponse = true;
 
     public var coord:ArrayCoord;
 
@@ -66,15 +67,32 @@ class Tile extends GameObject
     public function createBreaker () {
         var data:Dynamic = {};
         data.position = coord.toVector2();
-        callServer("buildBreaker", data, cast buildBreaker, cast alertError);
+
+        buildingServerResponse = false;
+        buildBreaker();
+        callServer("buildBreaker", data, cast validateBreaker, cast refuseBreaker);
     }
     private function buildBreaker () {
         currentBuild = "breaker";
         buildingRef  = new Breaker(buildingEvents, coord.toVector2());
         graphicTile.changeBuild(currentBuild);
+
+        if (!buildingServerResponse) {
+            graphicTile.building.alpha = 0.7;
+        }
+    }
+    private function validateBreaker () {
+        buildingServerResponse = true;
+        graphicTile.building.alpha = 1;
+    }
+    private function refuseBreaker () {
+        buildingServerResponse = true;
+        destroyBuilding();
+        alertError();
     }
     private function alertError () {
         js.Browser.window.alert("Erreur serveur");
+        buildingServerResponse = true;
     }
 
     /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/

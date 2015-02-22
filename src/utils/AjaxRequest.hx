@@ -7,10 +7,16 @@ class AjaxRequest
         var url:String = "?action=" + type;
         if (datas != null) url += "&datas=" + StringTools.urlEncode(datas);
 
-        var response = haxe.Http.requestUrl(url);
-        displayAndLog(response);
+        var r = new haxe.Http(url);
+        // r.onError = js.Lib.alert;
+        r.onData = function (response) {
+            displayAndLog(response);
+            if (!phpErrorInString(response)) {
+                callback(haxe.Json.parse(response));
+            }
+        }
+        r.request(false);
 
-        if (!phpErrorInString(response)) callback(haxe.Json.parse(response));
     }
 
 
