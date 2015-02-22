@@ -1,7 +1,7 @@
 
 <?php
     $action   = mysqli_real_escape_string($mysqli, htmlspecialchars($_GET["action"]));
-    $datas    = isset($_GET["datas"]) ? urldecode($_GET["datas"]) : "null";
+    $datas    = isset($_GET["datas"]) ? json_decode(urldecode($_GET["datas"])) : null;
     $playerID = $_SESSION["playerID"];
 
     if ($action == "test") {
