@@ -29,11 +29,7 @@ class Tile extends GameObject
         graphicTile.addGround("ground");
         graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
-        buildingEvents = new Events();
-        buildingEvents.on("state changed", function (state:String) {
-            graphicTile.changeBuild(state + "Flower");
-        });
-        buildingEvents.on("destroying", destroyBuilding);
+        bindBuildingsEvents();
 
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);
@@ -50,12 +46,35 @@ class Tile extends GameObject
         graphicTile.changeBuild();
     }
 
+    private function bindBuildingsEvents () {
+        buildingEvents = new Events();
+
+        buildingEvents.on("state changed", function (state:String) {
+            graphicTile.changeBuild(state + "Flower");
+        });
+
+        buildingEvents.on("callingServer", function () {
+            graphicTile.building.alpha = 0.7;
+        });
+        buildingEvents.on("serverResponse", function (ok) {
+            if (ok) {
+                graphicTile.building.alpha = 1;
+            }
+            else {
+                alertError();
+                destroyBuilding();
+            }
+        });
+
+        buildingEvents.on("destroying", destroyBuilding);
+
+    }
 
 
         /***** CREATING -> FIXME REFACTOR LATER *****/
     public function create (name:Int) { // Server stock int, TODO refactor to get name !!!
         if (name == 1) { //breaker
-            buildBreaker();
+            createBreaker(false);
         }
     }
 
@@ -64,32 +83,12 @@ class Tile extends GameObject
         buildingRef  = new Flower(buildingEvents);
     }
 
-    public function createBreaker () {
-        var data:Dynamic = {};
-        data.position = coord.toVector2();
-
-        buildingServerResponse = false;
-        buildBreaker();
-        callServer("buildBreaker", data, cast validateBreaker, cast refuseBreaker);
-    }
-    private function buildBreaker () {
+    public function createBreaker (checkServer:Bool = true) {
         currentBuild = "breaker";
-        buildingRef  = new Breaker(buildingEvents, coord.toVector2());
+        buildingRef  = new Breaker(buildingEvents, coord.toVector2(), checkServer);
         graphicTile.changeBuild(currentBuild);
+    }
 
-        if (!buildingServerResponse) {
-            graphicTile.building.alpha = 0.7;
-        }
-    }
-    private function validateBreaker () {
-        buildingServerResponse = true;
-        graphicTile.building.alpha = 1;
-    }
-    private function refuseBreaker () {
-        buildingServerResponse = true;
-        destroyBuilding();
-        alertError();
-    }
     private function alertError () {
         js.Browser.window.alert("Erreur serveur");
         buildingServerResponse = true;
