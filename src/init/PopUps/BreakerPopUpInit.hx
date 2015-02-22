@@ -39,6 +39,12 @@ class BreakerPopUpInit
     static private function setSeedsInventory () {
         breakerPopUp.setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.33, 0.33), 3, -1);
 
+        updateSeedsInventory();
+    }
+
+    static private function updateSeedsInventory () {
+        breakerPopUp.inventory.clear();
+
         for (i in 0...Seed.list.length) {
             var cell:Cell = breakerPopUp.inventory.addCell();
 
@@ -57,7 +63,12 @@ class BreakerPopUpInit
     }
 
     static private function mergeSeeds () {
-        
+        if (seed1.dropMeta != null && seed2.dropMeta != null) {
+            seed1.dropMeta.destroy();
+            seed2.dropMeta.destroy();
+
+            updateSeedsInventory();
+        }
     }
 }
 

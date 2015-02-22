@@ -68,7 +68,6 @@ class DragNDrop
         isDropping       = false;
         lastDropTexture  = dropSprite.texture;
         dropMeta         = currentMeta;
-        trace(dropMeta);
     }
 
 

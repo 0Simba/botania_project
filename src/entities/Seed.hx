@@ -23,4 +23,10 @@ class Seed extends GameObject
         appearanceName = genome.getAppearanceName();
         list.push(this);
 	}
+
+    override public function destroy () {
+        var index = list.indexOf(this);
+        var seed  = list[index];
+        list.splice(index, 1);
+    }
 }

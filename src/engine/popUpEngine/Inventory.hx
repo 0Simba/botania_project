@@ -62,6 +62,14 @@ class Inventory
         return cell;
     }
 
+    public function clear () {
+        for (i in 0...cellList.length) {
+            layer.removeChild(cellList[0].layer);
+            cellList.splice(0, 1);
+        }
+        trace(cellList);
+    }
+
 
     /***** YOU DON'T CARE *****/
 
