@@ -6,6 +6,7 @@ import engine.isoEngine.IsoEngine;
 import engine.isoEngine.controls.Camera;
 import manager.Camera.CameraManager;
 import init.Config;
+import init.PlayerDatas;
 class Main
 {
 	public  static var deltaTime:Float;
@@ -40,6 +41,8 @@ class Main
 
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
+
+			PlayerDatas.load();
 
 			lastTS = Date.now().getTime();
 	        Browser.window.requestAnimationFrame(cast gameLoop);

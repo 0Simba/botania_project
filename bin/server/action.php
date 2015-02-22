@@ -10,4 +10,7 @@
     else if ($action == "buildBreaker") {
         include "server/buildBreaker.php";
     }
+    else if ($action == "allDatas") {
+        include "server/sendAllDatas.php";
+    }
 ?>
