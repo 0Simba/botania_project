@@ -2,8 +2,8 @@
 <?php
     $returnObject = array();
 
-    if (tileFree($datas->position, $playerID)) {
-        if ($returnObject["error"] = addBuilding($datas->position, 1, $playerID)){
+    if ($player->tileFree($datas->position)) {
+        if ($returnObject["error"] = $player->addBuilding($datas->position, 1)){
             $returnObject["accepted"] = true;
             $returnObject["error"]    = false;
         }

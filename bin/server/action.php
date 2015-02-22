@@ -2,12 +2,9 @@
 <?php
     $action   = mysqli_real_escape_string($mysqli, htmlspecialchars($_GET["action"]));
     $datas    = isset($_GET["datas"]) ? json_decode(urldecode($_GET["datas"])) : null;
-    $playerID = $_SESSION["playerID"];
+    $player   = new Player ($_SESSION["playerID"]);
 
-    if ($action == "test") {
-        echo "coucou les copain";
-    }
-    else if ($action == "buildBreaker") {
+    if ($action == "buildBreaker") {
         include "server/buildBreaker.php";
     }
     else if ($action == "destroyBuilding") {
