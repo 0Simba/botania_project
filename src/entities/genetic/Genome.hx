@@ -3,6 +3,11 @@ package entities.genetic;
 import GameObject;
 import init.Config;
 import entities.genetic.Segment;
+import entities.genetic.Chromosome.Type;
+
+import entities.genetic.chromosomes.Family;
+import entities.genetic.chromosomes.Genre;
+import entities.genetic.chromosomes.Order;
 
 class Genome
 {
@@ -10,11 +15,32 @@ class Genome
 	public var secondary:Segment;
 	public var tertiaire:Segment;
 
+    static public function newFromCodeList (list:Map<String, Float>):Genome {
+        return new Genome(
+                        new Segment (
+                                1,
+                                new Family (Type.A),
+                                new Order  (Type.A),
+                                new Genre  (Type.A)
+                        )
+        );
+    }
+
 	public function new (_principal:Segment, _secondary:Segment = null, _tertiaire:Segment = null) {
         principal = _principal;
         secondary = _secondary;
         tertiaire = _tertiaire;
 	}
+
+    public function listSegmentCode (list:Map<String, Float> = null):Map<String, Float> {
+        if (list == null) list = new Map<String, Float>();
+
+        addSegmentOnList(principal, list);
+        if (secondary != null) addSegmentOnList(secondary, list);
+        if (tertiaire != null) addSegmentOnList(tertiaire, list);
+
+        return list;
+    }
 
     public function getAppearanceName () {
         return principal.getAsName();
@@ -37,6 +63,13 @@ class Genome
         // if (genre.tertiary != null) code += genre.tertiary.name + (genre.tertiary.value * 100);
 
         return "lol"; //return code;
+    }
+
+    private function addSegmentOnList (segment:Segment, list:Map<String, Float>) {
+        var name  = segment.getAsName();
+        var value = list.exists(name) ? list.get(name) : 0;
+        value += segment.strength;
+        list.set(name, value);
     }
 }
 

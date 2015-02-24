@@ -3,6 +3,7 @@ package entities.genetic;
 import entities.genetic.chromosomes.Family;
 import entities.genetic.chromosomes.Order;
 import entities.genetic.chromosomes.Genre;
+import entities.genetic.Chromosome.Type;
 import GameObject;
 import init.Config;
 
@@ -12,6 +13,10 @@ class Segment
 	public var family:Family;
 	public var order:Order;
 	public var genre:Genre;
+
+    static public function newFromCode () {
+
+    }
 
 	public function new (_strength:Float, _family:Family, _order:Order, _genre:Genre) {
         strength = _strength;

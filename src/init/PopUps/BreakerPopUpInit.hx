@@ -64,8 +64,10 @@ class BreakerPopUpInit
 
     static private function mergeSeeds () {
         if (seed1.dropMeta != null && seed2.dropMeta != null) {
-            seed1.dropMeta.destroy();
-            seed2.dropMeta.destroy();
+            seed1.dropMeta.merge(seed2.dropMeta);
+
+            // seed1.clearDrop();
+            // seed2.clearDrop();
 
             updateSeedsInventory();
         }

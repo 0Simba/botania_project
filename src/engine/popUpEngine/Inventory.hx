@@ -67,7 +67,6 @@ class Inventory
             layer.removeChild(cellList[0].layer);
             cellList.splice(0, 1);
         }
-        trace(cellList);
     }
 
 

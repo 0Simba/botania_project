@@ -40,5 +40,17 @@ class Chromosome
                (value == Type.F) ? "F" :
                                    "null" ;
     }
+
+    static public function getMapOfType ():Map<Type, Float> {
+        var map = new Map<Type, Float>();
+        map.set(Type.A, 0);
+        map.set(Type.B, 0);
+        map.set(Type.C, 0);
+        map.set(Type.D, 0);
+        map.set(Type.E, 0);
+        map.set(Type.F, 0);
+
+        return map;
+    }
 }
 
