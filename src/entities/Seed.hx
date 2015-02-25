@@ -29,12 +29,11 @@ class Seed extends GameObject
     public function merge (seed:Seed) {
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        trace(list);
-
         keepThreeBetterOf(list);
         normalizeTotalOf(list);
 
         new Seed(Genome.newFromCodeList(list));
+        trace(list);
 
         seed.destroy();
         destroy();
@@ -49,7 +48,13 @@ class Seed extends GameObject
 
     private function normalizeTotalOf (list) {
         var total = getTotal(list);
-        trace(total);
+        var ratio = 1 / total;
+
+        var keysI = list.keys();
+        for (key in keysI) {
+            list.set(key, list.get(key) * ratio);
+        }
+
         return list;
     }
 
