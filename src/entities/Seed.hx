@@ -31,6 +31,7 @@ class Seed extends GameObject
 
         keepThreeBetterOf(list);
         normalizeTotalOf(list);
+        roundTwoDecimal(list);
 
         new Seed(Genome.newFromCodeList(list));
         trace(list);
@@ -160,6 +161,16 @@ class Seed extends GameObject
         var i = letterToInt(l1) + letterToInt(l2);
         i = i % 6;                                              // TODO no hard value
         return intToLetter(i);
+    }
+
+    private function roundTwoDecimal (list:Map<String, Float>) {
+        var keysI = list.keys();
+
+        for (key in keysI) {
+            var value = list.get(key);
+            value = Math.round(value * 100) / 100;
+            list.set(key, value);
+        }
     }
 
 
