@@ -34,7 +34,6 @@ class Seed extends GameObject
         roundTwoDecimal(list);
 
         new Seed(Genome.newFromCodeList(list));
-        trace(list);
 
         seed.destroy();
         destroy();
