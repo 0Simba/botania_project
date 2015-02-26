@@ -14,8 +14,8 @@ class Segment
 	public var order:Order;
 	public var genre:Genre;
 
-    static public function newFromCode () {
-
+    static public function newFromCode (code:String, value:Float):Segment {
+        return null;
     }
 
 	public function new (_strength:Float, _family:Family, _order:Order, _genre:Genre) {

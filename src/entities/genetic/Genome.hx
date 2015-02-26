@@ -16,6 +16,14 @@ class Genome
 	public var tertiaire:Segment;
 
     static public function newFromCodeList (list:Map<String, Float>):Genome {
+        var values  = new Array<Float>();
+        var strings = new Array<String>();
+
+        splitListToOrderArrays(list, values, strings);
+        var principalSegment = Segment.newFromCode(strings[0], values[0]);
+        // if (var principalSegment = Segment.newFromCode();
+        // if (var principalSegment = Segment.newFromCode();
+
         return new Genome(
                         new Segment (
                                 1,
@@ -71,5 +79,30 @@ class Genome
         value += segment.strength;
         list.set(name, value);
     }
+
+    static private function splitListToOrderArrays (list:Map<String, Float>, valueA:Array<Float>, strA:Array<String>) {
+
+        var keysI = list.keys();
+
+        for (key in keysI) {
+            var added = false;
+            var value = list.get(key);
+
+            for (i in 0...valueA.length) {
+                if (value > valueA[i]) {
+                    added = true;
+                    strA.insert(i, key);
+                    valueA.insert(i, value);
+
+                    break;
+                }
+            }
+            if (!added) {
+                strA.push(key);
+                valueA.push(value);
+            }
+        }
+    }
+
 }
 
