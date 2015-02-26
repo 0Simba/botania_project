@@ -20,17 +20,14 @@ class Genome
         var strings = new Array<String>();
 
         splitListToOrderArrays(list, values, strings);
-        var principalSegment = Segment.newFromCode(strings[0], values[0]);
-        // if (var principalSegment = Segment.newFromCode();
-        // if (var principalSegment = Segment.newFromCode();
+        var principal = Segment.newFromCode(strings[0], values[0]);
+        var secondarySegment = (values[1] != null) ? Segment.newFromCode(strings[1], values[1]) : null;
+        var tertiaireSegment = (values[2] != null) ? Segment.newFromCode(strings[2], values[2]) : null;
 
         return new Genome(
-                        new Segment (
-                                1,
-                                new Family (Type.A),
-                                new Order  (Type.A),
-                                new Genre  (Type.A)
-                        )
+            principal,
+            secondarySegment,
+            tertiaireSegment
         );
     }
 

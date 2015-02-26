@@ -19,6 +19,19 @@ enum Type
     D;
     E;
     F;
+    O;
+}
+
+class TypeUtils {
+    static public function fromString (value:String):Type {
+        return (value == "A") ? Type.A :
+               (value == "B") ? Type.B :
+               (value == "C") ? Type.C :
+               (value == "D") ? Type.D :
+               (value == "E") ? Type.E :
+               (value == "F") ? Type.F :
+                                Type.O ;
+    }
 }
 
 class Chromosome

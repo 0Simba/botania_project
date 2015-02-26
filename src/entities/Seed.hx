@@ -33,8 +33,6 @@ class Seed extends GameObject
         normalizeTotalOf(list);
         roundTwoDecimal(list);
 
-        new Seed(Genome.newFromCodeList(list));
-
         seed.destroy();
         destroy();
     }
