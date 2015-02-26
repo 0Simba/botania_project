@@ -26,13 +26,15 @@ class DragNDrop
         originPosition  = new Vector2(0, 0);
     }
 
-        /***** DROPPABLE *****/
-    public var dropFree:Bool = false;
-    public var dropSprite:Sprite;
-    public var dropSize:Vector2;
-    public var dropPos:Vector2;
-    public var lastDropTexture:Texture;
-    public var dropMeta:Dynamic;
+        /****************************************
+                        DROPPABLE
+        /****************************************/
+    public var dropFree        :Bool = false;
+    public var dropSprite      :Sprite;
+    public var dropSize        :Vector2;
+    public var dropPos         :Vector2;
+    public var lastDropTexture :Texture;
+    public var dropMeta        :Dynamic;
 
     public function setDroppable (size:Vector2 = null, pos:Vector2 = null) {
         dropSize = (size == null) ? Vector2.full : size;
@@ -43,6 +45,11 @@ class DragNDrop
         displayObject.mouseover = dropover;
         displayObject.mouseout  = dropout;
         displayObject.mouseup   = dropup;
+    }
+
+    public function clearDrop () {
+        dropSprite.visible = false;
+        dropSprite.texture = null;
     }
 
     private function dropover (mouseData) {
@@ -96,8 +103,10 @@ class DragNDrop
         }
     }
 
-        /***** DRAGGABLE *****/
 
+        /****************************************
+                        DRAGGABLE
+        /****************************************/
     public var meta:Dynamic;
     public var clone:DisplayObject;
     public var displayObject:pixi.display.DisplayObjectContainer;
