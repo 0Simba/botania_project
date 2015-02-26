@@ -19,5 +19,12 @@ class CameraManager {
         if (Keyboard.key.get("down")) {
             Camera.move(0, -speed);
         }
+        if (Keyboard.key.get("a")) {
+            Camera.zoom(-0.01);
+        }
+        if (Keyboard.key.get("q")) {
+            Camera.zoom(0.01);
+        }
+
     }
 }

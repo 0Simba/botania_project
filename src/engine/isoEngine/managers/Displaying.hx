@@ -85,6 +85,7 @@ class Displaying
         createMainLayer("background");
         createMainLayer("camera");
             createChildLayer("playArea", "camera");
+                createChildLayer("grounds"  , "playArea");
                 createChildLayer("tiles"    , "playArea");
                 createChildLayer("overTiles", "playArea");
             createChildLayer("fx", "camera");

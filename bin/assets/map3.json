@@ -1,0 +1,20 @@
+{"frames": {
+
+"map_1_1":
+{
+    "frame": {"x":0, "y":0, "w":1920,"h":1920},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":1920,"h":1920},
+    "sourceSize": {"w":1920,"h":1920}
+}},
+"meta": {
+    "app": "http://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "map3.png",
+    "format": "RGBA8888",
+    "size": {"w":1920,"h":1920},
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
+}
+}

@@ -3,6 +3,8 @@ package manager;
 import entities.Tile;
 import engine.isoEngine.IsoEngine;
 import utils.ArrayCoord;
+import engine.isoEngine.components.BackgroundSprite.BackgroudSprite;
+import utils.Vector2;
 
 class Map
 {
@@ -23,9 +25,8 @@ class Map
             var y:Int = Math.floor(i / nbCols);
 
 			tiles[i] = new Tile(new ArrayCoord(x, y, i));
-
-			// tiles[i].graphicTile.setPlace(x, y, i);
 		}
+		addBackground();
 	}
 
 	public function get (x:Int, y:Int): Tile {
@@ -86,6 +87,19 @@ class Map
 		// isoEngine.on("tileMouseEnter", tileOn);
 		// isoEngine.on("tileMouseExit" , tileOut);
 		// isoEngine.on("tileMouseClick", tileClick);
+	}
+
+
+
+	public function addBackground () {
+		var totalSize   = new Vector2(3840, 3840);
+		var elementSize = new Vector2(1920, 1920);
+
+		BackgroudSprite.setSize(totalSize, elementSize);
+		BackgroudSprite.add("map_0_0", new Vector2(0, 0));
+		BackgroudSprite.add("map_0_1", new Vector2(0, 1));
+		BackgroudSprite.add("map_1_0", new Vector2(1, 0));
+		BackgroudSprite.add("map_1_1", new Vector2(1, 1));
 	}
 
 }

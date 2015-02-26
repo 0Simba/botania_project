@@ -16,6 +16,10 @@ class Camera
         camera.y += y;
     }
 
+    static public function zoom (v:Float) {
+        camera.scale = new pixi.geom.Point(camera.scale.x + v, camera.scale.y + v);
+    }
+
 
     static public function onClick () {
         var tile = isoEngine.map.getTile(cast currentPos.x, cast currentPos.y);

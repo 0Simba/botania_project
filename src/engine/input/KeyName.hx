@@ -11,5 +11,7 @@ class KeyName
         list.set(38, "up");
         list.set(39, "right");
         list.set(40, "down");
+        list.set(65, "a");
+        list.set(81, "q");
     }
 }
