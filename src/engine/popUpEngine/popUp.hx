@@ -41,6 +41,7 @@ class PopUp extends engine.popUpEngine.Container
         _elementsSize.y *= size.y;
 
         inventory = new Inventory(this, pos, size, _elementsSize, _nbElementX, _nbElementY);
+        return inventory;
     }
 
 
@@ -50,9 +51,13 @@ class PopUp extends engine.popUpEngine.Container
 
     public function show () {
         layer.visible = true;
+        onShow();
     }
 
     public function hide () {
         layer.visible = false;
     }
+
+
+    public dynamic function onShow () {}
 }
