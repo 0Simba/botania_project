@@ -3,6 +3,7 @@ package entities;
 import engine.events.Events;
 import GameObject;
 import init.Config;
+import entities.Seed;
 
 class Flower extends GameObject
 {
@@ -12,12 +13,12 @@ class Flower extends GameObject
     private var referent:Events;
     private var stateIndex:Int;
 
-    public function new (_referent, _state = 0) {
+    public function new (_referent, seed:Seed) {
         super();
         config     = Config.flower;
         stateList  = config.states;
         referent   = _referent;
-        stateIndex = _state;
+        stateIndex = 0;
 
         referent.emit("state changed", stateList[stateIndex]);
         lunchDelay(grow, config.time.delay);

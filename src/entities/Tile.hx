@@ -78,9 +78,9 @@ class Tile extends GameObject
         }
     }
 
-    public function createFlower () {
+    public function createFlower (seed:Seed) {
         currentBuild = "flower";
-        buildingRef  = new Flower(buildingEvents);
+        buildingRef  = new Flower(buildingEvents, seed);
     }
 
     public function createBreaker (checkServer:Bool = true) {

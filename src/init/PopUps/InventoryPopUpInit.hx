@@ -7,6 +7,7 @@ import entities.Seed;
 import engine.isoEngine.components.Button;
 import engine.popUpEngine.PopUp;
 import engine.popUpEngine.Inventory;
+import manager.Selection;
 
 class InventoryPopUpInit
 {
@@ -32,11 +33,7 @@ class InventoryPopUpInit
         trashButton = inventoryPopUp.addButton(new Vector2(0.8, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", function(){});
         trashButton.hide();
 
-        inventoryPopUp.addButtonPattern("close").onClick(function () {
-            inventoryPopUp.hide();
-            pickButton.hide();
-            trashButton.hide();
-        });
+        inventoryPopUp.addButtonPattern("close").onClick(closePopUp);
 
         inventoryPopUp.addText(new Vector2(0.5, 0.02), new Vector2(0.5, 0.5), "Inventaire", {font : "bold 20px verdana", fill : "white", align : "center"});
         inventoryPopUp.onShow = onShow;
@@ -48,8 +45,10 @@ class InventoryPopUpInit
         trashButton.show();
     }
 
-    private static function pickButtonClick(){
-        trace("Coucu");
+    private static function pickButtonClick () {
+        Selection.setNew("plant", "seed", selectedSeed);
+        Selection.logState();
+        closePopUp();
     }
 
     private static function displaySeeds () {
@@ -66,7 +65,14 @@ class InventoryPopUpInit
     }
 
     public static function onShow () {
+        Selection.setNull();
         displaySeeds();
+    }
+
+    private static function closePopUp () {
+        inventoryPopUp.hide();
+        pickButton.hide();
+        trashButton.hide();
     }
 }
 

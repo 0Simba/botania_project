@@ -21,6 +21,9 @@ class MouseTile
         else if (Selection.actionType == "build" && tile.currentBuild == null) {
             tile.graphicTile.changeBuild(Selection.contain);
         }
+        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
+            tile.graphicTile.changeBuild("adultFlower");
+        }
 
     }
 
@@ -32,6 +35,10 @@ class MouseTile
         else if (Selection.actionType == "build" && tile.currentBuild == null) {
             tile.graphicTile.changeBuild(tile.currentBuild);
         }
+        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
+            tile.graphicTile.changeBuild(tile.currentBuild);
+        }
+
     }
 
 
@@ -51,15 +58,15 @@ class MouseTile
         }
         else if (Selection.actionType == "build" && tile.currentBuild == null) {
                 /***** FIXME MOVE THIS LATER *****/
-            if (Selection.contain == "adultFlower") {
-                tile.createFlower();
-            }
-            else if (Selection.contain == "breaker") {
+            if (Selection.contain == "breaker") {
                 tile.createBreaker();
             }
             else {
                 trace("MouseTile.click -> pas d'action pour Selection.contain " + Selection.contain);
             }
+        }
+        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
+            tile.createFlower(Selection.meta);
         }
     }
 
