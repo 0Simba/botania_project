@@ -5,6 +5,7 @@ import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import js.html.VoidCallback;
 import engine.events.Events;
+import engine.isoEngine.controls.Camera;
 
 class Mouse
 {

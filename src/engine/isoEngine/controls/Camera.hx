@@ -99,10 +99,13 @@ class Camera
         px.x -= camera.x;
         px.y -= camera.y;
 
+        var tileW = Tile.size.x * scale;
+        var tileH = Tile.size.y * scale;
+
 
         var newPos = new Vector2(-1, -1);
-        newPos.x = Math.round( (px.x - Tile.size.x) / (Tile.size.x) + px.y / (Tile.size.y) );
-        newPos.y = Math.round( (px.y / (Tile.size.y)) - px.x / (Tile.size.x));
+        newPos.x = Math.round( (px.x - tileW) / (tileW) + px.y / (tileH) );
+        newPos.y = Math.round( (px.y / (tileH)) - px.x / (tileW));
 
         return newPos;
     }
