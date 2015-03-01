@@ -232,7 +232,7 @@ class Seed extends GameObject
                 var seed = new Seed(Genome.newFromCodeList(list));
                 Console.log(seed.genome.listSegmentCode().toString());
             Console.groupEnd();
-        Console.groupEnd("End merge");
+        Console.groupEnd();
     }
 
 }
