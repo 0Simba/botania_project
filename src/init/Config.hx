@@ -17,6 +17,7 @@ class Config
 	public static var camera:Dynamic     = "toLoad";
 	public static var assets:Dynamic     = "toLoad";
 	public static var buildings:Dynamic  = "toLoad";
+	public static var tiles:Dynamic      = "toLoad";
 
 	static public function load ():Void {
 		for (key in Reflect.fields(Config)) {

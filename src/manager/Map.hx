@@ -5,11 +5,13 @@ import engine.isoEngine.IsoEngine;
 import utils.ArrayCoord;
 import engine.isoEngine.components.BackgroundSprite.BackgroudSprite;
 import utils.Vector2;
+import init.Config;
 
 class Map
 {
 
 	private static var instance: Map;
+	private var tilesConfig:Dynamic;
 
 	private var tiles:Array<Tile>;
 	private var nbCols:Int;
@@ -17,6 +19,8 @@ class Map
 
 	public function set (_nbCols:Int, _nbRows:Int): Void {
 		nbCols = _nbCols; nbRows = _nbRows;
+		tilesConfig = Config.tiles;
+		trace(tilesConfig);
 
 		if (isAlreadySet()) { return; };
 
@@ -25,8 +29,11 @@ class Map
 		for (i in 0...nbCols * nbRows) {
             var x:Int = i % nbCols - Math.floor(nbCols / 2);
             var y:Int = Math.floor(i / nbCols) - Math.floor(nbRows / 2);
+            var genre = tilesConfig[cast x + "_" + y];
 
-			tiles[i] = new Tile(new ArrayCoord(x, y, i));
+            if (genre != null) {
+				tiles[i] = new Tile(new ArrayCoord(x, y, i));
+            }
 		}
 		addBackground();
 	}
@@ -101,10 +108,10 @@ class Map
 		var elementSize = new Vector2(1920, 1920);
 
 		BackgroudSprite.setSize(totalSize, elementSize);
-		BackgroudSprite.add("map_0_0", new Vector2(-1, -1));
-		BackgroudSprite.add("map_0_1", new Vector2(-1, 0));
-		BackgroudSprite.add("map_1_0", new Vector2(0, -1));
-		BackgroudSprite.add("map_1_1", new Vector2(0, 0));
+		BackgroudSprite.add("map_0_0", new Vector2(-1, -0.85));
+		BackgroudSprite.add("map_0_1", new Vector2(-1, 0.15));
+		BackgroudSprite.add("map_1_0", new Vector2(0 , -0.85));
+		BackgroudSprite.add("map_1_1", new Vector2(0 , 0.15));
 	}
 
 }
