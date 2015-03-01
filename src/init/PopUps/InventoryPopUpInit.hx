@@ -47,7 +47,6 @@ class InventoryPopUpInit
 
     private static function pickButtonClick () {
         Selection.setNew("plant", "seed", selectedSeed);
-        Selection.logState();
         closePopUp();
     }
 

@@ -58,7 +58,7 @@ class Tile extends IsoComponent
 
     public function changeBuild (name:String = null) {
         if (name == null) {
-            building.visible = false;
+            if (building != null) building.visible = false;
         }
         else {
             if (building == null) {
