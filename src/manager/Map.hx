@@ -11,11 +11,13 @@ class Map
 
 	private static var instance: Map;
 
-	public  var tiles:Array<Tile>;
+	private var tiles:Array<Tile>;
 	private var nbCols:Int;
+	private var nbRows:Int;
 
-	public function set (_nbCols:Int, nbRows:Int): Void {
-		nbCols = _nbCols;
+	public function set (_nbCols:Int, _nbRows:Int): Void {
+		nbCols = _nbCols; nbRows = _nbRows;
+
 		if (isAlreadySet()) { return; };
 
 		addLayers(nbRows + nbCols);
@@ -30,7 +32,9 @@ class Map
 	}
 
 	public function get (x:Int, y:Int): Tile {
-		var i = x + y * nbCols;
+		var rX = x + Math.floor(nbCols / 2);
+		var rY = y + Math.floor(nbRows / 2);
+		var i = rX + rY * nbCols;
 		return tiles[i];
 	}
 
