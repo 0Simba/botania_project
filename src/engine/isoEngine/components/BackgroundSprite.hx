@@ -38,7 +38,6 @@ class BackgroudSprite
         sprite.width  = elementsSize.x;
         sprite.height = elementsSize.y;
 
-        trace(sprite.width + " : " + sprite.height);
         isoEngine.displaying.displayMcOn(sprite, "grounds");
     }
 
