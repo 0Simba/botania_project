@@ -8,6 +8,14 @@
     "spriteSourceSize": {"x":0,"y":0,"w":128,"h":75},
     "sourceSize": {"w":128,"h":75}
 },
+"transparent":
+{
+    "frame": {"x":128,"y":0,"w":128,"h":75},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":75},
+    "sourceSize": {"w":128,"h":75}
+},
 "adultFlower":
 {
     "frame": {"x":128,"y":128,"w":128,"h":128},

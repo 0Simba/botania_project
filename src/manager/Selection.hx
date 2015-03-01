@@ -7,7 +7,7 @@ class Selection
     static public var events:Events = new Events();
 
     static public var actionType:String = "ground";
-    static public var contain:String    = "circle";
+    static public var contain:String    = "transparent";  //!\ WARNING stop use ground, useless lose perf
 
     static private var lastActionType:String = null;
     static private var lastContain:String   = null;

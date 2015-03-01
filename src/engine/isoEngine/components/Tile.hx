@@ -1,6 +1,7 @@
 package engine.isoEngine.components;
 
 import pixi.display.MovieClip;
+import pixi.text.Text;
 import pixi.primitives.Graphics;
 import engine.isoEngine.IsoEngine;
 import js.Browser;
@@ -19,6 +20,7 @@ class Tile extends IsoComponent
     public var coord:utils.ArrayCoord;
     public var isInteractive:Bool;
 
+    private var coordText:Text;
 
 
             /***** GROUND *****/
@@ -66,6 +68,18 @@ class Tile extends IsoComponent
             }
             building.visible = true;
         }
+    }
+
+    public function displayCoord () {
+        var text = coord.x + " : " + coord.y;
+        coordText = new Text(text);
+        coordText.x      = ground.x + size.x / 2;
+        coordText.y      = ground.y + size.y / 2;
+        coordText.width  = size.x;
+        coordText.height = size.y;
+        coordText.pivot  = new pixi.geom.Point(0.5, 0.5);
+
+        isoEngine.displaying.displayMcOn(coordText, "tiles");
     }
 
 
