@@ -12,6 +12,7 @@ import engine.isoEngine.components.Tile;
 import engine.isoEngine.controls.Camera;
 import engine.isoEngine.controls.Mouse;
 import engine.isoEngine.IsoUtils;
+import utils.Vector2;
 
 import engine.eventsDispatcher.EventDispatcher;
 
@@ -31,21 +32,24 @@ class IsoEngine
     public var events:EventDispatcher;
 
     public var stage:Stage;
-    public var width:Int;
-    public var height:Int;
+    public var width:Int  = 0;
+    public var height:Int  = 0;
 
 
 
             /***** YOU DON'T CARE *****/
     private static var instance: IsoEngine;
     private var renderer:WebGLRenderer;
+    private var screenSize:Vector2;
 
 
     private function new (_width:Int, _height:Int) {
-        build();
-
         width  = _width;
         height = _height;
+
+        screenSize = new Vector2(width, height);
+
+        build();
 
         renderer = Detector.autoDetectRenderer(_width, _height);
         Browser.document.body.appendChild(renderer.view);
@@ -57,7 +61,7 @@ class IsoEngine
         map           = new Maping();
         assets        = new Assets();
         tileIndicator = new TileSelectionIndicator();
-        displaying    = new Displaying(stage);
+        displaying    = new Displaying(stage, screenSize);
         events        = new EventDispatcher();
         Mouse.setMap(displaying.getLayer("playArea"));
         Mouse.setStage(stage);

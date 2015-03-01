@@ -8,10 +8,14 @@ class IsoComponent extends DragNDrop
 {
     public var isoEngine:IsoEngine;
 
+    static public function setDefaultParamsTo (displayObject:DisplayObject) {
+        displayObject.pivot = new pixi.geom.Point(0.5, 0.5);
+    }
 
     public function new () {
         super();
         isoEngine = IsoEngine.getInstance();
+
     }
 
     public function replace (pos:Vector2, sizeOf:Vector2 = null) {

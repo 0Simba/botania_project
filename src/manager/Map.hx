@@ -20,7 +20,6 @@ class Map
 	public function set (_nbCols:Int, _nbRows:Int): Void {
 		nbCols = _nbCols; nbRows = _nbRows;
 		tilesConfig = Config.tiles;
-		trace(tilesConfig);
 
 		if (isAlreadySet()) { return; };
 

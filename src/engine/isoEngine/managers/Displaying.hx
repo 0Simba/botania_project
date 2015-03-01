@@ -9,6 +9,7 @@ import pixi.display.Stage;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.controls.Camera;
 import pixi.display.Sprite;
+import utils.Vector2;
 
 class Displaying
 {
@@ -78,7 +79,7 @@ class Displaying
     private var stage:Stage;
 
 
-    public function new (_stage:Stage) {
+    public function new (_stage:Stage, screenSize:Vector2) {
         layers = new Map<String, DisplayObjectContainer>();
         stage = _stage;
 
@@ -93,10 +94,17 @@ class Displaying
         createMainLayer("hud");
         createMainLayer("overlay");
         createMainLayer("debug");
+
+        var camera = getCamera();
+        camera.x = screenSize.x / 2;
+        camera.y = screenSize.y / 2;
     }
 
     private function createMainLayer (name:String) {
         var layer = new DisplayObjectContainer();
+        layer.x = 0;
+        layer.y = 0;
+        layer.pivot = new pixi.geom.Point(0.5, 0.5);
         stage.addChild(layer);
         layers.set(name, layer);
     }

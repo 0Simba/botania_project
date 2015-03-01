@@ -11,7 +11,7 @@ class Hud extends IsoComponent
     static public var currentOver:Hud;
     public var sprite:Sprite;
 
-            // if percentSize || percentPos > 1 => pixel
+
     public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud", sizeOf:Vector2 = null) {
         sprite = new Sprite(isoEngine.assets.getTexture(textureName));
         displayObject = sprite;
@@ -23,6 +23,7 @@ class Hud extends IsoComponent
 
         isoEngine.displaying.displayMcOn(sprite, parentLayer);
         initInteractivity();
+        // setIso();
     }
 
 

@@ -10,6 +10,7 @@ import engine.isoEngine.controls.Mouse;
 
 class Camera
 {
+    static public var scale:Float = 1;
 
     static public function move (x:Float = 0, y:Float = 0) {
         camera.x += x;
@@ -17,7 +18,20 @@ class Camera
     }
 
     static public function zoom (v:Float) {
-        camera.scale = new pixi.geom.Point(camera.scale.x + v, camera.scale.y + v);
+        var startDiffX = (isoEngine.width / 2)  - camera.x;
+        var startDiffY = (isoEngine.height / 2) - camera.y;
+        var perX = startDiffX / camera.width;
+        var perY = startDiffY / camera.height;
+
+
+        scale += v;
+        camera.scale = new pixi.geom.Point(scale, scale);
+
+        var endDiffX = (isoEngine.width / 2)  - (camera.x + camera.width  * perX);
+        var endDiffY = (isoEngine.height / 2) - (camera.y + camera.height * perY);
+
+        camera.x += endDiffX;
+        camera.y += endDiffY;
     }
 
 
