@@ -108,10 +108,10 @@ class Map
 		var elementSize = new Vector2(1920, 1920);
 
 		BackgroudSprite.setSize(totalSize, elementSize);
-		BackgroudSprite.add("map_0_0", new Vector2(-1, -0.85));
-		BackgroudSprite.add("map_0_1", new Vector2(-1, 0.15));
-		BackgroudSprite.add("map_1_0", new Vector2(0 , -0.85));
-		BackgroudSprite.add("map_1_1", new Vector2(0 , 0.15));
+		BackgroudSprite.add("map_0_0", new Vector2(-1, -0.835));
+		BackgroudSprite.add("map_0_1", new Vector2(-1, 0.165));
+		BackgroudSprite.add("map_1_0", new Vector2(0 , -0.835));
+		BackgroudSprite.add("map_1_1", new Vector2(0 , 0.165));
 	}
 
 }
