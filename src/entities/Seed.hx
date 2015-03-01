@@ -7,6 +7,7 @@ import init.Config;
 import entities.genetic.Genome;
 import entities.genetic.Chromosome.Type;
 import utils.MapManipulate;
+import utils.Console;
 
 class Seed extends GameObject
 {
@@ -29,9 +30,12 @@ class Seed extends GameObject
     public function merge (seed:Seed) {
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        keepThreeBetterOf(list);
-        normalizeTotalOf(list);
-        roundTwoDecimal(list);
+        mergeWithLog(list, seed);
+        // keepThreeBetterOf(list);
+        // normalizeTotalOf(list);
+        // roundTwoDecimal(list);
+
+        new Seed(Genome.newFromCodeList(list));
 
         seed.destroy();
         destroy();
@@ -195,5 +199,40 @@ class Seed extends GameObject
                                 null;
     }
 
+
+    private function mergeWithLog (list:Map<String, Float>, seed:Seed) {
+        Console.group("Seed's merge");
+            Console.group("OrinalSegment");
+                Console.log(seed.genome.listSegmentCode().toString());
+                Console.log(genome.listSegmentCode().toString());
+            Console.groupEnd();
+
+            Console.group("Treatment");
+                Console.group("original");
+                    Console.log(list.toString());
+                Console.groupEnd();
+
+                Console.group("Keep three better");
+                    keepThreeBetterOf(list);
+                    Console.log(list.toString());
+                Console.groupEnd();
+
+                Console.group("normalize values");
+                    normalizeTotalOf(list);
+                    Console.log(list.toString());
+                Console.groupEnd();
+
+                Console.group("round decimal");
+                    roundTwoDecimal(list);
+                    Console.log(list.toString());
+                Console.groupEnd();
+            Console.groupEnd();
+
+            Console.group("result");
+                var seed = new Seed(Genome.newFromCodeList(list));
+                Console.log(seed.genome.listSegmentCode().toString());
+            Console.groupEnd();
+        Console.groupEnd("End merge");
+    }
 
 }
