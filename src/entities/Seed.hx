@@ -30,12 +30,12 @@ class Seed extends GameObject
     public function merge (seed:Seed) {
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        mergeWithLog(list, seed);
+        mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
         // keepThreeBetterOf(list);
         // normalizeTotalOf(list);
         // roundTwoDecimal(list);
 
-        new Seed(Genome.newFromCodeList(list));
+        // new Seed(Genome.newFromCodeList(list));
 
         seed.destroy();
         destroy();
