@@ -33,8 +33,8 @@ class BackgroudSprite
     private function new (textureName:String, position:Vector2) {
         var sprite = new Sprite(isoEngine.assets.getTexture(textureName));
 
-        sprite.x = position.x * elementsSize.x - totalSize.x / 2;
-        sprite.y = position.y * elementsSize.y - totalSize.y / 2;
+        sprite.y = position.y * elementsSize.y;// - totalSize.y / 2;
+        sprite.x = position.x * elementsSize.x;// - totalSize.x / 2;
         sprite.width  = elementsSize.x;
         sprite.height = elementsSize.y;
 

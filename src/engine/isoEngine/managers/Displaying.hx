@@ -102,6 +102,7 @@ class Displaying
     }
 
     private function logLayerDoesntExist (layer:String) {
+        js.Browser.window.console.trace();
         trace("Le layer " + layer + " n'existe pas");
     }
 }

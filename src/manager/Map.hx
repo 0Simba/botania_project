@@ -18,11 +18,11 @@ class Map
 		nbCols = _nbCols;
 		if (isAlreadySet()) { return; };
 
-		addLayer(nbRows + nbCols);
+		addLayers(nbRows + nbCols);
 
 		for (i in 0...nbCols * nbRows) {
-            var x:Int = i % nbCols;
-            var y:Int = Math.floor(i / nbCols);
+            var x:Int = i % nbCols - Math.floor(nbCols / 2);
+            var y:Int = Math.floor(i / nbCols) - Math.floor(nbRows / 2);
 
 			tiles[i] = new Tile(new ArrayCoord(x, y, i));
 		}
@@ -76,8 +76,9 @@ class Map
 	}
 
 
-	private function addLayer (nb) {
-		for (i in 0...nb) {
+	private function addLayers (nb) {
+		var semiNb = Math.ceil(nb / 2);
+		for (i in -semiNb...semiNb) {
 		    isoEngine.displaying.createChildLayer("buildingHeight" + i, "overTiles");
 		}
 	}
@@ -96,10 +97,10 @@ class Map
 		var elementSize = new Vector2(1920, 1920);
 
 		BackgroudSprite.setSize(totalSize, elementSize);
-		BackgroudSprite.add("map_0_0", new Vector2(0, 0));
-		BackgroudSprite.add("map_0_1", new Vector2(0, 1));
-		BackgroudSprite.add("map_1_0", new Vector2(1, 0));
-		BackgroudSprite.add("map_1_1", new Vector2(1, 1));
+		BackgroudSprite.add("map_0_0", new Vector2(-1, -1));
+		BackgroudSprite.add("map_0_1", new Vector2(-1, 0));
+		BackgroudSprite.add("map_1_0", new Vector2(0, -1));
+		BackgroudSprite.add("map_1_1", new Vector2(0, 0));
 	}
 
 }

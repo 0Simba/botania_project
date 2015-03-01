@@ -7,7 +7,7 @@ class Selection
     static public var events:Events = new Events();
 
     static public var actionType:String = "ground";
-    static public var contain:String    = "grass";
+    static public var contain:String    = "circle";
 
     static private var lastActionType:String = null;
     static private var lastContain:String   = null;

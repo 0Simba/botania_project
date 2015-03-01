@@ -154,7 +154,7 @@ class DragNDrop
 
     static private function buildStaticDatas () {
         isoEngine = IsoEngine.getInstance();
-        displayDragging = new Sprite(IsoEngine.getInstance().assets.getTexture("grass"));
+        displayDragging = new Sprite(IsoEngine.getInstance().assets.getTexture("circle"));
         displayDragging.visible = false;
 
 

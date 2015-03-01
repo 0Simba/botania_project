@@ -10,7 +10,7 @@ import entities.building.Breaker;
 class Tile extends GameObject
 {
 
-    public var currentGround = "grass";
+    public var currentGround = "circle";
 
     public var groundEvents:Events;
 
@@ -27,6 +27,7 @@ class Tile extends GameObject
         addComponent("graphicTile");
 
         graphicTile.addGround("ground");
+        graphicTile.changeGround("circle");
         graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
         bindBuildingsEvents();

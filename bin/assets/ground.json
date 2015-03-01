@@ -1,36 +1,12 @@
 {"frames": {
 
-"grass":
+"circle":
 {
-    "frame": {"x":0, "y":0,"w":128,"h":64},
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
-    "sourceSize": {"w":128,"h":64}
-},
-"automn":
-{
-    "frame": {"x":128, "y":0,"w":128,"h":75},
+    "frame": {"x":0,"y":0,"w":128,"h":75},
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":128,"h":75},
     "sourceSize": {"w":128,"h":75}
-},
-"swamp":
-{
-    "frame": {"x":0,"y":64,"w":128,"h":64},
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
-    "sourceSize": {"w":128,"h":64}
-},
-"savana":
-{
-    "frame": {"x":128,"y":64,"w":128,"h":64},
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
-    "sourceSize": {"w":128,"h":64}
 },
 "adultFlower":
 {
