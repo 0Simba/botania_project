@@ -34,7 +34,7 @@ class Tile extends GameObject
 
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);
-        // graphicTile.displayCoord();
+        graphicTile.displayCoord();
     }
 
 
