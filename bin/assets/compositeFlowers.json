@@ -1,5 +1,4 @@
 {"frames": {
-
     "FA":
     {
         "frame": {"x":0,"y":0,"w":128,"h":148},
@@ -42,7 +41,7 @@
     },
     "OA":
     {
-        "frame": {"x":0148"y":0,"w":128,"h":148},
+        "frame": {"x":148, "y":0,"w":128,"h":148},
         "rotated": false,
         "trimmed": false,
         "spriteSourceSize": {"x":0,"y":0,"w":128,"h":148},
@@ -124,7 +123,7 @@
 "meta": {
     "app": "http://www.codeandweb.com/texturepacker",
     "version": "1.0",
-    "image": "compositeFowers.png",
+    "image": "compositeFlowers.png",
     "format": "RGBA8888",
     "size": {"w":2048,"h":2048},
     "scale": "1",
