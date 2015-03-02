@@ -1,6 +1,7 @@
 <?php
     include "server/connection/bdd.php";
     include "server/Player.php";
+    // include "matthias.php";
 
 
     if (isset($_SESSION["playerID"])) {

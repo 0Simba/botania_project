@@ -6,3 +6,5 @@ node_modules
 launchServer.bat
 simpleServer.js
 bin/server/config.php
+bin/vendor
+bin/vendor.lock
