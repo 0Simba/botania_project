@@ -56,10 +56,16 @@ class InventoryPopUpInit
         for (i in 0...Seed.list.length) {
             var cell:Cell = inventoryPopUp.inventory.addCell();
             cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
-            cell.addBloc(Seed.list[i].appearanceName, new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cell.addButton(new Vector2(0, 0), new Vector2(1, 1), Seed.list[i].appearanceName, Seed.list[i].appearanceName, Seed.list[i].appearanceName, function () {
+            cell.addButton(new Vector2(0, 0), new Vector2(1, 1), "gray", "white", "white", function () {
                 showInteractiveButtons(Seed.list[i]);
             });
+
+            var name = Seed.list[i].appearanceName;
+            var cont = cell.addContainer(new Vector2(1, 1));
+            cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            cont.setDraggable(Seed.list[i]);
         }
     }
 
