@@ -33,6 +33,7 @@ class BreakerPopUpInit
         });
 
         breakerPopUp.addText(new Vector2(0.25, 0.02), new Vector2(0.5, 0.5), "Concasseur", {"font" : "bold 20px verdana", "fill" : "white", "align" : "center"});
+        breakerPopUp.onShow = updateSeedsInventory;
     }
 
 
@@ -72,5 +73,6 @@ class BreakerPopUpInit
             updateSeedsInventory();
         }
     }
+
 }
 

@@ -24,6 +24,7 @@ class Flower extends GameObject
         lunchDelay(grow, config.time.delay);
 
         Flower.add(this);
+        seed.destroy();
     }
 
 

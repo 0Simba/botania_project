@@ -67,6 +67,7 @@ class MouseTile
         }
         else if (Selection.actionType == "plant" && tile.currentBuild == null) {
             tile.createFlower(Selection.meta);
+            Selection.clear();
         }
     }
 
