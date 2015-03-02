@@ -52,7 +52,15 @@ class Tile extends GameObject
         buildingEvents = new Events();
 
         buildingEvents.on("state changed", function (state:String) {
-            graphicTile.changeBuild(state + "Flower");
+            if (state == "adult") {
+                graphicTile.changeBuild("transparent");
+                graphicTile.addBuildTexture("OA");
+                graphicTile.addBuildTexture("GA");
+                graphicTile.addBuildTexture("FA");
+            }
+            else {
+                graphicTile.changeBuild(state + "Flower");
+            }
         });
 
         buildingEvents.on("callingServer", function () {

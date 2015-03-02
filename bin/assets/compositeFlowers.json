@@ -41,7 +41,7 @@
     },
     "OA":
     {
-        "frame": {"x":148, "y":0,"w":128,"h":148},
+        "frame": {"x":0, "y":148,"w":128,"h":148},
         "rotated": false,
         "trimmed": false,
         "spriteSourceSize": {"x":0,"y":0,"w":128,"h":148},

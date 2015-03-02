@@ -9,6 +9,7 @@ import engine.isoEngine.IsoUtils;
 import engine.isoEngine.managers.Displaying;
 import utils.Vector2;
 import engine.isoEngine.components.IsoComponent;
+import pixi.display.Sprite;
 
 class Tile extends IsoComponent
 {
@@ -69,6 +70,13 @@ class Tile extends IsoComponent
             }
             building.visible = true;
         }
+    }
+
+    public function addBuildTexture (name:String):Sprite {
+        var texture = isoEngine.assets.getTexture(name);
+        var child = new Sprite(texture);
+        building.addChild(child);
+        return child;
     }
 
     public function displayCoord () {

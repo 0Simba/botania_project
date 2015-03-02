@@ -4,6 +4,7 @@ import engine.events.Events;
 import GameObject;
 import init.Config;
 import entities.Seed;
+import entities.genetic.Genome;
 
 class Flower extends GameObject
 {
@@ -13,12 +14,15 @@ class Flower extends GameObject
     private var referent:Events;
     private var stateIndex:Int;
 
+    public var genome:Genome;
+
     public function new (_referent, seed:Seed) {
         super();
         config     = Config.flower;
         stateList  = config.states;
         referent   = _referent;
         stateIndex = 0;
+        genome     = seed.genome;
 
         referent.emit("state changed", stateList[stateIndex]);
         lunchDelay(grow, config.time.delay);
