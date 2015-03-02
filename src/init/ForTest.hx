@@ -13,43 +13,33 @@ import utils.Vector2;
 
 class ForTest
 {
+
+
+
     static public function load () {
 
-        new Seed(new Genome(
-            new Segment(1,
-                new Family(Type.A),
-                new Order(Type.A),
-                new Genre(Type.A)
-            )
-        ));
-        new Seed(new Genome(
-            new Segment(1,
-                new Family(Type.A),
-                new Order(Type.A),
-                new Genre(Type.B)
-            )
-        ));
-        new Seed(new Genome(
-            new Segment(1,
-                new Family(Type.A),
-                new Order(Type.A),
-                new Genre(Type.C)
-            )
-        ));
-        new Seed(new Genome(
-            new Segment(1,
-                new Family(Type.A),
-                new Order(Type.A),
-                new Genre(Type.D)
-            )
-        ));
-        new Seed(new Genome(
-            new Segment(1,
-                new Family(Type.A),
-                new Order(Type.A),
-                new Genre(Type.E)
-            )
-        ));
+        var allType = new Array<Type>();allType.push(Type.A);allType.push(Type.B);allType.push(Type.C);allType.push(Type.D);allType.push(Type.E);
+
+        for (family in 0...allType.length) {
+            var cFamily = allType[family];
+
+            for (order in 0...allType.length) {
+                var cOrder = allType[order];
+
+                for (genre in 0...allType.length) {
+                    var cGenre = allType[genre];
+
+                    new Seed(new Genome(
+                        new Segment(1,
+                            new Family(cFamily),
+                            new Order(cOrder),
+                            new Genre(cGenre)
+                        )
+                    ));
+                }
+            }
+        }
+
 
         // trace(Adn.getCode());
         // trace(Adn2.getCode());

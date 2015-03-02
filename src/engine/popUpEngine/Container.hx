@@ -9,7 +9,7 @@ import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.Inventory;
 import engine.popUpEngine.Text;
 
-class Container
+class Container extends engine.isoEngine.components.DragNDrop
 {
     public var isoEngine:IsoEngine;
     public var layer:DisplayObjectContainer;
@@ -19,6 +19,7 @@ class Container
     public var name:String;
 
     public function new (_name:String, parentLayer:String, size:Vector2 = null, parentSize:Vector2 = null) {
+        super();
         isoEngine       = IsoEngine.getInstance();
         popUpEngineMain = PopUpEngineMain.getInstance();
 
@@ -30,10 +31,11 @@ class Container
 
         name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
+        displayObject = layer; // extends dragNDrop
     }
 
     public function addBloc (textureName:String, pos:Vector2 = null, size:Vector2 = null) {
-        pos = (pos == null) ? Vector2.zero : pos; size = (size == null) ? Vector2.full : size; // Impossible to put Vector2.zero as default... (lol)
+        pos = (pos == null) ? Vector2.zero : pos; size = (size == null) ? Vector2.full : size;
 
         var bloc = new Bloc(pos, size, textureName);
         return addSomethingOn(bloc);
@@ -61,5 +63,9 @@ class Container
 
     public function addSomethingOn (target:Dynamic):Dynamic {
         return target.addOn(layer, pxSize, name);
+    }
+
+    public function addContainer (_size:Vector2):Container {
+        return new Container(name + "Child", name, _size, pxSize);
     }
 }

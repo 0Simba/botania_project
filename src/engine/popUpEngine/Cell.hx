@@ -8,7 +8,6 @@ import engine.popUpEngine.Inventory;
 class Cell extends engine.popUpEngine.Container
 {
     private var inventory:Inventory;
-    private var meta:Dynamic;
 
     public function new (_inventory:Inventory, layerName:String, parentLayerName:String, pos:Vector2, size:Vector2, _meta:Dynamic) {
         super(layerName, parentLayerName, new Vector2(1, 1), size);

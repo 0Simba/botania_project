@@ -53,10 +53,12 @@ class Tile extends GameObject
 
         buildingEvents.on("state changed", function (state:String) {
             if (state == "adult") {
+                var flower:Flower = cast buildingRef;
+                var genomeAppearance = flower.genome.getAppearanceName();
                 graphicTile.changeBuild("transparent");
-                graphicTile.addBuildTexture("OA");
-                graphicTile.addBuildTexture("GA");
-                graphicTile.addBuildTexture("FA");
+                graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
+                graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
+                graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
             }
             else {
                 graphicTile.changeBuild(state + "Flower");
