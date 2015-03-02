@@ -8,3 +8,4 @@ simpleServer.js
 bin/server/config.php
 bin/vendor
 bin/vendor.lock
+bin/phpLog.txt
