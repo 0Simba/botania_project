@@ -43,7 +43,7 @@ class AjaxRequest
     }
 
     static private function phpErrorInString (response) {
-        var r = new EReg("<font", "g");
+        var r = new EReg("<", "g");
         return r.match(response);
     }
 
@@ -53,6 +53,6 @@ class AjaxRequest
         var log = js.Browser.window.document.createElement("p");
         log.innerHTML = response;
         logDom.appendChild(cast log);
-        // trace(response);
+        trace(response);
     }
 }

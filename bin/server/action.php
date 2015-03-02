@@ -4,6 +4,11 @@
     $datas    = isset($_GET["datas"]) ? json_decode(urldecode($_GET["datas"])) : null;
     $player   = new Player ($_SESSION["playerID"]);
 
+
+    // $fp = fopen('phpLog.txt', 'w');
+    // fwrite($fp, date('Y-m-d H:i:s') . ' : Action ' + $action + ' de  ' + $_SESSION["playerID"] + '...');
+
+
     if ($action == "buildBreaker") {
         include "server/buildBreaker.php";
     }
