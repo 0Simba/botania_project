@@ -27,7 +27,6 @@ class Tile extends IsoComponent
             /***** GROUND *****/
     public function addGround (name:String) {
         ground = new MovieClip(isoEngine.assets.getAnimation(name));
-        // IsoComponent.setDefaultParamsTo(ground);
 
         ground.width  = size.x;
         ground.height = size.y;

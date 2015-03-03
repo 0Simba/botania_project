@@ -6,6 +6,7 @@ import engine.isoEngine.components.Tile;
 import js.html.Event;
 import pixi.loaders.JsonLoader;
 import utils.Vector2;
+import engine.isoEngine.managers.AnimParams;
 
 class Assets
 {
@@ -30,14 +31,16 @@ class Assets
 
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
         target.removeEventListener("loaded", preloadAssets);
-        var myData = cast(pEvent.target, JsonLoader).json.frames;
+        var myDatas    = cast(pEvent.target, JsonLoader).json;
+        var frames     = myDatas.frames;
+        extractAnimParams(animationName, myDatas.animParams);
         var anchor;
         var size;
         var cObj;
 
         var list:Array<String> = new Array<String>();
-        for (name in Reflect.fields(myData)) {
-            cObj = myData[cast name];
+        for (name in Reflect.fields(frames)) {
+            cObj = frames[cast name];
             list.push(name);
 
             size = (cObj.size != null) ? new Vector2(cObj.size.w, cObj.size.h) : new Vector2(cObj.frame.w, cObj.frame.h);
@@ -49,6 +52,12 @@ class Assets
         }
         isoEngine.assets.createAnimation(animationName, list);
         assetLoaded();
+    }
+
+    static private function extractAnimParams (name:String, params:Dynamic) {
+        if (params != null) {
+            new AnimParams(name, params.speed, cast params.anchor, cast params.size);
+        }
     }
 
     static private function assetLoaded () {

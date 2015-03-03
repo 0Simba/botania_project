@@ -6,6 +6,7 @@ import engine.events.Events;
 import utils.ArrayCoord;
 import utils.Vector2;
 import entities.building.Breaker;
+import engine.isoEngine.components.Animation;
 
 class Tile extends GameObject
 {
@@ -59,6 +60,8 @@ class Tile extends GameObject
                 graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
                 graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
                 graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
+
+                new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y), "overTiles");
             }
             else {
                 graphicTile.changeBuild(state + "Flower");
