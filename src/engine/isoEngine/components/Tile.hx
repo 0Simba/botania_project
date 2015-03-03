@@ -41,13 +41,9 @@ class Tile extends IsoComponent
 
             /***** BUILDING *****/
     public function addBuild (textureName:String) {
-        var size = isoEngine.assets.getSize(textureName);
 
         building = new MovieClip(isoEngine.assets.getAnimation("ground"));
-        building.texture = isoEngine.assets.getTexture(textureName);
-        building.anchor  = isoEngine.assets.getAnchor(textureName);
-        building.width   = size.x;
-        building.height  = size.y;
+        setBuild(textureName);
 
         building.x = ground.x + size.x / 2;
         building.y = ground.y + size.y / 2;
@@ -68,7 +64,7 @@ class Tile extends IsoComponent
                 addBuild(name);
             }
             else {
-                building.texture = isoEngine.assets.getTexture(name);
+                setBuild(name);
             }
             building.visible = true;
         }
@@ -78,6 +74,7 @@ class Tile extends IsoComponent
         var texture = isoEngine.assets.getTexture(name);
         var child = new Sprite(texture);
         building.addChild(child);
+        setBuild(name, child);
         return child;
     }
 
@@ -91,6 +88,16 @@ class Tile extends IsoComponent
         coordText.pivot  = new pixi.geom.Point(0.5, 0.5);
 
         isoEngine.displaying.displayMcOn(coordText, "tiles");
+    }
+
+    private function setBuild (textureName:String, element:Sprite = null) {
+        element = (element != null) ? element : building;
+
+        element.texture = isoEngine.assets.getTexture(textureName);
+        var size = isoEngine.assets.getSize(textureName);
+        element.anchor  = isoEngine.assets.getAnchor(textureName);
+        element.width   = size.x;
+        element.height  = size.y;
     }
 
 

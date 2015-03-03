@@ -55,7 +55,7 @@ class Tile extends GameObject
             if (state == "adult") {
                 var flower:Flower = cast buildingRef;
                 var genomeAppearance = flower.genome.getAppearanceName();
-                graphicTile.changeBuild("transparent");
+                graphicTile.changeBuild("flowerContainer");
                 graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
                 graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
                 graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));

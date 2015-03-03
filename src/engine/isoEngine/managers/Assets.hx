@@ -86,8 +86,6 @@ class Assets
 
     public function addAnchor (name, values) {
         anchors.set(name, new Point(values.x, values.y));
-        trace("??");
-        trace(anchors);
     }
 
 
