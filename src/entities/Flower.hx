@@ -27,8 +27,19 @@ class Flower extends GameObject
         referent.emit("state changed", stateList[stateIndex]);
         lunchDelay(grow, config.time.delay);
 
-        Flower.add(this);
+        list.push(this);
         seed.destroy();
+    }
+
+    public function harvest () {
+        if (stateList[stateIndex] == "bloom") {
+            stateIndex = 0;
+            referent.emit("state changed", stateList[stateIndex]);
+            lunchDelay(grow, config.time.delay);
+        }
+        else {
+            trace("Flower.harvest -> Tentative de récolter alors que la plante n'a pas éclos");
+        }
     }
 
 
@@ -80,9 +91,7 @@ class Flower extends GameObject
         //List to manage destroying
 
     static private var list:Array<Flower> = new Array<Flower>();
-    static private function add (flower:Flower) {
-        list.push(flower);
-    }
+
     static private function remove (flower:Flower) {
         var i = list.indexOf(flower);
         list.splice(i, 1);

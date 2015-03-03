@@ -1,6 +1,6 @@
 {
 	"time" : {
-		"delay" : 100
+		"delay" : 500
 	},
-	"states" : ["baby", "child", "teenage", "adult"]
+	"states" : ["baby", "child", "teenage", "adult", "bloom"]
 }

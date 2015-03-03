@@ -21,6 +21,7 @@ class Tile extends GameObject
     public var buildingServerResponse = true;
 
     public var coord:ArrayCoord;
+    public var flowerAnim:Animation;
 
 	public function new (_coord:ArrayCoord)
 	{
@@ -61,9 +62,19 @@ class Tile extends GameObject
                 graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
                 graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
 
-                new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y), "overTiles");
+                if (flowerAnim != null) {
+                    flowerAnim.destroy();
+                    flowerAnim = null;
+                }
+            }
+            else if (state == "bloom") {
+                flowerAnim = new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y), "overTiles");
             }
             else {
+                if (flowerAnim != null) {
+                    flowerAnim.destroy();
+                    flowerAnim = null;
+                }
                 graphicTile.changeBuild(state + "Flower");
             }
         });

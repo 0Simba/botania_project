@@ -23,6 +23,6 @@ class Flower extends CirclesHudManager
 
     public function pickFlower (targetFlower:entities.Flower) {
         close();
-        popUpEngine.show("flowerPopUp");
+        targetFlower.harvest();
     }
 }

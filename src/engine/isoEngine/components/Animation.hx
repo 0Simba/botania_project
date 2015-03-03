@@ -10,14 +10,30 @@ class Animation extends IsoComponent {
 
     private static var animations:Array<Animation> = new Array<Animation>();
 
+    public var movieClip:MovieClip;
+
     public function new (animationName:String, position:Vector2, parentLayerName:String) {
         super();
-        var movieClip = new MovieClip(isoEngine.assets.getAnimation(animationName));
+        movieClip = new MovieClip(isoEngine.assets.getAnimation(animationName));
         isoEngine.displaying.displayMcOn(movieClip, parentLayerName);
         movieClip.x = position.x;
         movieClip.y = position.y;
         movieClip.play();
 
+        applyParams(animationName);
+        animations.push(this);
+    }
+
+    public function destroy () {
+        var parent:pixi.display.DisplayObjectContainer = movieClip.parent;
+        parent.removeChild(movieClip);
+
+        var i = animations.indexOf(this);
+        animations.splice(i, 1);
+    }
+
+
+    private function applyParams (animationName:String) {
         var params;
         if ((params = AnimParams.get(animationName)) != null) {
             movieClip.animationSpeed = params.speed;
