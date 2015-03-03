@@ -19,8 +19,10 @@ class Animation extends IsoComponent {
 
         var params;
         if ((params = AnimParams.get(animationName)) != null) {
-            trace("okokok");
-            trace(params);
+            movieClip.animationSpeed = params.speed;
+            movieClip.width  = params.size.x;
+            movieClip.height = params.size.y;
+            movieClip.anchor = params.anchor;
         }
 
 
