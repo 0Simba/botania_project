@@ -15,48 +15,11 @@ class Button extends Hud
 
     private var overFilter:ColorMatrixFilter;
     private var clickFilter:ColorMatrixFilter;
-    private var normalFilter:ColorMatrixFilter;
 
     public function new () {
         super();
         setOverFilter();
         setClickFilter();
-        setNormalFilter();
-    }
-
-    public function setOverFilter () {
-        var colorMatrix =  [
-            1.0, 0.15, 0.15, 0.0,
-            0.15, 1.0, 0.15, 0.0,
-            0.15, 0.15, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ];
-        overFilter = new ColorMatrixFilter();
-        overFilter.matrix = colorMatrix;
-    }
-
-    public function setClickFilter () {
-        var colorMatrix =  [
-            0.85, 0.0, 0.0, 0.0,
-            0.0, 0.85, 0.0, 0.0,
-            0.0, 0.0, 0.85, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ];
-
-        clickFilter = new ColorMatrixFilter();
-        clickFilter.matrix = colorMatrix;
-    }
-
-    public function setNormalFilter () {
-        var colorMatrix =  [
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ];
-
-        normalFilter = new ColorMatrixFilter();
-        normalFilter.matrix = colorMatrix;
     }
 
     override private function initInteractivity () {
@@ -74,13 +37,12 @@ class Button extends Hud
     private function alwaysButtonOver (mouseData) {
         alwaysOver(mouseData);
         overBind();
-        changeTexture(hoverTexture);
         sprite.filters = [overFilter];
     }
     private function alwaysButtonOut (mouseData) {
         alwaysOut(mouseData);
         outBind();
-        sprite.filters = [normalFilter];
+        sprite.filters = null;
     }
     private function alwaysButtonClick (mouseData) {
         clickBind();
@@ -92,5 +54,30 @@ class Button extends Hud
     override public function overBind () {};
     override public function outBind () {};
     override public function clickBind () {};
+
+
+
+        /****** YOU DON'T CARE *****/
+    private function setOverFilter () {
+        var colorMatrix =  [
+            1.0, 0.15, 0.15, 0.0,
+            0.15, 1.0, 0.15, 0.0,
+            0.15, 0.15, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ];
+        overFilter = new ColorMatrixFilter();
+        overFilter.matrix = colorMatrix;
+    }
+    private function setClickFilter () {
+        var colorMatrix =  [
+            0.85, 0.0, 0.0, 0.0,
+            0.0, 0.85, 0.0, 0.0,
+            0.0, 0.0, 0.85, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ];
+
+        clickFilter = new ColorMatrixFilter();
+        clickFilter.matrix = colorMatrix;
+    }
 
 }
