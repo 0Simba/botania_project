@@ -32,13 +32,18 @@ class Assets
         target.removeEventListener("loaded", preloadAssets);
         var myData = cast(pEvent.target, JsonLoader).json.frames;
         var anchor;
+        var size;
+        var cObj;
 
         var list:Array<String> = new Array<String>();
         for (name in Reflect.fields(myData)) {
+            cObj = myData[cast name];
             list.push(name);
-            isoEngine.assets.addTexture(name, name);
 
-            if ((anchor = myData[cast name].anchor) != null) {
+            size = (cObj.size != null) ? new Vector2(cObj.size.w, cObj.size.h) : new Vector2(cObj.frame.w, cObj.frame.h);
+            isoEngine.assets.addTexture(name, name, size);
+
+            if ((anchor = cObj.anchor) != null) {
                 isoEngine.assets.addAnchor(name, anchor);
             }
         }

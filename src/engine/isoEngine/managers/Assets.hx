@@ -4,6 +4,7 @@ import pixi.textures.Texture;
 import pixi.loaders.AssetLoader;
 import engine.isoEngine.IsoEngine;
 import pixi.geom.Point;
+import utils.Vector2;
 
 class Assets
 {
@@ -11,6 +12,7 @@ class Assets
     private var animations:Map<String, Array<Texture>>;
     private var textures  :Map<String, Texture>;
     private var anchors   :Map<String, Point>;
+    private var sizes     :Map<String, Vector2>;
 
 
     public function getTexture (name:String):Texture {
@@ -30,6 +32,16 @@ class Assets
         }
         else {
             return new Point(0, 0);
+        }
+    }
+
+    public function getSize (name:String):Vector2 {
+        if (sizes.exists(name)) {
+            return sizes.get(name);
+        }
+        else {
+            trace("isoEngine.Assets.getsize -> la taile pour " + name + " n'existe pas");
+            return null;
         }
     }
 
@@ -67,8 +79,9 @@ class Assets
 
 
         /***** LOADING *****/
-    public function addTexture (name, from) {
+    public function addTexture (name, from, size) {
         textures.set(name, Texture.fromFrame(from));
+        sizes.set(name, size);
     }
 
     public function addAnchor (name, values) {
@@ -78,11 +91,11 @@ class Assets
     }
 
 
-
         /***** YOU DON'T CARE *****/
     public function new () {
         textures   = new Map<String, Texture>();
         animations = new Map<String, Array<Texture>>();
         anchors    = new Map<String, Point>();
+        sizes      = new Map<String, Vector2>();
     }
 }

@@ -42,10 +42,10 @@ class TileSelectionIndicator {
     }
 
     public function createAnimation (isoEngine:IsoEngine) {
-        isoEngine.assets.addTexture("over", "over");
-        var list:Array<String> = new Array<String>();
-        list.push("over");
-        isoEngine.assets.createAnimation("tileIndicator", list);
+        // isoEngine.assets.addTexture("over", "over");
+        // var list:Array<String> = new Array<String>();
+        // list.push("over");
+        // isoEngine.assets.createAnimation("tileIndicator", list);
     }
 
     public function new () {}
