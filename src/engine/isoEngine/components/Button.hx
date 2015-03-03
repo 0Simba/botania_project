@@ -26,9 +26,9 @@ class Button extends Hud
 
     public function setOverFilter () {
         var colorMatrix =  [
-            1.0, 0.2, 0.2, 0.0,
-            0.2, 1.0, 0.2, 0.0,
-            0.2, 0.2, 1.0, 0.0,
+            1.0, 0.15, 0.15, 0.0,
+            0.15, 1.0, 0.15, 0.0,
+            0.15, 0.15, 1.0, 0.0,
             0.0, 0.0, 0.0, 1.0
         ];
         overFilter = new ColorMatrixFilter();
@@ -37,9 +37,9 @@ class Button extends Hud
 
     public function setClickFilter () {
         var colorMatrix =  [
-            0.8, 0.0, 0.0, 0.0,
-            0.0, 0.8, 0.0, 0.0,
-            0.0, 0.0, 0.8, 0.0,
+            0.85, 0.0, 0.0, 0.0,
+            0.0, 0.85, 0.0, 0.0,
+            0.0, 0.0, 0.85, 0.0,
             0.0, 0.0, 0.0, 1.0
         ];
 
@@ -64,6 +64,7 @@ class Button extends Hud
         sprite.mouseover   = alwaysButtonOver;
         sprite.mouseout    = alwaysButtonOut;
         sprite.mouseup     = alwaysButtonClick;
+        sprite.mousedown   = alwaysButtonDown;
     }
 
     public function onClick (clickCallback) {
@@ -91,8 +92,9 @@ class Button extends Hud
     }
     private function alwaysButtonClick (mouseData) {
         clickBind();
+    }
+    private function alwaysButtonDown (mouseData) {
         sprite.filters = [clickFilter];
-        trace("ok click");
     }
 
     override public function overBind () {};
