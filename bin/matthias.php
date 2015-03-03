@@ -53,12 +53,11 @@
 
     if($session)
     {
-        $request = new FacebookRequest($session, 'GET', '/me');
-        $response = $request->execute();
-        $graphObject = $response->getGraphObject();
-
-        echo '<pre>'.print_r($graphObject,1).'</pre>';
-        echo '<pre>'.print_r($session,1).'</pre>';
+        $request     = new FacebookRequest($session, 'GET', '/me');
+        $response    = $request->execute();
+        $graphObject = $response->getGraphObject(GraphUser::className());
+        // echo '<pre>'.print_r($graphObject,1).'</pre>';
+        // echo '<pre>'.print_r($session,1).'</pre>';
     }
     else
     {

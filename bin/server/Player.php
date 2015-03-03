@@ -15,7 +15,7 @@
             $x = $position->x;
             $y = $position->y;
 
-            $response = $this->db->query("SELECT * FROM playersBuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("SELECT * FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
             if (!$err = $this->noError()) return $err;
             $nbResult = $response->num_rows;
 
@@ -26,7 +26,7 @@
             $x = $position->x;
             $y = $position->y;
 
-            $this->db->query("INSERT INTO playersBuildings VALUES (NULL, '$this->id', '$type', '$x', '$y', '', '', '', '', '', '')");
+            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', '$type', '$x', '$y', '', '', '', '', '', '')");
 
             return $this->noError();
         }
@@ -35,7 +35,7 @@
             $x = $position->x;
             $y = $position->y;
 
-            $response = $this->db->query("DELETE FROM playersBuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("DELETE FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
             if ($err = $this->noError() != true) {
                 return $this->noError();
             }
@@ -45,8 +45,11 @@
 
         function getBuidings () {
             $id = $this->id;
-            $response = $this->db->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersBuildings WHERE PlayerID = '$this->id'");
-            if ($err = $this->noError()) {
+            $response = $this->db->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersbuildings WHERE PlayerID = '$this->id'");
+
+            echo ($this->db->error);
+
+            if ($err = $this->noError() && $response->num_rows) {
                 $buildings = array();
                 while ($data = $response->fetch_array()) {
                     array_push($buildings, $data);

@@ -53,6 +53,7 @@ class AjaxRequest
         var log = js.Browser.window.document.createElement("p");
         log.innerHTML = response;
         logDom.appendChild(cast log);
+        trace("res");
         trace(response);
     }
 }

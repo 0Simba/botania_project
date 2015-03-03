@@ -22,7 +22,7 @@ class Scrollbar
 
 
     public function new (_inventory:Inventory) {
-        inventory = _inventory;
+        inventory    = _inventory;
         isHorizontal = (inventory.nbElementX == -1) ? true : false;
 
         createLayer();
