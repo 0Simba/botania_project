@@ -3,17 +3,15 @@ package engine.isoEngine.managers;
 import pixi.textures.Texture;
 import pixi.loaders.AssetLoader;
 import engine.isoEngine.IsoEngine;
+import pixi.geom.Point;
 
 class Assets
 {
 
     private var animations:Map<String, Array<Texture>>;
-    private var textures:  Map<String, Texture>;
+    private var textures  :Map<String, Texture>;
+    private var anchors   :Map<String, Point>;
 
-
-    public function addTexture (name, from) {
-        textures.set(name, Texture.fromFrame(from));
-    }
 
     public function getTexture (name:String):Texture {
         if (textures.exists(name)) {
@@ -22,6 +20,16 @@ class Assets
         else {
             trace("isoEngine.Assets.getTexture -> la texture " + name + " n'existe pas");
             return null;
+        }
+    }
+
+    public function getAnchor (name:String):Point {
+        var anchor;
+        if ((anchor = anchors.get(name)) != null) {
+            return anchor;
+        }
+        else {
+            return new Point(0, 0);
         }
     }
 
@@ -58,10 +66,21 @@ class Assets
 
 
 
+        /***** LOADING *****/
+    public function addTexture (name, from) {
+        textures.set(name, Texture.fromFrame(from));
+    }
+
+    public function addAnchor (name, values) {
+        anchors.set(name, new Point(values.x, values.y));
+    }
+
+
 
         /***** YOU DON'T CARE *****/
     public function new () {
         textures   = new Map<String, Texture>();
         animations = new Map<String, Array<Texture>>();
+        anchors    = new Map<String, Point>();
     }
 }

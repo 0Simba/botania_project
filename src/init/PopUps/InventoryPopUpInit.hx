@@ -59,12 +59,13 @@ class InventoryPopUpInit
 
             var name = Seed.list[i].appearanceName;
             var cont = cell.addContainer(new Vector2(1, 1));
-            cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), "transparent", function () {
+            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), "black", function () {
                 showInteractiveButtons(Seed.list[i]);
             });
+
+            cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
+            cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
+            cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
         }
     }
 

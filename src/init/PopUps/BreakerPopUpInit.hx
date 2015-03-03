@@ -60,7 +60,7 @@ class BreakerPopUpInit
     }
 
     static private function setSeedsMergingElements () {
-        seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18)); // cast to rectify haxe comilation fail
+        seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
         seed2 = cast breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
         seed1.setDroppable();
         seed2.setDroppable();

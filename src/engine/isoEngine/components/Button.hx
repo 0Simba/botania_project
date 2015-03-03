@@ -16,6 +16,7 @@ class Button extends Hud
     private var overFilter:ColorMatrixFilter;
     private var clickFilter:ColorMatrixFilter;
 
+
     public function new () {
         super();
         setOverFilter();

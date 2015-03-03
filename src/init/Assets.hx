@@ -31,11 +31,16 @@ class Assets
     static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
         target.removeEventListener("loaded", preloadAssets);
         var myData = cast(pEvent.target, JsonLoader).json.frames;
+        var anchor;
 
         var list:Array<String> = new Array<String>();
-        for (n in Reflect.fields(myData)) {
-            list.push(n);
-            isoEngine.assets.addTexture(n, n);
+        for (name in Reflect.fields(myData)) {
+            list.push(name);
+            isoEngine.assets.addTexture(name, name);
+
+            if ((anchor = myData[cast name].anchor) != null) {
+                isoEngine.assets.addAnchor(name, anchor);
+            }
         }
         isoEngine.assets.createAnimation(animationName, list);
         assetLoaded();
