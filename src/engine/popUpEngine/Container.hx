@@ -47,7 +47,7 @@ class Container extends engine.isoEngine.components.DragNDrop
     }
 
     public function addButton (pos:Vector2, size:Vector2, basicTexture:String, overTexture:String, clickTexture:String, callback) {
-        var button = new Button(size, pos, basicTexture, overTexture, clickTexture, callback);
+        var button = new Button(size, pos, basicTexture, callback);
         return addSomethingOn(button);
     }
 

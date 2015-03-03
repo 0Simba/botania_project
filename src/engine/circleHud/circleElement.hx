@@ -18,7 +18,6 @@ class CircleElement extends GameObject
 
         addComponent("hudButton");
         hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName);
-        hudButton.setTextures(basicTexture, hoverTexture, clickTexture);
         hudButton.onClick(click);
     }
 

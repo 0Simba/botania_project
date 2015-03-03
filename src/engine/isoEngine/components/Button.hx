@@ -71,14 +71,6 @@ class Button extends Hud
         clickBind = clickCallback;
     }
 
-    public function setTextures (_basicTexture:String, _hoverTexture:String, _clickTexture:String) {
-        basicTexture = _basicTexture;
-        hoverTexture = _hoverTexture;
-        clickTexture = _clickTexture;
-        changeTexture(basicTexture);
-    }
-
-
     private function alwaysButtonOver (mouseData) {
         alwaysOver(mouseData);
         overBind();
