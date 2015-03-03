@@ -16,6 +16,7 @@ class Animation extends IsoComponent {
         isoEngine.displaying.displayMcOn(movieClip, parentLayerName);
         movieClip.x = position.x;
         movieClip.y = position.y;
+        movieClip.play();
 
         var params;
         if ((params = AnimParams.get(animationName)) != null) {
@@ -23,10 +24,8 @@ class Animation extends IsoComponent {
             movieClip.width  = params.size.x;
             movieClip.height = params.size.y;
             movieClip.anchor = params.anchor;
+
         }
-
-
-        movieClip.play();
     }
 }
 

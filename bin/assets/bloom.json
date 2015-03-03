@@ -109,7 +109,7 @@
 	"smartupdate": "$TexturePacker:SmartUpdate:2dccb4a4b13ed4e3d0184bfa48385d05:f9b16f5b5c5dbc570b2d16a3ffd2af9b:496b4953ac8c55594d947231ee2ac987$"
 },
 "animParams": {
-	"speed"  : 10,
+	"speed"  : 0.3,
 	"anchor" : {"x" : 0.5, "y" : 0.5},
 	"size"   : {"x" : 128, "y" : 148}
 }
