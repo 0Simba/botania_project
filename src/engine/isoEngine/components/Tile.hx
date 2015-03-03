@@ -43,7 +43,7 @@ class Tile extends IsoComponent
     public function addBuild (textureName:String) {
         building = new MovieClip(isoEngine.assets.getAnimation("ground"));
         building.texture = isoEngine.assets.getTexture(textureName);
-        // building.anchor  = isoEngine.asstes.getAnchor(textureName);
+        building.anchor  = isoEngine.assets.getAnchor(textureName);
 
         building.width  = size.x;
         building.height = size.y * 2;

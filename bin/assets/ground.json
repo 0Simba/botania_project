@@ -54,7 +54,8 @@
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":256,"h":300},
-    "sourceSize": {"w":256,"h":300}
+    "sourceSize": {"w":256,"h":300},
+    "anchor" : {"x":0.5, "y":0.73}
 }},
 "meta": {
     "app": "http://www.codeandweb.com/texturepacker",
