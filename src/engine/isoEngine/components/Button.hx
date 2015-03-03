@@ -1,5 +1,6 @@
 package engine.isoEngine.components;
 
+import pixi.filters.ColorMatrixFilter;
 import utils.Vector2;
 import engine.isoEngine.IsoEngine;
 import pixi.display.Sprite;
@@ -12,8 +13,50 @@ class Button extends Hud
     private var hoverTexture:String;
     private var clickTexture:String;
 
+    private var overFilter:ColorMatrixFilter;
+    private var clickFilter:ColorMatrixFilter;
+    private var normalFilter:ColorMatrixFilter;
+
     public function new () {
         super();
+        setOverFilter();
+        setClickFilter();
+        setNormalFilter();
+    }
+
+    public function setOverFilter () {
+        var colorMatrix =  [
+            1.0, 0.2, 0.2, 0.0,
+            0.2, 1.0, 0.2, 0.0,
+            0.2, 0.2, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ];
+        overFilter = new ColorMatrixFilter();
+        overFilter.matrix = colorMatrix;
+    }
+
+    public function setClickFilter () {
+        var colorMatrix =  [
+            0.8, 0.0, 0.0, 0.0,
+            0.0, 0.8, 0.0, 0.0,
+            0.0, 0.0, 0.8, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ];
+
+        clickFilter = new ColorMatrixFilter();
+        clickFilter.matrix = colorMatrix;
+    }
+
+    public function setNormalFilter () {
+        var colorMatrix =  [
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ];
+
+        normalFilter = new ColorMatrixFilter();
+        normalFilter.matrix = colorMatrix;
     }
 
     override private function initInteractivity () {
@@ -39,15 +82,17 @@ class Button extends Hud
         alwaysOver(mouseData);
         overBind();
         changeTexture(hoverTexture);
+        sprite.filters = [overFilter];
     }
     private function alwaysButtonOut (mouseData) {
         alwaysOut(mouseData);
         outBind();
-        changeTexture(basicTexture);
+        sprite.filters = [normalFilter];
     }
     private function alwaysButtonClick (mouseData) {
         clickBind();
-        changeTexture(clickTexture);
+        sprite.filters = [clickFilter];
+        trace("ok click");
     }
 
     override public function overBind () {};
