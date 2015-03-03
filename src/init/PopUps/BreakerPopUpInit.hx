@@ -65,7 +65,7 @@ class BreakerPopUpInit
         seed1.setDroppable();
         seed2.setDroppable();
 
-        var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", "gray", "darkGray", mergeSeeds);
+        var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", mergeSeeds);
     }
 
     static private function mergeSeeds () {

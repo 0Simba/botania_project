@@ -28,9 +28,9 @@ class InventoryPopUpInit
 
         inventory = inventoryPopUp.setInventory(new Vector2(0.1, 0.08), new Vector2(0.8, 0.6), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
 
-        pickButton  = inventoryPopUp.addButton(new Vector2(0.7, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", pickButtonClick);
+        pickButton  = inventoryPopUp.addButton(new Vector2(0.7, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", pickButtonClick);
         pickButton.hide();
-        trashButton = inventoryPopUp.addButton(new Vector2(0.8, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", "inventoryBtn", "inventoryBtn", function(){});
+        trashButton = inventoryPopUp.addButton(new Vector2(0.8, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", function(){});
         trashButton.hide();
 
         inventoryPopUp.addButtonPattern("close").onClick(closePopUp);
@@ -62,7 +62,7 @@ class InventoryPopUpInit
             cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
             cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
             cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cell.addButton(new Vector2(0, 0), new Vector2(1, 1), "transparent", "white", "white", function () {
+            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), "transparent", function () {
                 showInteractiveButtons(Seed.list[i]);
             });
         }
