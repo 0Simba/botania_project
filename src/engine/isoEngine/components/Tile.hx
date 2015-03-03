@@ -64,6 +64,7 @@ class Tile extends IsoComponent
                 addBuild(name);
             }
             else {
+                clearBuild();
                 setBuild(name);
             }
             building.visible = true;
@@ -88,6 +89,14 @@ class Tile extends IsoComponent
         coordText.pivot  = new pixi.geom.Point(0.5, 0.5);
 
         isoEngine.displaying.displayMcOn(coordText, "tiles");
+    }
+
+    private function clearBuild () {
+        var child = building.children;
+
+        for (i in 0...child.length) {
+            building.removeChild(child[i]);
+        }
     }
 
     private function setBuild (textureName:String, element:Sprite = null) {
