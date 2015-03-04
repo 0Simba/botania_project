@@ -8,7 +8,7 @@ class CirclesHudEngine
 {
     private static var instance:CirclesHudEngine;
 
-    public function createModel (name:String, referent:Events, centerRadius:Int, elementsRadius:Int) {
+    public function createModel (name:String, referent:Events, centerRadius:Int, elementsRadius:Int):CircleBlock {
         model.set(name, new CircleBlock(referent, centerRadius, elementsRadius, name));
         return model.get(name);
     }
