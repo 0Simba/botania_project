@@ -5,18 +5,10 @@
     $player   = new Player ($_SESSION["playerID"]);
 
 
-    // $fp = fopen('phpLog.txt', 'w');
-    // fwrite($fp, date('Y-m-d H:i:s') . ' : Action ' + $action + ' de  ' + $_SESSION["playerID"] + '...');
 
-
-    if ($action == "buildBreaker") {
-        include "server/buildBreaker.php";
-    }
-    else if ($action == "destroyBuilding") {
-        include "server/destroyBuilding.php";
-    }
-    else if ($action == "allDatas") {
-        include "server/sendAllDatas.php";
-    }
+    if      ($action == "buildBreaker")    include "server/buildBreaker.php";
+    else if ($action == "buildFlower")     include "server/buildFlower.php";
+    else if ($action == "destroyBuilding") include "server/destroyBuilding.php";
+    else if ($action == "allDatas")        include "server/sendAllDatas.php";
 
 ?>

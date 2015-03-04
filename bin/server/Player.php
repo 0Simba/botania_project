@@ -31,6 +31,15 @@
             return $this->noError();
         }
 
+        function addFlower ($position, $genome) {
+            $x = $position->x;
+            $y = $position->y;
+
+            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', $x', '$y', '$genome', NOW(), 0, 0, 0, 0, 0, false, false, false)");
+
+            return $this->noError();
+        }
+
         function destroyBuilding ($position) {
             $x = $position->x;
             $y = $position->y;
