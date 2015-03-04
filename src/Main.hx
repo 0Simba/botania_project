@@ -49,7 +49,6 @@ class Main
 
 			lastTS = Date.now().getTime();
 
-			trace("on balance le get login");
 			FB.getLoginStatus(onFacebookConnect);
 	        //Browser.window.requestAnimationFrame(cast gameLoop);
 	    }
@@ -57,20 +56,22 @@ class Main
 
 
 	static private function onFacebookConnect (pResponse:Dynamic) {
+		trace(pResponse);
 		if (pResponse.status == "connected") {
 			trace("Connected !");
 			// FB.ui({method : "share", href : "http://developers.facebook.com/docs/"}, function () {
 			// 	trace("shared");
 			// });
+        	Browser.window.requestAnimationFrame(cast gameLoop);
 		}
 		else if (pResponse.status == "not_authorized") {
+			FB.login(onFacebookConnect, {scope: 'user_friends, email'});
 			trace("Not authorized");
 		}
 		else {
 			trace("Connection problem");
 		}
 
-        Browser.window.requestAnimationFrame(cast gameLoop);
 	}
 
 	static private function gameLoop() {
