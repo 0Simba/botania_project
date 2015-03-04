@@ -60,12 +60,29 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $buildings = array();
-                while ($data = $response->fetch_array()) {
+                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
                     array_push($buildings, $data);
                 }
                 return $buildings;
             }
             return $err;
+        }
+
+        function getFlowers () {
+            $id = $this->id;
+            $response = $this->db->query("SELECT X, Y, Genome, LastTimeStamp, stateIndex, Attribute1, Attribute2, Attribute3, Attribute4, Bonus1, Bonus2, Bonus3 FROM playersflowers WHERE PlayerID = '$this->id'");
+
+            echo ($this->db->error);
+
+            if ($err = $this->noError() && $response->num_rows) {
+                $flowers = array();
+                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                    array_push($flowers, $data);
+                }
+                return $flowers;
+            }
+            return $err;
+
         }
 
 

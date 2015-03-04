@@ -7,6 +7,7 @@ import utils.ArrayCoord;
 import utils.Vector2;
 import entities.building.Breaker;
 import engine.isoEngine.components.Animation;
+import entities.genetic.Genome;
 
 class Tile extends GameObject
 {
@@ -105,6 +106,11 @@ class Tile extends GameObject
     public function createFlower (seed:Seed) {
         currentBuild = "flower";
         buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), seed);
+    }
+
+    public function flowerLoaded (lastTimeStamp:Int, genome:Genome, stateIndex:Int) {
+        currentBuild = "flower";
+        buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), null, genome, lastTimeStamp, stateIndex);
     }
 
     public function createBreaker (checkServer:Bool = true) {

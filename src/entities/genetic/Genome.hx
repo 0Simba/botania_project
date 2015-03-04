@@ -31,6 +31,29 @@ class Genome
         );
     }
 
+    static public function newFromCode (code:String):Genome {
+        var principal = null;
+        var secondary = null;
+        var tertiaire = null;
+
+        var segments = code.split("-");
+
+        var splitTypeToStrength = segments[0].split("#");
+        principal = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+
+        if (segments[1] != null) {
+            splitTypeToStrength = segments[1].split("#");
+            secondary = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+        }
+
+        if (segments[2] != null) {
+            splitTypeToStrength = segments[2].split("#");
+            principal = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+        }
+
+        return new Genome (principal, secondary, tertiaire);
+    }
+
 	public function new (_principal:Segment, _secondary:Segment = null, _tertiaire:Segment = null) {
         principal = _principal;
         secondary = _secondary;
@@ -54,9 +77,9 @@ class Genome
 
     public function getCode ():String {
         var code:String = "";
-        code += principal.getAsName();
-        if (secondary != null) code += "-" + secondary.getAsName();
-        if (tertiaire != null) code += "-" + tertiaire.getAsName();
+        code += principal.getAsName() + "#" + principal.strength;
+        if (secondary != null) code += "-" + secondary.getAsName() + "#" + secondary.strength;
+        if (tertiaire != null) code += "-" + tertiaire.getAsName() + "#" + tertiaire.strength;
 
         return code;
     }

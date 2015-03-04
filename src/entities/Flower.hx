@@ -19,19 +19,29 @@ class Flower extends GameObject
 
     public var genome:Genome;
 
-    public function new (_referent, _position, seed:Seed) {
+    public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, _stateIndex:Int = null) {
+        if (seed == null && !(_genome != null && lastTimeStamp != null && _stateIndex != null)) return;
         super();
         referent   = _referent;
         position   = _position;
 
         config     = Config.flower;
         stateList  = config.states;
-        stateIndex = 0;
-        genome     = seed.genome;
+
+        if (seed != null) {
+            stateIndex = 0;
+            genome     = seed.genome;
+
+            seedRef = seed;
+            serverCheck();
+        }
+        else {
+            stateIndex = _stateIndex;
+            genome     = _genome;
+            lunchDelay(grow, config.time.delay);
+        }
 
         referent.emit("state changed", stateList[stateIndex]);
-        seedRef = seed;
-        serverCheck();
     }
 
 
