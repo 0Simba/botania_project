@@ -15,6 +15,7 @@ class Flower extends GameObject
     private var referent:Events;
     private var stateIndex:Int;
     private var position:Vector2;
+    private var seedRef:Seed;
 
     public var genome:Genome;
 
@@ -29,10 +30,8 @@ class Flower extends GameObject
         genome     = seed.genome;
 
         referent.emit("state changed", stateList[stateIndex]);
-        lunchDelay(grow, config.time.delay);
-
-        list.push(this);
-        seed.destroy();
+        seedRef = seed;
+        serverCheck();
     }
 
 
@@ -77,6 +76,11 @@ class Flower extends GameObject
 
     private function serverValidateFlower () {
         referent.emit("builded");
+        lunchDelay(grow, config.time.delay);
+
+        list.push(this);
+        seedRef.destroy();
+        seedRef = null;
     }
 
     private function serverRefuseFlower () {

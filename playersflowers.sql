@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 04 Mars 2015 à 23:12
+-- Généré le :  Mer 04 Mars 2015 à 23:26
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `playersflowers` (
-  `ID` int(10) unsigned NOT NULL,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `PlayerID` int(10) unsigned NOT NULL,
   `X` int(11) NOT NULL,
   `Y` int(11) NOT NULL,
@@ -42,7 +42,15 @@ CREATE TABLE IF NOT EXISTS `playersflowers` (
   `Bonus2` int(10) unsigned DEFAULT NULL,
   `Bonus3` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `playersflowers`
+--
+
+INSERT INTO `playersflowers` (`ID`, `PlayerID`, `X`, `Y`, `Genome`, `LastTimeStamp`, `stateIndex`, `Attribute1`, `Attribute2`, `Attribute3`, `Attribute4`, `Bonus1`, `Bonus2`, `Bonus3`) VALUES
+(1, 2, 1, -1, 'ABB', 20150304232349, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 2, 1, -1, 'ABB', 20150304232510, 0, 0, 0, 0, 0, 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

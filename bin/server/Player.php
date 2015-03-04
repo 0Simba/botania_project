@@ -35,7 +35,7 @@
             $x = $position->x;
             $y = $position->y;
 
-            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', $x', '$y', '$genome', NOW(), 0, 0, 0, 0, 0, false, false, false)");
+            $this->db->query("INSERT INTO playersflowers VALUES (NULL, '$this->id', '$x', '$y', '$genome', NOW(), 0, 0, 0, 0, 0, false, false, false)");
 
             return $this->noError();
         }
@@ -70,7 +70,7 @@
 
 
         function noError () {
-            if ($this->db->error) {
+            if ($this->db->error != false) {
                 return ("erreur mysql : " . $this->db->error);
             }
 
