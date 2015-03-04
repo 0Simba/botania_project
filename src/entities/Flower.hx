@@ -33,7 +33,7 @@ class Flower extends GameObject
 
     public function harvest () {
         if (stateList[stateIndex] == "bloom") {
-            stateIndex = 0;
+            stateIndex--;
             referent.emit("state changed", stateList[stateIndex]);
             lunchDelay(grow, config.time.delay);
         }
