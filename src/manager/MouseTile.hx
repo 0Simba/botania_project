@@ -13,6 +13,8 @@ class MouseTile
     }
 
     static public function over (tile:Tile) {
+        tile.graphicTile.lightFilterBuilding();
+
         if (Selection.contain == null) return;
 
         if (Selection.actionType == "ground") {
@@ -39,6 +41,7 @@ class MouseTile
             tile.graphicTile.changeBuild(tile.currentBuild);
         }
 
+        tile.graphicTile.noFilterBuilding();
     }
 
 

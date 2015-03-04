@@ -5,6 +5,7 @@ import utils.Vector2;
 import engine.isoEngine.IsoEngine;
 import pixi.display.Sprite;
 import engine.isoEngine.components.Hud;
+import engine.isoEngine.components.ColorMatrixFilters;
 
 class Button extends Hud
 {
@@ -19,8 +20,8 @@ class Button extends Hud
 
     public function new () {
         super();
-        setOverFilter();
-        setClickFilter();
+        overFilter = ColorMatrixFilters.get("over");
+        clickFilter = ColorMatrixFilters.get("click");
     }
 
     override private function initInteractivity () {
@@ -55,30 +56,4 @@ class Button extends Hud
     override public function overBind () {};
     override public function outBind () {};
     override public function clickBind () {};
-
-
-
-        /****** YOU DON'T CARE *****/
-    private function setOverFilter () {
-        var colorMatrix =  [
-            1.0, 0.15, 0.15, 0.0,
-            0.15, 1.0, 0.15, 0.0,
-            0.15, 0.15, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ];
-        overFilter = new ColorMatrixFilter();
-        overFilter.matrix = colorMatrix;
-    }
-    private function setClickFilter () {
-        var colorMatrix =  [
-            0.85, 0.0, 0.0, 0.0,
-            0.0, 0.85, 0.0, 0.0,
-            0.0, 0.0, 0.85, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ];
-
-        clickFilter = new ColorMatrixFilter();
-        clickFilter.matrix = colorMatrix;
-    }
-
 }

@@ -10,6 +10,7 @@ import engine.isoEngine.managers.Displaying;
 import utils.Vector2;
 import engine.isoEngine.components.IsoComponent;
 import pixi.display.Sprite;
+import engine.isoEngine.components.ColorMatrixFilters;
 
 class Tile extends IsoComponent
 {
@@ -88,6 +89,19 @@ class Tile extends IsoComponent
         coordText.pivot  = new pixi.geom.Point(0.5, 0.5);
 
         isoEngine.displaying.displayMcOn(coordText, "tiles");
+    }
+
+    public function lightFilterBuilding () {
+        if (building != null) {
+            var filter = ColorMatrixFilters.get("over");
+            building.filters = [filter];
+        }
+    }
+
+    public function noFilterBuilding () {
+        if (building != null) {
+            building.filters = null;
+        }
     }
 
     private function clearBuild () {

@@ -4,6 +4,7 @@ import pixi.display.Stage;
 import pixi.renderers.webgl.WebGLRenderer;
 import pixi.utils.Detector;
 
+import engine.isoEngine.components.ColorMatrixFilters;
 import engine.isoEngine.managers.TileSelectionIndicator;
 import engine.isoEngine.managers.Displaying;
 import engine.isoEngine.managers.Maping;
@@ -65,6 +66,7 @@ class IsoEngine
         events        = new EventDispatcher();
         Mouse.setMap(displaying.getLayer("playArea"));
         Mouse.setStage(stage);
+        ColorMatrixFilters.init();
         Camera.setRef(this);
     }
 
