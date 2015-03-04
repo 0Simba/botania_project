@@ -5,6 +5,7 @@ import GameObject;
 import init.Config;
 import entities.Seed;
 import entities.genetic.Genome;
+import utils.Vector2;
 
 class Flower extends GameObject
 {
@@ -13,14 +14,17 @@ class Flower extends GameObject
 
     private var referent:Events;
     private var stateIndex:Int;
+    private var position:Vector2;
 
     public var genome:Genome;
 
-    public function new (_referent, seed:Seed) {
+    public function new (_referent, _position, seed:Seed) {
         super();
+        referent   = _referent;
+        position   = _position;
+
         config     = Config.flower;
         stateList  = config.states;
-        referent   = _referent;
         stateIndex = 0;
         genome     = seed.genome;
 
@@ -30,6 +34,7 @@ class Flower extends GameObject
         list.push(this);
         seed.destroy();
     }
+
 
     public function harvest () {
         if (stateList[stateIndex] == "bloom") {
@@ -62,7 +67,29 @@ class Flower extends GameObject
     }
 
 
+    /***** SERVER CHECKING *****/
 
+    private function serverCheck () {
+        referent.emit("callingServer", null);
+
+        callServer("buildFlower", getDatasForServer(), cast serverValidateFlower, cast serverRefuseFlower);
+    }
+
+    private function serverValidateFlower () {
+        referent.emit("builded");
+    }
+
+    private function serverRefuseFlower () {
+        referent.emit("unbuilded");
+    }
+
+    private function getDatasForServer () {
+        var data:Dynamic = {};
+        data.position = position;
+        data.genome   = genome.getCode();
+
+        return data;
+    }
 
     /***** YOU DON'T CARE *****/
 
