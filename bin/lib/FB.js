@@ -1,4 +1,4 @@
-const APP_ID = "343649395826072";
+const APP_ID = "1406243513020941";
 
 window.fbAsyncInit = function() {
 	FB.init({
