@@ -7,8 +7,8 @@
     use Facebook\FacebookCanvasLoginHelper;
     use Facebook\FacebookRedirectLoginHelper;
 
-    $APP_ID = "1604544893113238";
-    $APP_SECRET = "30c5d03c56595e4d15e0a7023d64c3dd";
+    $APP_ID = "1406243513020941";
+    $APP_SECRET = "f7287d658dbd36b1394126fb15c374c8";
 
     FacebookSession::setDefaultApplication($APP_ID, $APP_SECRET);
 
