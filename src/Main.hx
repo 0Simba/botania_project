@@ -7,6 +7,8 @@ import engine.isoEngine.controls.Camera;
 import manager.Camera.CameraManager;
 import init.Config;
 import init.PlayerDatas;
+import lib.FB;
+
 class Main
 {
 	public  static var deltaTime:Float;
@@ -46,10 +48,18 @@ class Main
 			PlayerDatas.load();
 
 			lastTS = Date.now().getTime();
-	        Browser.window.requestAnimationFrame(cast gameLoop);
+
+			trace("on balance le get login");
+			FB.getLoginStatus(onFacebookConnect);
+	        //Browser.window.requestAnimationFrame(cast gameLoop);
 	    }
 	}
 
+
+	static private function onFacebookConnect (pResponse:Dynamic) {
+		trace("ok dans facebookConnect !");
+        Browser.window.requestAnimationFrame(cast gameLoop);
+	}
 
 	static private function gameLoop() {
 		Browser.window.requestAnimationFrame(cast gameLoop);
