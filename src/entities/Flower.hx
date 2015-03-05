@@ -19,6 +19,12 @@ class Flower extends GameObject
 
     public var genome:Genome;
 
+
+/*================================
+=            CREATION            =
+================================*/
+
+
     public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, _stateIndex:Int = null) {
         if (seed == null && !(_genome != null && lastTimeStamp != null && _stateIndex != null)) return;
         super();
@@ -33,7 +39,7 @@ class Flower extends GameObject
             genome     = seed.genome;
 
             seedRef = seed;
-            serverCheck();
+            serverCheckBuild();
         }
         else {
             stateIndex = _stateIndex;
@@ -75,12 +81,18 @@ class Flower extends GameObject
         }
     }
 
+/*-----  End of CREATION  ------*/
 
-    /***** SERVER CHECKING *****/
 
-    private function serverCheck () {
+
+/*===================================
+=            SERVER PART            =
+===================================*/
+
+              /*==========  BUILD  ==========*/
+
+    private function serverCheckBuild () {
         referent.emit("callingServer", null);
-
         callServer("buildFlower", getDatasForServer(), cast serverValidateFlower, cast serverRefuseFlower);
     }
 
@@ -97,15 +109,45 @@ class Flower extends GameObject
         referent.emit("unbuilded");
     }
 
-    private function getDatasForServer () {
-        var data:Dynamic = {};
-        data.position = position;
-        data.genome   = genome.getCode();
+
+              /*==========  DESTROY  ==========*/
+
+    public function destroyFromServer () {
+        referent.emit("destroying");
+        callServer("destroyFlower", getPositionData(), cast serverValidateDestroy, cast serverRefuseDestroy);
+    }
+
+
+    private function serverValidateDestroy () {
+        referent.emit("destroyed");
+        destroy();
+    }
+
+
+    private function serverRefuseDestroy () {
+        referent.emit("undestroy");
+    }
+
+              /*==========  DATAS  ==========*/
+
+    private function getDatasForServer ():Dynamic {
+        var data    = getPositionData();
+        data.genome = genome.getCode();
 
         return data;
     }
 
-    /***** YOU DON'T CARE *****/
+
+    private function getPositionData ():Dynamic {
+        var data:Dynamic = {};
+        data.position = position;
+
+        return data;
+    }
+
+
+/*-----  End of SERVER PART  ------*/
+
 
     private var waitingCallback:Int = 0;
     private var toKill:Bool         = false;
@@ -129,7 +171,10 @@ class Flower extends GameObject
     }
 
 
-        //List to manage destroying
+/*=======================================
+=            STATIC MANAGING            =
+=======================================*/
+
 
     static private var list:Array<Flower> = new Array<Flower>();
 
@@ -138,4 +183,8 @@ class Flower extends GameObject
         list.splice(i, 1);
         flower = null;
     }
+
+
+/*-----  End of STATIC MANAGING  ------*/
+
 }

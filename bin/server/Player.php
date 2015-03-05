@@ -17,7 +17,14 @@
 
             $response = $this->db->query("SELECT * FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
             if (!$err = $this->noError()) return $err;
+
             $nbResult = $response->num_rows;
+
+
+            $response = $this->db->query("SELECT * FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            if (!$err = $this->noError()) return $err;
+
+            $nbResult += $response->num_rows;
 
             return ($nbResult == 0);
         }
@@ -45,6 +52,17 @@
             $y = $position->y;
 
             $response = $this->db->query("DELETE FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            if ($err = $this->noError() != true) {
+                return $this->noError();
+            }
+            return ($response == 1);
+        }
+
+        function destroyFlower ($position) {
+            $x = $position->x;
+            $y = $position->y;
+
+            $response = $this->db->query("DELETE FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
             if ($err = $this->noError() != true) {
                 return $this->noError();
             }
