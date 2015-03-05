@@ -47,7 +47,7 @@ class Flower extends GameObject
             stateIndex = _stateIndex;
             genome     = _genome;
             if (stateIndex < stateList.length - 1) {
-                lunchDelay(grow, config.time.delay);
+                checkMissedGrow(lastTimeStamp, currentTimeStamp);
             }
         }
 
@@ -122,6 +122,36 @@ class Flower extends GameObject
         callServer("flowerGrow", getGrowDatas(), cast serverValidateGrow, cast serverRefuseGrow);
     }
 
+    private var rest:Int;
+    private var stateIndexAtInstance:Int;
+
+    public function checkMissedGrow (lastTs:Int, currentTs:Int) {
+        var elapsedTime = currentTs - lastTs;
+        var nbGrow:Int  = Math.floor(elapsedTime / config.time.delay);
+        rest            = cast elapsedTime % config.time.delay;
+
+        trace("coucou");
+        trace(elapsedTime);
+        if (nbGrow > 0) {
+            stateIndexAtInstance = cast Math.min(stateIndex + nbGrow, stateList.length - 1);
+            var data = getGrowDatas();
+            data.statIndex = stateIndexAtInstance;
+
+            callServer("flowerGrow", data, cast serverValidateGrowAtInstance, cast serverRefuseGrow);
+        }
+        else if (stateIndex < stateList.length -1 ) {
+            lunchDelay(grow, cast config.time.delay - rest);
+        }
+    }
+
+
+    private function serverValidateGrowAtInstance () {
+        stateIndex = stateIndexAtInstance;
+        referent.emit("state changed", stateList[stateIndex]);
+        if (stateList.length - 1 > stateIndex) {
+            lunchDelay(grow, cast config.time.delay - rest);
+        }
+    }
 
     private function serverValidateGrow () {
         stateIndex++;

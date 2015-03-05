@@ -1,6 +1,6 @@
 <?php
     $returnObject = array();
-    $returnObject['serverTimeStamp'] = time();
+    $returnObject['serverTimeStamp'] = time() * 1000;
     $returnObject['buildings'] = $player->getBuidings();
     $returnObject['flowers']   = $player->getFlowers();
     $returnObject['accepted']  = true;

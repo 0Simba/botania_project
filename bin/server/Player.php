@@ -41,8 +41,9 @@
         function addFlower ($position, $genome) {
             $x = $position->x;
             $y = $position->y;
+            $ts = time() * 1000;
 
-            $this->db->query("INSERT INTO playersflowers VALUES (NULL, '$this->id', '$x', '$y', '$genome', NOW(), 0, 0, 0, 0, 0, false, false, false)");
+            $this->db->query("INSERT INTO playersflowers VALUES (NULL, '$this->id', '$x', '$y', '$genome', '$ts', 0, 0, 0, 0, 0, false, false, false)");
 
             return $this->noError();
         }
