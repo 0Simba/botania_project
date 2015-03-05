@@ -18,7 +18,7 @@ class PlayerDatas
 
         if (response.accepted) {
             loadBuildings(response.buildings);
-            loadFlowers(response.flowers);
+            loadFlowers(response.flowers, response.serverTimeStamp);
         }
         else {
             js.Browser.window.alert("Erreur l'ors du chargement de vos données");
@@ -33,12 +33,12 @@ class PlayerDatas
         }
     }
 
-    static private function loadFlowers (flowers:Dynamic) {
+    static private function loadFlowers (flowers:Dynamic, serverTimeStamp:Int) {
         for (i in 0...flowers.length) {
             var flower = flowers[i];
             var tile   = map.get(Std.parseInt(flower.X), Std.parseInt(flower.Y));
 
-            tile.flowerLoaded(flower.LastTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex);
+            tile.flowerLoaded(flower.LastTimeStamp, serverTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex);
         }
     }
 }

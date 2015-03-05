@@ -116,9 +116,9 @@ class Tile extends GameObject
         buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), seed);
     }
 
-    public function flowerLoaded (lastTimeStamp:Int, genome:Genome, stateIndex:Int) {
+    public function flowerLoaded (lastTimeStamp:Int, currentTimeStamp:Int, genome:Genome, stateIndex:Int) {
         currentBuild = "flower";
-        buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), null, genome, lastTimeStamp, stateIndex);
+        buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), null, genome, lastTimeStamp, currentTimeStamp, stateIndex);
     }
 
     public function createBreaker (checkServer:Bool = true) {

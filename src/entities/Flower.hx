@@ -27,8 +27,8 @@ class Flower extends GameObject
 ================================*/
 
 
-    public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, _stateIndex:Int = null) {
-        if (seed == null && !(_genome != null && lastTimeStamp != null && _stateIndex != null)) return;
+    public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, currentTimeStamp:Int = null, _stateIndex:Int = null) {
+        if (seed == null && !(_genome != null && lastTimeStamp != null && currentTimeStamp != null && _stateIndex != null)) return;
         super();
         referent   = _referent;
         position   = _position;
@@ -54,18 +54,6 @@ class Flower extends GameObject
         lunchDelay(function () { // Needed for wait referent done
             referent.emit("state changed", stateList[stateIndex]);
         }, 10);
-    }
-
-
-    public function harvest () {
-        if (stateList[stateIndex] == "bloom") {
-            stateIndex--;
-            referent.emit("state changed", stateList[stateIndex]);
-            lunchDelay(grow, config.time.delay);
-        }
-        else {
-            trace("Flower.harvest -> Tentative de récolter alors que la plante n'a pas éclos");
-        }
     }
 
 
@@ -150,6 +138,34 @@ class Flower extends GameObject
         grow();
     }
 
+
+
+                /*==========  HARVEST  ==========*/
+
+    public function harvest () {
+        if (stateList[stateIndex] == "bloom") {
+            var data = getGrowDatas();
+            data.stateIndex -= 2;     // get grow data increment stateIndex, but here we want desincrement
+            callServer("flowerGrow", data, cast serverValidateHarvest, cast serverRefuseHarvest);
+        }
+        else {
+            trace("Flower.harvest -> Tentative de récolter alors que la plante n'a pas éclos");
+        }
+    }
+
+
+    private function serverValidateHarvest () {
+        stateIndex--;
+        referent.emit("state changed", stateList[stateIndex]);
+        lunchDelay(grow, config.time.delay);
+    }
+
+
+    private function serverRefuseHarvest () {
+        trace("Server refuse harvest for");
+        trace(this);
+    }
+
                 /*==========  DATAS  ==========*/
 
     private function getBuildDatas ():Dynamic {
@@ -162,7 +178,7 @@ class Flower extends GameObject
 
     private function getGrowDatas ():Dynamic {      // WARNING NOT VERIFIED BY SERVER
         var data   = getPositionData();
-        data.stateIndex = stateIndex + 1;
+        data.stateIndex = Std.int(stateIndex) + 1;
 
         return data;
     }
