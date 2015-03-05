@@ -56,19 +56,10 @@ class Tile extends GameObject
 
         buildingEvents.on("state changed", function (state:String) {
             if (state == "adult") {
-                var flower:Flower = cast buildingRef;
-                var genomeAppearance = flower.genome.getAppearanceName();
-                graphicTile.changeBuild("flowerContainer");
-                graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
-                graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
-                graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
-
-                if (flowerAnim != null) {
-                    flowerAnim.destroy();
-                    flowerAnim = null;
-                }
+               applyAdultFlowerDisplay();
             }
             else if (state == "bloom") {
+                applyAdultFlowerDisplay();
                 flowerAnim = new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y), "overTiles");
             }
             else {
@@ -96,6 +87,20 @@ class Tile extends GameObject
 
         buildingEvents.on("destroyed", destroyBuilding);
 
+    }
+
+    private function applyAdultFlowerDisplay () {
+        var flower:Flower = cast buildingRef;
+        var genomeAppearance = flower.genome.getAppearanceName();
+        graphicTile.changeBuild("flowerContainer");
+        graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
+        graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
+        graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
+
+        if (flowerAnim != null) {
+            flowerAnim.destroy();
+            flowerAnim = null;
+        }
     }
 
 

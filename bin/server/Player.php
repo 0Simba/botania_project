@@ -69,6 +69,26 @@
             return ($response == 1);
         }
 
+        function isFlower ($position) {
+            $x = $position->x;
+            $y = $position->y;
+
+            $response = $this->db->query("SELECT ID FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+
+            if (($err = $this->noError()) != true) return $err;
+
+            return ($response->num_rows == 1);
+        }
+
+        function growFlower ($position, $index) {
+            $x = $position->x;
+            $y = $position->y;
+
+            $this->db->query("UPDATE playersflowers SET StateIndex = '$index' WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+
+            return $this->noError();
+        }
+
 
         function getBuidings () {
             $id = $this->id;
@@ -88,7 +108,7 @@
 
         function getFlowers () {
             $id = $this->id;
-            $response = $this->db->query("SELECT X, Y, Genome, LastTimeStamp, stateIndex, Attribute1, Attribute2, Attribute3, Attribute4, Bonus1, Bonus2, Bonus3 FROM playersflowers WHERE PlayerID = '$this->id'");
+            $response = $this->db->query("SELECT X, Y, Genome, LastTimeStamp, StateIndex, Attribute1, Attribute2, Attribute3, Attribute4, Bonus1, Bonus2, Bonus3 FROM playersflowers WHERE PlayerID = '$this->id'");
 
             echo ($this->db->error);
 

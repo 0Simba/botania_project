@@ -12,12 +12,14 @@ class Flower extends GameObject
     static private var stateList:Array<String>;
     static private var config:Dynamic;
 
+    public var genome:Genome;
+
+    private var waitingCallback:Int = 0;
+    private var toKill:Bool         = false;
     private var referent:Events;
     private var stateIndex:Int;
     private var position:Vector2;
     private var seedRef:Seed;
-
-    public var genome:Genome;
 
 
 /*================================
@@ -44,10 +46,14 @@ class Flower extends GameObject
         else {
             stateIndex = _stateIndex;
             genome     = _genome;
-            lunchDelay(grow, config.time.delay);
+            if (stateIndex < stateList.length - 1) {
+                lunchDelay(grow, config.time.delay);
+            }
         }
 
-        referent.emit("state changed", stateList[stateIndex]);
+        lunchDelay(function () { // Needed for wait referent done
+            referent.emit("state changed", stateList[stateIndex]);
+        }, 10);
     }
 
 
@@ -63,14 +69,6 @@ class Flower extends GameObject
     }
 
 
-    public function grow () {
-        stateIndex++;
-        referent.emit("state changed", stateList[stateIndex]);
-        if (stateList.length - 1 > stateIndex) {
-            lunchDelay(grow, config.time.delay);
-        }
-    }
-
     override public function destroy () {
         referent.emit('destroyed', null);
         if (waitingCallback == 0) {
@@ -81,19 +79,19 @@ class Flower extends GameObject
         }
     }
 
-/*-----  End of CREATION  ------*/
 
 
 
-/*===================================
-=            SERVER PART            =
-===================================*/
+/*=======================================
+=            ACTION + SERVER            =
+=======================================*/
 
-              /*==========  BUILD  ==========*/
+
+                /*==========  BUILD  ==========*/
 
     private function serverCheckBuild () {
         referent.emit("callingServer", null);
-        callServer("buildFlower", getDatasForServer(), cast serverValidateFlower, cast serverRefuseFlower);
+        callServer("buildFlower", getBuildDatas(), cast serverValidateFlower, cast serverRefuseFlower);
     }
 
     private function serverValidateFlower () {
@@ -110,7 +108,7 @@ class Flower extends GameObject
     }
 
 
-              /*==========  DESTROY  ==========*/
+                /*==========  DESTROY  ==========*/
 
     public function destroyFromServer () {
         referent.emit("destroying");
@@ -128,11 +126,43 @@ class Flower extends GameObject
         referent.emit("undestroy");
     }
 
-              /*==========  DATAS  ==========*/
 
-    private function getDatasForServer ():Dynamic {
+
+                /*==========  GROW  ==========*/
+
+    public function grow () {
+        callServer("flowerGrow", getGrowDatas(), cast serverValidateGrow, cast serverRefuseGrow);
+    }
+
+
+    private function serverValidateGrow () {
+        stateIndex++;
+        referent.emit("state changed", stateList[stateIndex]);
+        if (stateList.length - 1 > stateIndex) {
+            lunchDelay(grow, config.time.delay);
+        }
+    }
+
+
+    private function serverRefuseGrow () {
+        trace("Server refused grow of");
+        trace(this);
+        grow();
+    }
+
+                /*==========  DATAS  ==========*/
+
+    private function getBuildDatas ():Dynamic {
         var data    = getPositionData();
         data.genome = genome.getCode();
+
+        return data;
+    }
+
+
+    private function getGrowDatas ():Dynamic {      // WARNING NOT VERIFIED BY SERVER
+        var data   = getPositionData();
+        data.stateIndex = stateIndex + 1;
 
         return data;
     }
@@ -146,12 +176,11 @@ class Flower extends GameObject
     }
 
 
-/*-----  End of SERVER PART  ------*/
 
 
-    private var waitingCallback:Int = 0;
-    private var toKill:Bool         = false;
-
+/*=======================================
+=            DELAY FUNCTIONS            =
+=======================================*/
 
     private function lunchDelay (callback, time) {
         waitingCallback++;
@@ -183,8 +212,5 @@ class Flower extends GameObject
         list.splice(i, 1);
         flower = null;
     }
-
-
-/*-----  End of STATIC MANAGING  ------*/
 
 }

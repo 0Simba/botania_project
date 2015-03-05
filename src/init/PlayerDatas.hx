@@ -38,7 +38,7 @@ class PlayerDatas
             var flower = flowers[i];
             var tile   = map.get(Std.parseInt(flower.X), Std.parseInt(flower.Y));
 
-            tile.flowerLoaded(flower.LastTimeStamp, Genome.newFromCode(flower.Genome), flower.stateIndex);
+            tile.flowerLoaded(flower.LastTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex);
         }
     }
 }

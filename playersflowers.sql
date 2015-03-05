@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 04 Mars 2015 à 23:26
+-- Généré le :  Jeu 05 Mars 2015 à 23:31
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `playersflowers` (
   `Y` int(11) NOT NULL,
   `Genome` varchar(18) NOT NULL,
   `LastTimeStamp` bigint(10) unsigned NOT NULL,
-  `stateIndex` int(10) unsigned NOT NULL,
+  `StateIndex` int(10) unsigned NOT NULL,
   `Attribute1` int(10) unsigned DEFAULT '0',
   `Attribute2` int(11) unsigned DEFAULT '0',
   `Attribute3` int(10) unsigned DEFAULT '0',
@@ -42,15 +42,14 @@ CREATE TABLE IF NOT EXISTS `playersflowers` (
   `Bonus2` int(10) unsigned DEFAULT NULL,
   `Bonus3` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `playersflowers`
 --
 
-INSERT INTO `playersflowers` (`ID`, `PlayerID`, `X`, `Y`, `Genome`, `LastTimeStamp`, `stateIndex`, `Attribute1`, `Attribute2`, `Attribute3`, `Attribute4`, `Bonus1`, `Bonus2`, `Bonus3`) VALUES
-(1, 2, 1, -1, 'ABB', 20150304232349, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 2, 1, -1, 'ABB', 20150304232510, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `playersflowers` (`ID`, `PlayerID`, `X`, `Y`, `Genome`, `LastTimeStamp`, `StateIndex`, `Attribute1`, `Attribute2`, `Attribute3`, `Attribute4`, `Bonus1`, `Bonus2`, `Bonus3`) VALUES
+(6, 2, -3, 4, 'ABA#1', 20150305231032, 0, 0, 0, 0, 0, 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

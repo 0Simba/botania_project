@@ -8,6 +8,7 @@
 
     if      ($action == "buildBreaker")    include "server/buildBreaker.php";
     else if ($action == "buildFlower")     include "server/buildFlower.php";
+    else if ($action == "flowerGrow")      include "server/flowerGrow.php";
     else if ($action == "destroyBuilding") include "server/destroyBuilding.php";
     else if ($action == "destroyFlower")   include "server/destroyFlower.php";
     else if ($action == "allDatas")        include "server/sendAllDatas.php";
