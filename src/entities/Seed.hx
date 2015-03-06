@@ -27,20 +27,6 @@ class Seed extends GameObject
         list.push(this);
 	}
 
-    public function merge (seed:Seed) {
-        var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
-
-        mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
-        // keepThreeBetterOf(list);
-        // normalizeTotalOf(list);
-        // roundTwoDecimal(list);
-
-        // new Seed(Genome.newFromCodeList(list));
-
-        seed.destroy();
-        destroy();
-    }
-
     override public function destroy () {
         var index = list.indexOf(this);
         var seed  = list[index];
@@ -66,35 +52,6 @@ class Seed extends GameObject
             total += value;
         }
         return total;
-    }
-
-    private function keepThreeBetterOf (list) {
-        var vStr:Array<String> = new Array<String>();
-        var vValue:Array<Float> = new Array<Float>();
-
-        var keysI:Iterator<String> = list.keys();
-        for (key in keysI) {
-            var currentValue  = list.get(key);
-            var added:Bool = false;
-
-            for (i in 0...vValue.length) {
-                if (currentValue > vValue[i]) {
-                    added = true;
-                    vValue.insert(i, currentValue);
-                    vStr.insert(i, key);
-                    break;
-                }
-            }
-
-            if (!added) {
-                vValue.push(currentValue);
-                vStr.push(key);
-            }
-        }
-
-        for (i in 3...vStr.length) {
-
-        }
     }
 
 
@@ -149,13 +106,42 @@ class Seed extends GameObject
                 count++;
             }
         }
-
-
-
         return (count == 1) ? newSegment : null;
     }
 
 
+/*=====================================
+=            MERGING UTILS            =
+=====================================*/
+
+    private function keepThreeBetterOf (list) {
+        var vStr:Array<String> = new Array<String>();
+        var vValue:Array<Float> = new Array<Float>();
+
+        var keysI:Iterator<String> = list.keys();
+        for (key in keysI) {
+            var currentValue  = list.get(key);
+            var added:Bool = false;
+
+            for (i in 0...vValue.length) {
+                if (currentValue > vValue[i]) {
+                    added = true;
+                    vValue.insert(i, currentValue);
+                    vStr.insert(i, key);
+                    break;
+                }
+            }
+
+            if (!added) {
+                vValue.push(currentValue);
+                vStr.push(key);
+            }
+        }
+
+        for (i in 3...vStr.length) {
+
+        }
+    }
 
 
     private function sumLetters (l1:String, l2:String):String {
@@ -163,6 +149,7 @@ class Seed extends GameObject
         i = i % 6;                                              // TODO no hard value
         return intToLetter(i);
     }
+
 
     private function roundTwoDecimal (list:Map<String, Float>) {
         var keysI = list.keys();
@@ -175,10 +162,6 @@ class Seed extends GameObject
     }
 
 
-
-
-
-
     private function letterToInt (letter:String):Int {
         return (letter == "A") ? 1 :
                (letter == "B") ? 2 :
@@ -188,6 +171,7 @@ class Seed extends GameObject
                (letter == "O") ? 0 :
                                 null;
     }
+
 
     private function intToLetter (int:Int):String {
         return (int == 1) ? "A" :
@@ -200,6 +184,31 @@ class Seed extends GameObject
     }
 
 
+/*=============================
+=            MERGE            =
+=============================*/
+
+    public function merge (seed:Seed) {
+        var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
+
+        mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
+        //createSeedFromList(list);
+
+        seed.destroy();
+        destroy();
+    }
+
+
+    private function createSeedFromList (list:Map<String, Float>) {
+        keepThreeBetterOf(list);
+        normalizeTotalOf(list);
+        roundTwoDecimal(list);
+
+        new Seed(Genome.newFromCodeList(list));
+    }
+
+
+            // It's same as up, but log all parts
     private function mergeWithLog (list:Map<String, Float>, seed:Seed) {
         Console.group("Seed's merge");
             Console.group("OrinalSegment");
@@ -234,5 +243,4 @@ class Seed extends GameObject
             Console.groupEnd();
         Console.groupEnd();
     }
-
 }
