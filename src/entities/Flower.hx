@@ -51,7 +51,7 @@ class Flower extends GameObject
             }
         }
 
-        lunchDelay(function () { // Needed for wait referent done
+        launchDelay(function () { // Needed for wait referent done
             referent.emit("state changed", stateList[stateIndex]);
         }, 10);
     }
@@ -84,7 +84,7 @@ class Flower extends GameObject
 
     private function serverValidateFlower () {
         referent.emit("builded");
-        lunchDelay(grow, config.time.delay);
+        launchDelay(grow, config.time.delay);
 
         list.push(this);
         seedRef.destroy();
@@ -140,7 +140,7 @@ class Flower extends GameObject
             callServer("flowerGrow", data, cast serverValidateGrowAtInstance, cast serverRefuseGrow);
         }
         else if (stateIndex < stateList.length -1 ) {
-            lunchDelay(grow, cast config.time.delay - rest);
+            launchDelay(grow, cast config.time.delay - rest);
         }
     }
 
@@ -149,7 +149,7 @@ class Flower extends GameObject
         stateIndex = stateIndexAtInstance;
         referent.emit("state changed", stateList[stateIndex]);
         if (stateList.length - 1 > stateIndex) {
-            lunchDelay(grow, cast config.time.delay - rest);
+            launchDelay(grow, cast config.time.delay - rest);
         }
     }
 
@@ -157,7 +157,7 @@ class Flower extends GameObject
         stateIndex++;
         referent.emit("state changed", stateList[stateIndex]);
         if (stateList.length - 1 > stateIndex) {
-            lunchDelay(grow, config.time.delay);
+            launchDelay(grow, config.time.delay);
         }
     }
 
@@ -187,7 +187,7 @@ class Flower extends GameObject
     private function serverValidateHarvest () {
         stateIndex--;
         referent.emit("state changed", stateList[stateIndex]);
-        lunchDelay(grow, config.time.delay);
+        launchDelay(grow, config.time.delay);
     }
 
 
@@ -228,7 +228,7 @@ class Flower extends GameObject
 =            DELAY FUNCTIONS            =
 =======================================*/
 
-    private function lunchDelay (callback, time) {
+    private function launchDelay (callback, time) {
         waitingCallback++;
         haxe.Timer.delay(function () {
             endDelay(callback);

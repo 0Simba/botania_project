@@ -1,17 +1,17 @@
 {
     "jsonList" : [
         "ground",
-        "circleNavigation",
-        "colors",
-        "florist",
+        "HUD/circleNavigation",
+        "FX/colors",
+        "characters/florist",
         "popup",
-        "header_large",
-        "seeds",
-        "map0",
-        "map1",
-        "map2",
-        "map3",
-        "compositeFlowers",
-        "bloom"
+        "header/header_large",
+        "game/seeds/seeds",
+        "map/map0",
+        "map/map1",
+        "map/map2",
+        "map/map3",
+        "game/flowers/compositeFlowers",
+        "FX/bloom"
     ]
 }
