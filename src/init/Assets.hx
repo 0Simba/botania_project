@@ -29,10 +29,11 @@ class Assets
         }
     }
 
-    static private function preloadAssets (pEvent:Event, target:JsonLoader, animationName) {
+    static private function preloadAssets (pEvent:Event, target:JsonLoader, animationPath) {
         target.removeEventListener("loaded", preloadAssets);
         var myDatas    = cast(pEvent.target, JsonLoader).json;
         var frames     = myDatas.frames;
+        var animationName = nameFromPath(animationPath);
         extractAnimParams(animationName, myDatas.animParams);
         var anchor;
         var size;
@@ -50,13 +51,14 @@ class Assets
                 isoEngine.assets.addAnchor(name, anchor);
             }
         }
+
         isoEngine.assets.createAnimation(animationName, list);
         assetLoaded();
     }
 
-    static private function extractAnimParams (name:String, params:Dynamic) {
+    static private function extractAnimParams (animationName:String, params:Dynamic) {
         if (params != null) {
-            new AnimParams(name, params.speed, cast params.anchor, cast params.size);
+            new AnimParams(animationName, params.speed, cast params.anchor, cast params.size);
         }
     }
 
@@ -65,5 +67,10 @@ class Assets
         if (nbLoaded >= Config.assets.jsonList.length) {
             Main.ready();
         }
+    }
+
+    static private function nameFromPath (animationPath:String):String {
+        var arrName = animationPath.split("/");
+        return arrName[arrName.length - 1];
     }
 }
