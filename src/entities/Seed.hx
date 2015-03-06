@@ -114,7 +114,7 @@ class Seed extends GameObject
 =            MERGING UTILS            =
 =====================================*/
 
-    private function keepThreeBetterOf (list) {
+    private function keepThreeBetterOf (list:Map<String, Float>) {
         var vStr:Array<String> = new Array<String>();
         var vValue:Array<Float> = new Array<Float>();
 
@@ -139,7 +139,7 @@ class Seed extends GameObject
         }
 
         for (i in 3...vStr.length) {
-
+            list.remove(vStr[i]);
         }
     }
 
