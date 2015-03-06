@@ -61,17 +61,21 @@ class Seed extends GameObject
         var keys1I:Iterator<String> = genome1.keys();
         var keys2I:Iterator<String> = genome2.keys();
 
+        var delta  = Config.flower.merge.max - Config.flower.merge.min;
+        var ratio1 = Math.random() * delta + Config.flower.merge.min;
+        var ratio2 = Math.random() * delta + Config.flower.merge.min;
+
         for (key1 in keys1I) {
             for (key2 in keys2I) {
                 var newSegment = tryMerged(key1, key2);
                 if (newSegment != null) {
                     var v1 = genome1.get(key1);
-                    genome1.set(key1, v1 * 0.7);
+                    genome1.set(key1, v1 * ratio1);
 
                     var v2 = genome2.get(key2);
-                    genome2.set(key2, v2 * 0.7);
+                    genome2.set(key2, v2 * ratio2);
 
-                    sumListWith(list, newSegment, v1 * 0.3 + v2 * 0.3);       // ADD MUTATION TO LIST
+                    sumListWith(list, newSegment, v1 * (1 - ratio1) + v2 * (1 - ratio2));       // ADD MUTATION TO LIST
                 }
             }
             sumListWith(list, key1, genome1.get(key1));     // ADD GENOME 1 TO LIST
