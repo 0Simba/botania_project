@@ -84,8 +84,9 @@
         function growFlower ($position, $index) {
             $x = $position->x;
             $y = $position->y;
+            $timeStamp = time() * 1000;
 
-            $this->db->query("UPDATE playersflowers SET StateIndex = '$index' WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $this->db->query("UPDATE playersflowers SET StateIndex = '$index', LastTimeStamp = '$timeStamp' WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
 
             return $this->noError();
         }
