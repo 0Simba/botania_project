@@ -1,0 +1,133 @@
+{"frames": {
+
+"digBasic":
+{
+    "frame": {"x":0, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"waterBasic":
+{
+    "frame": {"x":100, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"pickBasic":
+{
+    "frame": {"x":0, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"fertilizerBasic":
+{
+    "frame": {"x":100, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"crossBasic":
+{
+    "frame": {"x":0, "y":200,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"digHover":
+{
+    "frame": {"x":200, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"waterHover":
+{
+    "frame": {"x":300, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"pickHover":
+{
+    "frame": {"x":200, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"fertilizerHover":
+{
+    "frame": {"x":300, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"crossHover":
+{
+    "frame": {"x":200, "y":200,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"digClick":
+{
+    "frame": {"x":400, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"waterClick":
+{
+    "frame": {"x":500, "y":0,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"pickClick":
+{
+    "frame": {"x":400, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"fertilizerClick":
+{
+    "frame": {"x":500, "y":100,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+},
+"crossClick":
+{
+    "frame": {"x":400, "y":200,"w":100,"h":100},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+    "sourceSize": {"w":100,"h":100}
+}
+},
+"meta": {
+    "app": "http://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "circleNavigation.png",
+    "format": "RGBA8888",
+    "size": {"w":600,"h":600},
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:287802131cfaffe2368ebc983c09bef5:8c2059bfc4bb08d62aceade74a99dfa4:e3f7fa69d3ac509ef36def90cd975de2$"
+}
+}
