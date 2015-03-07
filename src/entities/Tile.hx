@@ -83,6 +83,7 @@ class Tile extends GameObject
         });
         buildingEvents.on("destroying", function () {
             graphicTile.building.alpha = 0.3;
+            if (flowerAnim != null) flowerAnim.destroy();
         });
 
         buildingEvents.on("destroyed", destroyBuilding);
