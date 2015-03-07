@@ -6,6 +6,7 @@ import init.Config;
 import entities.Seed;
 import entities.genetic.Genome;
 import utils.Vector2;
+import haxe.Timer;
 
 class Flower extends GameObject
 {
@@ -14,12 +15,12 @@ class Flower extends GameObject
 
     public var genome:Genome;
 
-    private var waitingCallback:Int = 0;
     private var toKill:Bool         = false;
     private var referent:Events;
     private var stateIndex:Int;
     private var position:Vector2;
     private var seedRef:Seed;
+    private var timer:Timer;
 
 
 /*================================
@@ -59,12 +60,8 @@ class Flower extends GameObject
 
     override public function destroy () {
         referent.emit('destroyed', null);
-        if (waitingCallback == 0) {
-            Flower.remove(this);
-        }
-        else {
-            toKill = true;
-        }
+        if (timer != null) timer.stop();
+        Flower.remove(this);
     }
 
 
@@ -229,21 +226,11 @@ class Flower extends GameObject
 =======================================*/
 
     private function launchDelay (callback, time) {
-        waitingCallback++;
-        haxe.Timer.delay(function () {
-            endDelay(callback);
+        timer = haxe.Timer.delay(function () {
+            callback();
         }, time);
     }
 
-    private function endDelay (callback) {
-        waitingCallback--;
-        if (waitingCallback == 0 && toKill == true) {
-            Flower.remove(this);
-        }
-        else {
-            callback();
-        }
-    }
 
 
 /*=======================================

@@ -1,6 +1,6 @@
 {
 	"time" : {
-		"delay" : 20000
+		"delay" : 1000
 	},
     "merge" : {
         "min" : 0.5,
