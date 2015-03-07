@@ -34,13 +34,6 @@ class Tween {
         }
     }
 
-    public static function add(): Tween
-    {
-        var lTween = new Tween();
-        tweens.push(lTween);
-        return lTween;
-    }
-
     public static function delete(pTween:Tween): Void
     {
         tweens.splice(tweens.indexOf(pTween), 1);
@@ -66,12 +59,15 @@ class Tween {
 
     private var _currentTime:Float = 0;
 
-    private function new()
+    public function new (aDataFrom:Map<String, Float> = null, aDataTo:Map<String, Float> = null, aDuration:Float = 1)
     {
         _ease = Ease.linear;
-        _dataFrom = new Map<String,Float>();
-        _dataTo = new Map<String,Float>();
+        _dataFrom     = (aDataFrom != null)     ? aDataFrom : new Map<String,Float>();
+        _dataTo       = (aDataTo != null)       ? aDataTo : new Map<String,Float>();
         _currentDatas = new Map<String,Float>();
+        _duration     = aDuration;
+
+        tweens.push(this);
     }
 
     public function fromData(pParams:Map<String,Float>): Tween

@@ -95,13 +95,11 @@ class BreakerPopUpInit
         var to = new Map<String, Float>();
         to.set("y", 100);
 
-        tween = Tween.add();
-        tween.fromData(from);
-        tween.toData(to);
-        tween.duration(1000);
+        tween = new Tween (from, to, 1000);
         tween.onUpdate(function (currentDatas) {
             breakerPopUp.replace(new Vector2(currentDatas.get("y"), currentDatas.get("y")));
         });
+        // tween.on
     }
 }
 
