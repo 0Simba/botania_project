@@ -38,11 +38,6 @@ class IsoComponent extends DragNDrop
         displayObject.scale.set(value, valueY);
     }
 
-    // public function anchor (value:Float, valueY:Float = null) {
-    //     if (valueY == null) valueY = value;
-    //     displayObject.anchor.set(value, valueY);
-    // }
-
     private function getRealPositionningValue (value:Float, posType:String, referentValue:Float):Float {
         var finalValue:Float = 0;
 

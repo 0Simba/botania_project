@@ -8,10 +8,11 @@ import engine.isoEngine.IsoEngine;
 import pixi.display.DisplayObjectContainer;
 import engine.popUpEngine.Scrollbar;
 import pixi.primitives.Graphics;
+import engine.popUpEngine.Container;
 
 class Inventory
 {
-    public var popUp       : PopUp;
+    public var container   : Container;
 
     public var size        : Vector2;
     public var pos         : Vector2;
@@ -28,8 +29,8 @@ class Inventory
 
     public var cellList:Array<Cell>;
 
-    public function new (_popUp:PopUp, _pos:Vector2, _size:Vector2, _elementSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
-        popUp       = _popUp;
+    public function new (_container:Container, _pos:Vector2, _size:Vector2, _elementSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
+        container   = _container;
         nbElementX  = _nbElementX;
         nbElementY  = _nbElementY;
         elementSize = _elementSize;
@@ -82,9 +83,9 @@ class Inventory
     }
 
     private function setLayer () {
-        layerName = "scrollable" + popUp.name;
+        layerName = "scrollable" + container.name;
 
-        layer   = IsoEngine.getInstance().displaying.createChildLayer(layerName, popUp.name);
+        layer   = IsoEngine.getInstance().displaying.createChildLayer(layerName, container.name);
         layer.x = pos.x;
         layer.y = pos.y;
     }
