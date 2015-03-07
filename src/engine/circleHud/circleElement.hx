@@ -10,7 +10,7 @@ class CircleElement extends GameObject
     private var parent:CircleBlock;
     private var referent:Events;
 
-    public function new (_parent:CircleBlock, _name:String, basicTexture:String, hoverTexture:String, clickTexture:String) {
+    public function new (_parent:CircleBlock, _name:String, basicTexture:String) {
         super();
 
         parent = _parent;

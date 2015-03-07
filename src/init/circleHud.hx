@@ -17,18 +17,18 @@ class CircleHud
             //FLOWER
         var flowerHudManager = new manager.circlesHud.Flower();
         var flowerHud = circleHudEngine.createModel("flower", flowerHudManager.events, centerRadius, elementsRadius);
-        flowerHud.addOnce("pick"      , "pickBasic"      , "pickHover"      , "pickClick");
-        flowerHud.addOnce("dig"       , "digBasic"       , "digHover"       , "digClick");
-        flowerHud.addOnce("water"     , "waterBasic"     , "waterHover"     , "waterClick");
-        flowerHud.addOnce("fertilizer", "fertilizerBasic", "fertilizerHover", "fertilizerClick");
+        flowerHud.addOnce("pick"      , "pickBasic");
+        flowerHud.addOnce("dig"       , "digBasic");
+        flowerHud.addOnce("water"     , "waterBasic");
+        flowerHud.addOnce("fertilizer", "fertilizerBasic");
         flowerHudManager.setTargetHud(flowerHud);
 
 
             //BREAKER
         var breakerHudManager = new manager.circlesHud.Breaker();
         var breakerHud = circleHudEngine.createModel("breaker", breakerHudManager.events, centerRadius, elementsRadius);
-        breakerHud.addOnce("remove", "digBasic", "digHover", "digClick");
-        breakerHud.addOnce("open", "fertilizerBasic", "fertilizerHover", "fertilizerClick");
+        breakerHud.addOnce("remove", "digBasic");
+        breakerHud.addOnce("open", "fertilizerBasic");
         breakerHudManager.setTargetHud(breakerHud);
 
     }
