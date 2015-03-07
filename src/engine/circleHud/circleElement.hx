@@ -6,19 +6,19 @@ import utils.Vector2;
 
 class CircleElement extends GameObject
 {
-    private var name:String;
     private var parent:CircleBlock;
     private var referent:Events;
 
-    public function new (_parent:CircleBlock, _name:String, basicTexture:String) {
+    public function new (_parent:CircleBlock, basicTexture:String, _callback:Dynamic) {
         super();
 
         parent = _parent;
-        name   = _name;
 
         addComponent("hudButton");
         hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName);
         hudButton.onClick(click);
+
+        callback = _callback;
     }
 
     public function replace (pos:Vector2) {
@@ -34,6 +34,8 @@ class CircleElement extends GameObject
     }
 
     private function click () {
-        parent.referent.emit(name, parent.targetShowed);
+        callback(parent.targetShowed);
     }
+
+    dynamic public function callback (targetShowed) {}
 }
