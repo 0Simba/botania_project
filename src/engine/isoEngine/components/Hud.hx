@@ -12,6 +12,10 @@ class Hud extends IsoComponent
     public var sprite:Sprite;
 
 
+    public function new () {
+        super();
+    }
+
     public function set (percentSize:Vector2, percentPos:Vector2, textureName:String, parentLayer:String = "hud", sizeOf:Vector2 = null) {
         sprite = new Sprite(isoEngine.assets.getTexture(textureName));
         displayObject = sprite;
@@ -41,10 +45,6 @@ class Hud extends IsoComponent
 
 
         /****** YOU DON'T CARE *****/
-
-    public function new () {
-        super();
-    }
 
 
     private function initInteractivity () {

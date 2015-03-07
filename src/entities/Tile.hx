@@ -31,8 +31,7 @@ class Tile extends GameObject
 		super();
         graphicTile = new engine.isoEngine.components.Tile();
 
-        graphicTile.addGround("ground");
-        graphicTile.changeGround("circle");
+        graphicTile.addGround("circle");
         graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
         bindBuildingsEvents();

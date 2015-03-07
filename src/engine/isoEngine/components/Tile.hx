@@ -1,6 +1,5 @@
 package engine.isoEngine.components;
 
-import pixi.display.MovieClip;
 import pixi.text.Text;
 import pixi.primitives.Graphics;
 import engine.isoEngine.IsoEngine;
@@ -17,8 +16,8 @@ class Tile extends IsoComponent
 
     static public var size:Vector2 = new Vector2(64, 32);
 
-    public var ground:MovieClip;
-    public var building:MovieClip;
+    public var ground:Sprite;
+    public var building:Sprite;
     public var coord:utils.ArrayCoord;
     public var isInteractive:Bool;
 
@@ -27,7 +26,7 @@ class Tile extends IsoComponent
 
             /***** GROUND *****/
     public function addGround (name:String) {
-        ground = new MovieClip(isoEngine.assets.getAnimation(name));
+        ground = new Sprite(isoEngine.assets.getTexture(name));
 
         ground.width  = size.x;
         ground.height = size.y;
@@ -43,7 +42,7 @@ class Tile extends IsoComponent
             /***** BUILDING *****/
     public function addBuild (textureName:String) {
 
-        building = new MovieClip(isoEngine.assets.getAnimation("ground"));
+        building = new Sprite(isoEngine.assets.getTexture(textureName));
         setBuild(textureName);
 
         building.x = ground.x + size.x / 2;

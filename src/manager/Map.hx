@@ -44,11 +44,11 @@ class Map
 		return tiles[i];
 	}
 
-	public function fill (name:String) {
-		for (i in 0...tiles.length) {
-			tiles[i].graphicTile.addGround(name);
-		}
-	}
+	// public function fill (name:String) {
+	// 	for (i in 0...tiles.length) {
+	// 		tiles[i].graphicTile.addGround(name);
+	// 	}
+	// }
 
 		/***** YOU DON'T CARE *****/
 	static private var alreadySet:Bool;
