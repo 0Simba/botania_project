@@ -78,7 +78,29 @@
     {
         "frame": {"x":512,"y":600,"w":128,"h":148},
         "anchor" : {"x" : 0.5, "y" : 0.5}
+    },
+
+    "babyFlower":
+    {
+        "frame": {"x":0,"y":450,"w":128,"h":148},
+        "anchor" : {"x" : 0.5, "y" : 0.7}
+    },
+    "childFlower":
+    {
+        "frame": {"x":128,"y":450,"w":128,"h":148},
+        "anchor" : {"x" : 0.5, "y" : 0.7}
+    },
+    "teenageFlower":
+    {
+        "frame": {"x":256,"y":450,"w":128,"h":148},
+        "anchor" : {"x" : 0.5, "y" : 0.7}
+    },
+    "adultFlower":
+    {
+        "frame": {"x":0,"y":450,"w":128,"h":148},
+        "anchor" : {"x" : 0.5, "y" : 0.7}
     }
+
 },
 "meta": {
     "app": "http://www.codeandweb.com/texturepacker",
