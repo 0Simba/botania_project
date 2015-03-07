@@ -3,12 +3,13 @@ package manager.circlesHud;
 import engine.events.Events;
 import engine.circleHud.CircleBlock;
 import entities.Tile;
+import engine.circleHud.CirclesHudEngine;
 import Map;
 
 class CirclesHudManager
 {
 
-    static public var list:Map<String, CirclesHudManager>;
+    static public  var list:Map<String, CirclesHudManager>;
     static private var currentShowed:CirclesHudManager;
 
     static public function displayForTile (tile:Tile) {
@@ -58,13 +59,11 @@ class CirclesHudManager
 
     public function new (name) {
         events = new Events();
+        managedHud = CirclesHudEngine.getInstance().createModel(name, events);
+
         CirclesHudManager.addOnce(name, this);
 
         Selection.events.on("changed", onSelectionChanged);
-    }
-
-    public function setTargetHud (circleBlock:CircleBlock) {
-        managedHud = circleBlock;
     }
 
     public function close () {

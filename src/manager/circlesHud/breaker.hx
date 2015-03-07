@@ -9,6 +9,9 @@ class Breaker extends CirclesHudManager
     public function new () {
         super("breaker");
 
+        managedHud.addOnce("remove", "digBasic");
+        managedHud.addOnce("open", "fertilizerBasic");
+
         popUpEngine = PopUpEngineMain.getInstance();
 
         events.on("remove", removeBreaker);

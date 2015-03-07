@@ -7,8 +7,13 @@ import engine.events.Events;
 class CirclesHudEngine
 {
     private static var instance:CirclesHudEngine;
+    private static var defaultCenterRadius   = 100;
+    private static var defaultElementsRadius = 50;
 
-    public function createModel (name:String, referent:Events, centerRadius:Int, elementsRadius:Int):CircleBlock {
+    public function createModel (name:String, referent:Events, centerRadius:Int = null, elementsRadius:Int = null):CircleBlock {
+        if (centerRadius == null)   centerRadius = defaultCenterRadius;
+        if (elementsRadius == null) elementsRadius = defaultElementsRadius;
+
         model.set(name, new CircleBlock(referent, centerRadius, elementsRadius, name));
         return model.get(name);
     }
@@ -22,6 +27,10 @@ class CirclesHudEngine
         return null;
     }
 
+    public function setDefaultsRadius (centerRadius:Int, elementsRadius:Int) {
+        defaultCenterRadius   = centerRadius;
+        defaultElementsRadius = elementsRadius;
+    }
 
 
 
