@@ -32,6 +32,7 @@ class Tile extends GameObject
         graphicTile = new engine.isoEngine.components.Tile();
 
         graphicTile.addGround("circle");
+        graphicTile.hideGround();
         graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
         bindBuildingsEvents();
@@ -137,10 +138,12 @@ class Tile extends GameObject
     /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/
 
     public function mouseover () {
+        graphicTile.showGround();
         manager.MouseTile.over(this);
     }
 
     public function mouseout () {
+        graphicTile.hideGround();
         manager.MouseTile.out(this);
     }
 

@@ -30,7 +30,6 @@ class Tile extends IsoComponent
 
         ground.width  = size.x;
         ground.height = size.y;
-        ground.visible = false;
     }
 
 
@@ -38,6 +37,13 @@ class Tile extends IsoComponent
         ground.texture = isoEngine.assets.getTexture(name);
     }
 
+
+    public function hideGround () {
+        ground.visible = false;
+    }
+    public function showGround () {
+        ground.visible = true;
+    }
 
             /***** BUILDING *****/
     public function addBuild (textureName:String) {
