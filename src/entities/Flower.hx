@@ -127,8 +127,6 @@ class Flower extends GameObject
         var nbGrow:Int  = Math.floor(elapsedTime / config.time.delay);
         rest            = cast elapsedTime % config.time.delay;
 
-        trace("coucou");
-        trace(elapsedTime);
         if (nbGrow > 0) {
             stateIndexAtInstance = cast Math.min(stateIndex + nbGrow, stateList.length - 1);
             var data = getGrowDatas();
@@ -192,6 +190,22 @@ class Flower extends GameObject
         trace("Server refuse harvest for");
         trace(this);
     }
+
+
+
+                /*==========  WATER  ==========*/
+
+    public function water () {
+        if (stateList[stateIndex] != "bloom") {
+            timer.stop();
+            callServer("flowerGrow", getGrowDatas(), cast serverValidateGrow, cast serverRefuseGrow);
+        }
+        else {
+            trace("entitie.flower.water -> can't water bloomed flower");
+        }
+    }
+
+
 
                 /*==========  DATAS  ==========*/
 

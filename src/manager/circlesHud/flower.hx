@@ -13,7 +13,7 @@ class Flower extends CirclesHudManager
 
         managedHud.addOnce("pick"      , "pickBasic"      , pickFlower);
         managedHud.addOnce("dig"       , "digBasic"       , removeFlower);
-        managedHud.addOnce("water"     , "waterBasic"     , empty);
+        managedHud.addOnce("water"     , "waterBasic"     , growFlower);
         managedHud.addOnce("fertilizer", "fertilizerBasic", empty);
 
         popUpEngine = PopUpEngineMain.getInstance();
@@ -27,6 +27,10 @@ class Flower extends CirclesHudManager
     public function pickFlower (targetFlower:entities.Flower) {
         close();
         targetFlower.harvest();
+    }
+
+    public function growFlower (targetFlower:entities.Flower) {
+        targetFlower.water();
     }
 
     public function empty () {}
