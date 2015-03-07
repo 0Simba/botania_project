@@ -97,7 +97,7 @@ class BreakerPopUpInit
         var to = new Map<String, Float>();
         to.set("scale", 1);
 
-        tween = new Tween (from, to, 1000);
+        tween = new Tween (from, to, 250);
         tween.onUpdate(function (currentDatas) {
             breakerPopUp.scale(currentDatas.get("scale"));
             breakerPopUp.applyAnchor(0.5, 0.5);

@@ -116,7 +116,11 @@ class Tween {
 
     public function start(): Tween
     {
-        if(_duration != null) _started = true;
+        if(_duration != null) {
+            _started     = true;
+            _currentTime = 0;
+            _complete    = false;
+        }
         if(_onStart != null) _onStart(_currentDatas);
         return this;
     }
