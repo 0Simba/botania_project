@@ -86,7 +86,7 @@ class BreakerPopUpInit
     }
 
     static private function onShow () {
-        updateSeedsInventory();
+        // updateSeedsInventory();
         tween.start();
     }
 
