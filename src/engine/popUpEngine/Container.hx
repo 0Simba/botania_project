@@ -11,12 +11,10 @@ import engine.popUpEngine.Text;
 import pixi.display.Sprite;
 import engine.popUpEngine.Inventory;
 
-
 class Container extends engine.isoEngine.components.IsoComponent
 {
     // public var isoEngine:IsoEngine;
     public var layer:DisplayObjectContainer;
-    public var anchorSprite:Sprite;
     public var popUpEngineMain:PopUpEngineMain;
     public var pxSize:Vector2;
     public var inventory:Inventory;
@@ -32,8 +30,6 @@ class Container extends engine.isoEngine.components.IsoComponent
         parentSize = (parentSize == null) ? new Vector2(isoEngine.width ,isoEngine.height) : parentSize;
 
         pxSize = new Vector2(size.x * parentSize.x, size.y * parentSize.y);
-
-        anchorSprite = new Sprite(isoEngine.assets.getTexture("transparent"));
 
         name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
@@ -88,5 +84,4 @@ class Container extends engine.isoEngine.components.IsoComponent
         inventory = new Inventory(this, pos, size, _elementsSize, _nbElementX, _nbElementY);
         return inventory;
     }
-
 }
