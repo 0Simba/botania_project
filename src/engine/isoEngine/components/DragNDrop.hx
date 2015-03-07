@@ -48,7 +48,6 @@ class DragNDrop
     }
 
     public function clearDrop () {
-        dropSprite.visible = false;
         dropSprite.texture = null;
     }
 

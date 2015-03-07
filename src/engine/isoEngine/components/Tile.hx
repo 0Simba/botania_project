@@ -31,6 +31,7 @@ class Tile extends IsoComponent
 
         ground.width  = size.x;
         ground.height = size.y;
+        ground.visible = false;
     }
 
 

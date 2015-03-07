@@ -4,6 +4,7 @@ import engine.events.Events;
 import GameObject;
 import init.Config;
 import entities.Seed;
+import entities.Fruit;
 import entities.genetic.Genome;
 import utils.Vector2;
 import haxe.Timer;
@@ -182,6 +183,7 @@ class Flower extends GameObject
     private function serverValidateHarvest () {
         stateIndex--;
         referent.emit("state changed", stateList[stateIndex]);
+        new Fruit(genome);
         launchDelay(grow, config.time.delay);
     }
 

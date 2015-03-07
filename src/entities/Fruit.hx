@@ -7,7 +7,7 @@ import entities.Seed;
 
 class Fruit extends GameObject
 {
-	static public list:Array<Fruit> =  new Array<Fruit>();
+	static public var list:Array<Fruit> =  new Array<Fruit>();
 
 	public var genome:Genome;
 	public var quality:Float;
