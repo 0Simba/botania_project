@@ -9,9 +9,9 @@ import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.Inventory;
 import engine.popUpEngine.Text;
 
-class Container extends engine.isoEngine.components.DragNDrop
+class Container extends engine.isoEngine.components.IsoComponent
 {
-    public var isoEngine:IsoEngine;
+    // public var isoEngine:IsoEngine;
     public var layer:DisplayObjectContainer;
     public var popUpEngineMain:PopUpEngineMain;
     public var pxSize:Vector2;

@@ -49,12 +49,12 @@ class PopUp extends engine.popUpEngine.Container
         return target.addOn(fixed, pxSize, name);
     }
 
-    public function show () {
+    override public function show () {
         layer.visible = true;
         onShow();
     }
 
-    public function hide () {
+    override public function hide () {
         layer.visible = false;
     }
 
