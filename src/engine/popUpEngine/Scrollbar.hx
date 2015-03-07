@@ -66,7 +66,7 @@ class Scrollbar
 
         /***** LAYER *****/
     private function createLayer () {
-        layer = IsoEngine.getInstance().displaying.createChildLayer(inventory.layerName + "scroll", inventory.popUp.name);
+        layer = IsoEngine.getInstance().displaying.createChildLayer(inventory.layerName + "scroll", inventory.container.name);
         layer.x = (!isHorizontal) ? inventory.size.x - defaultSize : 0;
         layer.y = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
         layer.x += inventory.pos.x;

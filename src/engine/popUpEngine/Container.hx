@@ -8,13 +8,18 @@ import engine.popUpEngine.Bloc;
 import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.Inventory;
 import engine.popUpEngine.Text;
+import pixi.display.Sprite;
+import engine.popUpEngine.Inventory;
 
-class Container extends engine.isoEngine.components.DragNDrop
+
+class Container extends engine.isoEngine.components.IsoComponent
 {
-    public var isoEngine:IsoEngine;
+    // public var isoEngine:IsoEngine;
     public var layer:DisplayObjectContainer;
+    public var anchorSprite:Sprite;
     public var popUpEngineMain:PopUpEngineMain;
     public var pxSize:Vector2;
+    public var inventory:Inventory;
 
     public var name:String;
 
@@ -28,6 +33,7 @@ class Container extends engine.isoEngine.components.DragNDrop
 
         pxSize = new Vector2(size.x * parentSize.x, size.y * parentSize.y);
 
+        anchorSprite = new Sprite(isoEngine.assets.getTexture("transparent"));
 
         name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
@@ -68,4 +74,19 @@ class Container extends engine.isoEngine.components.DragNDrop
     public function addContainer (_size:Vector2):Container {
         return new Container(name + "Child", name, _size, pxSize);
     }
+
+    public function setInventory (pos:Vector2, size:Vector2, _elementsSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {
+        pos.x *= pxSize.x;
+        pos.y *= pxSize.y;
+
+        size.x *= pxSize.x;
+        size.y *= pxSize.y;
+
+        _elementsSize.x *= size.x;
+        _elementsSize.y *= size.y;
+
+        inventory = new Inventory(this, pos, size, _elementsSize, _nbElementX, _nbElementY);
+        return inventory;
+    }
+
 }

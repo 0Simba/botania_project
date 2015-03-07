@@ -24,13 +24,15 @@ class Tile extends GameObject
     public var coord:ArrayCoord;
     public var flowerAnim:Animation;
 
+    public var graphicTile:engine.isoEngine.components.Tile;
+
 	public function new (_coord:ArrayCoord)
 	{
 		super();
-        addComponent("graphicTile");
+        graphicTile = new engine.isoEngine.components.Tile();
 
-        graphicTile.addGround("ground");
-        graphicTile.changeGround("circle");
+        graphicTile.addGround("circle");
+        graphicTile.hideGround();
         graphicTile.setInteractive(mouseover, mouseout, mouseclick);
 
         bindBuildingsEvents();
@@ -83,6 +85,7 @@ class Tile extends GameObject
         });
         buildingEvents.on("destroying", function () {
             graphicTile.building.alpha = 0.3;
+            if (flowerAnim != null) flowerAnim.destroy();
         });
 
         buildingEvents.on("destroyed", destroyBuilding);
@@ -93,8 +96,8 @@ class Tile extends GameObject
         var flower:Flower = cast buildingRef;
         var genomeAppearance = flower.genome.getAppearanceName();
         graphicTile.changeBuild("flowerContainer");
-        graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
         graphicTile.addBuildTexture("G" + genomeAppearance.charAt(2));
+        graphicTile.addBuildTexture("O" + genomeAppearance.charAt(1));
         graphicTile.addBuildTexture("F" + genomeAppearance.charAt(0));
 
         if (flowerAnim != null) {
@@ -135,10 +138,12 @@ class Tile extends GameObject
     /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/
 
     public function mouseover () {
+        graphicTile.showGround();
         manager.MouseTile.over(this);
     }
 
     public function mouseout () {
+        graphicTile.hideGround();
         manager.MouseTile.out(this);
     }
 

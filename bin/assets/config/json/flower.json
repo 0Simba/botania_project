@@ -1,6 +1,10 @@
 {
 	"time" : {
-		"delay" : 2000
+		"delay" : 60000
 	},
+    "merge" : {
+        "min" : 0.5,
+        "max" : 0.7
+    },
 	"states" : ["baby", "child", "teenage", "adult", "bloom"]
 }

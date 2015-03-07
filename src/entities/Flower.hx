@@ -4,8 +4,10 @@ import engine.events.Events;
 import GameObject;
 import init.Config;
 import entities.Seed;
+import entities.Fruit;
 import entities.genetic.Genome;
 import utils.Vector2;
+import haxe.Timer;
 
 class Flower extends GameObject
 {
@@ -14,12 +16,12 @@ class Flower extends GameObject
 
     public var genome:Genome;
 
-    private var waitingCallback:Int = 0;
     private var toKill:Bool         = false;
     private var referent:Events;
     private var stateIndex:Int;
     private var position:Vector2;
     private var seedRef:Seed;
+    private var timer:Timer;
 
 
 /*================================
@@ -51,7 +53,7 @@ class Flower extends GameObject
             }
         }
 
-        lunchDelay(function () { // Needed for wait referent done
+        launchDelay(function () { // Needed for wait referent done
             referent.emit("state changed", stateList[stateIndex]);
         }, 10);
     }
@@ -59,12 +61,8 @@ class Flower extends GameObject
 
     override public function destroy () {
         referent.emit('destroyed', null);
-        if (waitingCallback == 0) {
-            Flower.remove(this);
-        }
-        else {
-            toKill = true;
-        }
+        if (timer != null) timer.stop();
+        Flower.remove(this);
     }
 
 
@@ -84,7 +82,7 @@ class Flower extends GameObject
 
     private function serverValidateFlower () {
         referent.emit("builded");
-        lunchDelay(grow, config.time.delay);
+        launchDelay(grow, config.time.delay);
 
         list.push(this);
         seedRef.destroy();
@@ -130,8 +128,6 @@ class Flower extends GameObject
         var nbGrow:Int  = Math.floor(elapsedTime / config.time.delay);
         rest            = cast elapsedTime % config.time.delay;
 
-        trace("coucou");
-        trace(elapsedTime);
         if (nbGrow > 0) {
             stateIndexAtInstance = cast Math.min(stateIndex + nbGrow, stateList.length - 1);
             var data = getGrowDatas();
@@ -140,7 +136,7 @@ class Flower extends GameObject
             callServer("flowerGrow", data, cast serverValidateGrowAtInstance, cast serverRefuseGrow);
         }
         else if (stateIndex < stateList.length -1 ) {
-            lunchDelay(grow, cast config.time.delay - rest);
+            launchDelay(grow, cast config.time.delay - rest);
         }
     }
 
@@ -149,7 +145,7 @@ class Flower extends GameObject
         stateIndex = stateIndexAtInstance;
         referent.emit("state changed", stateList[stateIndex]);
         if (stateList.length - 1 > stateIndex) {
-            lunchDelay(grow, cast config.time.delay - rest);
+            launchDelay(grow, cast config.time.delay - rest);
         }
     }
 
@@ -157,7 +153,7 @@ class Flower extends GameObject
         stateIndex++;
         referent.emit("state changed", stateList[stateIndex]);
         if (stateList.length - 1 > stateIndex) {
-            lunchDelay(grow, config.time.delay);
+            launchDelay(grow, config.time.delay);
         }
     }
 
@@ -187,7 +183,8 @@ class Flower extends GameObject
     private function serverValidateHarvest () {
         stateIndex--;
         referent.emit("state changed", stateList[stateIndex]);
-        lunchDelay(grow, config.time.delay);
+        new Fruit(genome);
+        launchDelay(grow, config.time.delay);
     }
 
 
@@ -195,6 +192,22 @@ class Flower extends GameObject
         trace("Server refuse harvest for");
         trace(this);
     }
+
+
+
+                /*==========  WATER  ==========*/
+
+    public function water () {
+        if (stateList[stateIndex] != "bloom") {
+            timer.stop();
+            callServer("flowerGrow", getGrowDatas(), cast serverValidateGrow, cast serverRefuseGrow);
+        }
+        else {
+            trace("entitie.flower.water -> can't water bloomed flower");
+        }
+    }
+
+
 
                 /*==========  DATAS  ==========*/
 
@@ -228,22 +241,12 @@ class Flower extends GameObject
 =            DELAY FUNCTIONS            =
 =======================================*/
 
-    private function lunchDelay (callback, time) {
-        waitingCallback++;
-        haxe.Timer.delay(function () {
-            endDelay(callback);
+    private function launchDelay (callback, time) {
+        timer = haxe.Timer.delay(function () {
+            callback();
         }, time);
     }
 
-    private function endDelay (callback) {
-        waitingCallback--;
-        if (waitingCallback == 0 && toKill == true) {
-            Flower.remove(this);
-        }
-        else {
-            callback();
-        }
-    }
 
 
 /*=======================================

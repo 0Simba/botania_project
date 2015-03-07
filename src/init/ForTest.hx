@@ -23,6 +23,16 @@ class ForTest
         for (family in 0...allType.length) {
             var cFamily = allType[family];
 
+        /* temp ! */
+            // new Seed(new Genome(
+            //     new Segment(1,
+            //         new Family(cFamily),
+            //         new Order(Type.A),
+            //         new Genre(Type.A)
+            //     )
+            // ));
+        /* end temp */
+
             for (order in 0...allType.length) {
                 var cOrder = allType[order];
 

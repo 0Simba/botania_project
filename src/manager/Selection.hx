@@ -6,8 +6,8 @@ class Selection
 {
     static public var events:Events = new Events();
 
-    static public var actionType:String = "ground";
-    static public var contain:String    = "transparent";  //!\ WARNING stop use ground, useless lose perf
+    static public var actionType:String = null;
+    static public var contain:String    = null;
     static public var meta:Dynamic;
 
     static private var lastActionType:String = null;

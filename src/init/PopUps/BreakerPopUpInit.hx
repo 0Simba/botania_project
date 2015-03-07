@@ -1,11 +1,13 @@
 package init.popUps;
 
+import engine.tween.Tween;
 import utils.Vector2;
 import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.Cell;
 import engine.popUpEngine.Bloc;
 import entities.Seed;
 import engine.popUpEngine.PopUp;
+import Map;
 
 class BreakerPopUpInit
 {
@@ -14,6 +16,7 @@ class BreakerPopUpInit
     static private var seed2:engine.isoEngine.components.Hud;
     static private var popUpEngine:PopUpEngineMain;
     static private var breakerPopUp;
+    static private var tween:Tween;
 
 	public static function init () {
         popUpEngine  = PopUpEngineMain.getInstance();
@@ -22,6 +25,7 @@ class BreakerPopUpInit
         setDefaultsElements();
         setSeedsInventory();
         setSeedsMergingElements();
+        createTween();
 	}
 
     static private function setDefaultsElements () {
@@ -33,7 +37,7 @@ class BreakerPopUpInit
         });
 
         breakerPopUp.addText(new Vector2(0.25, 0.02), new Vector2(0.5, 0.5), "Concasseur", {"font" : "bold 20px verdana", "fill" : "white", "align" : "center"});
-        breakerPopUp.onShow = updateSeedsInventory;
+        breakerPopUp.onShow = onShow;
     }
 
 
@@ -79,5 +83,23 @@ class BreakerPopUpInit
         }
     }
 
+    static private function onShow () {
+        updateSeedsInventory();
+        tween.start();
+    }
+
+    static private function createTween () {
+        var from = new Map<String, Float>();
+        from.set("scale", 0);
+
+        var to = new Map<String, Float>();
+        to.set("scale", 1);
+
+        tween = new Tween (from, to, 1000);
+        tween.onUpdate(function (currentDatas) {
+            breakerPopUp.scale(currentDatas.get("scale"));
+        });
+        // tween.on
+    }
 }
 

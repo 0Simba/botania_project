@@ -12,9 +12,9 @@ import engine.events.Events;
 
 class CircleBlock
 {
-    public function addOnce (name:String, basicTexture:String, hoverTexture:String, clickTexture:String) {
-        elements.set(name, new CircleElement(this, name, basicTexture, hoverTexture, clickTexture));
-        replaceElements ();
+    public function addOnce (name:String, basicTexture:String, callback:Dynamic) {
+        elements.set(name, new CircleElement(this, basicTexture, callback));
+        replaceElements();
         return elements.get(name);
     }
 

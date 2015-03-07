@@ -29,10 +29,10 @@ class ColorMatrixFilters extends Hud
     static private function setOverFilter () {
         var filter;
         var colorMatrix =  [
-            1.0, 0.15, 0.15, 0.0,
-            0.15, 1.0, 0.15, 0.0,
-            0.15, 0.15, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
+            1.0,  0.15, 0.15, 0.0,
+            0.15, 1.0,  0.15, 0.0,
+            0.15, 0.15, 1.0,  0.0,
+            0.0,  0.0,  0.0,  1.0
         ];
         filter = new ColorMatrixFilter();
         filter.matrix = colorMatrix;

@@ -48,7 +48,6 @@ class DragNDrop
     }
 
     public function clearDrop () {
-        dropSprite.visible = false;
         dropSprite.texture = null;
     }
 
@@ -150,6 +149,7 @@ class DragNDrop
     static private function setDraggingOnMouse (mouseData) {
         displayDragging.x = mouseData.global.x;
         displayDragging.y = mouseData.global.y;
+        displayDragging.anchor.set(0.5, 0.5);
     }
 
     static private function buildStaticDatas () {

@@ -2,14 +2,18 @@ package entities.flowerHud;
 
 import utils.Vector2;
 import manager.Selection;
+import engine.isoEngine.components.Hud;
 
 class Breaker extends GameObject
 {
 
+    public var hudElement:Hud;
+
     public function new()
     {
         super();
-        addComponent("hudElement");
+
+        hudElement = new Hud();
         hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "breaker");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
