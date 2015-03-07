@@ -90,14 +90,14 @@ class BreakerPopUpInit
 
     static private function createTween () {
         var from = new Map<String, Float>();
-        from.set("y", -100);
+        from.set("scale", 0);
 
         var to = new Map<String, Float>();
-        to.set("y", 100);
+        to.set("scale", 1);
 
         tween = new Tween (from, to, 1000);
         tween.onUpdate(function (currentDatas) {
-            breakerPopUp.replace(new Vector2(currentDatas.get("y"), currentDatas.get("y")));
+            breakerPopUp.scale(currentDatas.get("scale"));
         });
         // tween.on
     }

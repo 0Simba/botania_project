@@ -62,8 +62,8 @@ class Tween {
     public function new (aDataFrom:Map<String, Float> = null, aDataTo:Map<String, Float> = null, aDuration:Float = 1)
     {
         _ease = Ease.linear;
-        _dataFrom     = (aDataFrom != null)     ? aDataFrom : new Map<String,Float>();
-        _dataTo       = (aDataTo != null)       ? aDataTo : new Map<String,Float>();
+        _dataFrom     = (aDataFrom != null) ? aDataFrom : new Map<String,Float>();
+        _dataTo       = (aDataTo != null)   ? aDataTo : new Map<String,Float>();
         _currentDatas = new Map<String,Float>();
         _duration     = aDuration;
 
