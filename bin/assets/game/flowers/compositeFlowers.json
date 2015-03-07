@@ -77,7 +77,7 @@
     "flowerContainer":
     {
         "frame": {"x":512,"y":600,"w":128,"h":148},
-        "anchor" : {"x" : 0.5, "y" : 0.5}
+        "anchor" : {"x" : 0.5, "y" : 0.75}
     },
 
     "babyFlower":
