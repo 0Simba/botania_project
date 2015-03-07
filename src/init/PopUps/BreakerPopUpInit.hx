@@ -20,7 +20,8 @@ class BreakerPopUpInit
 
 	public static function init () {
         popUpEngine  = PopUpEngineMain.getInstance();
-        breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.1, 0.1), new Vector2(0.8, 0.8));
+        breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
+        breakerPopUp.applyAnchor(0.5, 0.5);
 
         setDefaultsElements();
         setSeedsInventory();
@@ -98,6 +99,8 @@ class BreakerPopUpInit
         tween = new Tween (from, to, 1000);
         tween.onUpdate(function (currentDatas) {
             breakerPopUp.scale(currentDatas.get("scale"));
+            breakerPopUp.applyAnchor(0.5, 0.5);
+            // trace(breakerPopUp.displayObject.x);
         });
         // tween.on
     }

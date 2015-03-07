@@ -38,6 +38,7 @@ class IsoComponent extends DragNDrop
         displayObject.scale.set(value, valueY);
     }
 
+
     private function getRealPositionningValue (value:Float, posType:String, referentValue:Float):Float {
         var finalValue:Float = 0;
 
