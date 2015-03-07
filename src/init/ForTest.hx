@@ -24,30 +24,30 @@ class ForTest
             var cFamily = allType[family];
 
         /* temp ! */
-            new Seed(new Genome(
-                new Segment(1,
-                    new Family(cFamily),
-                    new Order(Type.A),
-                    new Genre(Type.A)
-                )
-            ));
+            // new Seed(new Genome(
+            //     new Segment(1,
+            //         new Family(cFamily),
+            //         new Order(Type.A),
+            //         new Genre(Type.A)
+            //     )
+            // ));
         /* end temp */
 
-            // for (order in 0...allType.length) {
-            //     var cOrder = allType[order];
+            for (order in 0...allType.length) {
+                var cOrder = allType[order];
 
-            //     for (genre in 0...allType.length) {
-            //         var cGenre = allType[genre];
+                for (genre in 0...allType.length) {
+                    var cGenre = allType[genre];
 
-            //         new Seed(new Genome(
-            //             new Segment(1,
-            //                 new Family(cFamily),
-            //                 new Order(cOrder),
-            //                 new Genre(cGenre)
-            //             )
-            //         ));
-            //     }
-            // }
+                    new Seed(new Genome(
+                        new Segment(1,
+                            new Family(cFamily),
+                            new Order(cOrder),
+                            new Genre(cGenre)
+                        )
+                    ));
+                }
+            }
         }
 
 
