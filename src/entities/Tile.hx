@@ -24,10 +24,12 @@ class Tile extends GameObject
     public var coord:ArrayCoord;
     public var flowerAnim:Animation;
 
+    public var graphicTile:engine.isoEngine.components.Tile;
+
 	public function new (_coord:ArrayCoord)
 	{
 		super();
-        addComponent("graphicTile");
+        graphicTile = new engine.isoEngine.components.Tile();
 
         graphicTile.addGround("ground");
         graphicTile.changeGround("circle");
