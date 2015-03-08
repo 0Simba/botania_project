@@ -63,8 +63,8 @@ class InventoryPopUp extends PopUpMain
 
     }
 
-    private function pick () {
-        Selection.setNew("plant", "seed", selectedSeed);
+    private function pick (seed) {
+        Selection.setNew("plant", "seed", seed);
         tweenHide();
     }
 
@@ -78,7 +78,7 @@ class InventoryPopUp extends PopUpMain
             var cont = cell.addContainer(new Vector2(1, 1));
             cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
             cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", function () {
-                pick();
+                pick(Seed.list[i]);
             });
 
             cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
