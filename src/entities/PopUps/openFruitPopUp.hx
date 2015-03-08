@@ -1,4 +1,4 @@
-package init.popUps;
+package entities.popUps;
 
 import engine.tween.Tween;
 import utils.Vector2;
@@ -9,8 +9,9 @@ import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import Map;
 import engine.tween.Ease;
+import entities.popUps.PopUpMain;
 
-class OpenFruitPopUp extends init.popUps.PopUpUtils
+class OpenFruitPopUp extends PopUpMain
 {
 
     public function new () {

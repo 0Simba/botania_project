@@ -1,11 +1,11 @@
-package init.popUps;
+package entities.popUps;
 
 import utils.Vector2;
 import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.PopUp;
-import init.popUps.PopUpUtils;
+import entities.popUps.PopUpMain;
 
-class HeaderPopUp extends PopUpUtils
+class HeaderPopUp extends PopUpMain
 {
     public function new () {
 

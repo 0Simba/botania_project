@@ -18,11 +18,11 @@ class PopUp
         popUpEngine.createButtonPattern("close", new Vector2(1, 0), assets.getSize("breaker_close_btn"), new Vector2(1, 0), "breaker_close_btn", function(){});
 
             /***** Create PopUp *****/
-        new init.popUps.FlowerPopUp();
-        new init.popUps.InventoryPopUp();
-        new init.popUps.BreakerPopUp();
-        new init.popUps.HeaderPopUp();
-        new init.popUps.OpenFruitPopUp();
+        new entities.popUps.FlowerPopUp();
+        new entities.popUps.InventoryPopUp();
+        new entities.popUps.BreakerPopUp();
+        new entities.popUps.HeaderPopUp();
+        new entities.popUps.OpenFruitPopUp();
 
         popUpEngine.show("header");
     }

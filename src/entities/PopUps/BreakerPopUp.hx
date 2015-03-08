@@ -1,4 +1,4 @@
-package init.popUps;
+package entities.popUps;
 
 import engine.tween.Tween;
 import utils.Vector2;
@@ -10,9 +10,9 @@ import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import Map;
 import engine.tween.Ease;
-import init.popUps.PopUpUtils;
+import entities.popUps.PopUpMain;
 
-class BreakerPopUp extends PopUpUtils
+class BreakerPopUp extends PopUpMain
 {
 
     private var seed1:engine.isoEngine.components.Hud;

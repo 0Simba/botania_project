@@ -1,4 +1,4 @@
-package init.popUps;
+package entities.popUps;
 
 import engine.tween.Tween;
 import engine.tween.Ease;
@@ -8,7 +8,7 @@ import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import Map;
 
-class PopUpUtils extends PopUp
+class PopUpMain extends PopUp
 {
 
     public  var popUpEngine:PopUpEngineMain;

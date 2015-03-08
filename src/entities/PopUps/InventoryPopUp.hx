@@ -1,4 +1,4 @@
-package init.popUps;
+package entities.popUps;
 
 import utils.Vector2;
 import engine.popUpEngine.PopUpEngineMain;
@@ -12,9 +12,9 @@ import manager.Selection;
 import engine.popUpEngine.Bloc;
 import engine.isoEngine.components.Hud;
 import engine.popUpEngine.Container;
-import init.popUps.PopUpUtils;
+import entities.popUps.PopUpMain;
 
-class InventoryPopUp extends PopUpUtils
+class InventoryPopUp extends PopUpMain
 {
 
     private var seedsTab:Container;
