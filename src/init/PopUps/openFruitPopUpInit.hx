@@ -29,6 +29,24 @@ class OpenFruitPopUpInit
         openFruitPopup.addButtonPattern("close").onClick(function () {
             openFruitPopup.hide();
         });
+
+        var buttonY = 0.4;
+
+        openFruitPopup.addBloc("objectBackground", new Vector2(0.17, buttonY), new Vector2(0.125, -1));
+        openFruitPopup.addButton(new Vector2(0.17, buttonY), new Vector2(0.125, -1), Vector2.zero, "woodKnife", function () {
+            trace("use woodKnife");
+        });
+
+        openFruitPopup.addBloc("objectBackground", new Vector2(0.37, buttonY), new Vector2(0.125, -1));
+        openFruitPopup.addButton(new Vector2(0.37, buttonY), new Vector2(0.125, -1), Vector2.zero, "metalKnife", function () {
+            trace("use metalKnife");
+        });
+
+        openFruitPopup.addBloc("objectBackground", new Vector2(0.57, buttonY), new Vector2(0.125, -1));
+        openFruitPopup.addButton(new Vector2(0.57, buttonY), new Vector2(0.125, -1), Vector2.zero, "silverKnife", function () {
+            trace("use silverKnife");
+        });
+
     }
 }
 
