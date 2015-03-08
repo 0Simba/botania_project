@@ -22,9 +22,13 @@ class OpenFruitPopUpInit
 
     public static function init () {
         popUpEngine  = PopUpEngineMain.getInstance();
+
         openFruitPopup = popUpEngine.createPopUp("openFruit", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
         openFruitPopup.applyAnchor(0.5, 0.5);
         openFruitPopup.addBloc("openFruitBackground", new Vector2(0, 0), new Vector2(1, 1));
+        openFruitPopup.addButtonPattern("close").onClick(function () {
+            openFruitPopup.hide();
+        });
     }
 }
 
