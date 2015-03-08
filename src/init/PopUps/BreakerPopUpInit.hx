@@ -7,7 +7,9 @@ import engine.popUpEngine.Cell;
 import engine.popUpEngine.Bloc;
 import entities.Seed;
 import engine.popUpEngine.PopUp;
+import engine.isoEngine.IsoEngine;
 import Map;
+import engine.tween.Ease;
 
 class BreakerPopUpInit
 {
@@ -20,23 +22,25 @@ class BreakerPopUpInit
 
 	public static function init () {
         popUpEngine  = PopUpEngineMain.getInstance();
-        breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.1, 0.1), new Vector2(0.8, 0.8));
+        breakerPopUp = popUpEngine.createPopUp("breakerInterface", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
+        breakerPopUp.applyAnchor(0.5, 0.5);
 
         setDefaultsElements();
-        setSeedsInventory();
+        //setSeedsInventory();
         setSeedsMergingElements();
         createTween();
 	}
 
     static private function setDefaultsElements () {
-        breakerPopUp.addBlocPattern("background");
-        breakerPopUp.addBlocPattern("border");
-        breakerPopUp.addBlocPattern("florist");
-        breakerPopUp.addButtonPattern("close").onClick(function () {
-            breakerPopUp.hide();
+        var assets = IsoEngine.getInstance().assets;
+        breakerPopUp.addBloc("fond_en", new Vector2(0, 0), new Vector2(1, 1));
+        breakerPopUp.addButton(new Vector2(0.94, 0.01), assets.getSize("breaker_close_btn") , "breaker_close_btn", function () { tweenThenHide();
         });
-
-        breakerPopUp.addText(new Vector2(0.25, 0.02), new Vector2(0.5, 0.5), "Concasseur", {"font" : "bold 20px verdana", "fill" : "white", "align" : "center"});
+        breakerPopUp.addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl") , "concasser_button_en_ltl", function () {});
+        //breakerPopUp.addBloc("concasser_en_ltl",new Vector2(0.66, 0.835), assets.getSize("concasser_en_ltl"));
+        breakerPopUp.addBloc("plus_ltl",new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
+        breakerPopUp.addBloc("plus_ltl",new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
+        breakerPopUp.addBloc("fond_fleur_graine",new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
         breakerPopUp.onShow = onShow;
     }
 
@@ -54,22 +58,22 @@ class BreakerPopUpInit
             var cell:Cell = breakerPopUp.inventory.addCell();
             var name = Seed.list[i].appearanceName;
 
-            cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
-            var cont = cell.addContainer(new Vector2(1, 1));
-            cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
-            cont.setDraggable(Seed.list[i]);
+            // cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
+            // var cont = cell.addContainer(new Vector2(1, 1));
+            // cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            // cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            // cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8));
+            // cont.setDraggable(Seed.list[i]);
         }
     }
 
     static private function setSeedsMergingElements () {
-        seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
-        seed2 = cast breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
-        seed1.setDroppable();
-        seed2.setDroppable();
+        // seed1 = cast breakerPopUp.addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
+        // seed2 = cast breakerPopUp.addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
+        // seed1.setDroppable();
+        // seed2.setDroppable();
 
-        var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", mergeSeeds);
+        //var but = breakerPopUp.addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", mergeSeeds);
     }
 
     static private function mergeSeeds () {
@@ -83,8 +87,17 @@ class BreakerPopUpInit
         }
     }
 
+    static private var poping = false;
     static private function onShow () {
-        updateSeedsInventory();
+        // updateSeedsInventory();
+        poping = true;
+        tween.ease(Ease.backOut);
+        tween.start();
+    }
+
+    static private function tweenThenHide () {
+        poping = false;
+        tween.ease(Ease.backOutInvert);
         tween.start();
     }
 
@@ -95,11 +108,14 @@ class BreakerPopUpInit
         var to = new Map<String, Float>();
         to.set("scale", 1);
 
-        tween = new Tween (from, to, 1000);
+        tween = new Tween (from, to, 500);
         tween.onUpdate(function (currentDatas) {
             breakerPopUp.scale(currentDatas.get("scale"));
+            breakerPopUp.applyAnchor(0.5, 0.5);
         });
-        // tween.on
+        tween.onComplete(function () {
+            if (!poping) breakerPopUp.hide();
+        });
     }
 }
 

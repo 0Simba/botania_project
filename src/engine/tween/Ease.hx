@@ -62,6 +62,9 @@ class Ease {
         if (s == null) s = 1.70158;
         return ((t=t-1)*t*((s+1)*t + s) + 1);
     }
+    public static function backOutInvert(t:Float,?s:Float):Float {
+        return backOut(1-t);
+    }
     public static function backInOut(t:Float,?s:Float):Float {
         if (s == null) s = 1.70158;
         t*=2;

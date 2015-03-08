@@ -19,6 +19,8 @@ class Container extends engine.isoEngine.components.IsoComponent
     public var pxSize:Vector2;
     public var inventory:Inventory;
 
+    private var lastPos:Vector2;
+
     public var name:String;
 
     public function new (_name:String, parentLayer:String, size:Vector2 = null, parentSize:Vector2 = null) {
@@ -34,6 +36,19 @@ class Container extends engine.isoEngine.components.IsoComponent
         name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
         displayObject = layer; // extends dragNDrop
+    }
+
+    public function applyAnchor (x:Float, y:Float) {
+        if (lastPos != null) {
+            displayObject.x = lastPos.x;
+            displayObject.y = lastPos.y;
+
+        }
+
+        lastPos = new Vector2 (displayObject.x, displayObject.y);
+
+        displayObject.x -= pxSize.x * displayObject.scale.x * x;
+        displayObject.y -= pxSize.y * displayObject.scale.y * y;
     }
 
     public function addBloc (textureName:String, pos:Vector2 = null, size:Vector2 = null) {

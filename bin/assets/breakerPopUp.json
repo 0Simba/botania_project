@@ -6,11 +6,12 @@
 		"sourceSize":{"w":85,"h":84}
 	},
 
-	"close_btn":
+	"breaker_close_btn":
 	{
 		"frame":{"x":459,"y":691,"w":48,"h":48},
 		"spriteSourceSize":{"x":0,"y":0,"w":48,"h":48},
-		"sourceSize":{"w":48,"h":48}
+		"sourceSize":{"w":48,"h":48},
+		"size":{"w":48,"h":48}
 	},
 	"concasser_button_en_ltl":
 	{
@@ -64,7 +65,7 @@
 	{
 		"frame":{"x":162,"y":747,"w":70,"h":69},
 		"spriteSourceSize":{"x":0,"y":0,"w":70,"h":69},
-		"sourceSize":{"w":70,"h":69}
+		"size":{"w":70,"h":69}
 	},
 	"fond_fr":
 	{
@@ -88,13 +89,15 @@
 	{
 		"frame":{"x":233,"y":747,"w":38,"h":39},
 		"spriteSourceSize":{"x":0,"y":0,"w":38,"h":39},
-		"sourceSize":{"w":38,"h":39}
+		"size":{"w":38,"h":39}
 	}
 },
 
 "meta":
 {
 	"app":"http://www.leshylabs.com/apps/sstool/",
+    "image": "breakerPopUp.png",
 	"version":"Leshy SpriteSheet Tool v0.8.1",
 	"size":{"w":883,"h":1467},
-	"scale":1}}
+	"scale":1}
+}
