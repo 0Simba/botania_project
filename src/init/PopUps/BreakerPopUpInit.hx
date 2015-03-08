@@ -34,10 +34,11 @@ class BreakerPopUpInit
         breakerPopUp.addBloc("fond_en", new Vector2(0, 0), new Vector2(1, 1));
         breakerPopUp.addButton(new Vector2(0.94, 0.01), assets.getSize("breaker_close_btn") , "breaker_close_btn", function () { breakerPopUp.hide();
         });
-        breakerPopUp.addButton(new Vector2(0.66, 0.82), assets.getSize("concasser_button_en_ltl") , "concasser_button_en_ltl", function () {});
-        //breakerPopUp.addBloc("concasser_en_ltl",new Vector2(0.66, 0.82), assets.getSize("concasser_en_ltl"));
-        breakerPopUp.addBloc("plus_ltl",new Vector2(0.66, 0.72), assets.getSize("plus_ltl"));
-        breakerPopUp.addBloc("plus_ltl",new Vector2(0.78, 0.72), assets.getSize("plus_ltl"));
+        breakerPopUp.addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl") , "concasser_button_en_ltl", function () {});
+        //breakerPopUp.addBloc("concasser_en_ltl",new Vector2(0.66, 0.835), assets.getSize("concasser_en_ltl"));
+        breakerPopUp.addBloc("plus_ltl",new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
+        breakerPopUp.addBloc("plus_ltl",new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
+        breakerPopUp.addBloc("fond_fleur_graine",new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
         breakerPopUp.onShow = onShow;
     }
 
