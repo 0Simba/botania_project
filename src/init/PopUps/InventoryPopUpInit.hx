@@ -26,40 +26,35 @@ class InventoryPopUpInit
 
 
 	public static function init () {
-        tabs = ["seeds", "fruits", "product", "building"];
         var assets = IsoEngine.getInstance().assets;
         var popUpEngine = PopUpEngineMain.getInstance();
 
         inventoryPopUp = popUpEngine.createPopUp("inventoryInterface", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
         inventoryPopUp.applyAnchor(0.5, 0.5);
+        
         background = inventoryPopUp.addBloc("mainFR", new Vector2(0.2, 0.1), new Vector2(1.14, 1, "%y", "%"));
+        
         var buildingContainer = inventoryPopUp.addContainer(new Vector2(1, 1));
         buildingInventory = buildingContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+        
         tabInit();
-        /* TABS */
 
+        /* MAIN CLOSE BUTTON */
         inventoryPopUp.addButton(new Vector2(0.8, 0.1), new Vector2(0.05, 1, "%", "%x"), Vector2.zero, "close", closePopUp);
-        /*inventory = inventoryPopUp.setInventory(new Vector2(0.1, 0.08), new Vector2(0.8, 0.6), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
-
-        pickButton.hide();
-        trashButton = inventoryPopUp.addButton(new Vector2(0.8, 0.8), new Vector2(0.1, 0.1), "inventoryBtn", function(){});
-        trashButton.hide();
-
-
-        inventoryPopUp.addText(new Vector2(0.5, 0.02), new Vector2(0.5, 0.5), "Inventaire", {font : "bold 20px verdana", fill : "white", align : "center"});*/
-        //inventoryPopUp.addButtonPattern("close").onClick(closePopUp);
+        
         inventoryPopUp.onShow = onShow;
     }
 
     private static function tabInit(){
+        tabs = ["seeds", "fruits", "product", "building"];
         for(i in 0...tabs.length){
             var y:Float = 0.25 + i / 7;
             seedsTab = inventoryPopUp.addContainer(new Vector2(1, 1));
             var imageSize = IsoEngine.getInstance().assets.getSize(tabs[i] + "Dark");
-            var ratio:Float = imageSize.y / imageSize.x;
+            var ratio:Float = imageSize.x / imageSize.y;
             var seedsTabBg = seedsTab.addButton(new Vector2(0.2, y), new Vector2(0.1, .7, "%", "%x"), Vector2.zero, "tabDark", function(){});
             seedsTabBg.setAnchor(1, 0.5);
-            var seedsTabIcon = seedsTab.addBloc(tabs[i] + "Dark", new Vector2(0.16, y), new Vector2(0.06, ratio, "%", "%x"));
+            var seedsTabIcon = seedsTab.addBloc(tabs[i] + "Dark", new Vector2(0.16, y), new Vector2(ratio, 0.07, "%y", "%"));
             seedsTabIcon.displayObject.interactive = false;
             seedsTabIcon.setAnchor(0.5, 0.5);
         }
