@@ -20,7 +20,7 @@ class PopUp
             /***** Create PopUp *****/
         init.popUps.FlowerPopUpInit.init();
         new init.popUps.InventoryPopUp();
-        init.popUps.BreakerPopUpInit.init();
+        new init.popUps.BreakerPopUp();
         new init.popUps.HeaderPopUp();
         new init.popUps.OpenFruitPopUp();
 
