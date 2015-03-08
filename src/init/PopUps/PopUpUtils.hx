@@ -8,16 +8,16 @@ import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import Map;
 
-class PopUpUtils
+class PopUpUtils extends PopUp
 {
 
     public  var popUpEngine:PopUpEngineMain;
-    private var instance:PopUp;
     private var poping = false;
     private var tween:Tween;
 
 
-    public function new () {
+    public function new (name:String, pos:Vector2, size:Vector2) {
+        super(name, pos, size);
         popUpEngine = PopUpEngineMain.getInstance();
         createTween();
     }
@@ -43,11 +43,11 @@ class PopUpUtils
 
         tween = new Tween (from, to, 500);
         tween.onUpdate(function (currentDatas) {
-            instance.scale(currentDatas.get("scale"));
-            instance.applyAnchor(0.5, 0.5);
+            scale(currentDatas.get("scale"));
+            applyAnchor(0.5, 0.5);
         });
         tween.onComplete(function () {
-            if (!poping) instance.hide();
+            if (!poping) hide();
         });
     }
 }

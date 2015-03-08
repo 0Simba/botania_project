@@ -25,6 +25,7 @@ class PopUp extends engine.popUpEngine.Container
         layer.y      = pos.y  * isoEngine.height;
 
         hide();
+        PopUpEngineMain.getInstance().addPopUp(_name, this);
     }
 
 

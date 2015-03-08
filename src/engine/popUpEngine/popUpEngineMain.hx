@@ -16,6 +16,10 @@ class PopUpEngineMain
     private var layer:DisplayObjectContainer;
 
 
+    public function addPopUp (name:String, popUp:PopUp) {
+        popUps.set(name, popUp);
+    }
+
     public function createPopUp (name, pos, size) {
         var popUp = new PopUp(name, pos, size);
         popUps.set(name, popUp);
