@@ -5,6 +5,7 @@ import engine.circleHud.CircleBlock;
 import entities.Tile;
 import engine.circleHud.CirclesHudEngine;
 import engine.tween.Tween;
+import engine.tween.Ease;
 import utils.Vector2;
 import Map;
 
@@ -22,7 +23,9 @@ class CirclesHudManager
             currentShowed = list.get(hudName);
 
             if (tile.buildingRef != null) { //FIXME
-                currentShowed.managedHud.show(tile.coordInPixel(), tile.buildingRef);
+                var coord = tile.coordInPixel();
+                coord.y -= 30;                  // /!\ WARNNIG
+                currentShowed.managedHud.show(coord, tile.buildingRef);
             }
             Selection.setNew("circleHud");
         }
@@ -34,7 +37,7 @@ class CirclesHudManager
     static public function hide () {
         Selection.backToLast();
         if (currentShowed != null) {
-            currentShowed.managedHud.hide();
+            currentShowed.tweenHide();
             currentShowed = null;
         }
     }
@@ -49,7 +52,7 @@ class CirclesHudManager
 
     static private function onSelectionChanged () {
         if (Selection.actionType != "circleHud" && currentShowed != null) {
-            currentShowed.managedHud.hide();
+            currentShowed.tweenHide();
             currentShowed = null;
         }
     }
@@ -72,7 +75,22 @@ class CirclesHudManager
         Selection.events.on("changed", onSelectionChanged);
     }
 
+
+    private var poping:Bool = false;
+
     public function tweenShow () {
+        poping = true;
+        tween.ease(Ease.linear);
+        tween.start();
+    }
+
+    public function close () {
+        tweenHide();
+    }
+
+    public function tweenHide () {
+        poping = false;
+        tween.ease(Ease.linearInvert);
         tween.start();
     }
 
@@ -85,17 +103,12 @@ class CirclesHudManager
             var position = new Vector2(distance * Math.cos(sumAngle), distance * Math.sin(sumAngle), "px", "px");
 
             var size = (ratio / 2 + 0.5) * managedHud.elementsRadius;
-            trace(size);
 
             element.hudButton.replace(position);
             element.hudButton.resize(new Vector2(size, size, "px", "px"));
         });
     }
 
-    public function close () {
-        managedHud.hide();
-        hide();
-    }
 
     private function createTween () {
         var from = new Map<String, Float>();
@@ -104,7 +117,10 @@ class CirclesHudManager
         var to = new Map<String, Float>();
         to.set("ratio", 1);
 
-        tween = new Tween (from, to, 500);
+        tween = new Tween (from, to, 300);
         tween.onUpdate(tweenUpdate);
+        tween.onComplete(function () {
+            if (!poping) managedHud.hide();
+        });
     }
 }

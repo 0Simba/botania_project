@@ -9,6 +9,7 @@ class Ease {
 
     // no easing, no acceleration
     public static function linear(t):Float { return t; }
+    public static function linearInvert(t):Float { return linear(1 - t); }
     // accelerating from zero velocity
     public static function easeInQuad(t:Float):Float { return t*t; }
     public static function easeIn(t:Float):Float { return t*t; }
