@@ -83,7 +83,7 @@ class Container extends engine.isoEngine.components.IsoComponent
     }
 
     public function addContainer (_size:Vector2):Container {
-        return new Container(name + "Child", name, _size, pxSize);
+        return new Container(name + "Child-" + utils.Unique.getId(), name, _size, pxSize);
     }
 
     public function setInventory (pos:Vector2, size:Vector2, _elementsSize:Vector2, _nbElementX:Int = -1, _nbElementY:Int = -1) {

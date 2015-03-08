@@ -11,19 +11,22 @@ import engine.isoEngine.IsoEngine;
 import manager.Selection;
 import engine.popUpEngine.Bloc;
 import engine.isoEngine.components.Hud;
+import engine.popUpEngine.Container;
 
 class InventoryPopUpInit
 {
 
-    private static var pickButton:Button;
+    private static var seedsTab:Container;
     private static var trashButton:Button;
     private static var selectedSeed:Seed;
     private static var inventoryPopUp:PopUp;
     private static var buildingInventory:Inventory;
     private static var background:Hud;
+    private static var tabs:Array<String>;
 
 
 	public static function init () {
+        tabs = ["seeds", "fruits", "product", "building"];
         var assets = IsoEngine.getInstance().assets;
         var popUpEngine = PopUpEngineMain.getInstance();
 
@@ -31,12 +34,11 @@ class InventoryPopUpInit
         inventoryPopUp.applyAnchor(0.5, 0.5);
         background = inventoryPopUp.addBloc("mainFR", new Vector2(0.2, 0.1), new Vector2(1.14, 1, "%y", "%"));
         var buildingContainer = inventoryPopUp.addContainer(new Vector2(1, 1));
-        buildingInventory = buildingContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
+        buildingInventory = buildingContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+        tabInit();
+        /* TABS */
 
-        pickButton  = inventoryPopUp.addButton(new Vector2(0.2, 0.4), new Vector2(0.1, 0.7, "%", "%x"), new Vector2 (0, 0), "tabDark", pickButtonClick);
-        pickButton.setAnchor(1, 0.5);
-
-         
+        inventoryPopUp.addButton(new Vector2(0.8, 0.1), new Vector2(0.05, 1, "%", "%x"), Vector2.zero, "close", closePopUp);
         /*inventory = inventoryPopUp.setInventory(new Vector2(0.1, 0.08), new Vector2(0.8, 0.6), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
 
         pickButton.hide();
@@ -45,17 +47,28 @@ class InventoryPopUpInit
 
 
         inventoryPopUp.addText(new Vector2(0.5, 0.02), new Vector2(0.5, 0.5), "Inventaire", {font : "bold 20px verdana", fill : "white", align : "center"});*/
-        inventoryPopUp.addButtonPattern("close").onClick(closePopUp);
+        //inventoryPopUp.addButtonPattern("close").onClick(closePopUp);
         inventoryPopUp.onShow = onShow;
     }
 
-    private static function showInteractiveButtons (seed:Seed) {
-        selectedSeed = seed;
-        pickButton.show();
-        trashButton.show();
+    private static function tabInit(){
+        for(i in 0...tabs.length){
+            var y:Float = 0.25 + i / 7;
+            seedsTab = inventoryPopUp.addContainer(new Vector2(1, 1));
+            var imageSize = IsoEngine.getInstance().assets.getSize(tabs[i] + "Dark");
+            var ratio:Float = imageSize.y / imageSize.x;
+            var seedsTabBg = seedsTab.addButton(new Vector2(0.2, y), new Vector2(0.1, .7, "%", "%x"), Vector2.zero, "tabDark", function(){});
+            seedsTabBg.setAnchor(1, 0.5);
+            var seedsTabIcon = seedsTab.addBloc(tabs[i] + "Dark", new Vector2(0.16, y), new Vector2(0.06, ratio, "%", "%x"));
+            seedsTabIcon.displayObject.interactive = false;
+            seedsTabIcon.setAnchor(0.5, 0.5);
+        }
+    }
+    private static function clickTab(){
+
     }
 
-    private static function pickButtonClick () {
+    private static function pick () {
         Selection.setNew("plant", "seed", selectedSeed);
         closePopUp();
     }
@@ -65,12 +78,12 @@ class InventoryPopUpInit
         trace(Seed.list.length);
         for (i in 0...Seed.list.length) {
             var cell:Cell = buildingInventory.addCell();
-            cell.addBloc("objectBackground", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
-
+            var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
             var name = Seed.list[i].appearanceName;
             var cont = cell.addContainer(new Vector2(1, 1));
-            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 0), "objectBackground", function () {
-                showInteractiveButtons(Seed.list[i]);
+            cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", closePopUp);
+            cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", function () {
+                pick();
             });
 
             cont.addBloc("G" + name.charAt(2), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
@@ -86,8 +99,6 @@ class InventoryPopUpInit
 
     private static function closePopUp () {
         inventoryPopUp.hide();
-        pickButton.hide();
-        trashButton.hide();
     }
 }
 
