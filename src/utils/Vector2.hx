@@ -16,10 +16,28 @@ class Vector2
         metaY = _metaY;
     }
 
-    static public var zero  = new Vector2(0 , 0);
-    static public var full  = new Vector2(1 , 1);
-    static public var right = new Vector2(1 , 0);
-    static public var left  = new Vector2(-1, 0);
-    static public var up    = new Vector2(0 , 1);
-    static public var down  = new Vector2(0 , -1);
+    static public var zero  (get, set):Vector2;
+    static public var full  (get, set):Vector2;
+    static public var right (get, set):Vector2;
+    static public var left  (get, set):Vector2;
+    static public var up    (get, set):Vector2;
+    static public var down  (get, set):Vector2;
+    static public var mid   (get, set):Vector2;
+
+    static function get_zero  () {return new Vector2(0 , 0);}
+    static function get_full  () {return new Vector2(1 , 1);}
+    static function get_right () {return new Vector2(1 , 0);}
+    static function get_left  () {return new Vector2(-1, 0);}
+    static function get_up    () {return new Vector2(0 , 1);}
+    static function get_down  () {return new Vector2(0 , -1);}
+    static function get_mid   () {return new Vector2(0.5 , 0.5);}
+
+    static function set_zero  (a) {return null;}
+    static function set_full  (a) {return null;}
+    static function set_right (a) {return null;}
+    static function set_left  (a) {return null;}
+    static function set_up    (a) {return null;}
+    static function set_down  (a) {return null;}
+    static function set_mid   (a) {return null;}
+
 }

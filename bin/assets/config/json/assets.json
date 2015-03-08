@@ -14,6 +14,7 @@
         "map/map3",
         "game/flowers/compositeFlowers",
         "FX/bloom",
+        "popups/openFruit",
         "popups/inventory/inventory"
     ]
 }

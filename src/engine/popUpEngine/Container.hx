@@ -63,8 +63,8 @@ class Container extends engine.isoEngine.components.IsoComponent
         return addSomethingOn(bloc);
     }
 
-    public function addButton (pos:Vector2, size:Vector2, basicTexture:String, callback) {
-        var button = new Button(size, pos, basicTexture, callback);
+    public function addButton (pos:Vector2, size:Vector2, anchor:Vector2, basicTexture:String, callback) {
+        var button = new Button(size, pos, anchor, basicTexture, callback);
         return addSomethingOn(button);
     }
 
