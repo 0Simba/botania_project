@@ -33,7 +33,7 @@ class InventoryPopUpInit
         var buildingContainer = inventoryPopUp.addContainer(new Vector2(1, 1));
         buildingInventory = buildingContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.5, "%", "%x"), 4, -1);
 
-        pickButton  = inventoryPopUp.addButton(new Vector2(0.2, 0.4), new Vector2(0.1, 0.7, "%", "%x"), "tabDark", pickButtonClick);
+        pickButton  = inventoryPopUp.addButton(new Vector2(0.2, 0.4), new Vector2(0.1, 0.7, "%", "%x"), new Vector2 (0, 0), "tabDark", pickButtonClick);
         pickButton.setAnchor(1, 0.5);
 
          
@@ -69,7 +69,7 @@ class InventoryPopUpInit
 
             var name = Seed.list[i].appearanceName;
             var cont = cell.addContainer(new Vector2(1, 1));
-            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), "objectBackground", function () {
+            cont.addButton(new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 0), "objectBackground", function () {
                 showInteractiveButtons(Seed.list[i]);
             });
 

@@ -29,11 +29,11 @@ class PopUpEngineMain
         });
     }
 
-    public function createButtonPattern (name:String, pos:Vector2, size:Vector2, basicTexture:String, callback) {
+    public function createButtonPattern (name:String, pos:Vector2, size:Vector2, anchor:Vector2, basicTexture:String, callback) {
         var button:Button;
 
         MapManipulate.ifIsFree(buttons, name, function () {
-            button = new Button(size, pos, basicTexture, callback);
+            button = new Button(size, pos, anchor, basicTexture, callback);
             buttons.set(name, button);
         }, "buttons");
 

@@ -22,4 +22,8 @@ class Vector2
     static public var left  = new Vector2(-1, 0);
     static public var up    = new Vector2(0 , 1);
     static public var down  = new Vector2(0 , -1);
+
+    static public function mid () {
+        return new Vector2(0.5, 0.5);
+    }
 }
