@@ -22,9 +22,8 @@ class PopUp
         init.popUps.InventoryPopUpInit.init();
         init.popUps.BreakerPopUpInit.init();
         init.popUps.HeaderPopUpInit.init();
-        init.popUps.OpenFruitPopUpInit.init();
+        new init.popUps.OpenFruitPopUp();
 
         popUpEngine.show("header");
-        popUpEngine.show("openFruit");
     }
 }
