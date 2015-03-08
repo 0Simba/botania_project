@@ -21,7 +21,7 @@ class PopUp
         init.popUps.FlowerPopUpInit.init();
         init.popUps.InventoryPopUpInit.init();
         init.popUps.BreakerPopUpInit.init();
-        init.popUps.HeaderPopUpInit.init();
+        new init.popUps.HeaderPopUp();
         new init.popUps.OpenFruitPopUp();
 
         popUpEngine.show("header");

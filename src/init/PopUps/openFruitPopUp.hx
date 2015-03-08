@@ -16,7 +16,6 @@ class OpenFruitPopUp extends init.popUps.PopUpUtils
     public function new () {
         super("openFruit", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
 
-        // = popUpEngine.createPopUp();
         applyAnchor(0.5, 0.5);
 
 
