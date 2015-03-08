@@ -12,6 +12,7 @@
         "map/map2",
         "map/map3",
         "game/flowers/compositeFlowers",
-        "FX/bloom"
+        "FX/bloom",
+        "popups/inventory/inventory"
     ]
 }

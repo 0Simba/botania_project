@@ -2,7 +2,7 @@
     $config = array(
         "host"     => "localhost",
         "user"     => "root",
-        "password" => "",
+        "password" => "poussin1",
         "database" => "botania",
     );
 ?>
