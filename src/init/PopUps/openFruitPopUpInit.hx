@@ -11,19 +11,20 @@ import engine.isoEngine.IsoEngine;
 import Map;
 import engine.tween.Ease;
 
-class BreakerPopUpInit
+class OpenFruitPopUpInit
 {
 
     static private var seed1:engine.isoEngine.components.Hud;
     static private var seed2:engine.isoEngine.components.Hud;
     static private var popUpEngine:PopUpEngineMain;
-    static private var breakerPopUp;
+    static private var openFruitPopup;
     static private var tween:Tween;
 
     public static function init () {
         popUpEngine  = PopUpEngineMain.getInstance();
-        breakerPopUp = popUpEngine.createPopUp("openFruit", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
-        breakerPopUp.applyAnchor(0.5, 0.5);
+        openFruitPopup = popUpEngine.createPopUp("openFruit", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
+        openFruitPopup.applyAnchor(0.5, 0.5);
+        openFruitPopup.addBloc("openFruitBackground", new Vector2(0, 0), new Vector2(1, 1));
     }
 }
 
