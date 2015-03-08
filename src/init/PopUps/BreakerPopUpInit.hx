@@ -9,6 +9,7 @@ import entities.Seed;
 import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import Map;
+import engine.tween.Ease;
 
 class BreakerPopUpInit
 {
@@ -33,7 +34,7 @@ class BreakerPopUpInit
     static private function setDefaultsElements () {
         var assets = IsoEngine.getInstance().assets;
         breakerPopUp.addBloc("fond_en", new Vector2(0, 0), new Vector2(1, 1));
-        breakerPopUp.addButton(new Vector2(0.94, 0.01), assets.getSize("breaker_close_btn") , "breaker_close_btn", function () { breakerPopUp.hide();
+        breakerPopUp.addButton(new Vector2(0.94, 0.01), assets.getSize("breaker_close_btn") , "breaker_close_btn", function () { tweenThenHide();
         });
         breakerPopUp.addButton(new Vector2(0.66, 0.82), assets.getSize("concasser_button_en_ltl") , "concasser_button_en_ltl", function () {});
         //breakerPopUp.addBloc("concasser_en_ltl",new Vector2(0.66, 0.82), assets.getSize("concasser_en_ltl"));
@@ -85,8 +86,17 @@ class BreakerPopUpInit
         }
     }
 
+    static private var poping = false;
     static private function onShow () {
         // updateSeedsInventory();
+        poping = true;
+        tween.ease(Ease.backOut);
+        tween.start();
+    }
+
+    static private function tweenThenHide () {
+        poping = false;
+        tween.ease(Ease.backOutInvert);
         tween.start();
     }
 
@@ -97,13 +107,14 @@ class BreakerPopUpInit
         var to = new Map<String, Float>();
         to.set("scale", 1);
 
-        tween = new Tween (from, to, 250);
+        tween = new Tween (from, to, 500);
         tween.onUpdate(function (currentDatas) {
             breakerPopUp.scale(currentDatas.get("scale"));
             breakerPopUp.applyAnchor(0.5, 0.5);
-            // trace(breakerPopUp.displayObject.x);
         });
-        // tween.on
+        tween.onComplete(function () {
+            if (!poping) breakerPopUp.hide();
+        });
     }
 }
 

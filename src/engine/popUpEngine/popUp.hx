@@ -39,8 +39,10 @@ class PopUp extends engine.popUpEngine.Container
 
     override public function hide () {
         layer.visible = false;
+        onHide();
     }
 
 
     public dynamic function onShow () {}
+    public dynamic function onHide () {}
 }
