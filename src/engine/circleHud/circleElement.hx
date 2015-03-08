@@ -7,6 +7,8 @@ import engine.isoEngine.components.Button;
 
 class CircleElement extends GameObject
 {
+    public var angle:Float;
+
     private var parent:CircleBlock;
     private var referent:Events;
 
@@ -19,6 +21,7 @@ class CircleElement extends GameObject
 
         hudButton = new Button();
         hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName);
+        hudButton.sprite.anchor.set(0.5, 0.5);
         hudButton.onClick(click);
 
         callback = _callback;

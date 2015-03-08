@@ -19,17 +19,19 @@ class CircleBlock
     }
 
     public function show (pos:Vector2, _targetShowed:Dynamic) {
-        layer.x = pos.x;
-        layer.y = pos.y;
+        layer.x = pos.x;// + elementsRadius / 2;
+        layer.y = pos.y;// - elementsRadius / 2;
         layer.visible = true;
 
         targetShowed = _targetShowed;
+        onShow();
     }
 
     public function hide () {
         layer.visible = false;
     }
 
+    dynamic public function onShow () {}
 
 
             /***** YOU DON'T CARE   *****/
@@ -40,8 +42,8 @@ class CircleBlock
     public var referent:Events;
     public var targetShowed:Dynamic;
 
-    public  var elementsRadius:Int;
-    private var centerRadius:Int;
+    public var elementsRadius:Int;
+    public var centerRadius:Int;
 
     private var elements:Map<String, CircleElement>;
     private var parent:CirclesHudEngine;
@@ -57,7 +59,16 @@ class CircleBlock
             var x = Math.cos(angle * i) * (centerRadius);
             var y = Math.sin(angle * i) * (centerRadius);
 
-            list[i].replace(new Vector2 (x + parent.offsetX - elementsRadius / 2, y + parent.offsetY - elementsRadius / 2));
+            list[i].replace(new Vector2 (x, y));
+            list[i].angle = angle * i;
+        }
+    }
+
+    public function forEachElement (callback) {
+        var list = MapManipulate.toArray(elements);
+
+        for (i in 0...list.length) {
+            callback(list[i]);
         }
     }
 

@@ -4,6 +4,8 @@ import engine.events.Events;
 import engine.circleHud.CircleBlock;
 import entities.Tile;
 import engine.circleHud.CirclesHudEngine;
+import engine.tween.Tween;
+import utils.Vector2;
 import Map;
 
 class CirclesHudManager
@@ -54,16 +56,40 @@ class CirclesHudManager
 
 
 
+
     public  var events:Events;
     private var managedHud:CircleBlock;
+    private var tween:Tween;
 
     public function new (name) {
+        createTween();
         events = new Events();
         managedHud = CirclesHudEngine.getInstance().createModel(name, events);
+        managedHud.onShow = tweenShow;
 
         CirclesHudManager.addOnce(name, this);
 
         Selection.events.on("changed", onSelectionChanged);
+    }
+
+    public function tweenShow () {
+        tween.start();
+    }
+
+    public function tweenUpdate (currentDatas) {
+        managedHud.forEachElement(function (element) {
+            var ratio    = currentDatas.get("ratio");
+
+            var distance = managedHud.centerRadius * ratio;
+            var sumAngle = element.angle + (1 - ratio) * Math.PI;
+            var position = new Vector2(distance * Math.cos(sumAngle), distance * Math.sin(sumAngle), "px", "px");
+
+            var size = (ratio / 2 + 0.5) * managedHud.elementsRadius;
+            trace(size);
+
+            element.hudButton.replace(position);
+            element.hudButton.resize(new Vector2(size, size, "px", "px"));
+        });
     }
 
     public function close () {
@@ -71,4 +97,14 @@ class CirclesHudManager
         hide();
     }
 
+    private function createTween () {
+        var from = new Map<String, Float>();
+        from.set("ratio", 0);
+
+        var to = new Map<String, Float>();
+        to.set("ratio", 1);
+
+        tween = new Tween (from, to, 500);
+        tween.onUpdate(tweenUpdate);
+    }
 }

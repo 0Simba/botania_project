@@ -149,7 +149,10 @@ class Tile extends IsoComponent
     }
 
     public function coordInPixel ():Vector2 {
-        return IsoUtils.coordToPx(coord.x, coord.y);
+        var coord = IsoUtils.coordToPx(coord.x, coord.y);
+        coord.x += size.x / 2;
+        coord.y += size.y / 2;
+        return coord;
     }
 
 
