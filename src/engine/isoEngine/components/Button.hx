@@ -40,11 +40,17 @@ class Button extends Hud
         alwaysOver(mouseData);
         overBind();
         sprite.filters = [overFilter];
+        // Prevent pixi filter on positionning
+        sprite.x +=1;
+        sprite.y+=1;
     }
     private function alwaysButtonOut (mouseData) {
         alwaysOut(mouseData);
         outBind();
         sprite.filters = null;
+        // Prevent pixi filter on positionning
+        sprite.x -=1;
+        sprite.y-=1;
     }
     private function alwaysButtonClick (mouseData) {
         clickBind();

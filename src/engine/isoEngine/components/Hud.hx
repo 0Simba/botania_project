@@ -74,6 +74,9 @@ class Hud extends IsoComponent
         clickBind();
     }
 
+    public function setAnchor(x:Float, y:Float){
+        sprite.anchor.set(x, y);
+    }
 
     static private var isBinded:Bool = false;
 
@@ -81,5 +84,6 @@ class Hud extends IsoComponent
     static public function onClick () {
         if (currentOver != null) currentOver.clickBind();
     }
+
 
 }

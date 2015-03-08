@@ -1,0 +1,276 @@
+{
+	"frames":{
+	"mainFR":{
+		"frame":{
+			"x":0,"y":0,"w":871,"h":764
+		},
+		"rotated":false,
+		"trimmed":false,
+		"spritesize":{
+			"x":0,"y":0,"w":871,"h":764
+		},
+		"size":{
+		"w":871,"h":764
+	}
+	},
+	"close":{
+	"frame":{
+	"x":872,"y":1352,"w":61,"h":61
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":61,"h":61
+	},
+	"size":{
+	"w":61,"h":61
+}
+	},
+	"scrollBackground":{
+	"frame":{
+	"x":872,"y":485,"w":18,"h":330
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":18,"h":330
+	},
+	"size":{
+	"w":18,"h":330
+}
+	},
+	"mainEN":{
+	"frame":{
+	"x":0,"y":765,"w":871,"h":764
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":871,"h":764
+	},
+	"size":{
+	"w":871,"h":764
+}
+	},
+	"productLight":{
+	"frame":{
+	"x":872,"y":982,"w":63,"h":68
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":63,"h":68
+	},
+	"size":{
+	"w":63,"h":68
+}
+	},
+	"productDark":{
+	"frame":{
+	"x":872,"y":1051,"w":63,"h":68
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":63,"h":68
+	},
+	"size":{
+	"w":63,"h":68
+}
+	},
+	"tabLight":{
+	"frame":{
+	"x":872,"y":0,"w":151,"h":107
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":151,"h":107
+	},
+	"size":{
+	"w":151,"h":107
+}
+	},
+	"tabDark":{
+	"frame":{
+	"x":872,"y":108,"w":151,"h":107
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":151,"h":107
+	},
+	"size":{
+	"w":151,"h":107
+}
+	},
+	"objectBackground":{
+	"frame":{
+	"x":872,"y":216,"w":110,"h":104
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":110,"h":104
+	},
+	"size":{
+	"w":110,"h":104
+}
+	},
+	"buildingLight":{
+	"frame":{
+	"x":872,"y":321,"w":79,"h":81
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":79,"h":81
+	},
+	"size":{
+	"w":79,"h":81
+}
+	},
+	"seedsDark":{
+	"frame":{
+	"x":872,"y":1246,"w":74,"h":52
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":74,"h":52
+	},
+	"size":{
+	"w":74,"h":52
+}
+	},
+	"backgroundDark":{
+	"frame":{
+	"x":872,"y":1414,"w":76,"h":25
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":76,"h":25
+	},
+	"size":{
+	"w":76,"h":25
+}
+	},
+	"scrollDrag":{
+	"frame":{
+	"x":872,"y":1440,"w":40,"h":39
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":40,"h":39
+	},
+	"size":{
+	"w":40,"h":39
+}
+	},
+	"sprite31":{
+	"frame":{
+	"x":944,"y":1480,"w":30,"h":30
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":30,"h":30
+	},
+	"size":{
+	"w":30,"h":30
+}
+	},
+	"buildingDark":{
+	"frame":{
+	"x":872,"y":403,"w":79,"h":81
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":79,"h":81
+	},
+	"size":{
+	"w":79,"h":81
+}
+	},
+	"flowerLight":{
+	"frame":{
+	"x":872,"y":816,"w":61,"h":82
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":61,"h":82
+	},
+	"size":{
+	"w":61,"h":82
+}
+	},
+	"flowerDark":{
+	"frame":{
+	"x":872,"y":899,"w":61,"h":82
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":61,"h":82
+	},
+	"size":{
+	"w":61,"h":82
+}
+	},
+	"fruitsLight":{
+	"frame":{
+	"x":872,"y":1120,"w":64,"h":62
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":64,"h":62
+	},
+	"size":{
+	"w":64,"h":62
+}
+	},
+	"fruitsDark":{
+	"frame":{
+	"x":872,"y":1183,"w":64,"h":62
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":64,"h":62
+	},
+	"size":{
+	"w":64,"h":62
+}
+	},
+	"seedsLight":{
+	"frame":{
+	"x":872,"y":1299,"w":74,"h":52
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":74,"h":52
+	},
+	"size":{
+	"w":74,"h":52
+}
+	},
+	"scrollUp":{
+	"frame":{
+	"x":872,"y":1480,"w":35,"h":30
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":35,"h":30
+	},
+	"size":{
+	"w":35,"h":30
+}
+	},
+	"sprite38":{
+	"frame":{
+	"x":872,"y":1511,"w":2,"h":2
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":2,"h":2
+	},
+	"size":{
+	"w":2,"h":2
+}
+	},
+	"sprite39":{
+	"frame":{
+	"x":872,"y":1514,"w":2,"h":2
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":2,"h":2
+	},
+	"size":{
+	"w":2,"h":2
+}
+	},
+	"scrollDown":{
+	"frame":{
+	"x":908,"y":1480,"w":35,"h":30
+	},
+	"rotated":false,"trimmed":false,"spritesize":{
+	"x":0,"y":0,"w":35,"h":30
+	},
+	"size":{
+	"w":35,"h":30
+}
+}
+	},
+	"meta":{
+	"image": "inventory.png","app":"http://www.leshylabs.com/apps/sstool/","version":"Leshy SpriteSheet Tool v0.8.1","size":{
+	"w":1023,"h":1529
+	},
+	"scale":1
+}
+}
