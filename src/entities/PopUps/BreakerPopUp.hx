@@ -26,7 +26,7 @@ class BreakerPopUp extends PopUpMain
         popUpEngine  = PopUpEngineMain.getInstance();
 
         setDefaultsElements();
-        setSeedsInventory();
+        // setSeedsInventory();
         setSeedsMergingElements();
         createTween();
 	}
@@ -61,8 +61,8 @@ class BreakerPopUp extends PopUpMain
             cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
             var cont = cell.addContainer(new Vector2(1, 1));
 
-            cont.addBloc("colo"  + name.charAt(0) + name.charAt(2), new Vector2 (-0.5, -0.5, "%", "%"), new Vector2 (2, 2, "%", "%"));
-            cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (-0.5, -0.5, "%", "%"), new Vector2 (2, 2, "%", "%"));
+            cont.addBloc("colo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
+            cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
 
             cont.setDraggable(Seed.list[i]);
         }
