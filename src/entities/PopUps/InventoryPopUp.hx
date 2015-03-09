@@ -20,9 +20,14 @@ class InventoryPopUp extends PopUpMain
     private var seedsTab:Container;
     private var trashButton:Button;
     private var selectedSeed:Seed;
-    private var buildingInventory:Inventory;
+    private var activeInventory:Inventory;
     private var background:Hud;
-    private var tabs:Array<String>;
+    private var tabsNames:Array<String>;
+    private var tabs:Array<Container>;
+    private var activeTabIndex:Int;
+    private var tabIcons:Array<Dynamic>      = [];
+    private var tabButtons:Array<Dynamic>    = [];
+    private var inventories:Array<Inventory> = [];
 
 
 	public function new () {
@@ -34,9 +39,6 @@ class InventoryPopUp extends PopUpMain
 
         background = addBloc("mainFR", new Vector2(0.2, 0.1), new Vector2(1.14, 1, "%y", "%"));
 
-        var buildingContainer = addContainer(new Vector2(1, 1));
-        buildingInventory = buildingContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
-
         tabInit();
 
         /* MAIN CLOSE BUTTON */
@@ -46,21 +48,54 @@ class InventoryPopUp extends PopUpMain
     }
 
     private function tabInit(){
-        tabs = ["seeds", "fruits", "product", "building"];
-        for(i in 0...tabs.length){
-            var y:Float = 0.25 + i / 7;
-            seedsTab = addContainer(new Vector2(1, 1));
-            var imageSize = IsoEngine.getInstance().assets.getSize(tabs[i] + "Dark");
-            var ratio:Float = imageSize.x / imageSize.y;
-            var seedsTabBg = seedsTab.addButton(new Vector2(0.2, y), new Vector2(0.1, .7, "%", "%x"), Vector2.zero, "tabDark", function(){});
-            seedsTabBg.setAnchor(1, 0.5);
-            var seedsTabIcon = seedsTab.addBloc(tabs[i] + "Dark", new Vector2(0.16, y), new Vector2(ratio, 0.07, "%y", "%"));
-            seedsTabIcon.displayObject.interactive = false;
-            seedsTabIcon.setAnchor(0.5, 0.5);
+        tabsNames = ["seeds", "fruits", "product", "building"];
+        activeTabIndex = 0;
+        tabs = [];
+        for(i in 0...tabsNames.length){
+            drawTab(i);
+            createTabInterface(i);
+        }
+        selectTab(activeTabIndex);
+    }
+
+    private function drawTab(i:Int){
+        var activeTabName = tabsNames[activeTabIndex];
+        var y:Float = 0.25 + i / 7;
+        var tab = addContainer(new Vector2(1, 1));
+        var extendName = (tabsNames[i] == activeTabName) ? "Light" : "Dark";
+        var imageSize = IsoEngine.getInstance().assets.getSize(tabsNames[i] + extendName);
+        var ratio:Float = imageSize.x / imageSize.y;
+        var seedsTabBg = tab.addButton(new Vector2(0.2, y), new Vector2(0.1, .7, "%", "%x"), Vector2.zero, "tab" + extendName, function(){
+            unselectActiveTab();
+            selectTab(i);
+        });
+        var seedsTabIcon = tab.addBloc(tabsNames[i] + extendName, new Vector2(0.16, y), new Vector2(ratio, 0.07, "%y", "%"));
+        seedsTabIcon.displayObject.interactive = false;
+        seedsTabIcon.setAnchor(0.5, 0.5);
+        seedsTabBg.setAnchor(1, 0.5);
+
+        tabIcons.push(seedsTabIcon);
+        tabButtons.push(seedsTabBg);
+    }
+
+    private function createTabInterface(i:Int){
+        switch(tabsNames[i]){
+            case "seeds" :   createSeedsInventory();
+            default: createBlankInventory();
         }
     }
-    private function clickTab(){
 
+    private function selectTab(index:Int){
+        activeTabIndex = index;
+        tabIcons[activeTabIndex].changeTexture(tabsNames[activeTabIndex] + "Light");
+        tabButtons[activeTabIndex].changeTexture("tabLight");
+        inventories[index].show();
+    }
+
+    private function unselectActiveTab(){
+        tabIcons[activeTabIndex].changeTexture(tabsNames[activeTabIndex] + "Dark");
+        tabButtons[activeTabIndex].changeTexture("tabDark");
+        inventories[activeTabIndex].hide();
     }
 
     private function pick (seed) {
@@ -68,11 +103,12 @@ class InventoryPopUp extends PopUpMain
         tweenHide();
     }
 
-    private function displaySeeds () {
-        buildingInventory.clear();
-        trace(Seed.list.length);
+    private function createSeedsInventory () {
+        var seedsContainer = addContainer(new Vector2(1, 1));
+        var seedsInventory = seedsContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+        seedsInventory.clear();
         for (i in 0...Seed.list.length) {
-            var cell:Cell = buildingInventory.addCell();
+            var cell:Cell = seedsInventory.addCell();
             var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
             var name = Seed.list[i].appearanceName;
             var cont = cell.addContainer(new Vector2(1, 1));
@@ -85,11 +121,20 @@ class InventoryPopUp extends PopUpMain
             cont.addBloc("F" + name.charAt(0), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
             cont.addBloc("O" + name.charAt(1), new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8)).displayObject.interactive = false;
         }
+        seedsInventory.hide();
+        inventories.push(seedsInventory);
+
+    }
+
+    private function createBlankInventory(){
+        var blankContainer = addContainer(new Vector2(1, 1));
+        var blankInventory = blankContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+        inventories.push(blankInventory);
+        blankInventory.hide();
     }
 
     public function setInventorysThenTween () {
         Selection.setNull();
-        displaySeeds();
         tweenShow();
     }
 }
