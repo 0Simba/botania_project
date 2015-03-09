@@ -95,4 +95,12 @@ class Inventory
         if (nbElementY != -1) size.y += Scrollbar.defaultSize;
     }
 
+    public function hide():Void
+    {
+        layer.visible = false;
+    }
+    public function show():Void
+    {
+        layer.visible = true;
+    }
 }
