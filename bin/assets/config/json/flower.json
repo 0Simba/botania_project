@@ -6,5 +6,12 @@
         "min" : 0.5,
         "max" : 0.7
     },
+    "typeToHue" : {
+        "A" : 0.0,
+        "B" : 0.2,
+        "C" : 0.4,
+        "D" : 0.6,
+        "E" : 0.8
+    },
 	"states" : ["baby", "child", "teenage", "adult", "bloom"]
 }

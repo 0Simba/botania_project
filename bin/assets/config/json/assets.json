@@ -6,7 +6,6 @@
         "characters/florist",
         "popup",
         "header/header_large",
-        "game/seeds/seeds",
         "breakerPopUp",
         "map/map0",
         "map/map1",
@@ -16,6 +15,7 @@
         "FX/bloom",
         "popups/openFruit",
         "popups/inventory/inventory",
-        "game/seeds/seeds"
+        "game/seeds/seedsMotif",
+        "game/seeds/seedsColo"
     ]
 }

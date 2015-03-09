@@ -43,6 +43,11 @@ class Hud extends IsoComponent
     }
 
 
+    public function setFilter (filter) {
+        sprite.filters = [filter];
+    }
+
+
 
         /****** YOU DON'T CARE *****/
 
