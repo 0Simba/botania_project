@@ -15,6 +15,7 @@
         "game/flowers/compositeFlowers",
         "FX/bloom",
         "popups/openFruit",
-        "popups/inventory/inventory"
+        "popups/inventory/inventory",
+        "game/seeds/seeds"
     ]
 }

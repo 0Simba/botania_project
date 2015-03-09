@@ -1,1 +1,374 @@
-{"frames":{"coloApng":{"frame":{"x":0,"y":257,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"coloBpng":{"frame":{"x":771,"y":771,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"coloCpng":{"frame":{"x":257,"y":0,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"coloDpng":{"frame":{"x":257,"y":257,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"coloEpng":{"frame":{"x":0,"y":514,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifAApng":{"frame":{"x":257,"y":514,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifABpng":{"frame":{"x":514,"y":0,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifACpng":{"frame":{"x":514,"y":257,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifADpng":{"frame":{"x":514,"y":514,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifAEpng":{"frame":{"x":0,"y":771,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifBApng":{"frame":{"x":257,"y":771,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifBBpng":{"frame":{"x":514,"y":771,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifBCpng":{"frame":{"x":771,"y":0,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifBDpng":{"frame":{"x":771,"y":257,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifBEpng":{"frame":{"x":771,"y":514,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifCApng":{"frame":{"x":0,"y":0,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifCBpng":{"frame":{"x":0,"y":1028,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifCCpng":{"frame":{"x":257,"y":1028,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifCDpng":{"frame":{"x":514,"y":1028,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifCEpng":{"frame":{"x":771,"y":1028,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifDApng":{"frame":{"x":1028,"y":0,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifDBpng":{"frame":{"x":1028,"y":257,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifDCpng":{"frame":{"x":1028,"y":514,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifDDpng":{"frame":{"x":1028,"y":771,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifDEpng":{"frame":{"x":1028,"y":1028,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifEApng":{"frame":{"x":0,"y":1285,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifEBpng":{"frame":{"x":257,"y":1285,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifECpng":{"frame":{"x":514,"y":1285,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifEDpng":{"frame":{"x":771,"y":1285,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}},"motifEEpng":{"frame":{"x":1028,"y":1285,"w":256,"h":256},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":256,"h":256},"sourceSize":{"w":256,"h":256}}},"meta":{"app":"http://www.leshylabs.com/apps/sstool/","version":"Leshy SpriteSheet Tool v0.8.1","size":{"w":1284,"h":1541},"scale":1}}
+{
+    "frames": {
+        "coloA": {
+            "frame": {
+                "x": 0,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "coloB": {
+            "frame": {
+                "x": 771,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "coloC": {
+            "frame": {
+                "x": 257,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "coloD": {
+            "frame": {
+                "x": 257,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "coloE": {
+            "frame": {
+                "x": 0,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifAA": {
+            "frame": {
+                "x": 257,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifAB": {
+            "frame": {
+                "x": 514,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifAC": {
+            "frame": {
+                "x": 514,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifAD": {
+            "frame": {
+                "x": 514,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifAE": {
+            "frame": {
+                "x": 0,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifBA": {
+            "frame": {
+                "x": 257,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifBB": {
+            "frame": {
+                "x": 514,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifBC": {
+            "frame": {
+                "x": 771,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifBD": {
+            "frame": {
+                "x": 771,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifBE": {
+            "frame": {
+                "x": 771,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifCA": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifCB": {
+            "frame": {
+                "x": 0,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifCC": {
+            "frame": {
+                "x": 257,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifCD": {
+            "frame": {
+                "x": 514,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifCE": {
+            "frame": {
+                "x": 771,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifDA": {
+            "frame": {
+                "x": 1028,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifDB": {
+            "frame": {
+                "x": 1028,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifDC": {
+            "frame": {
+                "x": 1028,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifDD": {
+            "frame": {
+                "x": 1028,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifDE": {
+            "frame": {
+                "x": 1028,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifEA": {
+            "frame": {
+                "x": 0,
+                "y": 1285,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifEB": {
+            "frame": {
+                "x": 257,
+                "y": 1285,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifEC": {
+            "frame": {
+                "x": 514,
+                "y": 1285,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifED": {
+            "frame": {
+                "x": 771,
+                "y": 1285,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        },
+        "motifEE": {
+            "frame": {
+                "x": 1028,
+                "y": 1285,
+                "w": 256,
+                "h": 256
+            },
+            "size": {
+                "w": 256,
+                "h": 256
+            }
+        }
+    },
+    "meta": {
+        "app": "http://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.1",
+        "image": "seeds.png",
+        "size": {
+            "w": 1284,
+            "h": 1541
+        },
+        "scale": 1
+    }
+}
