@@ -26,7 +26,9 @@ class Main
 	static public function ConfigLoaded () {
 		deltaTime = 0;
 		// Put here all asynchronous loading function. They have to call Main.ready. (increment nbAsynchronousCallback)
-		IsoEngine.init(Config.display.canvas.size.width, Config.display.canvas.size.height);
+		var width = Math.floor(js.Browser.window.innerWidth * 0.95);
+		var height = Math.floor(js.Browser.window.innerHeight * 0.95);
+		IsoEngine.init(width, height);
 		init.Assets.load();
 	}
 	static public function ready () {
