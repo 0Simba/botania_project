@@ -53,7 +53,13 @@ class IsoEngine
         build();
 
         renderer = Detector.autoDetectRenderer(_width, _height);
-        Browser.document.body.appendChild(renderer.view);
+        var game  = js.Browser.document.getElementById("game");
+        if (game != null) {
+            game.appendChild(renderer.view);
+        }
+        else {
+            Browser.document.body.appendChild(renderer.view);
+        }
     }
 
 

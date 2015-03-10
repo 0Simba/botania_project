@@ -3,15 +3,25 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Botania</title>
-	<style type="text/css">
-		body {
-			text-align: center;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="game.css">
 	<script src="lib/pixi.js"></script>
     <script src="lib/FB.js"></script>
 </head>
 <body>
 	<script src="Botania.js"></script>
+	<div id="loading">
+		<img class="a" src="assets/loading/logo.png">
+		<img class="a" src="assets/loading/fond.png">
+		<!-- <img src="assets/loading/flowerGrow.gif"> -->
+		<div id="bar">
+			<img id="outBar" src="assets/loading/outerBar.png">
+			<div id="inBarContainer">
+				<img id="inBar" src="assets/loading/inBar.png">
+			</div>
+		</div>
+		<!-- <img src="assets/loading/flowerGrow.gif"> -->
+	</div>
+
+	<div id="game"></div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import js.html.Event;
 import pixi.loaders.JsonLoader;
 import utils.Vector2;
 import engine.isoEngine.managers.AnimParams;
+import init.LoaderDisplay;
 
 class Assets
 {
@@ -21,11 +22,13 @@ class Assets
         isoEngine = IsoEngine.getInstance();
 
         for (i in 0...Config.assets.jsonList.length) {
+          haxe.Timer.delay(function () {
             var element = new JsonLoader("./assets/" + Config.assets.jsonList[i] + ".json");
             element.addEventListener("loaded", function (pEvent:Event) {
                 preloadAssets(pEvent, element, Config.assets.jsonList[i]);
             });
             element.load();
+          }, i*300);
         }
     }
 
@@ -64,7 +67,9 @@ class Assets
 
     static private function assetLoaded () {
         nbLoaded++;
-        if (nbLoaded >= Config.assets.jsonList.length) {
+        var length = Config.assets.jsonList.length;
+        LoaderDisplay.updateBar(nbLoaded, length);
+        if (nbLoaded >= length) {
             Main.ready();
         }
     }

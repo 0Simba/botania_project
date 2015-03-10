@@ -1,0 +1,38 @@
+body {
+    text-align: center;
+    background-color: #D3D3D3;
+    margin : 0px;
+}
+#loading {
+    width : 35%;
+    margin : 0 auto;
+}
+
+#loading .a {
+    width : 100%;
+}
+
+#loading #bar {
+    position : relative;
+    width : 100%;
+    bottom : 0px;
+    margin-top: -60px;
+}
+#outBar {
+    top : 0px;
+    left : 0px;
+    position : absolute;
+    width : 100%;
+}
+#inBarContainer {
+    top : 0px;
+    left : 0px;
+    position : absolute;
+    width : 0px;
+    position : absolute;
+    overflow: hidden;
+}
+
+#game {
+    display : none;
+}

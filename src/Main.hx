@@ -19,6 +19,7 @@ class Main
 
 
 	private function new () {
+		// haxe.Timer.delay(init.Config.load, 3000);
 		init.Config.load();
 	}
 
@@ -50,6 +51,7 @@ class Main
 
 			lastTS = Date.now().getTime();
 
+			init.LoaderDisplay.loaded();
 			FB.getLoginStatus(onFacebookConnect);
 	        //Browser.window.requestAnimationFrame(cast gameLoop);
 	    }
