@@ -4,9 +4,9 @@ class LoaderDisplay
 {
     static public function loaded () {
         var loading = js.Browser.document.getElementById("loading");
+        loading.style.display = "none";
         var parent  = loading.parentElement;
         parent.removeChild(loading);
-
         js.Browser.document.getElementById("game").style.display = "block";
     }
 

@@ -9,9 +9,9 @@ class HeaderPopUp extends PopUpMain
 {
     public function new () {
 
-        super("header", new Vector2(0.15, 0), new Vector2(0.7, 0.25, "%", "%x"));
+        super("header", new Vector2(0.15, 0), new Vector2(0.7, 0.2, "%", "%x"));
 
-        addBloc("headerGround", new Vector2(0, 0), new Vector2(1, 0.83));
+        addBloc("headerGround", new Vector2(0, 0), new Vector2(1, 1));
         addButton(new Vector2(0.74, 0.71), new Vector2(0.09, 0.85, "%", "%x"), new Vector2(0, 0), "inventoryBtn", function () {
             popUpEngine.show("inventoryInterface");
         });
