@@ -17,6 +17,7 @@ class Inventory
     public var size        : Vector2;
     public var pos         : Vector2;
     public var elementSize : Vector2;
+    public var realElSize  : Vector2;
 
     public var nbElementX  : Int;
     public var nbElementY  : Int;
@@ -43,6 +44,7 @@ class Inventory
 
         cellList  = new Array<Cell>();
         scrollbar = new Scrollbar(this);
+
     }
 
 

@@ -51,7 +51,6 @@ class Container extends engine.isoEngine.components.IsoComponent
         if (lastPos != null) {
             displayObject.x = lastPos.x;
             displayObject.y = lastPos.y;
-
         }
 
         lastPos = new Vector2 (displayObject.x, displayObject.y);

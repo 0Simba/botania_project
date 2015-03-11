@@ -30,18 +30,14 @@ class InventoryPopUp extends PopUpMain
 
 
 	public function new () {
-        super("inventoryInterface", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
-        applyAnchor(0.5, 0.5);
+        super("inventoryInterface", new Vector2(0.5, 0.5), new Vector2(1.33, 0.7, "%y", "%"));
+        // applyAnchor(0.5, 0.5);
 
-        var assets = IsoEngine.getInstance().assets;
-        var popUpEngine = PopUpEngineMain.getInstance();
-
-        background = addBloc("mainFR", new Vector2(0.2, 0.1), new Vector2(1.14, 1, "%y", "%"));
-
+        background = addBloc("mainFR", new Vector2(0, 0), new Vector2(1, 1, "%", "%"));
         tabInit();
 
         /* MAIN CLOSE BUTTON */
-        addButton(new Vector2(0.8, 0.1), new Vector2(0.05, 1, "%", "%x"), Vector2.zero, "close", tweenHide);
+        addButtonPattern("close").onClick(tweenHide);
 
         onShow = setInventorysThenTween;
     }
@@ -73,21 +69,21 @@ class InventoryPopUp extends PopUpMain
 
     private function drawTab (i:Int) {
         var activeTabName = tabsNames[activeTabIndex];
-        var y:Float       = 0.25 + i / 7;
+        var y:Float       = (0.8 / tabsNames.length) * i + 0.1;
         var tab           = addContainer(new Vector2(1, 1));
         var extendName    = (tabsNames[i] == activeTabName) ? "Light" : "Dark";
         var imageSize     = assets.getSize(tabsNames[i] + extendName);
-        var ratio:Float   = imageSize.x / imageSize.y;
+        var ratio:Float   = imageSize.y / imageSize.x;
 
-        var seedsTabBg = tab.addButton(new Vector2(0.2, y), new Vector2(0.1, .7, "%", "%x"), Vector2.zero, "tab" + extendName, function () {
+        var seedsTabBg = tab.addButton(new Vector2(-0.06, y, "%"), new Vector2(0.12, 0.7, "%", "%x"), Vector2.zero, "tab" + extendName, function () {
             unselectActiveTab();
             selectTab(i);
         });
 
-        var tabIcon = tab.addBloc(tabsNames[i] + extendName, new Vector2(0.16, y), new Vector2(ratio, 0.07, "%y", "%"));
+        var tabIcon = tab.addBloc(tabsNames[i] + extendName, new Vector2(-0.12, y), new Vector2(0.08, ratio, "%", "%x"));
         tabIcon.displayObject.interactive = false;
         tabIcon.setAnchor(0.5, 0.5);
-        seedsTabBg.setAnchor(1, 0.5);
+        seedsTabBg.setAnchor(0.5, 0.5);
 
         tabIcons.push(tabIcon);
         tabButtons.push(seedsTabBg);
@@ -177,7 +173,7 @@ class InventoryPopUp extends PopUpMain
 
             var name = Fruit.list[i].appearanceName;
             var cont = createCellEntitieIn(fruitsInventory, function () {
-                // pick(Seed.list[i]);
+                trace(name);
             });
 
             cont.addBloc("fColo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
@@ -212,7 +208,7 @@ class InventoryPopUp extends PopUpMain
 
     private function createEntitiesInventoryContainer ():Inventory {
         var container = addContainer(new Vector2(1, 1));
-        inventory = container.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+        inventory = container.setInventory(new Vector2(0.09, 0.11), new Vector2(0.79, 0.6), new Vector2(0.25, 0.25, "%", "%"), 4, -1);
 
         inventory.clear();
         inventory.hide();
