@@ -12,12 +12,15 @@ class Fruit extends GameObject
 	public var genome:Genome;
 	public var quality:Float;
 
+    public var appearanceName:String;
+
 	public function new (_genome:Genome, _quality:Float = 0) {
         super();
 
 		genome  = _genome;
 		quality = _quality;
         etablishNbSeed();
+        appearanceName = genome.getAppearanceName();
 
         list.push(this);
 	}

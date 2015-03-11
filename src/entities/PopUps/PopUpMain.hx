@@ -6,19 +6,24 @@ import utils.Vector2;
 import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
+import engine.isoEngine.managers.Assets;
 import Map;
 
 class PopUpMain extends PopUp
 {
 
-    public  var popUpEngine:PopUpEngineMain;
+    public var popUpEngine:PopUpEngineMain;
+    public var assets:Assets;
+
     private var poping = false;
     private var tween:Tween;
 
 
     public function new (name:String, pos:Vector2, size:Vector2) {
         super(name, pos, size);
+
         popUpEngine = PopUpEngineMain.getInstance();
+        assets      = IsoEngine.getInstance().assets;
         createTween();
     }
 
