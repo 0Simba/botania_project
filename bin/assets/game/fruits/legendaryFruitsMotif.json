@@ -1,0 +1,206 @@
+{
+    "frames": {
+        "fMotifLBA": {
+            "frame": {
+                "x": 0,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLBB": {
+            "frame": {
+                "x": 771,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLBC": {
+            "frame": {
+                "x": 257,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLBD": {
+            "frame": {
+                "x": 257,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLBE": {
+            "frame": {
+                "x": 0,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLCA": {
+            "frame": {
+                "x": 257,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLCB": {
+            "frame": {
+                "x": 514,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLCC": {
+            "frame": {
+                "x": 514,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLCD": {
+            "frame": {
+                "x": 514,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLCE": {
+            "frame": {
+                "x": 0,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLDA": {
+            "frame": {
+                "x": 257,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLDB": {
+            "frame": {
+                "x": 514,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLDC": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLDD": {
+            "frame": {
+                "x": 771,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLDE": {
+            "frame": {
+                "x": 771,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLEA": {
+            "frame": {
+                "x": 771,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLEB": {
+            "frame": {
+                "x": 0,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLEC": {
+            "frame": {
+                "x": 257,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLED": {
+            "frame": {
+                "x": 514,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLEE": {
+            "frame": {
+                "x": 771,
+                "y": 1028,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLAB": {
+            "frame": {
+                "x": 1028,
+                "y": 0,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLAC": {
+            "frame": {
+                "x": 1028,
+                "y": 257,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLAD": {
+            "frame": {
+                "x": 1028,
+                "y": 514,
+                "w": 256,
+                "h": 256
+            }
+        },
+        "fMotifLAE": {
+            "frame": {
+                "x": 1028,
+                "y": 771,
+                "w": 256,
+                "h": 256
+            }
+        }
+    },
+    "meta": {
+        "app": "http://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.1",
+        "size": {
+            "w": 1284,
+            "h": 1284
+        },
+        "scale": 1,
+        "image": "legendaryFruitsMotif.png"
+    }
+}

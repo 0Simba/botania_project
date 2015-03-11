@@ -39,22 +39,18 @@ class ForTest
                 for (genre in 0...allType.length) {
                     var cGenre = allType[genre];
 
-                    new Seed(new Genome(
+                    var genome = new Genome(
                         new Segment(1,
                             new Family(cFamily),
                             new Order(cOrder),
                             new Genre(cGenre)
                         )
-                    ));
+                    );
+
+                    new Seed(genome);
+                    new entities.Fruit(genome);
                 }
             }
         }
-
-
-        // trace(Adn.getCode());
-        // trace(Adn2.getCode());
-
-        // var text = new engine.isoEngine.components.Text();
-        // text.set("SISI LA FAMIIIILLLE ont peux LE-CA du >TEXTE<", new Vector2(0.1, 0.95), new Vector2(0.3, 0.2), null, "overlay");
     }
 }
