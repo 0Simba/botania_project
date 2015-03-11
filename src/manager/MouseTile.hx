@@ -3,17 +3,23 @@ package manager;
 import engine.circleHud.CirclesHudEngine;
 import entities.Tile;
 import utils.Vector2;
+import engine.isoEngine.components.Button;
+import engine.isoEngine.IsoEngine;
 
 class MouseTile
 {
     static private var circlesHudEngine:CirclesHudEngine;
+    static public  var currentTile:Tile;
 
     static public function init () {
         circlesHudEngine = CirclesHudEngine.getInstance();
     }
 
     static public function over (tile:Tile) {
-        tile.graphicTile.lightFilterBuilding();
+        currentTile = tile;
+        if (!Button.oneOver) {
+            tile.graphicTile.lightFilterBuilding();
+        }
 
         if (Selection.contain == null) return;
 

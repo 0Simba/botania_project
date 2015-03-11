@@ -8,9 +8,11 @@ import utils.Vector2;
 import entities.building.Breaker;
 import engine.isoEngine.components.Animation;
 import entities.genetic.Genome;
+import engine.isoEngine.IsoEngine;
 
 class Tile extends GameObject
 {
+    static private var events:Events;
 
     public var currentGround = "circle";
 
@@ -40,6 +42,11 @@ class Tile extends GameObject
         coord = _coord;
         graphicTile.setPlace(coord.x, coord.y, coord.i);
         // graphicTile.displayCoord();
+
+        var events = IsoEngine.getInstance().events;
+
+        events.on("buttonOver", disableCurrentTile);
+        events.on("buttonOut",  enableCurrentTile);
     }
 
 
@@ -137,8 +144,18 @@ class Tile extends GameObject
 
     /***** MOUSE EVENTS -> GO TO MANAGER.MOUSETILE *****/
 
+    static private var currentTile:Tile;
+    static function disableCurrentTile (needed = null) {
+        currentTile.graphicTile.hideGround();
+    }
+    static function enableCurrentTile (needed = null) {
+        currentTile.graphicTile.showGround();
+    }
+
+
     public function mouseover () {
-        graphicTile.showGround();
+        currentTile = this;
+        if (!engine.isoEngine.components.Button.oneOver) graphicTile.showGround();
         manager.MouseTile.over(this);
     }
 

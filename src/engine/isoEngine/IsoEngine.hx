@@ -15,7 +15,7 @@ import engine.isoEngine.controls.Mouse;
 import engine.isoEngine.IsoUtils;
 import utils.Vector2;
 
-import engine.eventsDispatcher.EventDispatcher;
+import engine.events.Events;
 
 import js.Browser;
 
@@ -30,7 +30,7 @@ class IsoEngine
     public var displaying:Displaying;
     public var map:Maping;
     public var assets:Assets;
-    public var events:EventDispatcher;
+    public var events:Events;
 
     public var stage:Stage;
     public var width:Int  = 0;
@@ -69,7 +69,7 @@ class IsoEngine
         assets        = new Assets();
         tileIndicator = new TileSelectionIndicator();
         displaying    = new Displaying(stage, screenSize);
-        events        = new EventDispatcher();
+        events        = new Events();
         Mouse.setMap(displaying.getLayer("playArea"));
         Mouse.setStage(stage);
         ColorMatrixFilters.init();

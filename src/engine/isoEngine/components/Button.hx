@@ -6,9 +6,11 @@ import engine.isoEngine.IsoEngine;
 import pixi.display.Sprite;
 import engine.isoEngine.components.Hud;
 import engine.isoEngine.components.ColorMatrixFilters;
+import engine.events.Events;
 
 class Button extends Hud
 {
+    static public var oneOver:Bool = false;
 
     private var basicTexture:String;
     private var hoverTexture:String;
@@ -16,12 +18,13 @@ class Button extends Hud
 
     private var overFilter:ColorMatrixFilter;
     private var clickFilter:ColorMatrixFilter;
-
+    private var isoEvents:Events;
 
     public function new () {
         super();
-        overFilter = ColorMatrixFilters.get("over");
+        overFilter  = ColorMatrixFilters.get("over");
         clickFilter = ColorMatrixFilters.get("click");
+        isoEvents   = IsoEngine.getInstance().events;
     }
 
     override private function initInteractivity () {
@@ -37,6 +40,8 @@ class Button extends Hud
     }
 
     private function alwaysButtonOver (mouseData) {
+        oneOver = true;
+        isoEvents.emit("buttonOver");
         alwaysOver(mouseData);
         overBind();
         sprite.filters = [overFilter];
@@ -45,6 +50,8 @@ class Button extends Hud
         sprite.y+=1;
     }
     private function alwaysButtonOut (mouseData) {
+        oneOver = false;
+        isoEvents.emit("buttonOut");
         alwaysOut(mouseData);
         outBind();
         sprite.filters = null;
@@ -53,6 +60,7 @@ class Button extends Hud
         sprite.y-=1;
     }
     private function alwaysButtonClick (mouseData) {
+        sprite.filters = null;
         clickBind();
     }
     private function alwaysButtonDown (mouseData) {
