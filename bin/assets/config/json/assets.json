@@ -16,6 +16,10 @@
         "popups/openFruit",
         "popups/inventory/inventory",
         "game/seeds/seedsMotif",
-        "game/seeds/seedsColo"
+        "game/seeds/seedsColo",
+        "game/fruits/fruitsColo",
+        "game/fruits/fruitsColoLegendary",
+        "game/fruits/fruitsMotif",
+        "game/fruits/legendaryFruitsMotif"
     ]
 }
