@@ -31,11 +31,20 @@ class Container extends engine.isoEngine.components.IsoComponent
         size       = (size       == null) ? Vector2.full : size ;
         parentSize = (parentSize == null) ? new Vector2(isoEngine.width ,isoEngine.height) : parentSize;
 
-        pxSize = new Vector2(size.x * parentSize.x, size.y * parentSize.y);
+        pxSize = Vector2.zero;
+
+        pxSize.x = getRealPositionningValue(size.x, size.metaX, parentSize.x);
+        pxSize.y = getRealPositionningValue(size.y, size.metaY, parentSize.y);
+        pxSize.x = checkPositionningOfHimself(pxSize.x , size.x, size.metaX, pxSize.y);
+        pxSize.y = checkPositionningOfHimself(pxSize.y, size.y, size.metaY, pxSize.x);
+
+
 
         name  = _name + parentLayer;
         layer = isoEngine.displaying.createChildLayer(name, parentLayer);
         displayObject = layer; // extends dragNDrop
+
+        resize(size, parentSize);
     }
 
     public function applyAnchor (x:Float, y:Float) {
