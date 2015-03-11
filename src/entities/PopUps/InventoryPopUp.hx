@@ -20,13 +20,13 @@ class InventoryPopUp extends PopUpMain
 
     private var background:Hud;
 
-    private var tabsNames:Array<String> = ["seeds", "fruits", "product", "building"];
-    private var activeTabIndex:Int;
-    private var tabs:Array<Container>;
-    private var tabIcons:Array<Dynamic>      = [];
-    private var tabButtons:Array<Dynamic>    = [];
+    private var tabsNames      :Array<String>    = ["seeds", "fruits", "product", "building"];
+    private var tabIcons       :Array<Dynamic>   = [];
+    private var tabButtons     :Array<Dynamic>   = [];
+    private var inventories    :Array<Inventory> = [];
+    private var tabs           :Array<Container>;
+    private var activeTabIndex :Int;
 
-    private var inventories:Array<Inventory> = [];
 
 
 	public function new () {
@@ -45,6 +45,20 @@ class InventoryPopUp extends PopUpMain
 
         onShow = setInventorysThenTween;
     }
+
+
+    public function setInventorysThenTween () {
+        Selection.setNull();
+        tweenShow();
+    }
+
+
+
+
+
+/*============================
+=            TABS            =
+============================*/
 
     private function tabInit () {
         activeTabIndex = 0;
@@ -88,6 +102,7 @@ class InventoryPopUp extends PopUpMain
         }
     }
 
+
     private function selectTab (index:Int) {
         activeTabIndex = index;
         tabIcons[activeTabIndex].changeTexture(tabsNames[activeTabIndex] + "Light");
@@ -95,67 +110,84 @@ class InventoryPopUp extends PopUpMain
         inventories[index].show();
     }
 
+
     private function unselectActiveTab(){
         tabIcons[activeTabIndex].changeTexture(tabsNames[activeTabIndex] + "Dark");
         tabButtons[activeTabIndex].changeTexture("tabDark");
         inventories[activeTabIndex].hide();
     }
 
-    private function pick (seed) {
-        Selection.setNew("plant", "seed", seed);
-        tweenHide();
-    }
+
+
+
 
 /*=================================
 =            INVENTORY            =
 =================================*/
 
-    private function createSeedsInventory () {
-        var seedsContainer = addContainer(new Vector2(1, 1));
-        var seedsInventory = seedsContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+  /*==========  SEEDS  ==========*/
 
-        seedsInventory.clear();
+    private var seedsInventory:Inventory;
+
+
+    private function createSeedsInventory () {
+        seedsInventory = createEntitiesInventoryContainer();
+        inventories.push(seedsInventory);
+
+        updateSeedsInventory();
+    }
+
+
+    private function updateSeedsInventory () {
         for (i in 0...Seed.list.length) {
-            var cell:Cell = seedsInventory.addCell();
-            var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
+
             var name = Seed.list[i].appearanceName;
-            var cont = cell.addContainer(new Vector2(1, 1));
-            cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
-            cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", function () {
+            var cont = createCellEntitieIn(seedsInventory, function () {
                 pick(Seed.list[i]);
             });
 
             cont.addBloc("colo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
             cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
         }
-
-        seedsInventory.hide();
-        inventories.push(seedsInventory);
     }
 
 
-    private function createFruitsInventory () {
-        var fruitsContainer = addContainer(new Vector2(1, 1));
-        var fruitsInventory = fruitsContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
-        fruitsInventory.clear();
+    private function pick (seed) {
+        Selection.setNew("plant", "seed", seed);
+        tweenHide();
+    }
 
+
+
+  /*==========  FRUITS  ==========*/
+
+    private var fruitsInventory:Inventory;
+
+
+    private function createFruitsInventory () {
+        fruitsInventory = createEntitiesInventoryContainer();
+        inventories.push(fruitsInventory);
+
+        updateFruitsInventory();
+    }
+
+
+    private function updateFruitsInventory () {
         for (i in 0...Fruit.list.length) {
-            var cell:Cell = fruitsInventory.addCell();
-            var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
+
             var name = Fruit.list[i].appearanceName;
-            var cont = cell.addContainer(new Vector2(1, 1));
-            cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
-            cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", function () {
-                // pick(Fruit.list[i]);
+            var cont = createCellEntitieIn(fruitsInventory, function () {
+                // pick(Seed.list[i]);
             });
 
             cont.addBloc("fColo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
             cont.addBloc("fMotif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
         }
-
-        fruitsInventory.hide();
-        inventories.push(fruitsInventory);
     }
+
+
+
+  /*==========  BLANK  ==========*/
 
     private function createBlankInventory(){
         var blankContainer = addContainer(new Vector2(1, 1));
@@ -164,9 +196,27 @@ class InventoryPopUp extends PopUpMain
         blankInventory.hide();
     }
 
-    public function setInventorysThenTween () {
-        Selection.setNull();
-        tweenShow();
+
+
+  /*==========  UTILS  ==========*/
+
+    private function createCellEntitieIn (inventory:Inventory, callback:Dynamic):Container {
+        var cell:Cell = inventory.addCell();
+        var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
+        var cont = cell.addContainer(new Vector2(1, 1));
+        cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
+        cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", callback);
+
+        return cont;
+    }
+
+    private function createEntitiesInventoryContainer ():Inventory {
+        var container = addContainer(new Vector2(1, 1));
+        inventory = container.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
+
+        inventory.clear();
+        inventory.hide();
+
+        return inventory;
     }
 }
-
