@@ -9,7 +9,7 @@ class Building extends GameObject
     private var referent:Events;
     private var position:Vector2;
     private var building:Dynamic;
-    static public var list:Array<Building> = new Array<Building>(); // TODO this simulate player's seeds data. Move it when player's data was create
+    static public var list:Array<Building> = new Array<Building>(); // TODO this simulate player's buldings data. Move it when player's data was create
 
     public function new (name, _referent:Events, _position:Vector2, checkServer:Bool = true) {
         super();
@@ -27,7 +27,7 @@ class Building extends GameObject
     public function serverCheck (name:String) {
         referent.emit("callingServer", null);
 
-        callServer("buildBreaker", getDatasForServer(name), cast serverValidateBuild, cast serverRefuseBuild);
+        callServer("buildBuilding", getDatasForServer(name), cast serverValidateBuild, cast serverRefuseBuild);
     }
 
     private function serverValidateBuild () {

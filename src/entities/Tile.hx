@@ -116,7 +116,7 @@ class Tile extends GameObject
 
 
         /***** CREATING -> FIXME REFACTOR LATER *****/
-    public function create (name:String) { // Server stock int, TODO refactor to get name !!!
+    public function create (name:String) {
         createBuilding(name, false);
     }
 

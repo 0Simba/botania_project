@@ -6,7 +6,7 @@
 
 
 
-    if      ($action == "buildBreaker")    include "server/buildBreaker.php";
+    if      ($action == "buildBuilding")   include "server/buildBuilding.php";
     else if ($action == "buildFlower")     include "server/buildFlower.php";
     else if ($action == "flowerGrow")      include "server/flowerGrow.php";
     else if ($action == "destroyBuilding") include "server/destroyBuilding.php";
