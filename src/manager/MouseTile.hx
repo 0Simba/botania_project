@@ -67,8 +67,8 @@ class MouseTile
         }
         else if (Selection.actionType == "build" && tile.currentBuild == null) {
                 /***** FIXME MOVE THIS LATER *****/
+                tile.createBuilding(Selection.contain);
             if (Selection.contain == "breaker") {
-                tile.createBreaker();
             }
             else {
                 trace("MouseTile.click -> pas d'action pour Selection.contain " + Selection.contain);

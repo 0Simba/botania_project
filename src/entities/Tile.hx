@@ -2,10 +2,11 @@ package entities;
 
 import manager.Selection;
 import entities.Flower;
+import entities.Building;
+import entities.building.Breaker;
 import engine.events.Events;
 import utils.ArrayCoord;
 import utils.Vector2;
-import entities.building.Breaker;
 import engine.isoEngine.components.Animation;
 import entities.genetic.Genome;
 import engine.isoEngine.IsoEngine;
@@ -115,10 +116,8 @@ class Tile extends GameObject
 
 
         /***** CREATING -> FIXME REFACTOR LATER *****/
-    public function create (name:Int) { // Server stock int, TODO refactor to get name !!!
-        if (name == 1) { //breaker
-            createBreaker(false);
-        }
+    public function create (name:String) { // Server stock int, TODO refactor to get name !!!
+        createBuilding(name, false);
     }
 
     public function createFlower (seed:Seed) {
@@ -131,9 +130,10 @@ class Tile extends GameObject
         buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), null, genome, lastTimeStamp, currentTimeStamp, stateIndex);
     }
 
-    public function createBreaker (checkServer:Bool = true) {
-        currentBuild = "breaker";
-        buildingRef  = new Breaker(buildingEvents, coord.toVector2(), checkServer);
+    public function createBuilding (name:String, checkServer:Bool = true) {
+        currentBuild = name;
+        trace(currentBuild);
+        buildingRef  = new Building(name, buildingEvents, coord.toVector2(), checkServer);
         graphicTile.changeBuild(currentBuild);
     }
 

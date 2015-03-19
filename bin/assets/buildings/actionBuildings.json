@@ -1,0 +1,10 @@
+{"frames":{"serre":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":0,"y":0,"w":256,"h":296}},"workshop":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":257,"y":0,"w":256,"h":296}},"puits":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":0,"y":297,"w":256,"h":296}},"Concasseur_level_2":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":257,"y":297,"w":256,"h":296}},"Concasseur_level_3":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":514,"y":0,"w":256,"h":296}},"Concasseur_level_1":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":514,"y":297,"w":256,"h":296}},"Grenier_level_3":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":0,"y":594,"w":256,"h":296}},"Grenier_level_1":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":257,"y":594,"w":256,"h":296}},"Grenier_level_2":{"size"   : {"w":128, "h":150},
+    "anchor" : {"x":0.5, "y":0.7},"frame":{"x":514,"y":594,"w":256,"h":296}}},"meta":{"app":"http://www.leshylabs.com/apps/sstool/","version":"Leshy SpriteSheet Tool v0.8.1","size":{"w":1027,"h":890},"scale":1, "image" : "actionBuildings.png"}}

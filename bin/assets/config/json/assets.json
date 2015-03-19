@@ -20,6 +20,12 @@
         "game/fruits/fruitsColo",
         "game/fruits/fruitsColoLegendary",
         "game/fruits/fruitsMotif",
-        "game/fruits/legendaryFruitsMotif"
+        "game/fruits/legendaryFruitsMotif",
+        "buildings/actionBuildings",
+        "buildings/ecosystemBuildings",
+        "buildings/tractor",
+        "buildings/animations/atticAnim",
+        "buildings/animations/breakerAnim",
+        "buildings/animations/ecosystemAnimals"
     ]
 }

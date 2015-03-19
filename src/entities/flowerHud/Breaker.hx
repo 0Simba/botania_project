@@ -14,7 +14,7 @@ class Breaker extends GameObject
         super();
 
         hudElement = new Hud();
-        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "breaker");
+        hudElement.set(new Vector2(0.1, 0.1), new Vector2(0.9, 0.25), "workshop");
         hudElement.bindEvents(mouseover, mousequit, mouseClick);
     }
 
@@ -27,7 +27,7 @@ class Breaker extends GameObject
     }
 
     public function mouseClick () {
-        Selection.setNew("build", "breaker");
+        Selection.setNew("build", "workshop");
     }
 
 }

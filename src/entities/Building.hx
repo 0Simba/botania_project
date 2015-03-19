@@ -1,25 +1,33 @@
-package entities.building;
+package entities;
 
 import engine.events.Events;
 import GameObject;
 import utils.Vector2;
 
-class Breaker extends entities.Building
+class Building extends GameObject
 {
-    public function new (_referent:Events, _position:Vector2, checkServer:Bool = true) {
-        super("breaker", _referent, _position, checkServer);
+    private var referent:Events;
+    private var position:Vector2;
+    private var building:Dynamic;
+    static public var list:Array<Building> = new Array<Building>(); // TODO this simulate player's seeds data. Move it when player's data was create
+
+    public function new (name, _referent:Events, _position:Vector2, checkServer:Bool = true) {
+        super();
         referent = _referent;
         position = _position;
-
-        if (checkServer) {
-            serverCheck("breaker");
+        switch (name) {
+            case "breaker": createBreaker();
         }
+        if (checkServer) {
+                serverCheck(name);
+        }
+        list.push(this);
     }
 
-    /*public function serverCheck () {
+    public function serverCheck (name:String) {
         referent.emit("callingServer", null);
 
-        callServer("buildBreaker", getDatasForServer(), cast serverValidateBuild, cast serverRefuseBuild);
+        callServer("buildBreaker", getDatasForServer(name), cast serverValidateBuild, cast serverRefuseBuild);
     }
 
     private function serverValidateBuild () {
@@ -49,10 +57,14 @@ class Breaker extends entities.Building
     }
 
 
-    private function getDatasForServer ():Dynamic {
+    private function getDatasForServer (type:String=""):Dynamic {
         var data:Dynamic = {};
         data.position = position;
-
+        data.type = type;
         return data;
-    }*/
+    }
+
+    private function createBreaker(){
+
+    }
 }

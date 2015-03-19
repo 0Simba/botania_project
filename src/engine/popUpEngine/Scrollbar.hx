@@ -6,13 +6,13 @@ import utils.Vector2;
 import pixi.primitives.Graphics;
 import engine.isoEngine.controls.Mouse;
 import pixi.display.DisplayObjectContainer;
-
+import engine.popUpEngine.Container;
 class Scrollbar
 {
     static public var defaultSize:Float = 20;
     static private var defaultInBroder:Float = 2;
 
-
+    private var container:Container;
     private var inventory:Inventory;
     private var isHorizontal:Bool;
     private var inventorySize:Vector2 = new Vector2(0, 0);
@@ -24,10 +24,11 @@ class Scrollbar
     public function new (_inventory:Inventory) {
         inventory    = _inventory;
         isHorizontal = (inventory.nbElementX == -1) ? true : false;
-
         createLayer();
         createScrollOut();
         createScrollIn();
+        hide();
+        show();
     }
 
     public function update () {
@@ -78,6 +79,9 @@ class Scrollbar
         layer.y = (isHorizontal)  ? inventory.size.y - defaultSize : 0;
         layer.x += inventory.pos.x;
         layer.y += inventory.pos.y;
+        layer.interactive = true;
+        layer.buttonMode = true;
+        layer.defaultCursor = "pointer";
     }
 
 

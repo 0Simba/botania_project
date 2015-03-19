@@ -64,6 +64,7 @@ class InventoryPopUp extends PopUpMain
         for(i in 0...tabsNames.length){
             drawTab(i);
             createTabInterface(i);
+            inventories[i].hide();
         }
         selectTab(activeTabIndex);
     }
