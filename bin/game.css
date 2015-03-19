@@ -6,7 +6,6 @@ body {
 #loading {
     width : 35%;
     margin : 0 auto;
-    position: relative;
 }
 
 #loading .a {
@@ -41,5 +40,7 @@ body {
 
 #growth {
     position : absolute;
-
+    width: 50%;
+    margin-top: 140px;
+    margin-left: -100px;
 }
