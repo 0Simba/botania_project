@@ -1,0 +1,62 @@
+{
+    "frames": {
+        "scrollbarDown": {
+            "frame": {
+                "x": 17,
+                "y": 0,
+                "w": 44,
+                "h": 43
+            },
+            "size": {
+                "w": 44,
+                "h": 43
+            }
+        },
+        "scrollbarIn": {
+            "frame": {
+                "x": 17,
+                "y": 44,
+                "w": 44,
+                "h": 43
+            },
+            "size": {
+                "w": 44,
+                "h": 43
+            }
+        },
+        "scrollbarOut": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 16,
+                "h": 331
+            },
+            "size": {
+                "w": 16,
+                "h": 331
+            }
+        },
+        "scrollbarUp": {
+            "frame": {
+                "x": 17,
+                "y": 88,
+                "w": 44,
+                "h": 43
+            },
+            "size": {
+                "w": 44,
+                "h": 43
+            }
+        }
+    },
+    "meta": {
+        "app": "http://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.1",
+        "size": {
+            "w": 61,
+            "h": 331
+        },
+        "scale": 1,
+        "image": "scrollbar.png"
+    }
+}

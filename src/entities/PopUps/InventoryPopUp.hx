@@ -30,7 +30,7 @@ class InventoryPopUp extends PopUpMain
 
 
 	public function new () {
-        super("inventoryInterface", new Vector2(0.5, 0.5), new Vector2(1.33, 0.7, "%y", "%"));
+        super("inventoryInterface", new Vector2(0.5, 0.6), new Vector2(1.33, 0.7, "%y", "%"));
         // applyAnchor(0.5, 0.5);
 
         background = addBloc("mainFR", new Vector2(0, 0), new Vector2(1, 1, "%", "%"));
@@ -176,7 +176,7 @@ class InventoryPopUp extends PopUpMain
 
             var name = Fruit.list[i].appearanceName;
             var cont = createCellEntitieIn(fruitsInventory, function () {
-                trace(name);
+                popUpEngine.show("openFruit");
             });
 
             cont.addBloc("fColo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;
@@ -201,7 +201,8 @@ class InventoryPopUp extends PopUpMain
 
     private function createCellEntitieIn (inventory:Inventory, callback:Dynamic):Container {
         var cell:Cell = inventory.addCell();
-        var bloc = cell.addBloc("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
+        // var bloc = cell.add("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
+        cell.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8), new Vector2(0, 0), "objectBackground", function () {});
         var cont = cell.addContainer(new Vector2(1, 1));
         cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
         cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", callback);

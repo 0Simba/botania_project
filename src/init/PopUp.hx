@@ -3,6 +3,7 @@ package init;
 import engine.popUpEngine.PopUpEngineMain;
 import utils.Vector2;
 import engine.isoEngine.IsoEngine;
+import engine.popUpEngine.Scrollbar;
 
 class PopUp
 {
@@ -10,6 +11,9 @@ class PopUp
     static public function load () {
         var popUpEngine = PopUpEngineMain.getInstance();
         var assets      = IsoEngine.getInstance().assets;
+
+
+        Scrollbar.setTexturesNames("scrollbarOut", "scrollbarIn");
 
             /***** Create Pattern *****/
         popUpEngine.createBlocPattern("background", new Vector2(0.02, 0.02), new Vector2(0.96, 0.96), "offWhite", 0.7);

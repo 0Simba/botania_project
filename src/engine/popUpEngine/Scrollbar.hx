@@ -7,10 +7,14 @@ import pixi.primitives.Graphics;
 import engine.isoEngine.controls.Mouse;
 import pixi.display.DisplayObjectContainer;
 import engine.popUpEngine.Container;
+import pixi.display.Sprite;
+
 class Scrollbar
 {
-    static public var defaultSize:Float = 20;
+    static public  var defaultSize:Float = 20;
     static private var defaultInBroder:Float = 2;
+    static private var inTextureName:String;
+    static private var outTextureName:String;
 
     private var container:Container;
     private var inventory:Inventory;
@@ -19,6 +23,10 @@ class Scrollbar
     public  var layer:DisplayObjectContainer;
 
 
+    static public function setTexturesNames (_outName:String, _inName:String) {
+        inTextureName  = _inName;
+        outTextureName = _outName;
+    }
 
 
     public function new (_inventory:Inventory) {
@@ -30,6 +38,7 @@ class Scrollbar
         hide();
         show();
     }
+
 
     public function update () {
         setScrollIn();
@@ -91,7 +100,7 @@ class Scrollbar
 
 
         /***** SCROLL IN *****/
-    private var scrollIn:Graphics;
+    private var scrollIn:Sprite;
     private var displayableRatio:Float;
     private var inWidth:Float;
     private var inHeight:Float;
@@ -99,7 +108,7 @@ class Scrollbar
     private var inY:Float;
 
     private function createScrollIn () {
-        scrollIn = new Graphics();
+        scrollIn = new Sprite(IsoEngine.getInstance().assets.getTexture(inTextureName));
         setScrollIn();
         setInteractive();
         layer.addChild(scrollIn);
@@ -130,10 +139,8 @@ class Scrollbar
 
 
     private function drawScrollIn () {
-        scrollIn.clear();
-        scrollIn.beginFill(122348);
-        scrollIn.drawRect(0, 0, inWidth, inHeight);
-        scrollIn.endFill();
+        // scrollIn.width  = inWidth;
+        // scrollIn.height = inHeight;
     }
 
 
@@ -175,7 +182,7 @@ class Scrollbar
 
 
         /***** SCROLL OUT *****/
-    private var scrollOut:Graphics;
+    private var scrollOut:Sprite;
     private var outWidth:Float;
     private var outHeight:Float;
 
@@ -191,10 +198,9 @@ class Scrollbar
     }
 
     private function addScrollOut () {
-        scrollOut = new Graphics();
-        scrollOut.beginFill(977);
-        scrollOut.drawRect(0, 0, outWidth, outHeight);
-        scrollOut.endFill();
+        scrollOut = new Sprite(IsoEngine.getInstance().assets.getTexture(outTextureName));
+        scrollOut.width  = outWidth;
+        scrollOut.height = outHeight;
         layer.addChild(scrollOut);
     }
 
