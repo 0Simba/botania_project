@@ -34,6 +34,13 @@ class Scrollbar
         setScrollIn();
     }
 
+    public function hide(){
+        layer.visible = false;
+    }
+
+    public function show(){
+        layer.visible = true;
+    }
 
     private function updateContainer () {
         if (isHorizontal) {

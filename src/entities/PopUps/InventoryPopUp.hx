@@ -37,7 +37,9 @@ class InventoryPopUp extends PopUpMain
         tabInit();
 
         /* MAIN CLOSE BUTTON */
-        addButtonPattern("close").onClick(tweenHide);
+        addButton(new Vector2(0.95, 0), new Vector2(61, 61, "px", "px"), Vector2.zero, "close", function () {
+            tweenHide();
+        });
 
         onShow = setInventorysThenTween;
     }
@@ -80,9 +82,9 @@ class InventoryPopUp extends PopUpMain
             selectTab(i);
         });
 
-        var tabIcon = tab.addBloc(tabsNames[i] + extendName, new Vector2(-0.12, y), new Vector2(0.08, ratio, "%", "%x"));
+        var tabIcon = tab.addBloc(tabsNames[i] + extendName, new Vector2(0, y), new Vector2(0.06, ratio, "%", "%x"));
         tabIcon.displayObject.interactive = false;
-        tabIcon.setAnchor(0.5, 0.5);
+        tabIcon.setAnchor(1.2, 0.5);
         seedsTabBg.setAnchor(0.5, 0.5);
 
         tabIcons.push(tabIcon);

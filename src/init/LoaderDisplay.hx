@@ -32,6 +32,7 @@ class LoaderDisplay
     private static function cycle(pTimeStamp:Float): Void
     {
         var inBar = js.Browser.document.getElementById("inBarContainer");
+        if(inBar == null)return;
         var currentWidth = inBar.offsetWidth;
         var diff = targetValue - currentWidth;
         var newValue     = currentWidth + diff / 5;

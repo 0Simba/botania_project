@@ -100,9 +100,11 @@ class Inventory
     public function hide():Void
     {
         layer.visible = false;
+        scrollbar.hide();
     }
     public function show():Void
     {
         layer.visible = true;
+        scrollbar.show();
     }
 }
