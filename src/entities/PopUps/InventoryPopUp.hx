@@ -195,7 +195,7 @@ class InventoryPopUp extends PopUpMain
   }
 
   private function updateBuildingInventory(){
-    var buildings:Array<String> = ["workshop", "puits", "Concasseur_level_1", "Grenier_level_1"];
+    var buildings:Array<String> = ["workshop", "puits", "breaker", "Grenier_level_1"];
     for(i in 0...buildings.length){
         var n = buildings[i];
         trace(n);
