@@ -97,6 +97,7 @@ class InventoryPopUp extends PopUpMain
         switch (tabsNames[i]) {
             case "seeds"  : createSeedsInventory();
             case "fruits" : createFruitsInventory();
+            case "building" : createBuildingInventory();
             default: createBlankInventory();
         }
     }
@@ -184,7 +185,33 @@ class InventoryPopUp extends PopUpMain
         }
     }
 
+  /*========  BUILDINGS  ==========*/
+  private var buildingInventory:Inventory;
+  private function createBuildingInventory(){
+    buildingInventory = createEntitiesInventoryContainer();
+    inventories.push(buildingInventory);
 
+    updateBuildingInventory();
+  }
+
+  private function updateBuildingInventory(){
+    var buildings:Array<String> = ["workshop", "puits", "Concasseur_level_1", "Grenier_level_1"];
+    for(i in 0...buildings.length){
+        var n = buildings[i];
+        trace(n);
+        var cont = createCellEntitieIn(buildingInventory, function () {
+                place(buildings[i]);
+            });
+        var img = cont.addBloc(n, new Vector2 (0.5, 0.5, "%", "%"), new Vector2 (.86, 1, "%y", "%"));
+        img.displayObject.interactive = false;
+        img.setAnchor(.5, .5);
+    }
+  }
+
+  private function place(b:String){
+    tweenHide();
+    Selection.setNew("build", b);
+  }
 
   /*==========  BLANK  ==========*/
 
