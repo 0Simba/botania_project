@@ -29,7 +29,7 @@ class Fruit extends GameObject
 		return 3;
 	}
 
-	public function open (knife:String):Array<Seed> {
+	public function open (knifeLevel:Int):Array<Seed> {
 		list.splice(list.indexOf(this),1);
 		return new Array<Seed>();
 	}

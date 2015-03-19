@@ -10,9 +10,12 @@ import engine.isoEngine.IsoEngine;
 import Map;
 import engine.tween.Ease;
 import entities.popUps.PopUpMain;
+import pixi.text.Text.TextStyle;
 
 class OpenFruitPopUp extends PopUpMain
 {
+
+    static public var currentFruitRef:entities.Fruit;
 
     public function new () {
         super("openFruit", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
@@ -25,25 +28,39 @@ class OpenFruitPopUp extends PopUpMain
             tweenHide();
         });
 
-
         onShow = tweenShow;
 
 
-        var buttonY = 0.4;
+        var woodPos   = new Vector2(0.25, 0.6);
+        var metalPos  = new Vector2(0.45, 0.6);
+        var silverPos = new Vector2(0.65, 0.6);
+        var knifeSize = new Vector2(0.125, -1);
+        var style:TextStyle = {
+            fill : "white",
+            font : "bold 25px arial",
+            align : "center",
+            wordWrap : true
+        };
+        // var textSize  = new Vector2(0.125)
 
-        addBloc("objectBackground", new Vector2(0.17, buttonY), new Vector2(0.125, -1));
-        addButton(new Vector2(0.17, buttonY), new Vector2(0.125, -1), Vector2.zero, "woodKnife", function () {
-            trace("use woodKnife");
+        addText(new Vector2(0.5, 0.2), new Vector2(1, 0.2), "Choisissez votre couteau", style).text.anchor.set(0.5, 0.5);
+
+        addBloc("objectBackground", woodPos, knifeSize).sprite.anchor.set(0.5, 0.5);
+        addText(woodPos, knifeSize, "Bois", style).text.anchor.set(0.5, 3);
+        addButton(woodPos, knifeSize, Vector2.mid, "woodKnife", function () {
+            currentFruitRef.open(1);
         });
 
-        addBloc("objectBackground", new Vector2(0.37, buttonY), new Vector2(0.125, -1));
-        addButton(new Vector2(0.37, buttonY), new Vector2(0.125, -1), Vector2.zero, "metalKnife", function () {
-            trace("use metalKnife");
+        addBloc("objectBackground", metalPos, knifeSize).sprite.anchor.set(0.5, 0.5);
+        addText(metalPos, knifeSize, "Metal", style).text.anchor.set(0.5, 3);
+        addButton(metalPos, knifeSize, Vector2.mid, "metalKnife", function () {
+            currentFruitRef.open(2);
         });
 
-        addBloc("objectBackground", new Vector2(0.57, buttonY), new Vector2(0.125, -1));
-        addButton(new Vector2(0.57, buttonY), new Vector2(0.125, -1), Vector2.zero, "silverKnife", function () {
-            trace("use silverKnife");
+        addBloc("objectBackground", silverPos, knifeSize).sprite.anchor.set(0.5, 0.5);
+        addText(silverPos, knifeSize, "Argent", style).text.anchor.set(0.5, 3);
+        addButton(silverPos, knifeSize, Vector2.mid, "silverKnife", function () {
+            currentFruitRef.open(3);
         });
 
     }
