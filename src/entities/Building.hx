@@ -15,9 +15,6 @@ class Building extends GameObject
         super();
         referent = _referent;
         position = _position;
-        switch (name) {
-            case "breaker": createBreaker();
-        }
         if (checkServer) {
                 serverCheck(name);
         }
@@ -56,15 +53,10 @@ class Building extends GameObject
         referent.emit("not destroyed", null);
     }
 
-
     private function getDatasForServer (type:String=""):Dynamic {
         var data:Dynamic = {};
         data.position = position;
         data.type = type;
         return data;
-    }
-
-    private function createBreaker(){
-
     }
 }
