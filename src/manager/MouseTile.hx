@@ -26,13 +26,13 @@ class MouseTile
         if (Selection.actionType == "ground") {
             tile.graphicTile.changeGround(Selection.contain);
         }
-        else if (Selection.actionType == "build" && tile.currentBuild == null) {
-            tile.graphicTile.changeBuild(Selection.contain);
+        else if(tile.currentBuild == null) {
+            switch (Selection.actionType) {
+                case "build"   : tile.graphicTile.changeBuild(Selection.contain);
+                case "ecoBuild": tile.graphicTile.changeBuild(Selection.contain);
+                case "plant"   : tile.graphicTile.changeBuild("adultFlower");
+            }
         }
-        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
-            tile.graphicTile.changeBuild("adultFlower");
-        }
-
     }
 
 
@@ -40,13 +40,9 @@ class MouseTile
         if (Selection.actionType == "ground") {
             tile.graphicTile.changeGround(tile.currentGround);
         }
-        else if (Selection.actionType == "build" && tile.currentBuild == null) {
+        else if (tile.currentBuild == null) {
             tile.graphicTile.changeBuild(tile.currentBuild);
         }
-        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
-            tile.graphicTile.changeBuild(tile.currentBuild);
-        }
-
         tile.graphicTile.noFilterBuilding();
     }
 
@@ -65,17 +61,13 @@ class MouseTile
             tile.currentGround = Selection.contain;
             tile.graphicTile.changeGround(tile.currentGround);
         }
-        else if (Selection.actionType == "build" && tile.currentBuild == null) {
-                /***** FIXME MOVE THIS LATER *****/
-                tile.createBuilding(Selection.contain);
-            if (Selection.contain == "breaker") {
+        else if(tile.currentBuild == null){
+            switch(Selection.actionType){
+                case "build"    : tile.createBuilding(Selection.contain);
+                case "ecoBuild" : tile.createEcoBuilding(Selection.contain);
+                case "plant"    : tile.createFlower(Selection.meta);
+                default         : trace("MouseTile.click -> pas d'action pour Selection.contain " + Selection.contain);
             }
-            else {
-                trace("MouseTile.click -> pas d'action pour Selection.contain " + Selection.contain);
-            }
-        }
-        else if (Selection.actionType == "plant" && tile.currentBuild == null) {
-            tile.createFlower(Selection.meta);
             Selection.clear();
         }
     }

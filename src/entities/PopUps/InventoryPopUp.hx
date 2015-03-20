@@ -196,21 +196,25 @@ class InventoryPopUp extends PopUpMain
 
   private function updateBuildingInventory(){
     var buildings:Array<String> = ["workshop", "puits", "breaker", "Grenier_level_1"];
-    for(i in 0...buildings.length){
-        var n = buildings[i];
-        trace(n);
-        var cont = createCellEntitieIn(buildingInventory, function () {
-                place(buildings[i]);
-            });
-        var img = cont.addBloc(n, new Vector2 (0.5, 0.5, "%", "%"), new Vector2 (.86, 1, "%y", "%"));
-        img.displayObject.interactive = false;
-        img.setAnchor(.5, .5);
-    }
+    var ecoBuildings:Array<String> = ["Mellifera", "butterflyTree1", "anthill1"];
+    createBuildingCells(buildings, "build");
+    createBuildingCells(ecoBuildings, "ecoBuild");
+  }
+    private function createBuildingCells(b:Array<String>, s:String){
+        for(i in 0...b.length){
+            var n = b[i];
+            var cont = createCellEntitieIn(buildingInventory, function () {
+                    place(b[i], s);
+                });
+            var img = cont.addBloc(n, new Vector2 (0.5, 0.5, "%", "%"), new Vector2 (.86, 1, "%y", "%"));
+            img.displayObject.interactive = false;
+            img.setAnchor(.5, .5);
+        }
   }
 
-  private function place(b:String){
+  private function place(b:String, s:String){
     tweenHide();
-    Selection.setNew("build", b);
+    Selection.setNew(s, b);
   }
 
   /*==========  BLANK  ==========*/

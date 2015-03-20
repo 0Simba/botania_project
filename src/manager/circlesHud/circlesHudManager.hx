@@ -123,4 +123,9 @@ class CirclesHudManager
             if (!poping) managedHud.hide();
         });
     }
+
+    public function removeBuilding(t:entities.Building){
+        close();
+        t.destroyFromServer();
+    }
 }

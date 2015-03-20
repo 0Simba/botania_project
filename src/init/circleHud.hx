@@ -23,6 +23,17 @@ class CircleHud
         new manager.circlesHud.Breaker();
         new manager.circlesHud.Workshop();
 
+        /* EcosystemBuildings */
+        new manager.circlesHud.ecosystemBuildings.Hive("Cerana");
+        new manager.circlesHud.ecosystemBuildings.Hive("Mellifera");
+
+        new manager.circlesHud.ecosystemBuildings.Anthill("anthill1");
+        new manager.circlesHud.ecosystemBuildings.Anthill("anthill2");
+        new manager.circlesHud.ecosystemBuildings.Anthill("anthill3");
+
+        new manager.circlesHud.ecosystemBuildings.ButterflyTree("butterflyTree1");
+        new manager.circlesHud.ecosystemBuildings.ButterflyTree("butterflyTree2");
+        new manager.circlesHud.ecosystemBuildings.ButterflyTree("butterflyTree3");
     }
 
 }

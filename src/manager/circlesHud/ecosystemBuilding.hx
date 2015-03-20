@@ -2,12 +2,12 @@ package manager.circlesHud;
 
 import engine.popUpEngine.PopUpEngineMain;
 
-class Workshop extends CirclesHudManager
+class EcosystemBuilding extends CirclesHudManager
 {
     private var popUpEngine:PopUpEngineMain;
 
     public function new () {
-        super("workshop");
+        super("Mellifera");
 
         managedHud.addOnce("remove", "trashBasic", removeBreaker);
         managedHud.addOnce("open"  , "fertilizerBasic", openPopUp);

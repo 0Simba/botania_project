@@ -3,7 +3,7 @@ package entities;
 import manager.Selection;
 import entities.Flower;
 import entities.Building;
-import entities.building.Breaker;
+import entities.building.EcosystemBuilding;
 import engine.events.Events;
 import utils.ArrayCoord;
 import utils.Vector2;
@@ -132,8 +132,13 @@ class Tile extends GameObject
 
     public function createBuilding (name:String, checkServer:Bool = true) {
         currentBuild = name;
-        trace(currentBuild);
         buildingRef  = new Building(name, buildingEvents, coord.toVector2(), checkServer);
+        graphicTile.changeBuild(currentBuild);
+    }
+
+    public function createEcoBuilding (name:String, checkServer:Bool = true) {
+        currentBuild = name;
+        buildingRef  = new EcosystemBuilding(name, buildingEvents, coord.toVector2(), checkServer);
         graphicTile.changeBuild(currentBuild);
     }
 

@@ -15,12 +15,12 @@ class Breaker extends CirclesHudManager
         popUpEngine = PopUpEngineMain.getInstance();
     }
 
-    public function removeBreaker (targetBreaker:entities.building.Breaker) {
+    public function removeBreaker (targetBreaker:entities.Building) {
         close();
         targetBreaker.destroyFromServer();
     }
 
-    public function openPopUp (targetBreaker:entities.building.Breaker) {
+    public function openPopUp (targetBreaker:entities.Building) {
         close();
         popUpEngine.show("breakerInterface");
     }
