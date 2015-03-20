@@ -22,13 +22,13 @@ class Assets
         isoEngine = IsoEngine.getInstance();
 
         for (i in 0...Config.assets.jsonList.length) {
-          haxe.Timer.delay(function () {
+          //haxe.Timer.delay(function () {
             var element = new JsonLoader("./assets/" + Config.assets.jsonList[i] + ".json");
             element.addEventListener("loaded", function (pEvent:Event) {
                 preloadAssets(pEvent, element, Config.assets.jsonList[i]);
             });
             element.load();
-          }, i*30000);
+         // }, i*30000);
         }
     }
 

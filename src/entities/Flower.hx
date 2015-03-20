@@ -171,6 +171,7 @@ class Flower extends GameObject
     public function harvest () {
         if (stateList[stateIndex] == "bloom") {
             var data = getGrowDatas();
+            trace(this);
             data.stateIndex -= 2;     // get grow data increment stateIndex, but here we want desincrement
             callServer("flowerGrow", data, cast serverValidateHarvest, cast serverRefuseHarvest);
         }

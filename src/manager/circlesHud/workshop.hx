@@ -2,12 +2,12 @@ package manager.circlesHud;
 
 import engine.popUpEngine.PopUpEngineMain;
 
-class Breaker extends CirclesHudManager
+class Workshop extends CirclesHudManager
 {
     private var popUpEngine:PopUpEngineMain;
 
     public function new () {
-        super("breaker");
+        super("workshop");
 
         managedHud.addOnce("remove", "trashBasic", removeBreaker);
         managedHud.addOnce("open"  , "fertilizerBasic", openPopUp);

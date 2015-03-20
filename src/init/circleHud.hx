@@ -21,6 +21,7 @@ class CircleHud
 
         new manager.circlesHud.Flower();
         new manager.circlesHud.Breaker();
+        new manager.circlesHud.Workshop();
 
     }
 
