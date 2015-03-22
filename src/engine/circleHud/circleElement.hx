@@ -19,12 +19,16 @@ class CircleElement extends GameObject
 
         parent = _parent;
 
-        hudButton = new Button();
-        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), basicTexture, parent.layerName);
-        hudButton.sprite.anchor.set(0.5, 0.5);
-        hudButton.onClick(click);
+        basicHudButton(basicTexture);
 
         callback = _callback;
+    }
+
+    private function basicHudButton(texture:String){
+        hudButton = new Button();
+        hudButton.set(new Vector2(parent.elementsRadius, parent.elementsRadius), new Vector2(0, 0), texture, parent.layerName);
+        hudButton.sprite.anchor.set(0.5, 0.5);
+        hudButton.onClick(click);
     }
 
     public function replace (pos:Vector2) {

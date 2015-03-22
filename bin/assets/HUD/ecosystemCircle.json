@@ -1,0 +1,129 @@
+{
+	"frames" : {
+		"ecoHoneyPlus1" : {
+			"frame" : {
+				"x" : 216,
+				"y" : 0,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoSevePlus1" : {
+			"frame" : {
+				"x" : 432,
+				"y" : 0,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoHoneyPlus3" : {
+			"frame" : {
+				"x" : 864,
+				"y" : 0,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoBonusPlus1" : {
+			"frame" : {
+				"x" : 0,
+				"y" : 216,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoRangePlus1" : {
+			"frame" : {
+				"x" : 216,
+				"y" : 216,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoPropolisPlus1" : {
+			"frame" : {
+				"x" : 432,
+				"y" : 216,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoBonusPlus3" : {
+			"frame" : {
+				"x" : 648,
+				"y" : 216,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoRangePlus3" : {
+			"frame" : {
+				"x" : 864,
+				"y" : 216,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoHoneyPlus2" : {
+			"frame" : {
+				"x" : 216,
+				"y" : 432,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoSevePlus2" : {
+			"frame" : {
+				"x" : 432,
+				"y" : 432,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoSevePlus3" : {
+			"frame" : {
+				"x" : 648,
+				"y" : 432,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoBonusPlus2" : {
+			"frame" : {
+				"x" : 0,
+				"y" : 648,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoRangePlus2" : {
+			"frame" : {
+				"x" : 216,
+				"y" : 648,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoPropolisPlus2" : {
+			"frame" : {
+				"x" : 432,
+				"y" : 648,
+				"w" : 216,
+				"h" : 216
+			}
+		},
+		"ecoPropolisPlus3" : {
+			"frame" : {
+				"x" : 648,
+				"y" : 648,
+				"w" : 216,
+				"h" : 216
+			}
+		}
+	},
+	"meta" : {
+		"image" : "ecosystemCircle.png",
+		"size": {"w":978,"h":978},
+    	"scale": "1"
+	}
+}

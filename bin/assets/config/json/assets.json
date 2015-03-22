@@ -2,6 +2,7 @@
     "jsonList" : [
         "ground",
         "HUD/circleNavigation",
+        "HUD/ecosystemCircle",
         "FX/colors",
         "characters/florist",
         "popup",

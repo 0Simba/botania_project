@@ -2,21 +2,16 @@ package manager.circlesHud.ecosystemBuildings;
 
 import engine.popUpEngine.PopUpEngineMain;
 
-class ButterflyTree extends CirclesHudManager
+class ButterflyTree extends manager.circlesHud.EcosystemBuilding
 {
-    private var popUpEngine:PopUpEngineMain;
-
     public function new (name:String) {
         super(name);
-
-        managedHud.addOnce("remove", "trashBasic", removeBuilding);
-        managedHud.addOnce("open"  , "fertilizerBasic", openPopUp);
-
-        popUpEngine = PopUpEngineMain.getInstance();
+        managedHud.addOnce("sevePlus" , "ecoSevePlus" + prodLvl, upgradeProduction);
     }
 
-    public function openPopUp (targetBreaker:entities.Building) {
-        close();
-        popUpEngine.show("breakerInterface");
+    public function upgradeProduction(target:entities.Building){
+        if(prodLvl == 3)return;
+        prodLvl++;
+        managedHud.elements.get("sevePlus").hudButton.changeTexture("ecoSevePlus" + prodLvl);
     }
 }

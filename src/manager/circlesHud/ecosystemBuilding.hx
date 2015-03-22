@@ -5,23 +5,25 @@ import engine.popUpEngine.PopUpEngineMain;
 class EcosystemBuilding extends CirclesHudManager
 {
     private var popUpEngine:PopUpEngineMain;
-
-    public function new () {
-        super("Mellifera");
-
-        managedHud.addOnce("remove", "trashBasic", removeBreaker);
-        managedHud.addOnce("open"  , "fertilizerBasic", openPopUp);
-
-        popUpEngine = PopUpEngineMain.getInstance();
+    private var prodLvl:Int = 1;
+    private var rangeLvl:Int = 1;
+    private var bonusLvl:Int = 1;
+    public function new (name:String) {
+        super(name);
+        managedHud.addOnce("remove", "trashBasic", removeBuilding);
+        managedHud.addOnce("rangePlus" , "ecoRangePlus" + rangeLvl, upgradeRange);
+        managedHud.addOnce("bonusPlus" , "ecoBonusPlus" + bonusLvl, upgradeBonus);
+    }
+    
+    public function upgradeRange(target:entities.Building){
+        if(rangeLvl == 3)return;
+        rangeLvl++;
+        managedHud.elements.get("rangePlus").hudButton.changeTexture("ecoRangePlus" + rangeLvl);
     }
 
-    public function removeBreaker (targetBreaker:entities.Building) {
-        close();
-        targetBreaker.destroyFromServer();
-    }
-
-    public function openPopUp (targetBreaker:entities.Building) {
-        close();
-        popUpEngine.show("breakerInterface");
+    public function upgradeBonus(target:entities.Building){
+        if(bonusLvl == 3)return;
+        bonusLvl++;
+        managedHud.elements.get("bonusPlus").hudButton.changeTexture("ecoBonusPlus" + bonusLvl);
     }
 }

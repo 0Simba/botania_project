@@ -45,7 +45,7 @@ class CircleBlock
     public var elementsRadius:Int;
     public var centerRadius:Int;
 
-    private var elements:Map<String, CircleElement>;
+    public var elements:Map<String, CircleElement>;
     private var parent:CirclesHudEngine;
 
 

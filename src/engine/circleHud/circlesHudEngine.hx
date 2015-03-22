@@ -18,7 +18,6 @@ class CirclesHudEngine
         return model.get(name);
     }
 
-
     public function get (name:String):CircleBlock {
         if (model.exists(name)) {
             return model.get(name);
