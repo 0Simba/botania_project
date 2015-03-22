@@ -36,6 +36,8 @@ class Main
 		if (nbCall == nbAsynchronousCallback) {
 					// Put here all synchronous loading function.
 				//init
+			utils.AjaxRequest.initLog();
+			PlayerDatas.load();
 			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();
@@ -48,8 +50,6 @@ class Main
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 
-			utils.AjaxRequest.initLog();
-			PlayerDatas.load();
 
 			lastTS = Date.now().getTime();
 

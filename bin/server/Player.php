@@ -125,6 +125,21 @@
 
         }
 
+        function getDatas(){
+            $id = $this->id;
+            $response = $this->db->query("SELECT * FROM players WHERE ID = '$this->id'");
+
+            echo ($this->db->error);
+
+            if ($err = $this->noError() && $response->num_rows) {
+                $datas = array();
+                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                    array_push($datas, $data);
+                }
+                return $datas;
+            }
+            return $err;
+        }
 
         function noError () {
             if ($this->db->error != false) {

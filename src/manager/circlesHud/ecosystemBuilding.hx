@@ -16,6 +16,7 @@ class EcosystemBuilding extends CirclesHudManager
     }
     
     public function upgradeRange(target:entities.Building){
+        entities.popUps.HeaderPopUp.getInstance().setCurrencies({gold:1254, suns:"sfs"});
         if(rangeLvl == 3)return;
         rangeLvl++;
         managedHud.elements.get("rangePlus").hudButton.changeTexture("ecoRangePlus" + rangeLvl);
