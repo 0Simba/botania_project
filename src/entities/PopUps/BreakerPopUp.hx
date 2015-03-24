@@ -39,10 +39,14 @@ class BreakerPopUp extends PopUpMain
         b.onClick(tweenHide);
         //addBloc("concasser_en_ltl",new Vector2(0.66, 0.835), assets.getSize("concasser_en_ltl"));
         addBloc("plus_ltl", new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
-        addBloc("plus_ltl", new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
-        addBloc("fond_fleur_graine", new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine")).setDroppable();
-        addBloc("fond_fleur_graine", new Vector2(0.705, 0.72), assets.getSize("fond_fleur_graine")).setDroppable();
-        addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", function () {});
+        // addBloc("plus_ltl", new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
+
+        seed1 = addBloc("fond_fleur_graine", new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
+        seed2 = addBloc("fond_fleur_graine", new Vector2(0.705, 0.72), assets.getSize("fond_fleur_graine"));
+        seed1.setDroppable();
+        seed2.setDroppable();
+
+        addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
         onShow = updateAndShow;
     }
 

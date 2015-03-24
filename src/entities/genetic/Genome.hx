@@ -39,16 +39,16 @@ class Genome
         var segments = code.split("-");
 
         var splitTypeToStrength = segments[0].split("#");
-        principal = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+        principal = Segment.newFromCode(splitTypeToStrength[0], Std.parseFloat(splitTypeToStrength[1]));
 
         if (segments[1] != null) {
             splitTypeToStrength = segments[1].split("#");
-            secondary = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+            secondary = Segment.newFromCode(splitTypeToStrength[0], Std.parseFloat(splitTypeToStrength[1]));
         }
 
         if (segments[2] != null) {
             splitTypeToStrength = segments[2].split("#");
-            principal = Segment.newFromCode(splitTypeToStrength[0], cast splitTypeToStrength[1]);
+            principal = Segment.newFromCode(splitTypeToStrength[0], Std.parseFloat(splitTypeToStrength[1]));
         }
 
         return new Genome (principal, secondary, tertiaire);
