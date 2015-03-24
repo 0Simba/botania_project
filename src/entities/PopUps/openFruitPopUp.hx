@@ -11,11 +11,12 @@ import Map;
 import engine.tween.Ease;
 import entities.popUps.PopUpMain;
 import pixi.text.Text.TextStyle;
+import entities.Fruit;
 
 class OpenFruitPopUp extends PopUpMain
 {
 
-    static public var currentFruitRef:entities.Fruit;
+    static public var currentFruitRef:Fruit;
 
     public function new () {
         super("openFruit", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
@@ -48,21 +49,31 @@ class OpenFruitPopUp extends PopUpMain
         addBloc("objectBackground", woodPos, knifeSize).sprite.anchor.set(0.5, 0.5);
         addText(woodPos, knifeSize, "Bois", style).text.anchor.set(0.5, 3);
         addButton(woodPos, knifeSize, Vector2.mid, "woodKnife", function () {
-            currentFruitRef.open(1);
+            open(1);
         });
 
         addBloc("objectBackground", metalPos, knifeSize).sprite.anchor.set(0.5, 0.5);
         addText(metalPos, knifeSize, "Metal", style).text.anchor.set(0.5, 3);
         addButton(metalPos, knifeSize, Vector2.mid, "metalKnife", function () {
-            currentFruitRef.open(2);
+            open(2);
         });
 
         addBloc("objectBackground", silverPos, knifeSize).sprite.anchor.set(0.5, 0.5);
         addText(silverPos, knifeSize, "Argent", style).text.anchor.set(0.5, 3);
         addButton(silverPos, knifeSize, Vector2.mid, "silverKnife", function () {
-            currentFruitRef.open(3);
+            open(3);
         });
 
+    }
+
+    static public function setFruitRef (fruitRef:Fruit) {
+        currentFruitRef = fruitRef;
+    }
+
+    private function open (level) {
+        if (currentFruitRef != null) currentFruitRef.open(level);
+        currentFruitRef = null;
+        tweenHide();
     }
 }
 

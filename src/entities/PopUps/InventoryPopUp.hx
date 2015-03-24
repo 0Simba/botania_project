@@ -14,6 +14,7 @@ import engine.isoEngine.components.Hud;
 import engine.popUpEngine.Container;
 import entities.popUps.PopUpMain;
 import entities.Fruit;
+import entities.popUps.OpenFruitPopUp;
 
 class InventoryPopUp extends PopUpMain
 {
@@ -177,6 +178,7 @@ class InventoryPopUp extends PopUpMain
 
             var name = Fruit.list[i].appearanceName;
             var cont = createCellEntitieIn(fruitsInventory, function () {
+                OpenFruitPopUp.setFruitRef(Fruit.list[i]);
                 popUpEngine.show("openFruit");
             });
 
