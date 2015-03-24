@@ -5,6 +5,8 @@ import utils.Vector2;
 import manager.Map;
 import entities.genetic.Genome;
 import entities.popUps.HeaderPopUp;
+import entities.Seed;
+
 
 class PlayerDatas
 {
@@ -23,6 +25,7 @@ class PlayerDatas
         if (response.accepted) {
             loadPlayerDatas(response.datas);
             loadBuildings(response.buildings);
+            loadSeeds(response.seeds);
             loadFlowers(response.flowers, response.serverTimeStamp);
         }
         else {
@@ -46,6 +49,14 @@ class PlayerDatas
             var tile   = map.get(Std.parseInt(flower.X), Std.parseInt(flower.Y));
 
             tile.flowerLoaded(flower.LastTimeStamp, serverTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex);
+        }
+    }
+
+
+    static private function loadSeeds (seeds:Dynamic) {
+        for (i in 0...seeds.length) {
+            var seed = seeds[i];
+            new Seed(Genome.newFromCode(seed.Genome), seed.Level);
         }
     }
 

@@ -49,6 +49,8 @@ class InventoryPopUp extends PopUpMain
     public function setInventorysThenTween () {
         Selection.setNull();
         tweenShow();
+        updateSeedsInventory();
+        updateFruitsInventory();
     }
 
 
@@ -140,6 +142,7 @@ class InventoryPopUp extends PopUpMain
 
 
     private function updateSeedsInventory () {
+        seedsInventory.clear();
         for (i in 0...Seed.list.length) {
 
             var name = Seed.list[i].appearanceName;
@@ -174,12 +177,14 @@ class InventoryPopUp extends PopUpMain
 
 
     private function updateFruitsInventory () {
+        fruitsInventory.clear();
         for (i in 0...Fruit.list.length) {
 
             var name = Fruit.list[i].appearanceName;
             var cont = createCellEntitieIn(fruitsInventory, function () {
                 OpenFruitPopUp.setFruitRef(Fruit.list[i]);
                 popUpEngine.show("openFruit");
+                tweenHide();
             });
 
             cont.addBloc("fColo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%")).displayObject.interactive = false;

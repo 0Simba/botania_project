@@ -74,6 +74,7 @@ class OpenFruitPopUp extends PopUpMain
         if (currentFruitRef != null) currentFruitRef.open(level);
         currentFruitRef = null;
         tweenHide();
+        popUpEngineMain.show("inventoryInterface");
     }
 }
 
