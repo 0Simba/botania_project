@@ -9,11 +9,14 @@ import entities.popUps.HeaderPopUp;
 class PlayerDatas
 {
     static private var map:Map;
-    static public var suns:Int;
-    static public var gold:Int;
+    static public  var suns:Int;
+    static public  var gold:Int;
+
+
     static public function load () {
         utils.AjaxRequest.exec("allDatas", null, callback);
     }
+
 
     static private function callback (response:Dynamic) {
         map = manager.Map.getInstance();
@@ -27,6 +30,7 @@ class PlayerDatas
         }
     }
 
+
     static private function loadBuildings (buildings:Dynamic) {
         for (i in 0...buildings.length) {
             var building = buildings[i];
@@ -34,6 +38,7 @@ class PlayerDatas
             tile.create(building.Type);
         }
     }
+
 
     static private function loadFlowers (flowers:Dynamic, serverTimeStamp:Int) {
         for (i in 0...flowers.length) {
@@ -44,11 +49,13 @@ class PlayerDatas
         }
     }
 
+
     static private function loadPlayerDatas (datas:Dynamic) {
         suns = cast datas[0].Sun;
         gold = cast datas[0].Gold;
         HeaderPopUp.getInstance().setCurrencies(getInstance());
     }
+
 
     static public function getInstance():Dynamic{
         return {suns: suns, gold: gold};
