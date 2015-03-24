@@ -158,6 +158,13 @@
             return $err;
         }
 
+
+        function addSeed ($genome, $level) {
+            $this->db->query("INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')");
+            return $this->noError();
+        }
+
+
         function noError () {
             if ($this->db->error != false) {
                 return ("erreur mysql : " . $this->db->error);

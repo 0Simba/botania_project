@@ -18,13 +18,17 @@ class Seed extends GameObject
 	public var level:Int;
     public var appearanceName:String;
 
-	public function new (_genome:Genome, _level:Int = 0) {
+	public function new (_genome:Genome, _level:Int = 0, informServer = true) {
         super();
         genome = _genome;
         level  = _level;
 
         appearanceName = genome.getAppearanceName();
         list.push(this);
+
+        if (informServer) {
+            callServer("addSeed", getSeedDatas(), cast function(){}, cast function(){});
+        }
 	}
 
     override public function destroy () {
@@ -33,6 +37,13 @@ class Seed extends GameObject
         list.splice(index, 1);
     }
 
+    private function getSeedDatas ():Dynamic {
+        var data:Dynamic = {};
+        data.genome = genome.getCode();
+        data.level  = level;
+
+        return data;
+    }
 
     private function normalizeTotalOf (list) {
         var total = getTotal(list);
