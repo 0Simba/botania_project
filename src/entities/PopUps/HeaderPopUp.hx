@@ -44,7 +44,6 @@ class HeaderPopUp extends PopUpMain
 
     }
     public function setCurrencies(c:Dynamic){
-        trace(c);
         gold.setText(cast c.gold);
         suns.setText(cast c.suns);
     }
