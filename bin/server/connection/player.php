@@ -13,6 +13,14 @@ if (isset($data["id"])) {
 }
 else {
     $mysqli->query("INSERT INTO players VALUES (NULL, '$id', '', '', '', '', '', '', '', '')");
+    $id    = $mysqli->insert_id;
+    $level = 1;
+
+    $genome = "AAA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "AAA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "AAB#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "AAD#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "ABA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     echo $mysqli->error;
 
     $_SESSION["playerID"] = $data["id"];
