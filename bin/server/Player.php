@@ -127,7 +127,7 @@
 
         function getSeeds () {
             $id = $this->id;
-            $response = $this->db->query("SELECT Genome, Level FROM playersseeds WHERE PlayerID = '$this->id'");
+            $response = $this->db->query("SELECT ID, Genome, Level FROM playersseeds WHERE PlayerID = '$this->id'");
 
             echo ($this->db->error);
 
@@ -158,10 +158,14 @@
 
 
         function addSeed ($genome, $level) {
-            $this->db->query("INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')");
-            return $this->noError();
+            $query = "INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')";
+            $this->db->query($query);
+            return $this->db->insert_id;
         }
 
+        function removeSeed ($id) {
+            $this->db->query("DELETE FROM playersseeds WHERE ID='$id'");
+        }
 
         function noError () {
             if ($this->db->error != false) {
