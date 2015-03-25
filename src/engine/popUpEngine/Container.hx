@@ -76,6 +76,13 @@ class Container extends engine.isoEngine.components.IsoComponent
         return addSomethingOn(button);
     }
 
+    public function addRect(color:Int, pos:Vector2, size:Vector2, alpha:Float = 1){
+        var rect = new pixi.primitives.Graphics();
+        rect.beginFill(color, alpha);
+        rect.drawRect(pos.x, pos.y, size.x, size.y);
+        //return addSomethingOn(rect);
+    }
+
     public function addButtonPattern (buttonName:String):engine.isoEngine.components.Button {
         var button = popUpEngineMain.getButtonPattern(buttonName);
         return addSomethingOn(button);
