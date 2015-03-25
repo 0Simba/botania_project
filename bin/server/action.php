@@ -3,6 +3,7 @@
     $action   = mysqli_real_escape_string($mysqli, htmlspecialchars($_GET["action"]));
     $datas    = isset($_GET["datas"]) ? json_decode(urldecode($_GET["datas"])) : null;
     $player   = new Player ($_SESSION["playerID"]);
+    $shop   = new Shop ();
 
 
 
@@ -12,5 +13,6 @@
     else if ($action == "destroyBuilding") include "server/destroyBuilding.php";
     else if ($action == "destroyFlower")   include "server/destroyFlower.php";
     else if ($action == "allDatas")        include "server/sendAllDatas.php";
+    else if ($action == "shopDatas")       include "server/shopDatas.php";
 
 ?>

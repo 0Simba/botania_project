@@ -11,7 +11,7 @@ import pixi.display.Sprite;
 
 class Scrollbar
 {
-    static public  var defaultSize:Float = 20;
+    static public  var defaultSize:Float = 10;
     static private var defaultInBroder:Float = 2;
     static private var inTextureName:String;
     static private var outTextureName:String;
@@ -109,6 +109,14 @@ class Scrollbar
 
     private function createScrollIn () {
         scrollIn = new Sprite(IsoEngine.getInstance().assets.getTexture(inTextureName));
+        scrollIn.width /= 1.5;
+        scrollIn.height /= 1.5;
+        if(isHorizontal){
+            scrollOut.x += scrollIn.width / 2;
+        }
+        else{
+            scrollOut.y += scrollIn.width / 2;
+        }
         setScrollIn();
         setInteractive();
         layer.addChild(scrollIn);

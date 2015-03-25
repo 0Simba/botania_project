@@ -16,6 +16,7 @@
         "FX/bloom",
         "popups/openFruit",
         "popups/inventory/inventory",
+        "popups/shop/shop",
         "game/seeds/seedsMotif",
         "game/seeds/seedsColo",
         "game/fruits/fruitsColo",

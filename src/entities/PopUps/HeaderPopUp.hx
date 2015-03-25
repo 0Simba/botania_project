@@ -20,6 +20,7 @@ class HeaderPopUp extends PopUpMain
             popUpEngine.show("inventoryInterface");
         });
         addButton(new Vector2(0.86, 0.90), new Vector2(0.09, 0.85, "%", "%x"), new Vector2(0, 0), "shopBtn", function () {
+            popUpEngine.show("shopInterface");
         });
         addButton(new Vector2(0.20, 0.90), new Vector2(0.065, 0.85, "%", "%x"), new Vector2(0, 0), "unmuteBtn", function () {
         });

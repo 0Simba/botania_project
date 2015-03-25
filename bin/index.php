@@ -2,6 +2,7 @@
     ini_set("display_errors", 1);
     include "server/connection/bdd.php";
     include "server/Player.php";
+    include "server/shop.php";
 
 
     // echo "-------------------------------------------------------<br />";

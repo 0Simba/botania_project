@@ -90,5 +90,8 @@ class Hud extends IsoComponent
         if (currentOver != null) currentOver.clickBind();
     }
 
+    public function setTexture(texture:String){
+        sprite.setTexture(isoEngine.assets.getTexture(texture));
+    }
 
 }
