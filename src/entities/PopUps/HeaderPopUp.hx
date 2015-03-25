@@ -32,7 +32,7 @@ class HeaderPopUp extends PopUpMain
             font : "bold 18px arial",
             wordWrap : true
         };
-        suns = addText(new Vector2(0.8, 0.4), new Vector2(1, 1), "Bitch", style);
+        suns = addText(new Vector2(0.8, 0.4), new Vector2(1, 1), "0", style);
         gold = addText(new Vector2(0.8, 0.64), new Vector2(1, 1), "20000", style);
         instance = this;
     }

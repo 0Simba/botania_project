@@ -171,6 +171,10 @@
             return true;
         }
 
+        function hasEnoughCoins($price){
+            return $price <= $this->getDatas()[0]["Gold"];
+        }
+
     }
 
 

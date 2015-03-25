@@ -14,5 +14,6 @@
     else if ($action == "destroyFlower")   include "server/destroyFlower.php";
     else if ($action == "allDatas")        include "server/sendAllDatas.php";
     else if ($action == "addSeed")         include "server/addSeed.php";
-	else if ($action == "shopDatas")       include "server/shopDatas.php";
+    else if ($action == "shopDatas")       include "server/shopDatas.php";
+	else if ($action == "hasEnoughMoney")  include "server/hasEnoughMoney.php";
 ?>

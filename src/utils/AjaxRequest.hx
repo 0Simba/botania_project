@@ -13,7 +13,7 @@ class AjaxRequest
         var r = new haxe.Http(url);
         // r.onError = js.Lib.alert;
         r.onData = function (response) {
-//         displayAndLog(response);
+         displayAndLog(response);
             if (!phpErrorInString(response)) {
                 callback(haxe.Json.parse(response));
             }
