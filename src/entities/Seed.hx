@@ -18,7 +18,9 @@ class Seed extends GameObject
 	public var level:Int;
     public var appearanceName:String;
 
-	public function new (_genome:Genome, _level:Int = 0, informServer = true) {
+    private var serverId:Int;
+
+	public function new (_genome:Genome, _level:Int = 0, informServer = true, _serverId = null) {
         super();
         genome = _genome;
         level  = _level;
@@ -27,13 +29,23 @@ class Seed extends GameObject
         list.push(this);
 
         if (informServer) {
-            callServer("addSeed", getSeedDatas(), cast function(){}, cast function(){});
+            callServer("addSeed", getSeedDatas(), cast function (data) {
+                serverId = data.seedId;
+            }, cast function (data){});
         }
+        serverId = _serverId;
 	}
 
     override public function destroy () {
         var index = list.indexOf(this);
         var seed  = list[index];
+
+        if (serverId != null) {
+            var data:Dynamic = {};
+            data.id = serverId;
+            callServer('removeSeed', data, cast function(){}, cast function(){});
+        }
+
         list.splice(index, 1);
     }
 
