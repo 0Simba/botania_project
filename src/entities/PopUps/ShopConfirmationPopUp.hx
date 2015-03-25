@@ -62,6 +62,18 @@ class ShopConfirmationPopUp extends PopUpMain
 	}
 
 	static public function wantToBuy(){
-
+        utils.AjaxRequest.exec("hasEnoughMoney", haxe.Json.stringify(instance.selectedElem.price), function (response) {
+            if (response.accepted) {
+                placeItem();
+            }
+            else {
+                //refusedCallback(response);
+            }
+        });
 	}
+
+    static public function placeItem(){
+        instance.hide();
+        Selection.setNew(instance.selectedElem.actionName, instance.selectedElem.texture);
+    }
 }
