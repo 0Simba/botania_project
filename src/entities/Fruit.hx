@@ -14,7 +14,9 @@ class Fruit extends GameObject
 
     public var appearanceName:String;
 
-	public function new (_genome:Genome, _quality:Float = 0, informServer:Bool = false) {
+    private var serverId:Int;
+
+	public function new (_genome:Genome, _quality:Float = 0, informServer:Bool = false, _serverId:Int = null) {
         super();
 		genome  = _genome;
 		quality = _quality;
@@ -26,6 +28,7 @@ class Fruit extends GameObject
             var a:Dynamic = getFruitDatas();
             callServer("addFruit", getFruitDatas(), cast function(){}, cast function(){});
         }
+        serverId = _serverId;
 	}
 
 
@@ -35,6 +38,9 @@ class Fruit extends GameObject
         }
 
 		list.splice(list.indexOf(this), 1);
+        var data:Dynamic = {};
+        data.id = serverId;
+        callServer("removeFruit", data, cast function(){}, cast function(){});
 	}
 
 	private function getFruitDatas ():Dynamic {

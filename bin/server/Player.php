@@ -144,7 +144,7 @@
 
         function getFruits () {
             $id = $this->id;
-            $response = $this->db->query("SELECT Genome, Quality FROM playersfruits WHERE PlayerID = '$this->id'");
+            $response = $this->db->query("SELECT ID, Genome, Quality FROM playersfruits WHERE PlayerID = '$this->id'");
 
             echo ($this->db->error);
 
@@ -180,13 +180,19 @@
             return $this->db->insert_id;
         }
 
-        function addFruit ($genome, $level) {
-            $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
-            return $this->noError();
-}
         function removeSeed ($id) {
             $this->db->query("DELETE FROM playersseeds WHERE ID='$id'");
 
+        }
+
+        function addFruit ($genome, $level) {
+            $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
+            return $this->noError();
+        }
+
+        function removeFruit ($id) {
+            echo "BETCH    "; echo $id;
+            $this->db->query("DELETE FROM playersfruits WHERE ID='$id'");
         }
 
         function noError () {
