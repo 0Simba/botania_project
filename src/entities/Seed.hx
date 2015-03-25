@@ -34,6 +34,7 @@ class Seed extends GameObject
     override public function destroy () {
         var index = list.indexOf(this);
         var seed  = list[index];
+        // callServer
         list.splice(index, 1);
     }
 

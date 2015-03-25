@@ -27,7 +27,6 @@ class BreakerPopUp extends PopUpMain
 
         setDefaultsElements();
         // setSeedsInventory();
-        setSeedsMergingElements();
         createTween();
         setSeedsInventory();
 	}
@@ -72,19 +71,11 @@ class BreakerPopUp extends PopUpMain
             var cont = cell.addContainer(new Vector2(1, 1));
 
             cont.addBloc("colo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
-            cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
+            var motif = cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
+            // motif.bindEvent();
 
             cont.setDraggable(Seed.list[i]);
         }
-    }
-
-    private function setSeedsMergingElements () {
-        // seed1 = cast addBloc("dark", new Vector2(0.2, 0.7), new Vector2(-1, 0.18));
-        // seed2 = cast addBloc("dark", new Vector2(0.5, 0.7), new Vector2(-1, 0.18));
-        // seed1.setDroppable();
-        // seed2.setDroppable();
-
-        //var but = addButton(new Vector2(0.37, 0.75), new Vector2(-1, 0.1), "lightGray", mergeSeeds);
     }
 
     private function mergeSeeds () {
