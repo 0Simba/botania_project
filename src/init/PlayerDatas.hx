@@ -62,7 +62,8 @@ class PlayerDatas
 
 
     static private function loadPlayerDatas (datas:Dynamic) {
-        trace(datas); return;
+        trace(datas);
+        
         suns = cast datas[0].Sun;
         gold = cast datas[0].Gold;
         HeaderPopUp.getInstance().setCurrencies(getInstance());

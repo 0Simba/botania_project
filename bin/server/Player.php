@@ -144,9 +144,7 @@
 
         function getDatas(){
             $id = $this->id;
-            $response = $this->db->query("SELECT * FROM players WHERE ID = '$this->id'");
-
-            echo ($this->db->error);
+            $response = $this->db->query("SELECT * FROM players WHERE ID = '$id'");
 
             if ($err = $this->noError() && $response->num_rows) {
                 $datas = array();
