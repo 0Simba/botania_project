@@ -125,6 +125,23 @@
 
         }
 
+        function getSeeds () {
+            $id = $this->id;
+            $response = $this->db->query("SELECT Genome, Level FROM playersseeds WHERE PlayerID = '$this->id'");
+
+            echo ($this->db->error);
+
+            if ($err = $this->noError() && $response->num_rows) {
+                $seeds = array();
+                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                    array_push($seeds, $data);
+                }
+                return $seeds;
+            }
+            return $err;
+
+        }
+
         function getDatas(){
             $id = $this->id;
             $response = $this->db->query("SELECT * FROM players WHERE ID = '$this->id'");
@@ -140,6 +157,13 @@
             }
             return $err;
         }
+
+
+        function addSeed ($genome, $level) {
+            $this->db->query("INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')");
+            return $this->noError();
+        }
+
 
         function noError () {
             if ($this->db->error != false) {

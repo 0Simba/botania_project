@@ -19,18 +19,17 @@ class Fruit extends GameObject
 
 		genome  = _genome;
 		quality = _quality;
-        etablishNbSeed();
         appearanceName = genome.getAppearanceName();
 
         list.push(this);
 	}
 
-	public function etablishNbSeed () {
-		return 3;
-	}
 
-	public function open (knifeLevel:Int):Array<Seed> {
-		list.splice(list.indexOf(this),1);
-		return new Array<Seed>();
+	public function open (knifeLevel:Int) {
+        for (i in 0...knifeLevel) {
+            new Seed(genome);
+        }
+
+		list.splice(list.indexOf(this), 1);
 	}
 }

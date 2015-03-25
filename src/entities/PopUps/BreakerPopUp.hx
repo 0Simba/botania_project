@@ -29,6 +29,7 @@ class BreakerPopUp extends PopUpMain
         // setSeedsInventory();
         setSeedsMergingElements();
         createTween();
+        setSeedsInventory();
 	}
 
     private function setDefaultsElements () {
@@ -36,24 +37,33 @@ class BreakerPopUp extends PopUpMain
         addBloc("fond_en", new Vector2(0, 0), new Vector2(1, 1));
         var b = addButtonPattern("close");
         b.onClick(tweenHide);
-        addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", function () {});
         //addBloc("concasser_en_ltl",new Vector2(0.66, 0.835), assets.getSize("concasser_en_ltl"));
-        addBloc("plus_ltl",new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
-        addBloc("plus_ltl",new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
-        addBloc("fond_fleur_graine",new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
-        onShow = tweenShow;
+        addBloc("plus_ltl", new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
+        // addBloc("plus_ltl", new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
+
+        seed1 = addBloc("fond_fleur_graine", new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
+        seed2 = addBloc("fond_fleur_graine", new Vector2(0.705, 0.72), assets.getSize("fond_fleur_graine"));
+        seed1.setDroppable();
+        seed2.setDroppable();
+
+        addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
+        onShow = updateAndShow;
+    }
+
+    private function updateAndShow () {
+        tweenShow();
+        updateSeedsInventory();
     }
 
 
     private function setSeedsInventory () {
-        setInventory(new Vector2(0.07, 0.085), new Vector2(0.6, 0.6),  new Vector2(0.33, 0.33), 3, -1);
+        setInventory(new Vector2(0.07, 0.15), new Vector2(0.38, 0.74),  new Vector2(0.20, 0.20), 5, -1);
 
         updateSeedsInventory();
     }
 
     private function updateSeedsInventory () {
         inventory.clear();
-
         for (i in 0...Seed.list.length) {
             var cell:Cell = inventory.addCell();
             var name = Seed.list[i].appearanceName;
