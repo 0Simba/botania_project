@@ -39,7 +39,7 @@ class Main
 			utils.AjaxRequest.initLog();
 			PlayerDatas.load();
 			init.ShopDatas.load();
-			init.ForTest.load();
+//			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();

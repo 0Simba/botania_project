@@ -142,6 +142,23 @@
 
         }
 
+        function getFruits () {
+            $id = $this->id;
+            $response = $this->db->query("SELECT Genome, Quality FROM playersfruits WHERE PlayerID = '$this->id'");
+
+            echo ($this->db->error);
+
+            if ($err = $this->noError() && $response->num_rows) {
+                $fruits = array();
+                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                    array_push($fruits, $data);
+                }
+                return $fruits;
+            }
+            return $err;
+
+        }
+
         function getDatas(){
             $id = $this->id;
             $response = $this->db->query("SELECT * FROM players WHERE ID = '$id'");
@@ -162,6 +179,10 @@
             return $this->noError();
         }
 
+        function addFruit ($genome, $level) {
+            $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
+            return $this->noError();
+        }
 
         function noError () {
             if ($this->db->error != false) {

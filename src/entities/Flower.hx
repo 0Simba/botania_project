@@ -171,7 +171,6 @@ class Flower extends GameObject
     public function harvest () {
         if (stateList[stateIndex] == "bloom") {
             var data = getGrowDatas();
-            trace(this);
             data.stateIndex -= 2;     // get grow data increment stateIndex, but here we want desincrement
             callServer("flowerGrow", data, cast serverValidateHarvest, cast serverRefuseHarvest);
         }
@@ -184,17 +183,14 @@ class Flower extends GameObject
     private function serverValidateHarvest () {
         stateIndex--;
         referent.emit("state changed", stateList[stateIndex]);
-        new Fruit(genome);
+        new Fruit(genome, 0, true);
         launchDelay(grow, config.time.delay);
     }
 
 
     private function serverRefuseHarvest () {
         trace("Server refuse harvest for");
-        trace(this);
     }
-
-
 
                 /*==========  WATER  ==========*/
 
@@ -207,8 +203,6 @@ class Flower extends GameObject
             trace("entitie.flower.water -> can't water bloomed flower");
         }
     }
-
-
 
                 /*==========  DATAS  ==========*/
 

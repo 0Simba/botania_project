@@ -14,14 +14,18 @@ class Fruit extends GameObject
 
     public var appearanceName:String;
 
-	public function new (_genome:Genome, _quality:Float = 0) {
+	public function new (_genome:Genome, _quality:Float = 0, informServer:Bool = false) {
         super();
-
 		genome  = _genome;
 		quality = _quality;
         appearanceName = genome.getAppearanceName();
 
         list.push(this);
+
+        if (informServer) {
+            var a:Dynamic = getFruitDatas();
+            callServer("addFruit", getFruitDatas(), cast function(){}, cast function(){});
+        }
 	}
 
 
@@ -32,4 +36,12 @@ class Fruit extends GameObject
 
 		list.splice(list.indexOf(this), 1);
 	}
+
+	private function getFruitDatas ():Dynamic {
+        var data:Dynamic = {};
+        data.genome = genome.getCode();
+        data.quality  = quality;
+
+        return data;
+    }
 }

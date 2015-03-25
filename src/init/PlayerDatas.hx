@@ -6,6 +6,7 @@ import manager.Map;
 import entities.genetic.Genome;
 import entities.popUps.HeaderPopUp;
 import entities.Seed;
+import entities.Fruit;
 
 
 class PlayerDatas
@@ -27,6 +28,7 @@ class PlayerDatas
             loadBuildings(response.buildings);
             loadSeeds(response.seeds);
             loadFlowers(response.flowers, response.serverTimeStamp);
+            loadFruits(response.fruits);
         }
         else {
             js.Browser.window.alert("Erreur lors du chargement de vos données");
@@ -60,6 +62,12 @@ class PlayerDatas
         }
     }
 
+    static private function loadFruits (fruits:Dynamic) {
+        for (i in 0...fruits.length) {
+            var fruit = fruits[i];
+            new Fruit(Genome.newFromCode(fruit.Genome), Std.int(fruit.Quality), false);
+        }
+    }
 
     static private function loadPlayerDatas (datas:Dynamic) {
         suns = cast datas[0].Sun;
