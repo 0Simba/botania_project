@@ -195,19 +195,15 @@ class ShopPopUp extends PopUpMain
   }
 
   public function updateBuildingInventory(){
-    /*var buildings:Array<String> = ["workshop", "puits", "Concasseur_level_1", "Grenier_level_1"];
-    var ecoBuildings:Array<String> = ["Mellifera", "butterflyTree1", "anthill1"];
-    createBuildingCells(buildings, "build");*/
-    trace(init.ShopDatas.buildings);
     createBuildingCells(init.ShopDatas.buildings, "ecoBuild");
   }
     private function createBuildingCells(b:Dynamic, s:String){
         for(i in 0...b.length){
             var n = b[i].texture;
             var cont = createCellEntitieIn(buildingInventory, b[i], function () {
-                    entities.popUps.ShopConfirmationPopUp.open(b[i], s);
-                    tweenHide();
-                });
+                entities.popUps.ShopConfirmationPopUp.open(b[i], s);
+                tweenHide();
+            });
             var img = cont.addBloc(n, new Vector2 (0.5, 0.5, "%", "%"), new Vector2 (.86, 1, "%y", "%"));
             img.displayObject.interactive = false;
             img.setAnchor(.5, .5);
