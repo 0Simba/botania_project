@@ -11,7 +11,7 @@ import pixi.display.Sprite;
 
 class Scrollbar
 {
-    static public  var defaultSize:Float = 10;
+    static public  var defaultSize:Float     = 10;
     static private var defaultInBroder:Float = 2;
     static private var inTextureName:String;
     static private var outTextureName:String;
@@ -41,14 +41,17 @@ class Scrollbar
 
 
     public function update () {
+        if (Math.abs(displayableRatio) >= 99999) { // infinity
+            hide();
+        }
         setScrollIn();
     }
 
-    public function hide(){
+    public function hide () {
         layer.visible = false;
     }
 
-    public function show(){
+    public function show () {
         layer.visible = true;
     }
 
@@ -64,7 +67,7 @@ class Scrollbar
             inventory.mask.x  = ratio * inventorySize.x;
         }
         else {
-            var totalPxTraversable:Float = outHeight - inHeight;
+            var totalPxTraversable:Float = outHeight;
 
             if (scrollIn.y < 0) scrollIn.y = 0;
             if (scrollIn.y > totalPxTraversable) scrollIn.y = totalPxTraversable;
@@ -125,6 +128,7 @@ class Scrollbar
 
     private function setScrollIn () {
         (isHorizontal) ? setHorizontalScrollIn() : setVerticalScrollIn();
+
         layer.visible = (displayableRatio > 0) ? true : false;
     }
 
