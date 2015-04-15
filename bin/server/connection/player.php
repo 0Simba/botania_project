@@ -17,10 +17,16 @@ else {
     $level = 1;
 
     $genome = "AAA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
-    $genome = "AAA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     $genome = "AAB#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     $genome = "AAD#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     $genome = "ABA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+
+    $genome = "AAA#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "BBB#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "CCC#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "DDD#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+    $genome = "EEE#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+
     echo $mysqli->error;
 
     $_SESSION["playerID"] = $data["id"];
