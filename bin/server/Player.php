@@ -185,13 +185,12 @@
 
         }
 
-        function addFruit ($genome, $level) {
+        function addFruit ($genome, $quality) {
             $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
             return $this->noError();
         }
 
         function removeFruit ($id) {
-            echo "BETCH    "; echo $id;
             $this->db->query("DELETE FROM playersfruits WHERE ID='$id'");
         }
 
