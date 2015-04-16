@@ -29,7 +29,6 @@ class TypeUtils {
                (value == "C") ? Type.C :
                (value == "D") ? Type.D :
                (value == "E") ? Type.E :
-               (value == "F") ? Type.F :
                                 Type.O ;
     }
 }
@@ -50,7 +49,6 @@ class Chromosome
                (value == Type.C) ? "C" :
                (value == Type.D) ? "D" :
                (value == Type.E) ? "E" :
-               (value == Type.F) ? "F" :
                                    "null" ;
     }
 
@@ -61,7 +59,6 @@ class Chromosome
         map.set(Type.C, 0);
         map.set(Type.D, 0);
         map.set(Type.E, 0);
-        map.set(Type.F, 0);
 
         return map;
     }

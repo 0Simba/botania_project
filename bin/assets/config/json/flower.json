@@ -3,8 +3,8 @@
 		"delay" : 60000
 	},
     "merge" : {
-        "min" : 0.5,
-        "max" : 0.7
+        "min" : 0.3,
+        "max" : 0.6
     },
     "typeToHue" : {
         "A" : 0.0,

@@ -133,7 +133,12 @@ class Seed extends GameObject
                 count++;
             }
         }
-        return (count == 1) ? newSegment : null;
+        if (count == 1) {
+            return transfer0(newSegment);
+        }
+        else {
+            return null;
+        }
     }
 
 
@@ -168,6 +173,34 @@ class Seed extends GameObject
         for (i in 3...vStr.length) {
             list.remove(vStr[i]);
         }
+    }
+
+
+    private function transfer0 (segment:String):String {
+        trace("au debut : " + segment);
+        for (j in 0...3) {
+            var i = 2 - j;          // simule un parcours de 2 compris a 0
+
+            if (segment.charAt(i) == "O") {
+                trace("on a un O");
+
+                var iValue      = "A";
+                var targetIndex = (i == 0) ? 2 : i - 1;
+                var targetValue = sumLetters("A", segment.charAt(targetIndex));
+
+                var newStr = "";
+                for (k in 0...3) {
+                    newStr += (k == targetIndex) ? targetValue      :
+                              (k == i)           ? iValue           :
+                                                   segment.charAt(k);
+                }
+                segment = newStr;
+            }
+        }
+
+        trace("a la fin : " + segment);
+        return segment;
+        return (segment.indexOf("O") == -1) ? segment : transfer0(segment);
     }
 
 
