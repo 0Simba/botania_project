@@ -33,7 +33,6 @@ class Genome
     }
 
     static public function newFromCode (code:String):Genome {
-        trace(code);
         var principal = null;
         var secondary = null;
         var tertiaire = null;
