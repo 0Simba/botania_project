@@ -37,6 +37,7 @@ class DragNDrop
     public var dropMeta        :Dynamic;
 
     public function setDroppable (size:Vector2 = null, pos:Vector2 = null) {
+        dropSprite.renderable = true;
         dropSize = (size == null) ? Vector2.full : size;
         dropPos  = (pos  == null) ? Vector2.zero : pos;
 
@@ -48,7 +49,7 @@ class DragNDrop
     }
 
     public function clearDrop () {
-        dropSprite.texture = null;
+        dropSprite.renderable = false;
     }
 
     private function dropover (mouseData) {

@@ -20,6 +20,7 @@ class Genome
         var strings = new Array<String>();
 
         splitListToOrderArrays(list, values, strings);
+
         var principal = Segment.newFromCode(strings[0], values[0]);
         var secondarySegment = (values[1] != null) ? Segment.newFromCode(strings[1], values[1]) : null;
         var tertiaireSegment = (values[2] != null) ? Segment.newFromCode(strings[2], values[2]) : null;

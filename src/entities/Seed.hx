@@ -269,5 +269,6 @@ class Seed extends GameObject
                 Console.log(seed.genome.listSegmentCode().toString());
             Console.groupEnd();
         Console.groupEnd();
+
     }
 }
