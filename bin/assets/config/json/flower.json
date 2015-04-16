@@ -4,7 +4,8 @@
 	},
     "merge" : {
         "min" : 0.3,
-        "max" : 0.6
+        "max" : 0.6,
+        "minPercent" : 0.12
     },
     "typeToHue" : {
         "A" : 0.0,

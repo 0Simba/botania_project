@@ -1,0 +1,9 @@
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"EEE#1",0);
+INSERT INTO `playersseeds`(`ID`, `PlayerID`, `Genome`, `Level`) VALUES (NULL, 14,"AEE#1",0);
