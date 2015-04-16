@@ -37,7 +37,6 @@ class DragNDrop
     public var dropMeta        :Dynamic;
 
     public function setDroppable (size:Vector2 = null, pos:Vector2 = null) {
-        dropSprite.renderable = true;
         dropSize = (size == null) ? Vector2.full : size;
         dropPos  = (pos  == null) ? Vector2.zero : pos;
 
@@ -80,6 +79,8 @@ class DragNDrop
 
 
     private function displayDropSprite () {
+        dropSprite.renderable = true;
+
         if (dropSprite == null) {
             dropSprite = new Sprite (draggingTexture);
             displayObject.parent.addChild(dropSprite);
