@@ -48,7 +48,8 @@ class DragNDrop
     }
 
     public function clearDrop () {
-        dropSprite.renderable = false;
+        dropMeta           = null;
+        dropSprite.visible = false;
     }
 
     private function dropover (mouseData) {
@@ -79,13 +80,10 @@ class DragNDrop
 
 
     private function displayDropSprite () {
-        dropSprite.renderable = true;
-
         if (dropSprite == null) {
             dropSprite = new Sprite (draggingTexture);
             displayObject.parent.addChild(dropSprite);
         }
-
         dropSprite.visible = true;
         dropSprite.texture = draggingTexture;
         dropSprite.width   = displayObject.width;

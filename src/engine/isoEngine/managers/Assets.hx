@@ -57,7 +57,7 @@ class Assets
 
 
 
-    public function createAnimation(name:String, listTexture:Array<String>) {
+    public function createAnimation (name:String, listTexture:Array<String>) {
         animations.set(name, new Array<Texture>());
         for (i in 0...listTexture.length) {
             animations.get(name).push(textures.get(listTexture[i]));

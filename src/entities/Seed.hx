@@ -24,7 +24,7 @@ class Seed extends GameObject
         super();
         genome = _genome;
         level  = _level;
-
+        trace(genome);
         appearanceName = genome.getAppearanceName();
         list.push(this);
 
