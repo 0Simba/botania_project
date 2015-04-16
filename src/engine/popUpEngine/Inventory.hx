@@ -105,7 +105,7 @@ class Inventory
     public function show():Void
     {
         layer.visible = true;
-        if(cellList.length > 16)
+        if(cellList.length > 9)
             scrollbar.show();
     }
 }
