@@ -88,7 +88,7 @@ class Tile extends GameObject
             graphicTile.building.alpha = 1;
         });
         buildingEvents.on("unbuilded", function () {
-            alertError();
+            //alertError();
             destroyBuilding();
         });
         buildingEvents.on("destroying", function () {

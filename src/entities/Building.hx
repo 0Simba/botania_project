@@ -9,14 +9,16 @@ class Building extends GameObject
     private var referent:Events;
     private var position:Vector2;
     private var building:Dynamic;
+    private var name:String;
     static public var list:Array<Building> = new Array<Building>(); // TODO this simulate player's buldings data. Move it when player's data was create
 
-    public function new (name, _referent:Events, _position:Vector2, checkServer:Bool = true) {
+    public function new (fName:String, _referent:Events, _position:Vector2, checkServer:Bool = true) {
         super();
         referent = _referent;
         position = _position;
+        name = fName;
         if (checkServer) {
-                serverCheck(name);
+            serverCheck(name);
         }
         list.push(this);
     }
@@ -28,14 +30,25 @@ class Building extends GameObject
     }
 
     private function serverValidateBuild () {
+        var buildingDatas = init.ShopDatas.getBuildingByName(name);
+        if(buildingDatas.price >= init.PlayerDatas.gold){
+            buildingDatas.referent = referent;
+            buildingDatas.position = position;
+            entities.popUps.ShopConfirmationPopUp.open(buildingDatas, cast build, cast unbuild);
+        }
+    }
+
+    public function build(){
         referent.emit("builded", null);
     }
-
-    private function serverRefuseBuild () {
+    private function serverRefuseBuild (response:Dynamic) {
+        unbuild();
+    }
+    public function unbuild () {
         referent.emit("unbuilded", null);
         destroy();
+        destroyFromServer();
     }
-
     override public function destroy () {
         referent.emit("destroyed", null);
     }
