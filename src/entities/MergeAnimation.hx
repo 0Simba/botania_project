@@ -67,9 +67,11 @@ class MergeAnimation
         tween.onUpdate(function (currentDatas) {
             var ratio = currentDatas.get("ratio");
             replaceSeeds(ratio);
+            applyAlpha(1 - ratio * 0.8);
         });
 
         tween.onComplete(function () {
+            applyAlpha(1);
             hideSeeds();
             centerSeedColo.sprite.visible  = true;
             centerSeedMotif.sprite.visible = true;
@@ -102,6 +104,13 @@ class MergeAnimation
     }
 
 
+    private function applyAlpha (ratio:Float) {
+        leftSeedColo.sprite.alpha   = ratio;
+        leftSeedMotif.sprite.alpha  = ratio;
+        rightSeedColo.sprite.alpha  = ratio;
+        rightSeedMotif.sprite.alpha = ratio;
+    }
+
     private function hideSeeds () {
         leftSeedColo.sprite.visible   = false;
         leftSeedMotif.sprite.visible  = false;
@@ -111,8 +120,8 @@ class MergeAnimation
 
 
     private function applyCodeOn (colo:Hud, motif:Hud, code:String, position:Vector2, show:Bool = true) {
-        colo.set( size, leftPosition,  "colo"  + code.charAt(0) + code.charAt(2), "overlay");
-        motif.set(size, leftPosition,  "motif" + code.charAt(0) + code.charAt(1), "overlay");
+        colo.set( size, position,  "colo"  + code.charAt(0) + code.charAt(2), "overlay");
+        motif.set(size, position,  "motif" + code.charAt(0) + code.charAt(1), "overlay");
         motif.sprite.visible = show;
         colo.sprite.visible  = show;
     }
