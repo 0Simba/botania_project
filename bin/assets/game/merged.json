@@ -1,0 +1,115 @@
+{
+    "frames": {
+        "GENEROUS_02": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_03": {
+            "frame": {
+                "x": 129,
+                "y": 0,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_04": {
+            "frame": {
+                "x": 0,
+                "y": 149,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_05": {
+            "frame": {
+                "x": 129,
+                "y": 149,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_06": {
+            "frame": {
+                "x": 258,
+                "y": 0,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_07": {
+            "frame": {
+                "x": 258,
+                "y": 149,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_08": {
+            "frame": {
+                "x": 0,
+                "y": 298,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        },
+        "GENEROUS_01": {
+            "frame": {
+                "x": 129,
+                "y": 298,
+                "w": 128,
+                "h": 148
+            },
+            "size": {
+                "w": 128,
+                "h": 148
+            }
+        }
+    },
+    "meta": {
+        "app": "http://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.1",
+        "image": "merged.png",
+        "size": {
+            "w": 386,
+            "h": 446
+        },
+        "scale": 1
+    },
+    "animParams": {
+    "speed"  : 0.3,
+    "anchor" : {"x" : 0.5, "y" : 0.5},
+    "size"   : {"x" : 128, "y" : 148}
+}
+}

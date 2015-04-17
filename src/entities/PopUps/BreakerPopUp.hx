@@ -12,6 +12,7 @@ import engine.isoEngine.IsoEngine;
 import Map;
 import engine.tween.Ease;
 import entities.popUps.PopUpMain;
+import entities.MergeAnimation;
 
 class BreakerPopUp extends PopUpMain
 {
@@ -80,7 +81,11 @@ class BreakerPopUp extends PopUpMain
 
     private function mergeSeeds () {
         if (seed1.dropMeta != null && seed2.dropMeta != null) {
-            seed1.dropMeta.merge(seed2.dropMeta);
+            var newSeed     = seed1.dropMeta.merge(seed2.dropMeta);
+            var appearance1 = seed1.dropMeta.appearanceName;
+            var appearance2 = seed2.dropMeta.appearanceName;
+
+            MergeAnimation.anim(appearance1, appearance2, newSeed.appearanceName);
 
             seed1.clearDrop();
             seed2.clearDrop();

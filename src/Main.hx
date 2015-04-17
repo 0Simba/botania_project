@@ -48,6 +48,8 @@ class Main
 			manager.Hud.init();
 			manager.MouseTile.init();
 
+			entities.MergeAnimation.init();
+
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 

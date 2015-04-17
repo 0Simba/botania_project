@@ -257,11 +257,12 @@ class Seed extends GameObject
     public function merge (seed:Seed) {
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
-        //createSeedFromList(list);
+        var newSeed = mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
+        //var newSeed = createSeedFromList(list);
 
         seed.destroy();
         destroy();
+        return newSeed;
     }
 
 
@@ -272,7 +273,7 @@ class Seed extends GameObject
         normalizeTotalOf(list);
         roundTwoDecimal(list);
 
-        new Seed(Genome.newFromCodeList(list));
+        return new Seed(Genome.newFromCodeList(list));
     }
 
 
@@ -313,5 +314,6 @@ class Seed extends GameObject
             Console.groupEnd();
         Console.groupEnd();
 
+        return seed;
     }
 }
