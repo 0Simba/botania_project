@@ -4,10 +4,18 @@ import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import engine.tween.Tween;
 import engine.tween.Ease;
+import engine.isoEngine.components.Animation;
+
+
 
 class MergeAnimation
 {
-    static public var instance:MergeAnimation;
+    static private var instance:MergeAnimation;
+
+    static private var size           = new Vector2(0.5, 1, "%", "%x"); // todo export to config
+    static private var targetPosition = new Vector2(0.5, 0.5);
+    static private var leftPosition   = new Vector2(0.1, 0.5);
+    static private var rightPosition  = new Vector2(0.9, 0.5);
 
     private var leftSeedColo:Hud;
     private var leftSeedMotif:Hud;
@@ -15,8 +23,11 @@ class MergeAnimation
     private var rightSeedMotif:Hud;
     private var centerSeedColo:Hud;
     private var centerSeedMotif:Hud;
+    private var mergeAnim:Animation;
     private var overlay:Hud;
     private var tween:Tween;
+
+
 
     private function new () {
         leftSeedColo    = new Hud();
@@ -25,6 +36,10 @@ class MergeAnimation
         rightSeedMotif  = new Hud();
         centerSeedMotif = new Hud();
         centerSeedColo  = new Hud();
+
+        mergeAnim       = new Animation("merged", Vector2.mid, "debug");
+        mergeAnim.resize(size);
+        mergeAnim.movieClip.visible = false;
 
         createOverlay();
         createTween();
@@ -35,12 +50,6 @@ class MergeAnimation
         instance  = new MergeAnimation();
     }
 
-
-
-    static private var size           = new Vector2(0.3, 1, "%", "%x"); // todo export to config
-    static private var targetPosition = new Vector2(0.35, 0.35);
-    static private var leftPosition   = new Vector2(0.05, 0.35);
-    static private var rightPosition  = new Vector2(0.65, 0.35);
 
     static public function anim (codeA:String, codeB:String, codeMerge:String) {
         instance.applyCodeOn(instance.leftSeedColo,   instance.leftSeedMotif,   codeA,     leftPosition);
@@ -64,21 +73,25 @@ class MergeAnimation
         tween = new Tween (from, to, 2000);
         tween.ease(Ease.bounceOut);
 
+
         tween.onUpdate(function (currentDatas) {
             var ratio = currentDatas.get("ratio");
             replaceSeeds(ratio);
             applyAlpha(1 - ratio * 0.8);
         });
 
+
         tween.onComplete(function () {
             applyAlpha(1);
             hideSeeds();
             centerSeedColo.sprite.visible  = true;
             centerSeedMotif.sprite.visible = true;
+            mergeAnim.movieClip.visible    = true;
 
             haxe.Timer.delay(function () {
                 centerSeedColo.sprite.visible  = false;
                 centerSeedMotif.sprite.visible = false;
+                mergeAnim.movieClip.visible    = false;
                 overlay.sprite.visible = false;
             }, 1000);
         });
@@ -122,8 +135,12 @@ class MergeAnimation
     private function applyCodeOn (colo:Hud, motif:Hud, code:String, position:Vector2, show:Bool = true) {
         colo.set( size, position,  "colo"  + code.charAt(0) + code.charAt(2), "overlay");
         motif.set(size, position,  "motif" + code.charAt(0) + code.charAt(1), "overlay");
+
         motif.sprite.visible = show;
         colo.sprite.visible  = show;
+
+        motif.sprite.anchor.set(0.5, 0.5);
+        colo.sprite.anchor.set(0.5, 0.5);
     }
 }
 

@@ -20,6 +20,9 @@ class Animation extends IsoComponent {
         movieClip.y = position.y;
         movieClip.play();
 
+        displayObject = movieClip;
+        replace(position);
+
         applyParams(animationName);
         animations.push(this);
     }
