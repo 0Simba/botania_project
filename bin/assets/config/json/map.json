@@ -1,0 +1,6 @@
+{
+    "seagulls" : {
+        "minPop" : 1000,
+        "maxPop" : 10000
+    }
+}

@@ -49,6 +49,7 @@ class Main
 			manager.MouseTile.init();
 
 			entities.MergeAnimation.init();
+			entities.Seagulls.initLoop();
 
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
