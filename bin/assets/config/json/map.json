@@ -1,6 +1,8 @@
 {
     "seagulls" : {
-        "minPop" : 1000,
-        "maxPop" : 10000
+        "minPop" : 200,
+        "maxPop" : 5000,
+        "minDepop" : 1000,
+        "maxDepop" : 5000
     }
 }
