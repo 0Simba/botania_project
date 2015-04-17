@@ -43,20 +43,10 @@ class MergeAnimation
     static private var rightPosition  = new Vector2(0.65, 0.35);
 
     static public function anim (codeA:String, codeB:String, codeMerge:String) {
-        instance.leftSeedColo.set(  size, leftPosition,  "colo"  + codeA.charAt(0) + codeA.charAt(2), "overlay");
-        instance.leftSeedColo.sprite.visible = true;
-        instance.leftSeedMotif.set( size, leftPosition,  "motif" + codeA.charAt(0) + codeA.charAt(1), "overlay");
-        instance.leftSeedMotif.sprite.visible = true;
+        instance.applyCodeOn(instance.leftSeedColo,   instance.leftSeedMotif,   codeA,     leftPosition);
+        instance.applyCodeOn(instance.rightSeedColo,  instance.rightSeedMotif,  codeB,     rightPosition);
+        instance.applyCodeOn(instance.centerSeedColo, instance.centerSeedMotif, codeMerge, targetPosition, false);
 
-        instance.rightSeedColo.set( size, rightPosition, "colo"  + codeB.charAt(0) + codeB.charAt(2),  "overlay");
-        instance.rightSeedColo.sprite.visible = true;
-        instance.rightSeedMotif.set(size, rightPosition, "motif" + codeB.charAt(0) + codeB.charAt(1), "overlay");
-        instance.rightSeedMotif.sprite.visible = true;
-
-        instance.centerSeedColo.set( size, targetPosition, "colo"  + codeMerge.charAt(0) + codeMerge.charAt(2),  "overlay");
-        instance.centerSeedColo.sprite.visible = false;
-        instance.centerSeedMotif.set(size, targetPosition, "motif" + codeMerge.charAt(0) + codeMerge.charAt(1), "overlay");
-        instance.centerSeedMotif.sprite.visible = false;
 
         instance.overlay.sprite.visible = true;
 
@@ -117,6 +107,14 @@ class MergeAnimation
         leftSeedMotif.sprite.visible  = false;
         rightSeedColo.sprite.visible  = false;
         rightSeedMotif.sprite.visible = false;
+    }
+
+
+    private function applyCodeOn (colo:Hud, motif:Hud, code:String, position:Vector2, show:Bool = true) {
+        colo.set( size, leftPosition,  "colo"  + code.charAt(0) + code.charAt(2), "overlay");
+        motif.set(size, leftPosition,  "motif" + code.charAt(0) + code.charAt(1), "overlay");
+        motif.sprite.visible = show;
+        colo.sprite.visible  = show;
     }
 }
 
