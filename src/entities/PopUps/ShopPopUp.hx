@@ -201,7 +201,8 @@ class ShopPopUp extends PopUpMain
         for(i in 0...b.length){
             var n = b[i].texture;
             var cont = createCellEntitieIn(buildingInventory, b[i], function () {
-                entities.popUps.ShopConfirmationPopUp.open(b[i], s);
+                //entities.popUps.ShopConfirmationPopUp.open(b[i], s);
+                Selection.setNew(b[i].actionName, b[i].texture);
                 tweenHide();
             });
             var img = cont.addBloc(n, new Vector2 (0.5, 0.5, "%", "%"), new Vector2 (.86, 1, "%y", "%"));

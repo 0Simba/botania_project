@@ -15,8 +15,18 @@ class ShopDatas
         utils.AjaxRequest.exec("shopDatas", null, callback);
     }
 
-    static public function callback(response:Dynamic) {
+    static public function callback (response:Dynamic) {
     	buildings = response.buildings;
         ShopPopUp.getInstance().updateBuildingInventory();
+    }
+
+    static public function getBuildingByName (name:String):Dynamic {
+    	for(i in 0...buildings.length){
+    		var b = buildings[i];
+    		if(b.texture == name){
+    			return b;
+    		}
+    	}
+    	return {};
     }
 }
