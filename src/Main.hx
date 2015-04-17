@@ -37,8 +37,8 @@ class Main
 					// Put here all synchronous loading function.
 				//init
 			utils.AjaxRequest.initLog();
-			PlayerDatas.load();
 			init.ShopDatas.load();
+			PlayerDatas.load();
 //			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();

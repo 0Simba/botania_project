@@ -17,25 +17,33 @@ class Building extends GameObject
         referent = _referent;
         position = _position;
         name = fName;
+        var buildingDatas = init.ShopDatas.getBuildingByName(name);
         if (checkServer) {
-            serverCheck(name);
+            if(buildingDatas.price >= init.PlayerDatas.gold){
+                buildingDatas.referent = referent;
+                buildingDatas.position = position;
+                entities.popUps.ShopConfirmationPopUp.open(buildingDatas, cast serverCheck, cast unbuild);
+            }
+            else{
+                serverCheck();
+            }        
         }
         list.push(this);
     }
 
-    public function serverCheck (name:String) {
+    public function serverCheck () {
         referent.emit("callingServer", null);
 
         callServer("buildBuilding", getDatasForServer(name), cast serverValidateBuild, cast serverRefuseBuild);
     }
 
     private function serverValidateBuild () {
-        var buildingDatas = init.ShopDatas.getBuildingByName(name);
-        if(buildingDatas.price >= init.PlayerDatas.gold){
+       /* if(buildingDatas.price >= init.PlayerDatas.gold){
             buildingDatas.referent = referent;
             buildingDatas.position = position;
-            entities.popUps.ShopConfirmationPopUp.open(buildingDatas, cast build, cast unbuild);
-        }
+            entities.popUps.ShopConfirmationPopUp.open(buildingDatas, cast serverCheck, cast unbuild);
+        }*/
+        build();
     }
 
     public function build(){
