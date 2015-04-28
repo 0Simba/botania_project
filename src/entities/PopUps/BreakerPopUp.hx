@@ -190,7 +190,6 @@ class BreakerPopUp extends PopUpMain
             var bloc     = barBlocs[i];
             var xSize    = barSize.x * strength;
 
-            trace(bloc.displayObject.parent);
             bloc.resize(new Vector2(xSize, barSize.y, "%", "%"), parentSize);
             bloc.replace(new Vector2(barPosition.x + sizeDo, barPosition.y), parentSize);
 

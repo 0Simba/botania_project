@@ -34,7 +34,9 @@ class Fruit extends GameObject
 
 	public function open (knifeLevel:Int) {
         for (i in 0...knifeLevel) {
-            new Seed(genome);
+            var clone:Genome = genome.clone();
+            clone.randomize(0.6);
+            new Seed(clone);
         }
 
 		list.splice(list.indexOf(this), 1);

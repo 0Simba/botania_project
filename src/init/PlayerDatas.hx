@@ -56,6 +56,7 @@ class PlayerDatas
 
 
     static private function loadSeeds (seeds:Dynamic) {
+        trace(seeds);
         for (i in 0...seeds.length) {
             var seed = seeds[i];
             new Seed(Genome.newFromCode(seed.Genome), Std.int(seed.Level), false, seed.ID);

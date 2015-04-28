@@ -49,7 +49,7 @@ class Genome
 
         if (segments[2] != null) {
             splitTypeToStrength = segments[2].split("#");
-            tertiaire = Segment.newFromCode(splitTypeToStrength[0], Std.parseFloat(splitTypeToStrength[1]));
+            principal = Segment.newFromCode(splitTypeToStrength[0], Std.parseFloat(splitTypeToStrength[1]));
         }
 
         return new Genome (principal, secondary, tertiaire);
