@@ -70,7 +70,7 @@ class Tile extends GameObject
             }
             else if (state == "bloom") {
                 applyAdultFlowerDisplay();
-                flowerAnim = new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y), "overTiles");
+                flowerAnim = new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y, "px", "px"), "overTiles");
             }
             else {
                 if (flowerAnim != null) {
@@ -88,7 +88,7 @@ class Tile extends GameObject
             graphicTile.building.alpha = 1;
         });
         buildingEvents.on("unbuilded", function () {
-            alertError();
+            //alertError();
             destroyBuilding();
         });
         buildingEvents.on("destroying", function () {

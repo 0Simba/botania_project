@@ -24,6 +24,8 @@
         "game/fruits/fruitsMotif",
         "game/fruits/legendaryFruitsMotif",
         "game/scrollbar/scrollbar",
+        "game/merged",
+        "game/seagull",
         "buildings/actionBuildings",
         "buildings/ecosystemBuildings",
         "buildings/tractor",

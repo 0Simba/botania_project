@@ -205,6 +205,17 @@
             return $price <= $this->getDatas()[0]["Gold"];
         }
 
+        function getBuildingPrice($name){
+            $id = $this->id;
+            $response = $this->db->query("SELECT price FROM typebuildings WHERE texture = '$name'");
+            if ($err = $this->noError() && $response->num_rows) {
+                //$data = $response->fetch_array(MYSQL_ASSOC)[0]["price"];
+                $datas = $response->fetch_array(MYSQL_ASSOC);
+                return $datas["price"];
+            }
+            return $err;
+        }
+
     }
 
 

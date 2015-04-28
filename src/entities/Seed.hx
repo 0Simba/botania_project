@@ -24,7 +24,6 @@ class Seed extends GameObject
         super();
         genome = _genome;
         level  = _level;
-        trace(genome);
         appearanceName = genome.getAppearanceName();
         list.push(this);
 
@@ -82,13 +81,13 @@ class Seed extends GameObject
         var list = new Map<String, Float>();
 
         var keys1I:Iterator<String> = genome1.keys();
-        var keys2I:Iterator<String> = genome2.keys();
 
         var delta  = Config.flower.merge.max - Config.flower.merge.min;
         var ratio1 = Math.random() * delta + Config.flower.merge.min;
         var ratio2 = Math.random() * delta + Config.flower.merge.min;
 
         for (key1 in keys1I) {
+            var keys2I:Iterator<String> = genome2.keys();
             for (key2 in keys2I) {
                 var newSegment = tryMerged(key1, key2);
                 if (newSegment != null) {
@@ -104,7 +103,7 @@ class Seed extends GameObject
             sumListWith(list, key1, genome1.get(key1));     // ADD GENOME 1 TO LIST
         }
 
-        keys2I = genome2.keys();
+        var keys2I = genome2.keys();
         for (key2 in keys2I) {
             sumListWith(list, key2, genome2.get(key2));     // ADD GENOME 2 TO LIST
         }
@@ -175,15 +174,24 @@ class Seed extends GameObject
         }
     }
 
+    private function removeToSmallOf (list:Map<String, Float>) {
+        var keys = list.keys();
+
+        for (key in keys) {
+            var value = list.get(key);
+            var min   = (Config.flower.minPercent) ? Config.flower.minPercent : 0.12;
+            if (value < min) {
+                list.remove(key);
+            }
+        }
+    }
+
 
     private function transfer0 (segment:String):String {
-        trace("au debut : " + segment);
         for (j in 0...3) {
             var i = 2 - j;          // simule un parcours de 2 compris a 0
 
             if (segment.charAt(i) == "O") {
-                trace("on a un O");
-
                 var iValue      = "A";
                 var targetIndex = (i == 0) ? 2 : i - 1;
                 var targetValue = sumLetters("A", segment.charAt(targetIndex));
@@ -198,8 +206,6 @@ class Seed extends GameObject
             }
         }
 
-        trace("a la fin : " + segment);
-        return segment;
         return (segment.indexOf("O") == -1) ? segment : transfer0(segment);
     }
 
@@ -251,20 +257,23 @@ class Seed extends GameObject
     public function merge (seed:Seed) {
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
-        //createSeedFromList(list);
+        var newSeed = mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
+        //var newSeed = createSeedFromList(list);
 
         seed.destroy();
         destroy();
+        return newSeed;
     }
 
 
     private function createSeedFromList (list:Map<String, Float>) {
         keepThreeBetterOf(list);
         normalizeTotalOf(list);
+        removeToSmallOf(list);
+        normalizeTotalOf(list);
         roundTwoDecimal(list);
 
-        new Seed(Genome.newFromCodeList(list));
+        return new Seed(Genome.newFromCodeList(list));
     }
 
 
@@ -288,6 +297,8 @@ class Seed extends GameObject
 
                 Console.group("normalize values");
                     normalizeTotalOf(list);
+                    removeToSmallOf(list);
+                    normalizeTotalOf(list);
                     Console.log(list.toString());
                 Console.groupEnd();
 
@@ -303,5 +314,6 @@ class Seed extends GameObject
             Console.groupEnd();
         Console.groupEnd();
 
+        return seed;
     }
 }

@@ -37,9 +37,9 @@ class Main
 					// Put here all synchronous loading function.
 				//init
 			utils.AjaxRequest.initLog();
-			PlayerDatas.load();
 			init.ShopDatas.load();
-//			init.ForTest.load();
+			PlayerDatas.load();
+			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();
@@ -47,6 +47,9 @@ class Main
 				//manager
 			manager.Hud.init();
 			manager.MouseTile.init();
+
+			entities.MergeAnimation.init();
+			entities.Seagulls.initLoop();
 
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
@@ -68,7 +71,7 @@ class Main
 			// FB.ui({method : "share", href : "http://developers.facebook.com/docs/"}, function () {
 			// 	trace("shared");
 			// });
-        	Browser.window.requestAnimationFrame(cast gameLoop);
+			Browser.window.requestAnimationFrame(cast gameLoop);
 		}
 		else if (pResponse.status == "not_authorized") {
 			FB.login(onFacebookConnect, {scope: 'user_friends, email'});
