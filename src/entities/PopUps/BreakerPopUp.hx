@@ -113,11 +113,16 @@ class BreakerPopUp extends PopUpMain
     static private var nbElementsInFlower = 3;
     static private var nbMaxGenome        = 3;
 
-    static private var xPositions:Array<Float>  = [0.575, 0.575, 0.575];
-    static private var yPositions:Array<Float>  = [0.15, 0.28, 0.41];
-    static private var colors    :Array<String> = ["black", "white", "red"];
-    static private var size      :Vector2       = new Vector2(0.06, 1, "%", "%x");
+    static private var xPositions:Array<Float>  = [0.56, 0.69, 0.82];
+    static private var yPositions:Array<Float>  = [0.15, 0.15, 0.15];
+    static private var size      :Vector2       = new Vector2(0.12, 1, "%", "%x");
+    static private var backgroundColors:Array<String> = ["yellow", "gray", "purple"];
 
+    static private var barSize     = new Vector2(0.36, 0.05);
+    static private var barPosition = new Vector2(0.57, 0.49);
+
+    private var barContainer:Container;
+    private var barBlocs:Array<Hud>;
 
     private var displayGeneticContainers:Array<Container>;
     private var displayGeneticBlocs:Array<Array<Hud>>;
@@ -125,24 +130,29 @@ class BreakerPopUp extends PopUpMain
     private function initGenetic () {
         displayGeneticContainers = new Array<Container>();
         displayGeneticBlocs      = new Array<Array<Hud>>();
+        barBlocs                 = new Array<Hud>();
+        barContainer             = addContainer(Vector2.full);
 
-
-        for (i in 0...nbElementsInFlower) {
+        for (i in 0...nbMaxGenome) {
+            barBlocs[i] = barContainer.addBloc(backgroundColors[i], barPosition, barSize);
             var y:Float          = yPositions[i % nbMaxGenome];
             var x:Float          = xPositions[i % nbMaxGenome];
             var position:Vector2 = new Vector2(x, y, "%", "%");
 
-            displayGeneticContainers.push(addContainer(Vector2.full));
+            displayGeneticContainers[i] = addContainer(Vector2.full);
+            var newBloc = displayGeneticContainers[i].addBloc(backgroundColors[i], position, size);
+            newBloc.sprite.alpha = 0.3;
+
             displayGeneticBlocs.push(new Array<Hud>());
             for (j in 0...nbElementsInFlower) {
                 displayGeneticBlocs[i][j] = displayGeneticContainers[i].addBloc("GA", position, size);
-                displayGeneticBlocs[i][j].sprite.visible = false;
             }
         }
     }
 
 
     private function updateGenetic (seed:Seed) {
+        updateBar(seed);
         var names:Array<String> = new Array<String>();
 
         names.push(seed.genome.principal.getAsName());
@@ -151,21 +161,28 @@ class BreakerPopUp extends PopUpMain
 
         for (i in 0...3) {
             if (names[i] != null) {
-                displayGeneticBlocs[i][0].sprite.visible = true;
-                displayGeneticBlocs[i][1].sprite.visible = true;
-                displayGeneticBlocs[i][2].sprite.visible = true;
-
+                displayGeneticContainers[i].displayObject.visible = true;
                 displayGeneticBlocs[i][0].changeTexture("O" + names[i].charAt(1));
                 displayGeneticBlocs[i][1].changeTexture("F" + names[i].charAt(0));
                 displayGeneticBlocs[i][2].changeTexture("G" + names[i].charAt(2));
 
             }
             else {
-                displayGeneticBlocs[i][0].sprite.visible = false;
-                displayGeneticBlocs[i][1].sprite.visible = false;
-                displayGeneticBlocs[i][2].sprite.visible = false;
+                displayGeneticContainers[i].displayObject.visible = false;
             }
         }
+    }
+
+
+
+
+
+
+
+
+
+    private function updateBar (seed:Seed) {
+        //seed.genome.principal.strengt;
     }
 }
 
