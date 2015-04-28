@@ -25,7 +25,9 @@ class IsoComponent extends DragNDrop
 
 
     public function resize (size:Vector2, sizeOf:Vector2 = null) {
-        var target = (sizeOf != null) ? sizeOf : new Vector2(isoEngine.width, isoEngine.height);
+        var target = (sizeOf != null)               ? sizeOf                                                               :
+                     (displayObject.parent != null) ? new Vector2(displayObject.parent.width, displayObject.parent.height) :
+                                                      new Vector2(isoEngine.width, isoEngine.height)                       ;
 
         displayObject.width  = getRealPositionningValue(size.x, size.metaX, target.x);
         displayObject.height = getRealPositionningValue(size.y, size.metaY, target.y);

@@ -15,7 +15,7 @@ import entities.popUps.PopUpMain;
 import entities.MergeAnimation;
 import engine.isoEngine.components.Hud;
 import engine.popUpEngine.Container;
-
+import entities.genetic.Segment;
 
 class BreakerPopUp extends PopUpMain
 {
@@ -23,9 +23,10 @@ class BreakerPopUp extends PopUpMain
     private var seed1:engine.isoEngine.components.Hud;
     private var seed2:engine.isoEngine.components.Hud;
 
+    static private var popUpSize = new Vector2(0.8, 0.8);
 
 	public function new () {
-        super("breakerInterface", new Vector2(0.5, 0.5), new Vector2(0.8, 0.8));
+        super("breakerInterface", new Vector2(0.5, 0.5), popUpSize);
         applyAnchor(0.5, 0.5);
 
         popUpEngine  = PopUpEngineMain.getInstance();
@@ -118,8 +119,8 @@ class BreakerPopUp extends PopUpMain
     static private var size      :Vector2       = new Vector2(0.12, 1, "%", "%x");
     static private var backgroundColors:Array<String> = ["yellow", "gray", "purple"];
 
-    static private var barSize     = new Vector2(0.36, 0.05);
-    static private var barPosition = new Vector2(0.57, 0.49);
+    static private var barSize     = new Vector2(0.36, 0.05, "%", "%");
+    static private var barPosition = new Vector2(0.57, 0.49, "%", "%");
 
     private var barContainer:Container;
     private var barBlocs:Array<Hud>;
@@ -179,10 +180,22 @@ class BreakerPopUp extends PopUpMain
 
 
 
-
-
     private function updateBar (seed:Seed) {
-        //seed.genome.principal.strengt;
+        var segments:Array<Segment> = [seed.genome.principal, seed.genome.secondary, seed.genome.tertiaire];
+        var sizeDo:Float            = 0;
+        var parentSize:Vector2      = new Vector2(isoEngine.width * popUpSize.x, isoEngine.height * popUpSize.y);
+
+        for (i in 0...nbMaxGenome) {
+            var strength = (segments[i] != null) ? segments[i].strength : 0;
+            var bloc     = barBlocs[i];
+            var xSize    = barSize.x * strength;
+
+            trace(bloc.displayObject.parent);
+            bloc.resize(new Vector2(xSize, barSize.y, "%", "%"), parentSize);
+            bloc.replace(new Vector2(barPosition.x + sizeDo, barPosition.y), parentSize);
+
+            sizeDo += xSize;
+        }
     }
 }
 
