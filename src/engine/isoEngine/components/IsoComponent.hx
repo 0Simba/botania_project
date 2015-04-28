@@ -64,4 +64,13 @@ class IsoComponent extends DragNDrop
     public function hide(){
         displayObject.visible = false;
     }
+
+    /*============================
+    =            HACK            =
+    ============================*/
+
+    public function onMouseoverH (func) {
+        displayObject.mouseover   = func;
+    }
+
 }
