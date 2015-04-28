@@ -21,6 +21,8 @@ class ShopDatas
     }
 
     static public function getBuildingByName (name:String):Dynamic {
+        if (buildings == null) return null;
+
     	for(i in 0...buildings.length){
     		var b = buildings[i];
     		if(b.texture == name){

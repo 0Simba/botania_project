@@ -250,7 +250,7 @@ class InventoryPopUp extends PopUpMain
 
     private function createEntitiesInventoryContainer ():Inventory {
         var container = addContainer(new Vector2(1, 1));
-        inventory = container.setInventory(new Vector2(0.09, 0.11), new Vector2(0.79, 0.6), new Vector2(0.25, 0.25, "%", "%"), 4, -1);
+        inventory = container.setInventory(new Vector2(0.09, 0.11), new Vector2(0.79, 0.6), new Vector2(0.33, 0.33, "%", "%"), 4, -1);
 
         inventory.clear();
         inventory.hide();
