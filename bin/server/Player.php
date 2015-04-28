@@ -94,13 +94,12 @@
 
         function getBuidings () {
             $id = $this->id;
-            $response = $this->db->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersbuildings WHERE PlayerID = '$this->id'");
+            $response = $this->db->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersbuildings WHERE PlayerID = '$id'");
 
             echo ($this->db->error);
-
             if ($err = $this->noError() && $response->num_rows) {
                 $buildings = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($buildings, $data);
                 }
                 return $buildings;
@@ -116,7 +115,7 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $flowers = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($flowers, $data);
                 }
                 return $flowers;
@@ -133,7 +132,7 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $seeds = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($seeds, $data);
                 }
                 return $seeds;
@@ -150,7 +149,7 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $fruits = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($fruits, $data);
                 }
                 return $fruits;
@@ -165,7 +164,7 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $datas = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($datas, $data);
                 }
                 return $datas;

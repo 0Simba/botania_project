@@ -15,7 +15,7 @@
 
             if ($err = $this->noError() && $response->num_rows) {
                 $buildings = array();
-                while ($data = $response->fetch_array(MYSQL_ASSOC)) {
+                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
                     array_push($buildings, $data);
                 }
                 return $buildings;
