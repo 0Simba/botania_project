@@ -39,7 +39,7 @@ class Main
 			utils.AjaxRequest.initLog();
 			init.ShopDatas.load();
 			PlayerDatas.load();
-//			init.ForTest.load();
+			init.ForTest.load();
 			init.Map.load();
 			init.PopUp.load();
 			init.CircleHud.load();
@@ -71,7 +71,7 @@ class Main
 			// FB.ui({method : "share", href : "http://developers.facebook.com/docs/"}, function () {
 			// 	trace("shared");
 			// });
-        	Browser.window.requestAnimationFrame(cast gameLoop);
+			Browser.window.requestAnimationFrame(cast gameLoop);
 		}
 		else if (pResponse.status == "not_authorized") {
 			FB.login(onFacebookConnect, {scope: 'user_friends, email'});

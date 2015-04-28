@@ -58,7 +58,7 @@ class Seagulls
         xDelta = start.x - end.x;
         yDelta = start.y - end.y;
 
-        seagull = new Animation("seagull", start, "overlay");
+        seagull = new Animation("seagull", start, "foreground");
         seagull.movieClip.anchor.set(0.5, 0.5);
 
         if (start.x <= 0) seagull.movieClip.scale.set(-1, 1);
