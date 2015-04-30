@@ -23,7 +23,6 @@ class Flower extends GameObject
     private var seedRef:Seed;
     private var timer:Timer;
 
-
 /*================================
 =            CREATION            =
 ================================*/
@@ -150,6 +149,8 @@ class Flower extends GameObject
     }
 
     private function serverValidateGrow () {
+        // if (stateIndex >= config.stateList.length - 1) return;
+
         stateIndex++;
         referent.emit("state changed", stateList[stateIndex]);
         if (stateList.length - 1 > stateIndex) {

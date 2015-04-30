@@ -16,18 +16,25 @@ class ForTest
         button.onClick(cast function () {
             trace("ok viens de click");
             #if js
-            FB.api(
-                'me/botania:get',
-                'post',
-                {
-                    flower: "http://samples.ogp.me/1432574127054546"
-                },
-                function(response) {
-                    trace(response);
-                    // handle the response
-                }
-            );
+            FB.ui({method : "share", href : "http://samples.ogp.me/1432574127054546"}, function (response) {
+                trace("normalement c'est bon");
+                trace(response);
+            });
             #end
         });
     }
 }
+
+    // FB.api(
+    //     'me/botania:get',
+    //     'post',
+    //     {
+    //         flower: "http://samples.ogp.me/1432574127054546"
+    //     },
+    //     function(response) {
+    //         trace(response);
+    //         // handle the response
+    //     }
+    // );
+// );
+

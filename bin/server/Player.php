@@ -82,6 +82,7 @@
         }
 
         function growFlower ($position, $index) {
+            if ($index >= 5) return "Impossible state index";
             $x = $position->x;
             $y = $position->y;
             $timeStamp = time() * 1000;
