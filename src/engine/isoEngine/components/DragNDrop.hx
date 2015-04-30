@@ -18,6 +18,10 @@ class DragNDrop
     static private var draggingTexture:pixi.textures.Texture;
 
 
+    static public function isItDragging () {
+        return isDragging;
+    }
+
 
     public function new () {
         if (isoEngine == null) buildStaticDatas();

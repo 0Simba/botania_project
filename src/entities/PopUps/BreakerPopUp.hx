@@ -1,5 +1,6 @@
 package entities.popUps;
 
+import engine.isoEngine.components.DragNDrop;
 import engine.isoEngine.components.ColorMatrixFilters;
 import engine.tween.Tween;
 import utils.Vector2;
@@ -84,7 +85,9 @@ class BreakerPopUp extends PopUpMain
             var motif = cont.addBloc("motif" + name.charAt(0) + name.charAt(1), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));
             // motif.bindEvent();
             cont.onMouseoverH(cast function () {
-                updateGenetic(Seed.list[i]);
+                if (!DragNDrop.isItDragging()) {
+                    updateGenetic(Seed.list[i]);
+                }
             });
             cont.setDraggable(Seed.list[i]);
         }

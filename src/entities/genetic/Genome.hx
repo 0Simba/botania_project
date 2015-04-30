@@ -62,17 +62,14 @@ class Genome
             tertiaire.strength *= (Math.random() * (force * 2)) - force + 1;
             tertiaire.strength = Math.floor(tertiaire.strength * 100) / 100;
             total += tertiaire.strength;
-            trace("new tertiaire " + tertiaire.strength);
         }
         if (secondary != null) {
             secondary.strength *= (Math.random() * (force * 2)) - force + 1;
             secondary.strength = Math.floor(secondary.strength * 100) / 100;
             total += secondary.strength;
-            trace("new secondary " + secondary.strength);
         }
 
-        principal.strength = Math.round(1 - total);
-        trace("new principal" + principal.strength);
+        principal.strength = Math.round((1 - total) * 100) / 100;
     }
 
 
