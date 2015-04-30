@@ -16,10 +16,13 @@ class ForTest
         button.onClick(cast function () {
             trace("ok viens de click");
             #if js
-            FB.ui({method : "share", href : "http://samples.ogp.me/1432574127054546"}, function (response) {
-                trace("normalement c'est bon");
-                trace(response);
-            });
+            FB.ui({
+                method           : "share_open_graph",
+                action_type      : "botania:get",
+                action_properties: haxe.Json.stringify({
+                    flower:"https://fbgame.isartdigital.com/isartdigital/botaniaproject/bin/index.php?displayFlower=aaa"
+                })
+            }, function(response){});
             #end
         });
     }
