@@ -12,16 +12,16 @@
         }
 
         function tileFree ($position) {
-            $x = $position->x;
-            $y = $position->y;
+            $whereCondtion = $this->getWhereForPosition($position);
 
-            $response = $this->db->query("SELECT * FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+
+            $response = $this->db->query("SELECT * FROM playersbuildings " . $whereCondtion);
             if (!$err = $this->noError()) return $err;
 
             $nbResult = $response->num_rows;
 
 
-            $response = $this->db->query("SELECT * FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("SELECT * FROM playersflowers " . $whereCondtion);
             if (!$err = $this->noError()) return $err;
 
             $nbResult += $response->num_rows;
@@ -30,29 +30,24 @@
         }
 
         function addBuilding ($position, $type) {
-            $x = $position->x;
-            $y = $position->y;
+            $this->escapePosition($position);
 
-            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', '$type', '$x', '$y', '', '', '', '', '', '')");
+            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', '$type', '$position->x', '$position->y', '', '', '', '', '', '')");
 
             return $this->noError();
         }
 
         function addFlower ($position, $genome) {
-            $x = $position->x;
-            $y = $position->y;
+            $this->escapePosition($position);
             $ts = time() * 1000;
 
-            $this->db->query("INSERT INTO playersflowers VALUES (NULL, '$this->id', '$x', '$y', '$genome', '$ts', 0, 0, 0, 0, 0, false, false, false)");
+            $this->db->query("INSERT INTO playersflowers VALUES (NULL, '$this->id', '$position->x', '$position->y', '$genome', '$ts', 0, 0, 0, 0, 0, false, false, false)");
 
             return $this->noError();
         }
 
         function destroyBuilding ($position) {
-            $x = $position->x;
-            $y = $position->y;
-
-            $response = $this->db->query("DELETE FROM playersbuildings WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("DELETE FROM playersbuildings " . $this->getWhereForPosition($position));
             if ($err = $this->noError() != true) {
                 return $this->noError();
             }
@@ -60,10 +55,7 @@
         }
 
         function destroyFlower ($position) {
-            $x = $position->x;
-            $y = $position->y;
-
-            $response = $this->db->query("DELETE FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("DELETE FROM playersflowers " . $this->getWhereForPosition($position));
             if ($err = $this->noError() != true) {
                 return $this->noError();
             }
@@ -71,10 +63,7 @@
         }
 
         function isFlower ($position) {
-            $x = $position->x;
-            $y = $position->y;
-
-            $response = $this->db->query("SELECT ID FROM playersflowers WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $response = $this->db->query("SELECT ID FROM playersflowers " . $this->getWhereForPosition($position));
 
             if (($err = $this->noError()) != true) return $err;
 
@@ -83,11 +72,9 @@
 
         function growFlower ($position, $index) {
             if ($index >= 5) return "Impossible state index";
-            $x = $position->x;
-            $y = $position->y;
             $timeStamp = time() * 1000;
 
-            $this->db->query("UPDATE playersflowers SET StateIndex = '$index', LastTimeStamp = '$timeStamp' WHERE PlayerID = '$this->id' && X = '$x' && Y = '$y'");
+            $this->db->query("UPDATE playersflowers SET StateIndex = '$index', LastTimeStamp = '$timeStamp'" . $this->getWhereForPosition($position));
 
             return $this->noError();
         }
@@ -217,7 +204,17 @@
             return $err;
         }
 
-    }
 
+        function escapePosition ($position) {
+            $position->x = $this->db->real_escape_string($position->x);
+            $position->y = $this->db->real_escape_string($position->y);
+        }
+
+        function getWhereForPosition ($position) {
+            $this->escapePosition($position);
+            return "WHERE PlayerID = '$this->id' && X = '$position->x' && Y = '$position->y'";
+        }
+
+    }
 
 ?>
