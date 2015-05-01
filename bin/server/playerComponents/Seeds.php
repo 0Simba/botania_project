@@ -20,8 +20,8 @@
 
 
         function remove ($id) {
+            $id = $this->db->real_escape_string($id);
             $this->db->query("DELETE FROM playersseeds WHERE ID='$id'");
-
         }
 
 
