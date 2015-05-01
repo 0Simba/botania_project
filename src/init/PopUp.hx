@@ -30,6 +30,7 @@ class PopUp
         new entities.popUps.ShopPopUp();
         new entities.popUps.ShopConfirmationPopUp();
         new entities.popUps.DiscoverFlower();
+        new entities.popUps.DisplayGenomeStats();
 
         popUpEngine.show("header");
     }

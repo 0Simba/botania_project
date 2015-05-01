@@ -7,6 +7,7 @@ import engine.popUpEngine.PopUpEngineMain;
 import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.managers.Assets;
+import engine.isoEngine.components.Hud;
 import Map;
 
 class PopUpMain extends PopUp
@@ -55,5 +56,44 @@ class PopUpMain extends PopUp
             if (!poping) hide();
         });
     }
+
+
+    /*==========================================
+    =            Default Appareance            =
+    ==========================================*/
+
+    private function initBasicBlocs () {
+        applyAnchor(0.5, 0.5);
+
+        addBloc("openFruitBackground", new Vector2(0, 0), new Vector2(1, 1));
+        addButtonPattern("close").onClick(function () {
+            tweenHide();
+        });
+    }
+
+
+
+    /*======================================
+    =            Display Flower            =
+    ======================================*/
+
+    private var displayFlowerBlocs:Array<Hud>;
+
+
+    private function setFlowerBlocs (position:Vector2, size:Vector2) {
+        displayFlowerBlocs    = new Array<Hud>();
+        displayFlowerBlocs[0] = addBloc("GA", position, size);
+        displayFlowerBlocs[1] = addBloc("OA", position, size);
+        displayFlowerBlocs[2] = addBloc("FA", position, size);
+    }
+
+
+    private function updateFlowerBlocs (genomeCode:String) {
+        displayFlowerBlocs[0].changeTexture("O" + genomeCode.charAt(1));
+        displayFlowerBlocs[1].changeTexture("F" + genomeCode.charAt(0));
+        displayFlowerBlocs[2].changeTexture("G" + genomeCode.charAt(2));
+    }
 }
+
+
 

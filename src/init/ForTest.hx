@@ -18,8 +18,7 @@ class ForTest
         var button = new Button();
         button.set(size, pos, "white", "hud");
         button.onClick(cast function () {
-            var a = js.Browser.getLocalStorage();
-            trace(a);
+            popUpEngine.show("displayGenomeStats");
         });
     }
 }

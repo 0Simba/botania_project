@@ -2,6 +2,7 @@ package manager.circlesHud;
 
 import engine.popUpEngine.PopUpEngineMain;
 import engine.circleHud.CirclesHudEngine;
+import entities.popUps.DisplayGenomeStats;
 
 class Flower extends CirclesHudManager
 {
@@ -14,7 +15,7 @@ class Flower extends CirclesHudManager
         managedHud.addOnce("pick"      , "pickBasic"      , saveNewFruit);
         managedHud.addOnce("dig"       , "digBasic"       , removeFlower);
         managedHud.addOnce("water"     , "waterBasic"     , growFlower);
-        managedHud.addOnce("fertilizer", "fertilizerBasic", empty);
+        managedHud.addOnce("fertilizer", "fertilizerBasic", displayStats);
 
         popUpEngine = PopUpEngineMain.getInstance();
     }
@@ -35,6 +36,11 @@ class Flower extends CirclesHudManager
 
     public function saveNewFruit (targetFlower:entities.Flower) {
         targetFlower.harvest();
+    }
+
+    public function displayStats (targetFlower:entities.Flower) {
+        DisplayGenomeStats.setParams(targetFlower);
+        popUpEngine.show("displayGenomeStats");
     }
 
     public function empty () {}
