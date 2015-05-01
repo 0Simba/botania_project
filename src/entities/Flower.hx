@@ -26,14 +26,15 @@ class Flower extends GameObject
     private var position:Vector2;
     private var seedRef:Seed;
     private var timer:Timer;
+    private var serverId:Int;
 
 /*================================
 =            CREATION            =
 ================================*/
 
 
-    public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, currentTimeStamp:Int = null, _stateIndex:Int = null) {
-        if (seed == null && !(_genome != null && lastTimeStamp != null && currentTimeStamp != null && _stateIndex != null)) return;
+    public function new (_referent, _position, seed:Seed = null, _genome:Genome = null, lastTimeStamp:Int = null, currentTimeStamp:Int = null, _stateIndex:Int = null, _serverId:Int = null) {
+        if (seed == null && !(_genome != null && lastTimeStamp != null && currentTimeStamp != null && _stateIndex != null && _serverId != null)) return;
         super();
         referent   = _referent;
         position   = _position;
@@ -83,7 +84,8 @@ class Flower extends GameObject
         callServer("buildFlower", getBuildDatas(), cast serverValidateFlower, cast serverRefuseFlower);
     }
 
-    private function serverValidateFlower () {
+    private function serverValidateFlower (response) {
+        serverId = response.flowerId;
         referent.emit("builded");
         launchDelay(grow, config.time.delay);
 

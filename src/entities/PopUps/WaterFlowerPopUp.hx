@@ -3,6 +3,7 @@ package entities.popUps;
 import utils.Vector2;
 import entities.Flower;
 import engine.popUpEngine.PopUpEngineMain;
+import pixi.utils.Utils.AjaxRequest;
 
 class WaterFlowerPopUp extends PopUpMain
 {
@@ -38,7 +39,7 @@ class WaterFlowerPopUp extends PopUpMain
 
         addButton(new Vector2(0.35, 0.7), new Vector2(0.1, 1, "%", "%x"), Vector2.mid, "shopValidateBtnOk", function () {
             tweenHide();
-            flower.water();
+            removeMoneyAndAskServer();
         });
 
         addButton(new Vector2(0.6, 0.7), new Vector2(0.1, 1, "%", "%x"), Vector2.mid, "ShopBtnClose", function () {
@@ -46,6 +47,16 @@ class WaterFlowerPopUp extends PopUpMain
         });
 
         instance = this;
+    }
+
+
+
+    private function removeMoneyAndAskServer () {
+        // var datas:Dynamic;
+        // datas.flowerId = flower.id;
+
+        // AjaxRequest.exec("waterFlower", haxe.Json.string)
+        flower.water();
     }
 }
 

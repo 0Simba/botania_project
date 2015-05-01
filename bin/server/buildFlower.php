@@ -4,6 +4,7 @@
 
     if ($player->tileFree($datas->position)) {
         if ($returnObject["error"] = $player->addFlower($datas->position, $datas->genome)) {
+            $returnObject["flowerId"] = $player->lastFlowerId();
             $returnObject["accepted"] = true;
             $returnObject["error"]    = false;
         }

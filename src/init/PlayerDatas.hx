@@ -50,7 +50,7 @@ class PlayerDatas
             var flower = flowers[i];
             var tile   = map.get(Std.parseInt(flower.X), Std.parseInt(flower.Y));
 
-            tile.flowerLoaded(flower.LastTimeStamp, serverTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex);
+            tile.flowerLoaded(flower.LastTimeStamp, serverTimeStamp, Genome.newFromCode(flower.Genome), flower.StateIndex, flower.ID);
         }
     }
 

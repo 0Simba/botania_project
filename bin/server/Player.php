@@ -46,6 +46,10 @@
             return $this->noError();
         }
 
+        function lastFlowerId () {
+            return $this->db->insert_id;
+        }
+
         function destroyBuilding ($position) {
             $response = $this->db->query("DELETE FROM playersbuildings " . $this->getWhereForPosition($position));
             if ($err = $this->noError() != true) {
@@ -97,7 +101,7 @@
 
         function getFlowers () {
             $id = $this->id;
-            $response = $this->db->query("SELECT X, Y, Genome, LastTimeStamp, StateIndex, Attribute1, Attribute2, Attribute3, Attribute4, Bonus1, Bonus2, Bonus3 FROM playersflowers WHERE PlayerID = '$this->id'");
+            $response = $this->db->query("SELECT ID, X, Y, Genome, LastTimeStamp, StateIndex, Attribute1, Attribute2, Attribute3, Attribute4, Bonus1, Bonus2, Bonus3 FROM playersflowers WHERE PlayerID = '$this->id'");
 
             echo ($this->db->error);
 
