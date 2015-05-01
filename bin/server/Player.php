@@ -1,14 +1,20 @@
 
 <?php
+    include "playerComponents/Seeds.php";
+
     class Player {
         public $id;
         public $db;
+
+        public $seeds;
 
         function __construct ($_id) {
             global $mysqli;
 
             $this->id = $_id;
             $this->db = $mysqli;
+
+            $this->seeds = new Seeds($this);
         }
 
 
@@ -62,42 +68,6 @@
         function removeFruit ($id) {
             $this->db->query("DELETE FROM playersfruits WHERE ID='$id'");
         }
-
-
-
-            /*==========  Seeds  ==========*/
-
-        function addSeed ($genome, $level) {
-            $query = "INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')";
-            $this->db->query($query);
-            return $this->db->insert_id;
-        }
-
-
-        function removeSeed ($id) {
-            $this->db->query("DELETE FROM playersseeds WHERE ID='$id'");
-
-        }
-
-
-        function getSeeds () {
-            $id = $this->id;
-            $response = $this->db->query("SELECT ID, Genome, Level FROM playersseeds WHERE PlayerID = '$this->id'");
-
-            echo ($this->db->error);
-
-            if ($err = $this->noError() && $response->num_rows) {
-                $seeds = array();
-                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
-                    array_push($seeds, $data);
-                }
-                return $seeds;
-            }
-            return $err;
-
-        }
-
-
 
 
         /*===============================

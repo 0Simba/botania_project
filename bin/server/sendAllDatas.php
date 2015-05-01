@@ -3,7 +3,7 @@
     $returnObject['serverTimeStamp'] = time() * 1000;
     $returnObject['buildings'] = $player->getBuidings();
     $returnObject['flowers']   = $player->getFlowers();
-    $returnObject['seeds']     = $player->getSeeds();
+    $returnObject['seeds']     = $player->seeds->getAll();
     $returnObject['fruits']    = $player->getFruits();
     $returnObject['datas']     = $player->getDatas();
     $returnObject['accepted']  = true;

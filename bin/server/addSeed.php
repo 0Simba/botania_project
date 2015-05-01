@@ -2,7 +2,7 @@
 <?php
     $returnObject = array();
 
-    $res = $player->addSeed($datas->genome, $datas->level);
+    $res = $player->seeds->add($datas->genome, $datas->level);
     $returnObject["accepted"] = true;
     $returnObject["error"]    = false;
     $returnObject["seedId"]   = $res;
