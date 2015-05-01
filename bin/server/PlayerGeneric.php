@@ -6,7 +6,7 @@
         function __construct () {
             global $mysqli;
 
-            $this->id = $_SESSION["playerID"];
+            $this->id = mysqli_real_escape_string($_SESSION["playerID"]);
             $this->db = $mysqli;
         }
 
