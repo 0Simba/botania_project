@@ -246,8 +246,14 @@ class Flower extends GameObject
 
 
     private function saveDiscoverFlowerAndShare () {
-        DiscoverFlower.params(this);
-        PopUpEngineMain.getInstance().show("discoverFlowerPopUp");
+        var localStorage   = js.Browser.getLocalStorage();
+        var appearanceName = genome.getAppearanceName();
+
+        if (localStorage.getItem(appearanceName) == null) {
+            localStorage.setItem(appearanceName, "true");
+            DiscoverFlower.params(this);
+            PopUpEngineMain.getInstance().show("discoverFlowerPopUp");
+        }
     }
 
 

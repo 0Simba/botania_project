@@ -18,7 +18,8 @@ class ForTest
         var button = new Button();
         button.set(size, pos, "white", "hud");
         button.onClick(cast function () {
-            popUpEngine.show("discoverFlowerPopUp");
+            var a = js.Browser.getLocalStorage();
+            trace(a);
         });
     }
 }
