@@ -10,7 +10,7 @@
         }
 
         function getBuildingPrice ($name) {
-            $id = $this->id;
+            $id   = $this->id;
             $name = $this->db->real_escape_string($name);
 
             $response = $this->db->query("SELECT price FROM typebuildings WHERE texture = '$name'");

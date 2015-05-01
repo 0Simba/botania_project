@@ -3,8 +3,8 @@
     $returnObject = array();
 
     if ($player->tileFree($datas->position)) {
-        if ($returnObject["error"] = $player->addFlower($datas->position, $datas->genome)) {
-            $returnObject["flowerId"] = $player->lastFlowerId();
+        if ($returnObject["error"] = $player->flowers->add($datas->position, $datas->genome)) {
+            $returnObject["flowerId"] = $player->flowers->lastId();
             $returnObject["accepted"] = true;
             $returnObject["error"]    = false;
         }

@@ -1,8 +1,8 @@
 <?php
     $returnObject = array();
 
-    if ($player->isFlower($datas->position)) {
-        if ($returnObject["error"] = $player->growFlower($datas->position, $datas->stateIndex)){
+    if ($player->flowers->isIt($datas->position)) {
+        if ($returnObject["error"] = $player->flowers->grow($datas->position, $datas->stateIndex)){
             $returnObject["accepted"] = true;
             $returnObject["error"]    = false;
         }
