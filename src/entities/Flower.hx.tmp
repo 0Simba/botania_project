@@ -289,14 +289,15 @@ class Flower extends GameObject
     static private var sheet:Array<String> = ["Sîgrid", "Pépi",      "Dilo",    "Amalïel", "Tarkeni"];
     static private var head:Array<String>  = ["Sîlke",  "Arsinoé",   "Dimilce", "Elillë",  "Orroke"];
 
-    static public function getName (genomeCode:String):String {
+    static public function getName ():String {
         var letterToInt:Map<String, Int> = Chromosome.getMapOfLetter();
 
         var stalkName:String = stalk[letterToInt.get(genomeCode.charAt(0))];
         var sheetName:String = sheet[letterToInt.get(genomeCode.charAt(1))];
         var headName:String  = head[letterToInt.get(genomeCode.charAt(2))];
 
-        return stalkName + " " + sheetName + " " + headName;
+        return $stalkName . " " . $sheetName . " " . $headName;
+
     }
 
 }

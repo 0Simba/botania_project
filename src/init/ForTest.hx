@@ -3,41 +3,22 @@ package init;
 import engine.isoEngine.components.Button;
 import utils.Vector2;
 import lib.FB;
+import engine.popUpEngine.PopUpEngineMain;
 
 class ForTest
 {
-
+    static private var popUpEngine:PopUpEngineMain;
     static private var size = new Vector2(75, 75);
     static private var pos  = new Vector2(20, 20);
 
+
     static public function load () {
+        popUpEngine = PopUpEngineMain.getInstance();
+
         var button = new Button();
         button.set(size, pos, "white", "hud");
         button.onClick(cast function () {
-            trace("ok viens de click");
-            #if js
-            FB.ui({
-                method           : "share_open_graph",
-                action_type      : "botania:get",
-                action_properties: haxe.Json.stringify({
-                    flower:"https://fbgame.isartdigital.com/isartdigital/botaniaproject/bin/index.php?displayFlower=aaa"
-                })
-            }, function(response){});
-            #end
+            popUpEngine.show("discoverFlowerPopUp");
         });
     }
 }
-
-    // FB.api(
-    //     'me/botania:get',
-    //     'post',
-    //     {
-    //         flower: "http://samples.ogp.me/1432574127054546"
-    //     },
-    //     function(response) {
-    //         trace(response);
-    //         // handle the response
-    //     }
-    // );
-// );
-

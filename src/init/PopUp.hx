@@ -29,6 +29,7 @@ class PopUp
         new entities.popUps.OpenFruitPopUp();
         new entities.popUps.ShopPopUp();
         new entities.popUps.ShopConfirmationPopUp();
+        new entities.popUps.DiscoverFlower();
 
         popUpEngine.show("header");
     }

@@ -65,14 +65,7 @@ class Chromosome
 
 
     static public function getMapOfLetter ():Map<String, Int> {
-        var map = new Map<String, Int>();
-        map.set("A", 0);
-        map.set("B", 1);
-        map.set("C", 2);
-        map.set("D", 3);
-        map.set("E", 4);
-
-        return map;
+        
     }
 }
 
