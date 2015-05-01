@@ -8,14 +8,17 @@ import entities.genetic.Genome;
 import engine.isoEngine.components.Hud;
 import engine.isoEngine.components.Text;
 import entities.Flower;
+import manager.FacebookActions;
 
 class DiscoverFlower extends PopUpMain
 {
 
     static private var genomeCode:String = "DDD";
+    static private var flower:Flower;
 
-    static public function params (_genomeCode:String) {
-        genomeCode = _genomeCode;
+    static public function params (_flower:Flower) {
+        flower = _flower;
+        genomeCode = flower.genome.getAppearanceName();
     }
 
 
@@ -30,6 +33,7 @@ class DiscoverFlower extends PopUpMain
         initBasicBlocs();
         setText();
         setFlowerBlocs();
+        addShareButton();
 
         onShow = function () {
             updateFlowerAppearance();
@@ -40,7 +44,7 @@ class DiscoverFlower extends PopUpMain
 
     private function updateFlowerAppearance () {
         var flowerName = Flower.getName(genomeCode);
-        text.setText("Félicitation !\nVous avez découvert une : \n" + flowerName);
+        text.setText("Félicitation !\nVous avez découvert la\n" + flowerName);
         displayFlowerBlocs[0].changeTexture("O" + genomeCode.charAt(1));
         displayFlowerBlocs[1].changeTexture("F" + genomeCode.charAt(0));
         displayFlowerBlocs[2].changeTexture("G" + genomeCode.charAt(2));
@@ -75,6 +79,14 @@ class DiscoverFlower extends PopUpMain
             wordWrapWidth : 450
         };
         text = addText(new Vector2(0.15, 0.25), Vector2.full, "Félicitation !\nVous avez découvert une nouvelle fleur !", style);
+    }
+
+
+    private function addShareButton () {
+        addButton(new Vector2 (0.6, 0.45), new Vector2 (1, 0.3, "%y", "%"), new Vector2(0.5, 0.5), "facebookShare", function () {
+            FacebookActions.shareNewFlower(flower);
+            tweenHide();
+        });
     }
 }
 

@@ -10,6 +10,8 @@ import utils.Vector2;
 import haxe.Timer;
 import engine.popUpEngine.PopUpEngineMain;
 import entities.genetic.Chromosome;
+import entities.popUps.DiscoverFlower;
+
 
 class Flower extends GameObject
 {
@@ -244,8 +246,8 @@ class Flower extends GameObject
 
 
     private function saveDiscoverFlowerAndShare () {
+        DiscoverFlower.params(this);
         PopUpEngineMain.getInstance().show("discoverFlowerPopUp");
-        manager.FacebookActions.shareNewFlower(this);
     }
 
 

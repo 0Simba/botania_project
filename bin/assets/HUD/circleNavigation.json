@@ -143,6 +143,12 @@
     "trimmed": false,
     "spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
     "sourceSize": {"w":100,"h":100}
+},
+"facebookShare":
+{
+    "frame": {"x":1, "y":336,"w":250,"h":250},
+    "spriteSourceSize": {"x":0,"y":0,"w":250,"h":250},
+    "sourceSize": {"w":250,"h":250}
 }
 },
 "meta": {
