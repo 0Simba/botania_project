@@ -66,7 +66,7 @@ class BreakerPopUp extends PopUpMain
 
 
     private function setSeedsInventory () {
-        setInventory(new Vector2(0.07, 0.15), new Vector2(0.38, 0.74),  new Vector2(0.20, 0.20), 5, -1);
+        setInventory(new Vector2(0.07, 0.15), new Vector2(0.38, 0.74),  new Vector2(0.2, 0.2), 5, -1);
 
         updateSeedsInventory();
     }

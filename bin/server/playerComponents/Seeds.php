@@ -10,8 +10,8 @@
         }
 
         function add ($genome, $level) {
-            $genome = mysqli_real_escape_string($genome);
-            $level  = mysqli_real_escape_string($level);
+            $genome = $this->db->real_escape_string($genome);
+            $level  = $this->db->real_escape_string($level);
 
             $query = "INSERT INTO playersseeds VALUES (NULL, '$this->id', '$genome', '$level')";
             $this->db->query($query);

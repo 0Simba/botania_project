@@ -2,10 +2,12 @@
 <?php
     include "PlayerGeneric.php";
     include "playerComponents/Seeds.php";
+    // include "playerComponents/fruits.php";
 
     class Player extends PlayerGeneric {
 
         public $seeds;
+        // public $fruits;
 
         function __construct () {
             parent::__construct();
