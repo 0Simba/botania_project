@@ -29,6 +29,8 @@
 
 
         function add ($genome, $quality) {
+            $genome  = $this->db->real_escape_string($genome);
+            $quality = $this->db->real_escape_string($quality);
             $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
             return $this->noError();
         }
