@@ -1,19 +1,14 @@
 
 <?php
+    include "PlayerGeneric.php";
     include "playerComponents/Seeds.php";
 
-    class Player {
-        public $id;
-        public $db;
+    class Player extends PlayerGeneric {
 
         public $seeds;
 
-        function __construct ($_id) {
-            global $mysqli;
-
-            $this->id = $_id;
-            $this->db = $mysqli;
-
+        function __construct () {
+            parent::__construct();
             $this->seeds = new Seeds($this);
         }
 

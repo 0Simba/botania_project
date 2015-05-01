@@ -2,7 +2,7 @@
 <?php
     $action   = mysqli_real_escape_string($mysqli, htmlspecialchars($_GET["action"]));
     $datas    = isset($_GET["datas"]) ? json_decode(urldecode($_GET["datas"])) : null;
-    $player   = new Player ($_SESSION["playerID"]);
+    $player   = new Player ();
     $shop   = new Shop ();
 
 

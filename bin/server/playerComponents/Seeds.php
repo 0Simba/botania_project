@@ -1,15 +1,12 @@
 <?php
 
-    class Seeds {
-        public $id;
-        public $db;
+    class Seeds extends PlayerGeneric {
+
         public $player;
 
         function __construct ($player) {
+            parent::__construct();
             $this->player = $player;
-
-            $this->id = $player->id;
-            $this->db = $player->db;
         }
 
         function add ($genome, $level) {
