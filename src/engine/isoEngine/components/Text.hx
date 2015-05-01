@@ -26,4 +26,8 @@ class Text extends IsoComponent
     public function setText(newText:String){
         text.setText(newText);
     }
+
+    public function setAnchor (anchor:Vector2) {
+        text.anchor.set(anchor.x, anchor.y);
+    }
 }

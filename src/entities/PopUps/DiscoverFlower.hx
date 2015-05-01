@@ -9,6 +9,7 @@ import engine.isoEngine.components.Hud;
 import engine.isoEngine.components.Text;
 import entities.Flower;
 import manager.FacebookActions;
+import entities.popUps.blocs.DisplayFlowerBlocs;
 
 class DiscoverFlower extends PopUpMain
 {
@@ -23,6 +24,7 @@ class DiscoverFlower extends PopUpMain
 
 
     private var text:Text;
+    private var flowerBlocs:DisplayFlowerBlocs;
 
 
     public function new () {
@@ -30,7 +32,7 @@ class DiscoverFlower extends PopUpMain
 
         initBasicBlocs();
         setText();
-        setFlowerBlocs(new Vector2(0.25, 0.45, "%", "%"), new Vector2(0.86, 0.5, "%y", "%"));
+        flowerBlocs = new DisplayFlowerBlocs(this, new Vector2(0.25, 0.45, "%", "%"), new Vector2(0.86, 0.5, "%y", "%"));
         addShareButton();
 
         onShow = function () {
@@ -43,7 +45,7 @@ class DiscoverFlower extends PopUpMain
     private function updateFlowerAppearance () {
         var flowerName = Flower.getName(genomeCode);
         text.setText("Félicitation !\nVous avez découvert la\n" + flowerName);
-        updateFlowerBlocs(genomeCode);
+        flowerBlocs.update(genomeCode);
     }
 
 

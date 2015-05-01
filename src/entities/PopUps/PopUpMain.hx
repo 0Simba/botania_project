@@ -8,10 +8,26 @@ import engine.popUpEngine.PopUp;
 import engine.isoEngine.IsoEngine;
 import engine.isoEngine.managers.Assets;
 import engine.isoEngine.components.Hud;
+import pixi.text.Text.TextStyle;
 import Map;
 
 class PopUpMain extends PopUp
 {
+
+    static private var textStyle:TextStyle = {
+        fill          : "white",
+        font          : "bold 25px arial",
+        align         : "center",
+        wordWrap      : true,
+        wordWrapWidth : 220
+    };
+
+    static private var titleStyle:TextStyle = {
+        fill          : "white",
+        font          : "bold 45px arial",
+        align         : "center"
+    }
+
 
     public var popUpEngine:PopUpEngineMain;
     public var assets:Assets;
@@ -70,30 +86,6 @@ class PopUpMain extends PopUp
             tweenHide();
         });
     }
-
-
-
-    /*======================================
-    =            Display Flower            =
-    ======================================*/
-
-    private var displayFlowerBlocs:Array<Hud>;
-
-
-    private function setFlowerBlocs (position:Vector2, size:Vector2) {
-        displayFlowerBlocs    = new Array<Hud>();
-        displayFlowerBlocs[0] = addBloc("GA", position, size);
-        displayFlowerBlocs[1] = addBloc("OA", position, size);
-        displayFlowerBlocs[2] = addBloc("FA", position, size);
-    }
-
-
-    private function updateFlowerBlocs (genomeCode:String) {
-        displayFlowerBlocs[0].changeTexture("O" + genomeCode.charAt(1));
-        displayFlowerBlocs[1].changeTexture("F" + genomeCode.charAt(0));
-        displayFlowerBlocs[2].changeTexture("G" + genomeCode.charAt(2));
-    }
 }
-
 
 
