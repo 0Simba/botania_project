@@ -32,7 +32,7 @@ class WaterFlowerPopUp extends PopUpMain
         var title = addText(new Vector2(0.5, 0.25), Vector2.zero, "Arrosez la plante", PopUpMain.titleStyle);
         title.setAnchor(Vector2.mid);
 
-        var text = addText(new Vector2(0.5, 0.5), Vector2.zero, "Cela coûte trois soleille", PopUpMain.textStyle);
+        var text = addText(new Vector2(0.5, 0.5), Vector2.zero, "Cette action trois Soleil", PopUpMain.textStyle);
         text.setAnchor(Vector2.mid);
 
 
