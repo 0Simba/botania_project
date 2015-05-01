@@ -2,7 +2,8 @@
 <?php
     include "PlayerGeneric.php";
     include "playerComponents/Seeds.php";
-    include "playerComponents/fruits.php";
+    include "playerComponents/Fruits.php";
+    include "playerComponents/Buildings.php";
 
     class Player extends PlayerGeneric {
 
@@ -11,8 +12,9 @@
 
         function __construct () {
             parent::__construct();
-            $this->seeds  = new Seeds($this);
-            $this->fruits = new Fruits($this);
+            $this->seeds     = new Seeds($this);
+            $this->fruits    = new Fruits($this);
+            $this->buildings = new Buildings($this);
         }
 
 
@@ -100,108 +102,12 @@
 
 
 
-
-        /*=================================
-        =            Buildings            =
-        =================================*/
-
-        function getBuildingPrice($name){
-            $id = $this->id;
-            $response = $this->db->query("SELECT price FROM typebuildings WHERE texture = '$name'");
-            if ($err = $this->noError() && $response->num_rows) {
-                //$data = $response->fetch_array(MYSQL_ASSOC)[0]["price"];
-                $datas = $response->fetch_array(MYSQL_ASSOC);
-                return $datas["price"];
-            }
-            return $err;
-        }
-
-        function addBuilding ($position, $type) {
-            $this->escapePosition($position);
-
-            $this->db->query("INSERT INTO playersbuildings VALUES (NULL, '$this->id', '$type', '$position->x', '$position->y', '', '', '', '', '', '')");
-
-            return $this->noError();
-        }
-
-        function destroyBuilding ($position) {
-            $response = $this->db->query("DELETE FROM playersbuildings " . $this->getWhereForPosition($position));
-            if ($err = $this->noError() != true) {
-                return $this->noError();
-            }
-            return ($response == 1);
-        }
-
-
-        function getBuidings () {
-            $id = $this->id;
-            $response = $this->db->query("SELECT Type, X, Y, Attribute1, Attribute2, Attribute3, Attribute1Lvl, Attribute2Lvl, Attribute3Lvl FROM playersbuildings WHERE PlayerID = '$id'");
-
-            echo ($this->db->error);
-            if ($err = $this->noError() && $response->num_rows) {
-                $buildings = array();
-                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
-                    array_push($buildings, $data);
-                }
-                return $buildings;
-            }
-            return $err;
-        }
-
-
-
         /*=============================
         =            Money            =
         =============================*/
 
         function hasEnoughCoins($price){
             return $price <= $this->getDatas()[0]["Gold"];
-        }
-
-
-
-
-        /*=============================
-        =            UTILS            =
-        =============================*/
-
-        function escapePosition ($position) {
-            $position->x = $this->db->real_escape_string($position->x);
-            $position->y = $this->db->real_escape_string($position->y);
-        }
-
-
-        function getWhereForPosition ($position) {
-            $this->escapePosition($position);
-            return "WHERE PlayerID = '$this->id' && X = '$position->x' && Y = '$position->y'";
-        }
-
-
-        function noError () {
-            if ($this->db->error != false) {
-                return ("erreur mysql : " . $this->db->error);
-            }
-
-            return true;
-        }
-
-
-        function tileFree ($position) {
-            $whereCondtion = $this->getWhereForPosition($position);
-
-
-            $response = $this->db->query("SELECT * FROM playersbuildings " . $whereCondtion);
-            if (!$err = $this->noError()) return $err;
-
-            $nbResult = $response->num_rows;
-
-
-            $response = $this->db->query("SELECT * FROM playersflowers " . $whereCondtion);
-            if (!$err = $this->noError()) return $err;
-
-            $nbResult += $response->num_rows;
-
-            return ($nbResult == 0);
         }
     }
 ?>

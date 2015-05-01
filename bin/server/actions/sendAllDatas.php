@@ -1,7 +1,7 @@
 <?php
     $returnObject = array();
     $returnObject['serverTimeStamp'] = time() * 1000;
-    $returnObject['buildings'] = $player->getBuidings();
+    $returnObject['buildings'] = $player->buildings->getAll();
     $returnObject['flowers']   = $player->getFlowers();
     $returnObject['seeds']     = $player->seeds->getAll();
     $returnObject['fruits']    = $player->fruits->getAll();
