@@ -2,16 +2,17 @@
 <?php
     include "PlayerGeneric.php";
     include "playerComponents/Seeds.php";
-    // include "playerComponents/fruits.php";
+    include "playerComponents/fruits.php";
 
     class Player extends PlayerGeneric {
 
         public $seeds;
-        // public $fruits;
+        public $fruits;
 
         function __construct () {
             parent::__construct();
-            $this->seeds = new Seeds($this);
+            $this->seeds  = new Seeds($this);
+            $this->fruits = new Fruits($this);
         }
 
 
@@ -31,40 +32,6 @@
 
 
 
-
-        /*========================================
-        =            Seeds And Fruits            =
-        ========================================*/
-
-            /*==========  Fruits  ==========*/
-
-        function getFruits () {
-            $id = $this->id;
-            $response = $this->db->query("SELECT ID, Genome, Quality FROM playersfruits WHERE PlayerID = '$this->id'");
-
-            echo ($this->db->error);
-
-            if ($err = $this->noError() && $response->num_rows) {
-                $fruits = array();
-                while ($data = $response->fetch_array(MYSQLI_ASSOC)) {
-                    array_push($fruits, $data);
-                }
-                return $fruits;
-            }
-            return $err;
-
-        }
-
-
-        function addFruit ($genome, $quality) {
-            $this->db->query("INSERT INTO playersfruits VALUES (NULL, '$this->id', '$genome', '$quality')");
-            return $this->noError();
-        }
-
-
-        function removeFruit ($id) {
-            $this->db->query("DELETE FROM playersfruits WHERE ID='$id'");
-        }
 
 
         /*===============================

@@ -1,7 +1,7 @@
 <?php
     $returnObject = array();
 
-    $player->removeFruit($datas->id);
+    $player->fruits->remove($datas->id);
     $returnObject["accepted"] = true;
     $returnObject["error"]    = false;
 
