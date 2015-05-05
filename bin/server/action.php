@@ -19,6 +19,7 @@
     else if ($action == "buildFlower")     include "server/actions/flowers/buildFlower.php";
     else if ($action == "flowerGrow")      include "server/actions/flowers/flowerGrow.php";
     else if ($action == "destroyFlower")   include "server/actions/flowers/destroyFlower.php";
+    else if ($action == "waterFlower")     include"server/actions/flowers/waterFlower.php";
 
     else if ($action == "allDatas")        include "server/actions/sendAllDatas.php";
     else if ($action == "shopDatas")       include "server/actions/shopDatas.php";

@@ -19,14 +19,15 @@ class Flower extends GameObject
     static private var config:Dynamic;
 
     public var genome:Genome;
+    public var position:Vector2;
 
+    private var serverId:Int;
     private var toKill:Bool         = false;
     private var referent:Events;
     private var stateIndex:Int;
-    private var position:Vector2;
     private var seedRef:Seed;
     private var timer:Timer;
-    private var serverId:Int;
+
 
 /*================================
 =            CREATION            =

@@ -4,6 +4,8 @@ import utils.Vector2;
 import entities.Flower;
 import engine.popUpEngine.PopUpEngineMain;
 import pixi.utils.Utils.AjaxRequest;
+import utils.AjaxRequest;
+import init.Config;
 
 class WaterFlowerPopUp extends PopUpMain
 {
@@ -22,18 +24,21 @@ class WaterFlowerPopUp extends PopUpMain
 
 
     private var flower:Flower;
+    private var flowerConfig:Dynamic;
 
     public function new () {
         if (instance != null) return;
 
         super("waterFlower", new Vector2(0.5, 0.5), new Vector2(0.7, 0.45, "%", "%x"));
 
+        flowerConfig = Config.flower;
+
         initBasicBlocs();
         onShow = tweenShow;
         var title = addText(new Vector2(0.5, 0.25), Vector2.zero, "Arrosez la plante", PopUpMain.titleStyle);
         title.setAnchor(Vector2.mid);
 
-        var text = addText(new Vector2(0.5, 0.5), Vector2.zero, "Cette action trois Soleil", PopUpMain.textStyle);
+        var text = addText(new Vector2(0.5, 0.5), Vector2.zero, "Cette action " + flowerConfig.waterSuns + " Soleil", PopUpMain.textStyle);
         text.setAnchor(Vector2.mid);
 
 
@@ -52,10 +57,14 @@ class WaterFlowerPopUp extends PopUpMain
 
 
     private function removeMoneyAndAskServer () {
-        // var datas:Dynamic;
-        // datas.flowerId = flower.id;
+        var datas:Dynamic = {};
+        datas.position = flower.position;
 
-        // AjaxRequest.exec("waterFlower", haxe.Json.string)
+
+        AjaxRequest.exec("waterFlower", haxe.Json.stringify(datas), function (response) {
+            trace("ok on a bien la réponse");
+            trace(response);
+        });
         flower.water();
     }
 }

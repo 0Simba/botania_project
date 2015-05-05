@@ -7,7 +7,8 @@
 
         function __construct ($player) {
             parent::__construct();
-            $this->player = $player;
+
+            $this->player       = $player;
         }
 
 
@@ -65,8 +66,17 @@
 
 
         function grow ($position, $index) {
-            $index = $this->db->real_escape_string($index);
-            if ($index >= 5) return "Impossible state index";
+            if ($index == null) {
+                $flower = $this->getFlowerFromPosition($position);
+                echo '<br /> <br />';
+                print_r($flower);
+                $index  = $flower["StateIndex"];
+            }
+            else {
+                $index = $this->db->real_escape_string($index);
+            }
+
+            $index     = min($index, 4);
             $timeStamp = time() * 1000;
 
             $this->db->query("UPDATE playersflowers SET StateIndex = '$index', LastTimeStamp = '$timeStamp'" . $this->getWhereForPosition($position));
@@ -75,5 +85,9 @@
         }
 
 
+        function getFlowerFromPosition ($position) {
+            $response = $this->db->query("SELECT * FROM playersflowers " . $this->getWhereForPosition($position));
+            return $response->fetch_assoc();
+        }
     }
 ?>
