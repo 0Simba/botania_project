@@ -68,8 +68,6 @@
         function grow ($position, $index) {
             if ($index == null) {
                 $flower = $this->getFlowerFromPosition($position);
-                echo '<br /> <br />';
-                print_r($flower);
                 $index  = $flower["StateIndex"];
             }
             else {

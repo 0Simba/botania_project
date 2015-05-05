@@ -6,6 +6,8 @@ import engine.popUpEngine.PopUpEngineMain;
 import pixi.utils.Utils.AjaxRequest;
 import utils.AjaxRequest;
 import init.Config;
+import entities.popUps.NoEnoughtMoneyPopUp;
+
 
 class WaterFlowerPopUp extends PopUpMain
 {
@@ -61,11 +63,15 @@ class WaterFlowerPopUp extends PopUpMain
         datas.position = flower.position;
 
 
-        AjaxRequest.exec("waterFlower", haxe.Json.stringify(datas), function (response) {
-            trace("ok on a bien la réponse");
-            trace(response);
+        AjaxRequest.exec("waterFlower", haxe.Json.stringify(datas), function (response:Dynamic) {
+            tweenHide();
+            if (response.accepted) {
+                flower.water();
+            }
+            else if (response.reason == "noEnoughtSuns") {
+                NoEnoughtMoneyPopUp.setTitleAndShow("Arrosez la plante");
+            }
         });
-        flower.water();
     }
 }
 
