@@ -80,7 +80,7 @@ class Sounds
         var buttonClick = new Howl(options);
         sounds.set("buttonClick", buttonClick);
 
-        isoEngine.events.on("buttonClicked", function () {
+        isoEngine.events.on("buttonOver", function () {
             Sounds.play("buttonClick");
         });
     }

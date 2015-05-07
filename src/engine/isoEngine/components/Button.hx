@@ -42,6 +42,7 @@ class Button extends Hud
     }
 
     private function alwaysButtonOver (mouseData) {
+        isoEngine.events.emit("buttonOver", this);
         oneOver = true;
         isoEvents.emit("buttonOver");
         alwaysOver(mouseData);
