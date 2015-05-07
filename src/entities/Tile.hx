@@ -10,6 +10,8 @@ import utils.Vector2;
 import engine.isoEngine.components.Animation;
 import entities.genetic.Genome;
 import engine.isoEngine.IsoEngine;
+import manager.Sounds;
+
 
 class Tile extends GameObject
 {
@@ -121,6 +123,7 @@ class Tile extends GameObject
     }
 
     public function createFlower (seed:Seed) {
+        Sounds.play("plant");
         currentBuild = "flower";
         buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), seed);
     }

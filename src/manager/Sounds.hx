@@ -25,6 +25,7 @@ class Sounds
         setButtonClick();
         setOpen();
         setHide();
+        setPlant();
     }
 
 
@@ -94,6 +95,12 @@ class Sounds
     static private function setHide () {
         var options = getClassicOptions("./sounds/hide.wav");
         sounds.set("hide", new Howl(options));
+    }
+
+
+    static private function setPlant () {
+        var options = getClassicOptions("./sounds/plant.wav");
+        sounds.set("plant", new Howl(options));
     }
 
 
