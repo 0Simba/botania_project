@@ -20,6 +20,8 @@ class Button extends Hud
     private var clickFilter:ColorMatrixFilter;
     private var isoEvents:Events;
 
+
+
     public function new () {
         super();
         overFilter  = ColorMatrixFilters.get("over");
@@ -64,6 +66,7 @@ class Button extends Hud
         clickBind();
     }
     private function alwaysButtonDown (mouseData) {
+        isoEngine.events.emit("buttonClicked", this);
         sprite.filters = [clickFilter];
     }
 

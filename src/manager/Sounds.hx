@@ -7,16 +7,22 @@ import lib.Howler;
 import lib.Howl;
 import engine.popUpEngine.PopUpEngineMain;
 import Map;
+import engine.isoEngine.IsoEngine;
 
 class Sounds
 {
 
     static private var isMute:Bool = false;
     static private var sounds:Map<String, Howl>;
+    static private var isoEngine:IsoEngine;
+
+
 
     static public function init () {
-        sounds = new Map<String, Howl>();
+        isoEngine = IsoEngine.getInstance();
+        sounds    = new Map<String, Howl>();
         setMusic();
+        setButtonClick();
     }
 
 
@@ -35,6 +41,19 @@ class Sounds
         return isMute;
     }
 
+
+    static public function play (name:String) {
+        if (isMute) return;
+        sounds.get(name).play();
+    }
+
+
+
+    /*=========================================
+    =            Private/init part            =
+    =========================================*/
+
+
     static private function setMusic () {
         var options:Dynamic = {
             urls     : ['./sounds/music.wav'],
@@ -46,4 +65,20 @@ class Sounds
         sounds.set("music", new Howl(options));
     }
 
+
+    static private function setButtonClick () {
+        var options:Dynamic = {
+            urls     : ['./sounds/buttonClick.wav'],
+            autoplay : false,
+            loop     : false,
+            volume   : 1
+        };
+
+        var buttonClick = new Howl(options);
+        sounds.set("buttonClick", buttonClick);
+
+        isoEngine.events.on("buttonClicked", function () {
+            Sounds.play("buttonClick");
+        });
+    }
 }
