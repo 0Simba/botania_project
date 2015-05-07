@@ -67,6 +67,7 @@ class Main
 	static private function onFacebookConnect (pResponse:Dynamic) {
 		trace(pResponse);
 		if (pResponse.status == "connected") {
+			init.ForTest.loadLast();
 			Browser.window.requestAnimationFrame(cast gameLoop);
 		}
 		else if (pResponse.status == "not_authorized") {

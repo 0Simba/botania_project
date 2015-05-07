@@ -9,7 +9,7 @@ class NoEnoughtMoneyPopUp extends PopUpMain
 
 
     /*===================================
-    =            Statis part            =
+    =            Static part            =
     ===================================*/
 
     static private var instance:NoEnoughtMoneyPopUp;
