@@ -52,7 +52,9 @@
                 }
                 return $buildings;
             }
-            return $err;
+            else {
+                return null;
+            }
         }
     }
 ?>

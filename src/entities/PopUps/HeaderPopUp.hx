@@ -6,6 +6,8 @@ import engine.popUpEngine.PopUp;
 import entities.popUps.PopUpMain;
 import pixi.text.Text.TextStyle;
 import init.PlayerDatas;
+import manager.Sounds;
+
 class HeaderPopUp extends PopUpMain
 {
     private var gold:engine.isoEngine.components.Text;
@@ -23,6 +25,7 @@ class HeaderPopUp extends PopUpMain
             popUpEngine.show("shopInterface");
         });
         addButton(new Vector2(0.20, 0.90), new Vector2(0.065, 0.85, "%", "%x"), new Vector2(0, 0), "unmuteBtn", function () {
+            Sounds.toggleMute();
         });
         addButton(new Vector2(0.28, 0.90), new Vector2(0.065, 0.85, "%", "%x"), new Vector2(0, 0), "Fullscreen", function () {
         });

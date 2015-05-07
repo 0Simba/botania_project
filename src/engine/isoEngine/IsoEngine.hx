@@ -64,7 +64,7 @@ class IsoEngine
 
 
     private function build () {
-        stage         = new Stage(0xCFCFCF);
+        stage         = new Stage(0x5782A1);
         map           = new Maping();
         assets        = new Assets();
         tileIndicator = new TileSelectionIndicator();

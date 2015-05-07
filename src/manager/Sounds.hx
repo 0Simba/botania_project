@@ -11,11 +11,23 @@ import Map;
 class Sounds
 {
 
+    static private var isMute:Bool = false;
     static private var sounds:Map<String, Howl>;
 
     static public function init () {
         sounds = new Map<String, Howl>();
         setMusic();
+    }
+
+
+    static public function toggleMute () {
+        if (!isMute) {
+            sounds.get("music").stop();
+        }
+        else {
+            sounds.get("music").play();
+        }
+        isMute = !isMute;
     }
 
 
