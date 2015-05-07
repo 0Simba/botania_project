@@ -23,6 +23,8 @@ class Sounds
         sounds    = new Map<String, Howl>();
         setMusic();
         setButtonClick();
+        setOpen();
+        setHide();
     }
 
 
@@ -44,8 +46,13 @@ class Sounds
 
     static public function play (name:String) {
         if (isMute) return;
+        if (!sounds.exists(name)) {
+            trace("Pas de son enregistré sous " + name);
+            return;
+        }
         sounds.get(name).play();
     }
+
 
 
 
@@ -67,12 +74,7 @@ class Sounds
 
 
     static private function setButtonClick () {
-        var options:Dynamic = {
-            urls     : ['./sounds/buttonClick.wav'],
-            autoplay : false,
-            loop     : false,
-            volume   : 1
-        };
+        var options = getClassicOptions("./sounds/buttonClick.wav");
 
         var buttonClick = new Howl(options);
         sounds.set("buttonClick", buttonClick);
@@ -80,5 +82,29 @@ class Sounds
         isoEngine.events.on("buttonClicked", function () {
             Sounds.play("buttonClick");
         });
+    }
+
+
+    static private function setOpen () {
+        var options = getClassicOptions("./sounds/open.wav");
+        sounds.set("open", new Howl(options));
+    }
+
+
+    static private function setHide () {
+        var options = getClassicOptions("./sounds/hide.wav");
+        sounds.set("hide", new Howl(options));
+    }
+
+
+    static private function getClassicOptions (url:String) {
+        var options:Dynamic = {
+            urls     : [url],
+            autoplay : false,
+            loop     : false,
+            volume   : 1
+        };
+
+        return options;
     }
 }

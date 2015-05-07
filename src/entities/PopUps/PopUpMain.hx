@@ -10,6 +10,7 @@ import engine.isoEngine.managers.Assets;
 import engine.isoEngine.components.Hud;
 import pixi.text.Text.TextStyle;
 import Map;
+import manager.Sounds;
 
 class PopUpMain extends PopUp
 {
@@ -48,12 +49,14 @@ class PopUpMain extends PopUp
         poping = true;
         tween.ease(Ease.backOut);
         tween.start();
+        Sounds.play("open");
     }
 
     private function tweenHide () {
         poping = false;
         tween.ease(Ease.backOutInvert);
         tween.start();
+        Sounds.play("hide");
     }
 
     private function createTween () {
