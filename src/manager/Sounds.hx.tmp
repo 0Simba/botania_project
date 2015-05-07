@@ -32,7 +32,7 @@ class Sounds
 
 
     static public function isItMute () {
-        return isMute;
+        
     }
 
     static private function setMusic () {

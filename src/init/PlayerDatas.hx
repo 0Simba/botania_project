@@ -63,6 +63,8 @@ class PlayerDatas
     }
 
     static private function loadFruits (fruits:Dynamic) {
+        if (fruits == null) return;
+
         for (i in 0...fruits.length) {
             var fruit = fruits[i];
             new Fruit(Genome.newFromCode(fruit.Genome), Std.int(fruit.Quality), false, fruit.ID);
