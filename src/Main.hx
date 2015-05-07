@@ -47,6 +47,7 @@ class Main
 				//manager
 			manager.Hud.init();
 			manager.MouseTile.init();
+			manager.Sounds.init();
 
 			entities.MergeAnimation.init();
 			entities.Seagulls.initLoop();

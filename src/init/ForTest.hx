@@ -16,18 +16,6 @@ class ForTest
     static private var snd:Howl;
 
     static public function loadLast () {
-
-        var options:Dynamic = {
-            urls     : ['./sounds/test.mp3'],
-            autoplay : false,
-            loop     : false,
-            volume   : 1,
-            onend    : function() {
-                trace('Finished!');
-            }
-        }
-
-        snd = new Howl(options);
     }
 
     static public function load () {
@@ -36,8 +24,6 @@ class ForTest
         var button = new Button();
         button.set(size, pos, "white", "hud");
         button.onClick(cast function () {
-            trace(snd);
-            snd.play();
         });
     }
 }
