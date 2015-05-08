@@ -55,6 +55,8 @@ class HeaderPopUp extends PopUpMain
         gold = addText(new Vector2(0.8, 0.64), new Vector2(1, 1), "20000", style);
         instance = this;
     }
+
+
     static public function getInstance():entities.popUps.HeaderPopUp{
         if(instance == null){
             return null;
@@ -62,6 +64,14 @@ class HeaderPopUp extends PopUpMain
         return instance;
 
     }
+
+
+
+    static public function updateSuns (value:Int) {
+        instance.suns.setText("" + value);
+    }
+
+
     public function setCurrencies(c:Dynamic){
         gold.setText(cast c.gold);
         suns.setText(cast c.suns);

@@ -6,6 +6,9 @@ import engine.isoEngine.components.IsoComponent;
 import pixi.display.DisplayObject;
 import pixi.display.Sprite;
 import pixi.textures.Texture;
+import engine.isoEngine.components.ColorMatrixFilters;
+import pixi.filters.ColorMatrixFilter;
+
 
 class DragNDrop
 {
@@ -16,6 +19,7 @@ class DragNDrop
     static private var isDragging:Bool = false;
     static private var isDropping:Bool = false;
     static private var draggingTexture:pixi.textures.Texture;
+    static private var clickFilter:ColorMatrixFilter;
 
 
     static public function isItDragging () {
@@ -107,9 +111,13 @@ class DragNDrop
     }
 
 
+
+
         /****************************************
                         DRAGGABLE
         /****************************************/
+
+
     public var meta:Dynamic;
     public var clone:DisplayObject;
     public var displayObject:pixi.display.DisplayObjectContainer;
@@ -117,8 +125,15 @@ class DragNDrop
     public var startDragging:Vector2;
     public var originPosition:Vector2;
 
+
     public function setDraggable (_meta:Dynamic = null) {
         displayObject.interactive = true;
+        // displayObject.mouseover   = cast function () {
+        //     displayObject.filters = [clickFilter];
+        // };
+        // displayObject.mouseout = cast function () {
+        //     displayObject.filters = null;
+        // };
 
         displayObject.mousedown = dragdown;
         displayObject.mousemove = dragmove;
@@ -126,11 +141,13 @@ class DragNDrop
         meta = _meta;
     }
 
+
     private function dragmove (mouseData) {
         if (isDragging && !isDropping) {
             setDraggingOnMouse(mouseData);
         }
     }
+
 
     private function dragdown (mouseData) {
         isDragging = true;
@@ -156,8 +173,10 @@ class DragNDrop
         displayDragging.anchor.set(0.5, 0.5);
     }
 
+
     static private function buildStaticDatas () {
-        isoEngine = IsoEngine.getInstance();
+        isoEngine   = IsoEngine.getInstance();
+        clickFilter = ColorMatrixFilters.get("click");
         displayDragging = new Sprite(IsoEngine.getInstance().assets.getTexture("circle"));
         displayDragging.visible = false;
 

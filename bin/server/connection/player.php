@@ -12,7 +12,7 @@ if (isset($data["id"])) {
     $_SESSION["playerID"] = $data["id"];
 }
 else {
-    $mysqli->query("INSERT INTO players VALUES (NULL, '$id', '', '', '', '', '', '', '', '')");
+    $mysqli->query("INSERT INTO players VALUES (NULL, '$id', 20, 100, '', '', '', '', '', '')");
     $id    = $mysqli->insert_id;
     $level = 1;
 

@@ -78,7 +78,7 @@ class BreakerPopUp extends PopUpMain
             var cell:Cell = inventory.addCell();
             var name = Seed.list[i].appearanceName;
 
-            cell.addBloc("darkGray", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
+            cell.addBloc("objectBackground", new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96));
             var cont = cell.addContainer(new Vector2(1, 1));
 
             var bloc  = cont.addBloc("colo"  + name.charAt(0) + name.charAt(2), new Vector2 (0, 0, "%", "%"), new Vector2 (1, 1, "%", "%"));

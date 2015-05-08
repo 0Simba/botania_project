@@ -7,6 +7,7 @@ import pixi.utils.Utils.AjaxRequest;
 import utils.AjaxRequest;
 import init.Config;
 import entities.popUps.NoEnoughtMoneyPopUp;
+import entities.popUps.HeaderPopUp;
 
 
 class WaterFlowerPopUp extends PopUpMain
@@ -67,6 +68,7 @@ class WaterFlowerPopUp extends PopUpMain
             tweenHide();
             if (response.accepted) {
                 flower.water();
+                HeaderPopUp.updateSuns(response.suns);
             }
             else if (response.reason == "noEnoughtSuns") {
                 NoEnoughtMoneyPopUp.setTitleAndShow("Arrosez la plante");

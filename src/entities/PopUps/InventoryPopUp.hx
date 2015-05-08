@@ -202,7 +202,7 @@ class InventoryPopUp extends PopUpMain
   }
 
   private function updateBuildingInventory(){
-    var buildings:Array<String> = ["workshop", "puits", "breaker", "Grenier_level_1"];
+    var buildings:Array<String>    = ["workshop", "puits", "breaker", "Grenier_level_1"];
     var ecoBuildings:Array<String> = ["Mellifera", "butterflyTree1", "anthill1"];
     createBuildingCells(buildings, "build");
     createBuildingCells(ecoBuildings, "ecoBuild");
@@ -239,8 +239,6 @@ class InventoryPopUp extends PopUpMain
 
     private function createCellEntitieIn (inventory:Inventory, callback:Dynamic):Container {
         var cell:Cell = inventory.addCell();
-        // var bloc = cell.add("objectBackground", new Vector2 (0.1, 0.1), new Vector2 (0.8, .8));
-        cell.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, 0.8), new Vector2(0, 0), "objectBackground", function () {});
         var cont = cell.addContainer(new Vector2(1, 1));
         cell.addButton(new Vector2(0.8, 0), new Vector2(0.2, 1, "%", "%x"), Vector2.zero, "miniClose", tweenHide);
         cont.addButton(new Vector2 (0.1, 0.1), new Vector2 (0.8, .8), Vector2.zero, "objectBackground", callback);
@@ -250,7 +248,7 @@ class InventoryPopUp extends PopUpMain
 
     private function createEntitiesInventoryContainer ():Inventory {
         var container = addContainer(new Vector2(1, 1));
-        inventory = container.setInventory(new Vector2(0.09, 0.11), new Vector2(0.79, 0.6), new Vector2(0.33, 0.33, "%", "%"), 4, -1);
+        inventory = container.setInventory(new Vector2(0.09, 0.11), new Vector2(0.79, 0.6), new Vector2(0.33, 0.33, "%", "%"), 3, -1);
 
         inventory.clear();
         inventory.hide();
