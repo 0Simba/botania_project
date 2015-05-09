@@ -22,11 +22,12 @@ class OpenFruitPopUp extends PopUpMain
     =            Config            =
     ==============================*/
 
-    static private var woodPos   = new Vector2(0.25, 0.6);
-    static private var metalPos  = new Vector2(0.45, 0.6);
-    static private var silverPos = new Vector2(0.65, 0.6);
-    static private var knifeSize = new Vector2(0.125, -1);
-    static private var priceSize = new Vector2(0.125, -0.2);
+    static private var woodPos     = new Vector2(0.25, 0.6);
+    static private var metalPos    = new Vector2(0.45, 0.6);
+    static private var silverPos   = new Vector2(0.65, 0.6);
+    static private var knifeSize   = new Vector2(0.125, -1);
+    static private var priceSize   = new Vector2(0.125, -0.2);
+    static private var priceOffset = new Vector2(0, 0.2);
     static private var style:TextStyle = {
         fill : "white",
         font : "bold 25px arial",
@@ -54,11 +55,9 @@ class OpenFruitPopUp extends PopUpMain
 
         addText(new Vector2(0.5, 0.2), new Vector2(1, 0.2), "Choisissez votre couteau", style).text.anchor.set(0.5, 0.5);
 
-        // addBloc("backgroundDark", woodPos, priceSize).sprite.anchor.set(0.5, 1.1);
-
         createSection(woodPos,   "Bois",   "woodKnife",   1);
-        createSection(metalPos,  "Metal",  "metalKnife",  2);
-        createSection(silverPos, "Argent", "silverKnife", 3);
+        createSection(metalPos,  "Metal",  "metalKnife",  2, 10);
+        createSection(silverPos, "Argent", "silverKnife", 3, 0, 2);
     }
 
 
@@ -75,12 +74,21 @@ class OpenFruitPopUp extends PopUpMain
     }
 
 
-    private function createSection (position:Vector2, text:String, textureName:String, nbSeed:Int) {
+    private function createSection (position:Vector2, text:String, textureName:String, nbSeed:Int, nbCoins:Int = 0, nbSuns:Int = 0) {
         addBloc("objectBackground", position, knifeSize).sprite.anchor.set(0.5, 0.5);
         addText(position, knifeSize, text, style).text.anchor.set(0.5, 3);
         addButton(position, knifeSize, Vector2.mid, textureName, function () {
             open(nbSeed);
         });
+
+        var pricePosition = position.sum(priceOffset);
+        addBloc("objectBackground", pricePosition, priceSize).sprite.anchor.set(0.5, 0.5);
+
+        var priceText = (nbSuns == 0) ?
+                          (nbCoins == 0) ? "0"
+                                         : nbCoins + " Pièces"
+                        : nbSuns + " Soleils";
+        addText(pricePosition, Vector2.zero, priceText, style).text.anchor.set(0.5, 0.5);
     }
 
 }
