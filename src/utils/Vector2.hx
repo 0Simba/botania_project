@@ -16,6 +16,12 @@ class Vector2
         metaY = _metaY;
     }
 
+
+    public function sum (other:Vector2):Vector2 {
+        return new Vector2(this.x + other.x, this.y + other.y);
+    }
+
+
     static public var zero  (get, set):Vector2;
     static public var full  (get, set):Vector2;
     static public var right (get, set):Vector2;
