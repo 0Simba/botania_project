@@ -22,6 +22,6 @@ class Workshop extends CirclesHudManager
 
     public function openPopUp (targetBreaker:entities.Building) {
         close();
-        popUpEngine.show("breakerInterface");
+        popUpEngine.show("labotory");
     }
 }
