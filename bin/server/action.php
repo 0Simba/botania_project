@@ -15,6 +15,7 @@
 
     else if ($action == "addFruit")        include "server/actions/fruits/addFruit.php";
     else if ($action == "removeFruit")     include "server/actions/fruits/removeFruit.php";
+    else if ($action == "openFruit")       include "server/actions/fruits/openFruit.php";
 
     else if ($action == "buildFlower")     include "server/actions/flowers/buildFlower.php";
     else if ($action == "flowerGrow")      include "server/actions/flowers/flowerGrow.php";

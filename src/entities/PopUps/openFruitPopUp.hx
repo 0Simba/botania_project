@@ -12,6 +12,9 @@ import engine.tween.Ease;
 import entities.popUps.PopUpMain;
 import pixi.text.Text.TextStyle;
 import entities.Fruit;
+import utils.AjaxRequest;
+import entities.popUps.NoEnoughtMoneyPopUp;
+
 
 class OpenFruitPopUp extends PopUpMain
 {
@@ -78,7 +81,22 @@ class OpenFruitPopUp extends PopUpMain
         addBloc("objectBackground", position, knifeSize).sprite.anchor.set(0.5, 0.5);
         addText(position, knifeSize, text, style).text.anchor.set(0.5, 3);
         addButton(position, knifeSize, Vector2.mid, textureName, function () {
-            open(nbSeed);
+            var datasPrice:Dynamic = {
+                coins   : nbCoins,
+                suns    : nbSuns,
+                nbSeeds : nbSeed
+            };
+
+            AjaxRequest.exec("openFruit", haxe.Json.stringify(datasPrice), function (response) {
+                if (response.accepted) {
+                    open(nbSeed);
+                    HeaderPopUp.updateSuns(response.suns);
+                    tweenHide();
+                }
+                else if (response.reason == "noEnoughtSuns" || response.reason == "noEnoughtCoins") {
+                    NoEnoughtMoneyPopUp.setTitleAndShow("Ouvrir fruit");
+                }
+            });
         });
 
         var pricePosition = position.sum(priceOffset);
