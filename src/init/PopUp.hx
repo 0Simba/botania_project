@@ -33,6 +33,7 @@ class PopUp
         new entities.popUps.DisplayGenomeStats();
         new entities.popUps.WaterFlowerPopUp();
         new entities.popUps.NoEnoughtMoneyPopUp();
+        new entities.popUps.LabotoryPopUp();
 
         popUpEngine.show("header");
     }

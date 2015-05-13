@@ -26,14 +26,13 @@ class BreakerPopUp extends PopUpMain
 
     static private var popUpSize = new Vector2(0.8, 0.8);
 
-	public function new () {
-        super("breakerInterface", new Vector2(0.5, 0.5), popUpSize);
+	public function new (popUpName = "breakerInterface") {
+        super(popUpName, new Vector2(0.5, 0.5), popUpSize);
         applyAnchor(0.5, 0.5);
 
-        popUpEngine  = PopUpEngineMain.getInstance();
+        popUpEngine = PopUpEngineMain.getInstance();
 
         setDefaultsElements();
-        // setSeedsInventory();
         createTween();
         setSeedsInventory();
         initGenetic();
@@ -45,9 +44,8 @@ class BreakerPopUp extends PopUpMain
         addBloc("fond_en", new Vector2(0, 0), new Vector2(1, 1));
         var b = addButtonPattern("close");
         b.onClick(tweenHide);
-        //addBloc("concasser_en_ltl",new Vector2(0.66, 0.835), assets.getSize("concasser_en_ltl"));
+
         addBloc("plus_ltl", new Vector2(0.66, 0.74), assets.getSize("plus_ltl"));
-        // addBloc("plus_ltl", new Vector2(0.78, 0.74), assets.getSize("plus_ltl"));
 
         seed1 = addBloc("fond_fleur_graine", new Vector2(0.58, 0.72), assets.getSize("fond_fleur_graine"));
         seed2 = addBloc("fond_fleur_graine", new Vector2(0.705, 0.72), assets.getSize("fond_fleur_graine"));
