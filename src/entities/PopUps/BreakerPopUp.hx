@@ -26,7 +26,7 @@ class BreakerPopUp extends PopUpMain
 
     private var seed1:Hud;
     private var seed2:Hud;
-    private var product:Button;
+    private var product:Dynamic; // ?? impossible to get correct type
 
     static private var popUpSize = new Vector2(0.8, 0.8);
 
@@ -39,7 +39,6 @@ class BreakerPopUp extends PopUpMain
     private var seedInventoryCells     = new Vector2 (0.33, 0.33);
     private var seedInventoryXElements = 3;
     private var seedInventoryYElements = -1;
-
 
 
 	public function new (popUpName = "breakerInterface") {
@@ -68,9 +67,7 @@ class BreakerPopUp extends PopUpMain
         seed1.setDroppable();
         seed2.setDroppable();
 
-        // product = addBloc("bouton_produit", new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"));
-        //product = 
-        addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
+        product = addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
 
 
         addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
@@ -140,6 +137,9 @@ class BreakerPopUp extends PopUpMain
     }
 
 
+
+
+
     /*========================================
     =            Display genetics            =
     ========================================*/
@@ -160,6 +160,8 @@ class BreakerPopUp extends PopUpMain
 
     private var displayGeneticContainers:Array<Container>;
     private var displayGeneticBlocs:Array<Array<Hud>>;
+
+
 
     private function initGenetic () {
         displayGeneticContainers = new Array<Container>();
@@ -206,11 +208,6 @@ class BreakerPopUp extends PopUpMain
             }
         }
     }
-
-
-
-
-
 
 
     private function updateBar (seed:Seed) {

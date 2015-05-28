@@ -1,0 +1,12 @@
+f : 0 : tetes    : ----
+O : 1 : feuilles : motif
+G : 2 : tiges    : colo
+
+
+>_______colo________<
+
+A bleu   spriale sphere
+B violet rond    doubleRond
+C rouge  traits  patatePointue
+D jaune  trirond piment
+E vert   etoile  feuille?
