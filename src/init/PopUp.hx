@@ -34,6 +34,7 @@ class PopUp
         new entities.popUps.WaterFlowerPopUp();
         new entities.popUps.NoEnoughtMoneyPopUp();
         new entities.popUps.LabotoryPopUp();
+        new entities.popUps.DisplayProducts();
 
         popUpEngine.show("header");
     }

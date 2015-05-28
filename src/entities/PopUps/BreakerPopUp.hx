@@ -133,11 +133,14 @@ class BreakerPopUp extends PopUpMain
 
 
     private function addProduct () {
-        trace("coucou");
+        tweenHide();
+        entities.popUps.DisplayProducts.setAndShow(onDisplayProductsClosed);
     }
 
 
-
+    private function onDisplayProductsClosed () {
+        popUpEngine.show("BreakerPopUp");
+    }
 
 
     /*========================================
