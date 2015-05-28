@@ -58,13 +58,14 @@ class DisplayProducts extends PopUpMain
 
 
     private function setProductsInventory () {
-        productsInventory = setInventory(new Vector2(0.1, 0.1), new Vector2(0.6, 0.8), new Vector2(0.33, 0.33), 3, -1);
+        productsInventory = setInventory(new Vector2(0.1, 0.26), new Vector2(0.6, 0.6), new Vector2(0.2, 0.5), 5, -1);
 
         for (i in 0...config.list.length) {
             var name = config.list[i];
             var cell = inventory.addCell();
-
-            cell.addButton(Vector2.zero, new Vector2(1, 1, "%", "%x"), Vector2.zero, name, tweenHide);
+            var cont = cell.addContainer(new Vector2(1, 1));
+            cont.addButton(new Vector2 (0.02, 0.02), new Vector2 (0.96, 0.96), Vector2.zero, "objectBackground", tweenHide);
+            cont.addBloc(name, Vector2.zero, Vector2.full).displayObject.interactive = false;
         }
 
     }
