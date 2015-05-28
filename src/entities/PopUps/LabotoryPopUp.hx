@@ -8,17 +8,16 @@ import utils.Vector2;
 
 class LabotoryPopUp extends BreakerPopUp
 {
-
-    override public function new () {
+    public function new () {
         super("labotory");
         applyAnchor(0.5, 0.5);
 
-        popUpEngine = PopUpEngineMain.getInstance();
+        seedInventorySize = new Vector2 (0.38, 0.54);
+        popUpEngine       = PopUpEngineMain.getInstance();
 
         setDefaultsElements();
         createTween();
+        // setSeedsInventory();
         initGenetic();
     }
-
-
 }

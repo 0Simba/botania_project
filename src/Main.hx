@@ -35,6 +35,7 @@ class Main
 		nbCall++;
 		if (nbCall == nbAsynchronousCallback) {
 					// Put here all synchronous loading function.
+
 				//init
 			utils.AjaxRequest.initLog();
 			init.ShopDatas.load();
@@ -44,6 +45,7 @@ class Main
 			init.PopUp.load();
 			init.CircleHud.load();
 			init.Filters.load();
+
 				//manager
 			manager.Hud.init();
 			manager.MouseTile.init();
@@ -55,12 +57,14 @@ class Main
 			isoEngine = IsoEngine.getInstance();
 			Keyboard.init();
 
+				// on components loaded
+			entities.popUps.HeaderPopUp.onComponentsLoaded();
+
 
 			lastTS = Date.now().getTime();
 
 			init.LoaderDisplay.loaded();
 			FB.getLoginStatus(onFacebookConnect);
-	        //Browser.window.requestAnimationFrame(cast gameLoop);
 	    }
 	}
 

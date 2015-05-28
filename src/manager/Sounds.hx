@@ -17,7 +17,6 @@ class Sounds
     static private var isoEngine:IsoEngine;
 
 
-
     static public function init () {
         isoEngine = IsoEngine.getInstance();
         sounds    = new Map<String, Howl>();
@@ -56,7 +55,7 @@ class Sounds
 
 
 
-
+        // -> next is only private
     /*=========================================
     =            Private/init part            =
     =========================================*/
@@ -73,6 +72,25 @@ class Sounds
         sounds.set("music", new Howl(options));
     }
 
+
+    static private function getClassicOptions (url:String) {
+        var options:Dynamic = {
+            urls     : [url],
+            autoplay : false,
+            loop     : false,
+            volume   : 1
+        };
+
+        return options;
+    }
+
+
+
+
+
+    /*=======================================
+    =            Sounds Creators            =
+    =======================================*/
 
     static private function setButtonClick () {
         var options = getClassicOptions("./sounds/buttonClick.wav");
@@ -103,15 +121,4 @@ class Sounds
         sounds.set("plant", new Howl(options));
     }
 
-
-    static private function getClassicOptions (url:String) {
-        var options:Dynamic = {
-            urls     : [url],
-            autoplay : false,
-            loop     : false,
-            volume   : 1
-        };
-
-        return options;
-    }
 }

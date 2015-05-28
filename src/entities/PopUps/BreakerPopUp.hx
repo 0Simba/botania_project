@@ -17,14 +17,30 @@ import entities.MergeAnimation;
 import engine.isoEngine.components.Hud;
 import engine.popUpEngine.Container;
 import entities.genetic.Segment;
+import engine.isoEngine.components.Hud;
+import engine.isoEngine.components.Button;
+
 
 class BreakerPopUp extends PopUpMain
 {
 
-    private var seed1:engine.isoEngine.components.Hud;
-    private var seed2:engine.isoEngine.components.Hud;
+    private var seed1:Hud;
+    private var seed2:Hud;
+    private var product:Button;
 
     static private var popUpSize = new Vector2(0.8, 0.8);
+
+
+    /*=============================================
+    =            Seed inventory params            =
+    =============================================*/
+    private var seedInventoryPos       = new Vector2 (0.07, 0.15);
+    private var seedInventorySize      = new Vector2 (0.38, 0.74);
+    private var seedInventoryCells     = new Vector2 (0.33, 0.33);
+    private var seedInventoryXElements = 3;
+    private var seedInventoryYElements = -1;
+
+
 
 	public function new (popUpName = "breakerInterface") {
         super(popUpName, new Vector2(0.5, 0.5), popUpSize);
@@ -52,6 +68,11 @@ class BreakerPopUp extends PopUpMain
         seed1.setDroppable();
         seed2.setDroppable();
 
+        // product = addBloc("bouton_produit", new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"));
+        //product = 
+        addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
+
+
         addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
         onShow = updateAndShow;
     }
@@ -64,8 +85,7 @@ class BreakerPopUp extends PopUpMain
 
 
     private function setSeedsInventory () {
-        setInventory(new Vector2(0.07, 0.15), new Vector2(0.38, 0.74),  new Vector2(0.33, 0.33), 3, -1);
-
+        setInventory(seedInventoryPos, seedInventorySize, seedInventoryCells, seedInventoryXElements, seedInventoryYElements);
         updateSeedsInventory();
     }
 
@@ -92,6 +112,13 @@ class BreakerPopUp extends PopUpMain
     }
 
 
+
+
+
+    /*========================================
+    =            Actions callback            =
+    ========================================*/
+
     private function mergeSeeds () {
         if (seed1.dropMeta != null && seed2.dropMeta != null) {
             var newSeed     = seed1.dropMeta.merge(seed2.dropMeta);
@@ -108,6 +135,11 @@ class BreakerPopUp extends PopUpMain
     }
 
 
+    private function addProduct () {
+        trace("coucou");
+    }
+
+
     /*========================================
     =            Display genetics            =
     ========================================*/
@@ -115,9 +147,9 @@ class BreakerPopUp extends PopUpMain
     static private var nbElementsInFlower = 3;
     static private var nbMaxGenome        = 3;
 
-    static private var xPositions:Array<Float>  = [0.56, 0.69, 0.82];
-    static private var yPositions:Array<Float>  = [0.15, 0.15, 0.15];
-    static private var size      :Vector2       = new Vector2(0.12, 1, "%", "%x");
+    static private var xPositions:Array<Float> = [0.56, 0.69, 0.82];
+    static private var yPositions:Array<Float> = [0.15, 0.15, 0.15];
+    static private var size      :Vector2      = new Vector2(0.12, 1, "%", "%x");
     static private var backgroundColors:Array<String> = ["yellow", "gray", "purple"];
 
     static private var barSize     = new Vector2(0.36, 0.05, "%", "%");
