@@ -1,0 +1,4 @@
+sprite.anchor.set(0.5, 0.5);
+sprite.rotating = Math.PI
+
+sprites.scale.set(-1, 1)

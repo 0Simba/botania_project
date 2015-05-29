@@ -26,7 +26,8 @@ class BreakerPopUp extends PopUpMain
 
     private var seed1:Hud;
     private var seed2:Hud;
-    private var product:Dynamic; // ?? impossible to get correct type
+    private var productButton:Dynamic; // ?? impossible to get correct type
+    private var popUpName:String;
 
     static private var popUpSize = new Vector2(0.8, 0.8);
 
@@ -41,7 +42,8 @@ class BreakerPopUp extends PopUpMain
     private var seedInventoryYElements = -1;
 
 
-	public function new (popUpName = "breakerInterface") {
+	public function new (_popUpName = "breakerInterface") {
+        popUpName = _popUpName;
         super(popUpName, new Vector2(0.5, 0.5), popUpSize);
         applyAnchor(0.5, 0.5);
 
@@ -67,7 +69,7 @@ class BreakerPopUp extends PopUpMain
         seed1.setDroppable();
         seed2.setDroppable();
 
-        product = addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
+        productButton = addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
 
 
         addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
@@ -138,9 +140,15 @@ class BreakerPopUp extends PopUpMain
     }
 
 
-    private function onDisplayProductsClosed () {
-        popUpEngine.show("BreakerPopUp");
+    private function onDisplayProductsClosed (productName:String) {
+        popUpEngine.show(popUpName);
+
+        var textureName = (productName == null) ? "bouton_produit" : productName;
+        productButton.changeTexture(textureName);
     }
+
+
+
 
 
     /*========================================
