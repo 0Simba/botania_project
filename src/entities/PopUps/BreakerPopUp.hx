@@ -28,6 +28,7 @@ class BreakerPopUp extends PopUpMain
     private var seed2:Hud;
     private var productButton:Dynamic; // ?? impossible to get correct type
     private var popUpName:String;
+    private var productName:String;
 
     static private var popUpSize = new Vector2(0.8, 0.8);
 
@@ -120,7 +121,7 @@ class BreakerPopUp extends PopUpMain
 
     private function mergeSeeds () {
         if (seed1.dropMeta != null && seed2.dropMeta != null) {
-            var newSeed     = seed1.dropMeta.merge(seed2.dropMeta);
+            var newSeed     = seed1.dropMeta.merge(seed2.dropMeta, productName);
             var appearance1 = seed1.dropMeta.appearanceName;
             var appearance2 = seed2.dropMeta.appearanceName;
 
@@ -140,7 +141,8 @@ class BreakerPopUp extends PopUpMain
     }
 
 
-    private function onDisplayProductsClosed (productName:String) {
+    private function onDisplayProductsClosed (_productName:String) {
+        productName = _productName;
         popUpEngine.show(popUpName);
 
         var textureName = (productName == null) ? "bouton_produit" : productName;

@@ -250,15 +250,36 @@ class Seed extends GameObject
     }
 
 
+
+    private function boostChromosomeFromList (list:Map<String, Float>, targetChromosome:String) {
+        if (targetChromosome == null) return;
+
+        var targetIndex = (targetChromosome.charAt(0) != 'O') ? 0 :
+                          (targetChromosome.charAt(1) != 'O') ? 1 :
+                                                                2 ;
+
+        var targetLetter = targetChromosome.charAt(targetIndex);
+
+        var keys = list.keys();
+        for (key in keys) {
+            var value = list.get(key);
+            if (key.charAt(targetIndex) == targetLetter) {
+                value *= 1.8;
+                list.set(key, value);
+            }
+        }
+    }
+
 /*=============================
 =            MERGE            =
 =============================*/
 
-    public function merge (seed:Seed) {
+    public function merge (seed:Seed, productName:String = null) {
+        trace(productName);
         var list = getMutationOf(seed.genome.listSegmentCode(), genome.listSegmentCode());
 
-        var newSeed = mergeWithLog(list, seed);   //Merge with log do exactly next line, but log all step in console
-        //var newSeed = createSeedFromList(list);
+        var newSeed = mergeWithLog(list, productName, seed);   //Merge with log do exactly next line, but log all step in console
+        //var newSeed = createSeedFromList(list, productName);
 
         seed.destroy();
         destroy();
@@ -266,9 +287,11 @@ class Seed extends GameObject
     }
 
 
-    private function createSeedFromList (list:Map<String, Float>) {
+    private function createSeedFromList (list:Map<String, Float>, product:String) {
+        boostChromosomeFromList(list, product);
         keepThreeBetterOf(list);
         normalizeTotalOf(list);
+        boostChromosomeFromList(list, product);
         removeToSmallOf(list);
         normalizeTotalOf(list);
         roundTwoDecimal(list);
@@ -278,7 +301,7 @@ class Seed extends GameObject
 
 
             // It's same as up, but log all parts
-    private function mergeWithLog (list:Map<String, Float>, seed:Seed) {
+    private function mergeWithLog (list:Map<String, Float>, product:String, seed:Seed) {
         Console.group("Seed's merge");
             Console.group("OrinalSegment");
                 Console.log(seed.genome.listSegmentCode().toString());
@@ -290,6 +313,11 @@ class Seed extends GameObject
                     Console.log(list.toString());
                 Console.groupEnd();
 
+                Console.group("first boost");
+                    boostChromosomeFromList(list, product);
+                    Console.log(list.toString());
+                Console.groupEnd();
+
                 Console.group("Keep three better");
                     keepThreeBetterOf(list);
                     Console.log(list.toString());
@@ -297,6 +325,11 @@ class Seed extends GameObject
 
                 Console.group("normalize values");
                     normalizeTotalOf(list);
+                    Console.group("Boost avant/apres");
+                        Console.log(list.toString());
+                        boostChromosomeFromList(list, product);
+                        Console.log(list.toString());
+                    Console.groupEnd();
                     removeToSmallOf(list);
                     normalizeTotalOf(list);
                     Console.log(list.toString());
