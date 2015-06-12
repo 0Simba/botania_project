@@ -37,6 +37,7 @@ class PlayerDatas
 
 
     static private function loadBuildings (buildings:Dynamic) {
+        if (buildings == null) return;
         for (i in 0...buildings.length) {
             var building = buildings[i];
             var tile     = map.get(Std.parseInt(building.X), Std.parseInt(building.Y));

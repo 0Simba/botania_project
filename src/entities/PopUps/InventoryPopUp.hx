@@ -227,7 +227,7 @@ class InventoryPopUp extends PopUpMain
 
   /*==========  BLANK  ==========*/
 
-    private function createBlankInventory(){
+    private function createBlankInventory () {
         var blankContainer = addContainer(new Vector2(1, 1));
         var blankInventory = blankContainer.setInventory(new Vector2(0.23, 0.2), new Vector2(0.55, 0.63), new Vector2(0.25, 0.35, "%", "%x"), 4, -1);
         inventories.push(blankInventory);

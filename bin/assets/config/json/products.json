@@ -1,0 +1,17 @@
+{
+    "AOO" : {"sun" : 1, "coin" : 0},
+    "BOO" : {"sun" : 1, "coin" : 0},
+    "COO" : {"sun" : 1, "coin" : 0},
+    "DOO" : {"sun" : 1, "coin" : 0},
+    "EOO" : {"sun" : 1, "coin" : 0},
+    "OAO" : {"sun" : 0, "coin" : 3},
+    "OBO" : {"sun" : 0, "coin" : 3},
+    "OCO" : {"sun" : 0, "coin" : 3},
+    "ODO" : {"sun" : 0, "coin" : 3},
+    "OEO" : {"sun" : 0, "coin" : 3},
+    "OOA" : {"sun" : 0, "coin" : 1},
+    "OOB" : {"sun" : 0, "coin" : 1},
+    "OOC" : {"sun" : 0, "coin" : 1},
+    "OOD" : {"sun" : 0, "coin" : 1},
+    "OOE" : {"sun" : 0, "coin" : 1}
+}

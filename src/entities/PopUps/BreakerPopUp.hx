@@ -26,7 +26,9 @@ class BreakerPopUp extends PopUpMain
 
     private var seed1:Hud;
     private var seed2:Hud;
-    private var product:Button;
+    private var productButton:Dynamic; // ?? impossible to get correct type
+    //private var popUpName:String;
+    private var productName:String;
 
     static private var popUpSize = new Vector2(0.8, 0.8);
 
@@ -41,8 +43,8 @@ class BreakerPopUp extends PopUpMain
     private var seedInventoryYElements = -1;
 
 
-
-	public function new (popUpName = "breakerInterface") {
+	public function new (_popUpName = "breakerInterface") {
+        popUpName = _popUpName;
         super(popUpName, new Vector2(0.5, 0.5), popUpSize);
         applyAnchor(0.5, 0.5);
 
@@ -68,9 +70,7 @@ class BreakerPopUp extends PopUpMain
         seed1.setDroppable();
         seed2.setDroppable();
 
-        // product = addBloc("bouton_produit", new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"));
-        //product = 
-        addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
+        productButton = addButton(new Vector2(0.83, 0.72), assets.getSize("fond_fleur_graine"), new Vector2(0, 0), "bouton_produit", addProduct);
 
 
         addButton(new Vector2(0.66, 0.835), assets.getSize("concasser_button_en_ltl"), new Vector2(0, 0), "concasser_button_en_ltl", mergeSeeds);
@@ -123,7 +123,7 @@ class BreakerPopUp extends PopUpMain
 
     private function mergeSeeds () {
         if (seed1.dropMeta != null && seed2.dropMeta != null) {
-            var newSeed     = seed1.dropMeta.merge(seed2.dropMeta);
+            var newSeed     = seed1.dropMeta.merge(seed2.dropMeta, productName);
             var appearance1 = seed1.dropMeta.appearanceName;
             var appearance2 = seed2.dropMeta.appearanceName;
 
@@ -138,9 +138,23 @@ class BreakerPopUp extends PopUpMain
 
 
     private function addProduct () {
+        tweenHide();
+        entities.popUps.DisplayProducts.setAndShow(onDisplayProductsClosed);
         popUpEngine.emit('open', 'product');
-        trace("coucou");
+
     }
+
+
+    private function onDisplayProductsClosed (_productName:String) {
+        productName = _productName;
+        popUpEngine.show(popUpName);
+
+        var textureName = (productName == null) ? "bouton_produit" : productName;
+        productButton.changeTexture(textureName);
+    }
+
+
+
 
 
     /*========================================
@@ -163,6 +177,8 @@ class BreakerPopUp extends PopUpMain
 
     private var displayGeneticContainers:Array<Container>;
     private var displayGeneticBlocs:Array<Array<Hud>>;
+
+
 
     private function initGenetic () {
         displayGeneticContainers = new Array<Container>();
@@ -209,11 +225,6 @@ class BreakerPopUp extends PopUpMain
             }
         }
     }
-
-
-
-
-
 
 
     private function updateBar (seed:Seed) {

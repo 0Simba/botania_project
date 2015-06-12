@@ -12,7 +12,7 @@ if (isset($data["id"])) {
     $_SESSION["playerID"] = $data["id"];
 }
 else {
-    $mysqli->query("INSERT INTO players VALUES (NULL, '$id', 20, 100, '', '', '', '', '', '')");
+    $mysqli->query("INSERT INTO players VALUES (NULL, '$id', 150, 999, '', '', '', '', '', '')");
     $id    = $mysqli->insert_id;
     $level = 1;
 
@@ -26,6 +26,8 @@ else {
     $genome = "CCC#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     $genome = "DDD#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
     $genome = "EEE#1"; $mysqli->query("INSERT INTO playersseeds VALUES (NULL, '$id', '$genome', '$level')");
+
+    $mysqli->query("INSERT INTO playersbuilding VALUES (NULL, '$id', 'breaker', 0, 0, 0, 0, 0, 0, 0, 0)");
 
     echo $mysqli->error;
 
