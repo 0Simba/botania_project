@@ -68,6 +68,9 @@ class Tile extends GameObject
 
     private function bindBuildingsEvents () {
         buildingEvents = new Events();
+        buildingEvents.on("harvested", function(){
+            isoEngine.events.emit("harvested",'');
+            });
 
         buildingEvents.on("state changed", function (state:String) {
             if (state == "adult") {
@@ -76,6 +79,8 @@ class Tile extends GameObject
             else if (state == "bloom") {
                 applyAdultFlowerDisplay();
                 flowerAnim = new Animation("bloom", new Vector2(graphicTile.building.x, graphicTile.building.y, "px", "px"), "overTiles");
+                isoEngine.events.emit("bloom",'lol');
+
             }
             else {
                 if (flowerAnim != null) {
@@ -90,6 +95,7 @@ class Tile extends GameObject
             graphicTile.building.alpha = 0.7;
         });
         buildingEvents.on("builded", function () {
+            isoEngine.events.emit("builded",  currentBuild);
             graphicTile.building.alpha = 1;
         });
         buildingEvents.on("unbuilded", function () {

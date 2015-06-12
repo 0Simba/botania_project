@@ -197,6 +197,7 @@ class Flower extends GameObject
         stateIndex--;
         referent.emit("state changed", stateList[stateIndex]);
         new Fruit(genome, 0, true);
+        referent.emit("harvested");
         launchDelay(grow, config.time.delay);
     }
 
