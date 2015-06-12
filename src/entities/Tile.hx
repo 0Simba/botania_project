@@ -16,6 +16,8 @@ import manager.Sounds;
 class Tile extends GameObject
 {
     static private var events:Events;
+    static private var isoEngine:IsoEngine;
+
 
     public var currentGround = "circle";
 
@@ -46,7 +48,8 @@ class Tile extends GameObject
         graphicTile.setPlace(coord.x, coord.y, coord.i);
         // graphicTile.displayCoord();
 
-        var events = IsoEngine.getInstance().events;
+        events = IsoEngine.getInstance().events;
+        isoEngine = IsoEngine.getInstance();
 
         events.on("buttonOver", disableCurrentTile);
         events.on("buttonOut",  enableCurrentTile);
@@ -126,6 +129,9 @@ class Tile extends GameObject
         Sounds.play("plant");
         currentBuild = "flower";
         buildingRef  = new Flower(buildingEvents, new Vector2(coord.x, coord.y), seed);
+        isoEngine.events.emit("plant",'lol');
+
+
     }
 
     public function flowerLoaded (lastTimeStamp:Int, currentTimeStamp:Int, genome:Genome, stateIndex:Int, serverId:Int) {
@@ -175,4 +181,6 @@ class Tile extends GameObject
     public function mouseclick () {
         manager.MouseTile.click(this);
     }
+
+
 }

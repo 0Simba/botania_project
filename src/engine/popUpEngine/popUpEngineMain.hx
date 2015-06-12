@@ -5,10 +5,14 @@ import engine.isoEngine.components.Hud;
 import utils.Vector2;
 import utils.MapManipulate;
 import pixi.display.DisplayObjectContainer;
+import engine.events.Events;
+
 
 class PopUpEngineMain
 {
+    
     private static var instance:PopUpEngineMain;
+    public  var events = new Events();
     private var isoEngine:IsoEngine;
     private var popUps :Map<String, PopUp>;
     private var blocs  :Map<String, Bloc>;
@@ -94,4 +98,8 @@ class PopUpEngineMain
         layer     = isoEngine.displaying.createChildLayer("popUp", "foreground");
     }
 
+
+    public function emit (eventName:String, data:Dynamic) {
+        events.emit(eventName, data);
+    }
 }

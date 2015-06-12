@@ -9,9 +9,13 @@ import pixi.display.DisplayObjectContainer;
 import engine.popUpEngine.Scrollbar;
 import pixi.primitives.Graphics;
 import engine.popUpEngine.Container;
+import engine.popUpEngine.PopUpEngineMain;
+
 
 class Inventory
 {
+    private var popUpEnigneMain:PopUpEngineMain;
+    
     public var container   : Container;
 
     public var size        : Vector2;
@@ -44,6 +48,8 @@ class Inventory
 
         cellList  = new Array<Cell>();
         scrollbar = new Scrollbar(this);
+
+        popUpEnigneMain = PopUpEngineMain.getInstance();
 
     }
 
@@ -101,6 +107,7 @@ class Inventory
     {
         layer.visible = false;
         scrollbar.hide();
+        popUpEnigneMain.emit('close', "inventoryInterface");
     }
     public function show():Void
     {

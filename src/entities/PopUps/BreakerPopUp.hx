@@ -81,6 +81,8 @@ class BreakerPopUp extends PopUpMain
     private function updateAndShow () {
         tweenShow();
         updateSeedsInventory();
+        popUpEngine.emit('open', 'breaker');
+
     }
 
 
@@ -136,6 +138,7 @@ class BreakerPopUp extends PopUpMain
 
 
     private function addProduct () {
+        popUpEngine.emit('open', 'product');
         trace("coucou");
     }
 

@@ -50,6 +50,7 @@ class Main
 			manager.Hud.init();
 			manager.MouseTile.init();
 			manager.Sounds.init();
+			manager.FTUEController.getInstance();
 
 			entities.MergeAnimation.init();
 			entities.Seagulls.initLoop();
@@ -59,7 +60,8 @@ class Main
 
 				// on components loaded
 			entities.popUps.HeaderPopUp.onComponentsLoaded();
-
+			entities.popUps.FtuePopUp.setTitleAndShow("Bienvenu dans le monde de Botania. ici vous pourrez faire votre jardin de reve.
+        Commençons tout de suite.");
 
 			lastTS = Date.now().getTime();
 
