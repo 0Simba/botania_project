@@ -42,16 +42,16 @@ class FtuePopUp extends PopUpMain
 
         initBasicBlocs();
         onShow = tweenShow;
-        content = addText(new Vector2(0.25, 0.25), Vector2.zero, "Bienvenu dans le monde de Botania. ici vous pourrez faire votre jardin de reve.
-Commençons tout de suite.", PopUpMain.textStyle);
-        // content.setAnchor(Vector2.mid);
+            content = addText(new Vector2(0.1, 0.23), new Vector2(0.7, 0.9), "Bienvenue dans le monde de Botania. Ici vous pourrez faire votre jardin de rêve.
+Commençons tout de suite.", {
+            fill          : "white",
+            font          : "bold 25px arial",
+            align         : "left",
+            wordWrap      : true,
+            wordWrapWidth : 550
+        });
 
-        // var text = addText(new Vector2(0.5, 0.5), Vector2.zero, "Vous ne posséder pas assez d'argent", PopUpMain.textStyle);
-        // text.setAnchor(Vector2.mid);
-
-        //var a = 
-        //popUpEvents = PopUpEngineMain.getInstance().events;
-        addButton(new Vector2(0.5, 0.7), new Vector2(0.1, 1, "%", "%x"), Vector2.mid, "shopValidateBtnOk", function () {
+        addButton(new Vector2(0.72, 0.82), new Vector2(0.1, 1, "%", "%x"), Vector2.mid, "shopValidateBtnOk", function () {
             tweenHide();
         });
 

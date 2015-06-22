@@ -21,10 +21,10 @@ class ForTest
     static public function load () {
         popUpEngine = PopUpEngineMain.getInstance();
 
-        var button = new Button();
-        button.set(size, pos, "white", "hud");
-        button.onClick(cast function () {
-            popUpEngine.show("openFruit");
-        });
+        // var button = new Button();
+        // button.set(size, pos, "white", "hud");
+        // button.onClick(cast function () {
+        //     popUpEngine.show("openFruit");
+        // });
     }
 }

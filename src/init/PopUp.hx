@@ -36,7 +36,7 @@ class PopUp
         new entities.popUps.LabotoryPopUp();
         new entities.popUps.DisplayProducts();
         new entities.popUps.FtuePopUp();
-        
+
 
         popUpEngine.show("header");
 
