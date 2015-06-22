@@ -1,7 +1,7 @@
 {
     "waterSuns" : 3,
 	"time" : {
-		"delay" : 60000
+		"delay" : 3600000
 	},
     "merge" : {
         "min" : 0.3,

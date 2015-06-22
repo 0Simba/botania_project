@@ -42,7 +42,7 @@ class FTUEController
         });
         popUpEvents.on("inventory", function (popUpName:String) {
             if (gameState == 1) {
-                entities.popUps.FtuePopUp.setTitleAndShow("Bien sélectionnez la graine que vous voulez planter.");
+                entities.popUps.FtuePopUp.setTitleAndShow("Bien ! Sélectionnez la graine que vous voulez planter.");
                 gameState ++;
             }
             if (gameState >= 4 && breakerGameState == 0) {
@@ -64,7 +64,7 @@ class FTUEController
         });
         isoEvents.on("builded", function (popUpName:String) {
             if (gameState >= 4 && breakerGameState == 1 && popUpName == "breaker") {
-                entities.popUps.FtuePopUp.setTitleAndShow("C'est excellant, vous avez construit votre concasseur ! entrez dedans que nous voyons ensemble la création de graines.");
+                entities.popUps.FtuePopUp.setTitleAndShow("C'est excellent, vous avez construit votre concasseur ! entrez dedans que nous voyons ensemble la création de graines.");
                 breakerGameState ++;
             }
         });
